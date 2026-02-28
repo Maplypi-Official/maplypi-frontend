@@ -1,10 +1,8 @@
-/* --- الهوية البصرية المحدثة --- */
 :root {
-  --maply-purple-gradient: linear-gradient(180deg, #1f1440 0%, #0b0e14 100%);
+  --maply-purple-gradient: linear-gradient(180deg, #161a25 0%, #080a0f 100%);
   --digital-gold: #ffca28;
-  --panel-bg: rgba(21, 25, 33, 0.95);
-  --glass-border: rgba(255, 202, 40, 0.25); 
-  --neon-purple: #b388ff;
+  --panel-bg: rgba(18, 22, 31, 0.98);
+  --glass-border: rgba(255, 202, 40, 0.3); 
 }
 
 .ts-dashboard-container {
@@ -12,96 +10,69 @@
   max-width: 480px;
   margin: 0 auto;
   min-height: 100vh;
-  background: #000;
-  /* padding-bottom: 100px لترك مساحة للـ Navbar السفلي */
-  padding: 85px 10px 100px 10px; 
+  background: #05070a; /* خلفية أغمق مطابقة للصورة */
+  padding: 85px 12px 100px 12px;
   box-sizing: border-box;
-  position: relative;
   display: flex;
   flex-direction: column;
 }
 
-/* --- إطار الكارت الموحد مع لمسة ذهبية --- */
 .maply-main-card {
   background: var(--maply-purple-gradient);
-  border: 1.5px solid var(--glass-border);
-  border-radius: 40px;
+  border: 1.2px solid var(--glass-border);
+  border-radius: 28px;
   padding: 15px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-  position: relative;
-  z-index: 10;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9);
 }
 
-/* --- تقسيم الأعمدة الاحترافي --- */
+/* تقسيم الشبكة ليطابق الصورة تماماً */
 .ts-main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 20px;
+  grid-template-columns: 1fr 2fr; /* الصف العلوي: متجر (1) منتجات (2) */
+  gap: 10px;
+  margin-top: 15px;
 }
 
-.grid-column {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* الصف السفلي: مكافآت (1) مبيعات (1) نمو (1) */
+.daily-reward-panel, .recent-sales, .business-growth-panel {
+  grid-column: span 1; 
+  /* عند الحاجة لـ 3 أعمدة في الأسفل، يفضل عمل container خاص بهم */
 }
 
-.full-width { 
-  grid-column: span 2; 
-  margin-top: 5px;
-}
-
-/* --- تنسيق اللوحات (Panels) --- */
 .ts-panel {
-  background: rgba(255, 255, 255, 0.03); 
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 22px;
-  padding: 15px;
-  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.02); 
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  padding: 12px;
 }
 
 .ts-panel h3 {
-  color: #777;
-  font-size: 0.65rem;
-  margin: 0 0 10px 0;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
+  color: #666;
+  font-size: 0.6rem;
+  font-weight: 800;
+  margin-bottom: 8px;
 }
 
-/* --- تنسيق المبيعات السريعة --- */
-.recent-sales {
-  text-align: left;
-}
-
-.sale-item {
+/* تنسيق المبيعات المصغرة */
+.mini-sale-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
-.buyer-name { font-size: 0.75rem; color: #bbb; }
-.sale-val { color: var(--digital-gold); font-weight: bold; font-size: 0.9rem; }
-.sub-text { font-size: 0.6rem; color: #555; }
+.sale-icon { font-size: 0.7rem; color: #aaa; }
+.sale-data { text-align: right; display: flex; flex-direction: column; }
+.s-price { color: var(--digital-gold); font-size: 0.7rem; font-weight: bold; }
+.s-buyer { color: #444; font-size: 0.5rem; }
 
-/* --- لوحة المكافآت --- */
-.reward-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.reward-icon { font-size: 1.2rem; }
-.reward-amount { color: #4caf50; font-weight: bold; font-size: 1rem; }
+/* أشرطة التقدم للمكافآت */
+.progress-wrapper { margin-bottom: 8px; }
+.p-label { font-size: 0.55rem; color: #888; display: flex; justify-content: space-between; margin-bottom: 3px; }
+.p-label span { color: #fff; }
+.p-bar { width: 100%; height: 4px; background: #1a1e26; border-radius: 10px; overflow: hidden; }
+.p-fill { height: 100%; background: var(--digital-gold); box-shadow: 0 0 5px var(--digital-gold); }
+.chest-row { text-align: right; font-size: 1.2rem; margin-top: 5px; }
 
-/* --- شاشة التحميل --- */
-.loading-screen {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  color: var(--digital-gold);
-  font-weight: bold;
-}
-
-* { box-sizing: border-box; }
+.loading-screen { height: 100vh; display: flex; justify-content: center; align-items: center; background: #000; color: var(--digital-gold); }
