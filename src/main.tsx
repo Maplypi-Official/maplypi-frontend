@@ -1,13 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.tsx' // تم تغيير الامتداد لـ TSX
+import App from './App' 
 
-// استخدام الـ (!) لإخبار TypeScript أن العنصر موجود بالتأكيد في index.html
-const rootElement = document.getElementById('root')!;
+const rootElement = document.getElementById('root');
 
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+if (rootElement) {
+  createRoot(rootElement).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+}
