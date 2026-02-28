@@ -1,18 +1,31 @@
-/* تعديل الخلفية الكلية لتطابق الصورة بالملي 
-  تم رفع درجة السطوع في المركز لكسر حدة السواد القادم من ملفات CSS الأخرى
+/* الخلفية الكلية - تم ضبط التدرج ليكون "كونياً" (Cosmic Nebula) 
+   عبر دمج أكثر من تدرج لوني لكسر حدة السواد الميت 
 */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج شعاعي يبدأ من أرجواني عميق مضيء وينتهي بأسود فضائي */
-  background: radial-gradient(circle at center, #241d5e 0%, #0f0c29 40%, #05050a 100%) !important;
-  background-attachment: fixed !important;
+  /* تدرج مركزي مضيء + بقع ضوئية جانبية لمحاكاة الصورة الأصلية بالملي */
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 60%, #050508 100%) !important;
+  background-attachment: fixed !important; 
   padding: 85px 10px 100px 10px; 
   display: flex;
   justify-content: center;
   box-sizing: border-box;
   overflow-x: hidden;
   position: relative;
+}
+
+/* إضافة ملمس النجوم الخفيف جداً كطبقة فوق التدرج */
+.ts-dashboard-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.15;
+  pointer-events: none;
 }
 
 /* الإطار البنفسجي الموحد بحدود ذهبية */
@@ -24,9 +37,10 @@
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* الظلال المركبة: ظل أسود للعمق وتوهج أرجواني للحواف */
+  /* توهج أرجواني عميق خلف الإطار ليعطيه أبعاداً فضائية */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
-              0 0 30px rgba(106, 90, 205, 0.2);
+              0 0 40px rgba(106, 90, 205, 0.15);
+  z-index: 1;
 }
 
 /* منطقة الهيدر - نترك مساحة كافية للتاج الدائري */
@@ -74,9 +88,7 @@
 /* ضمان عدم تداخل البادينج مع العرض */
 * { box-sizing: border-box; }
 
-/* إضافة طبقة اختيارية في الخلفية لضمان نعومة التدرج 
-  ومنبع أي تداخل من ملفات index.css
-*/
+/* تحسينات الشاشات الصغيرة */
 @media screen and (min-width: 320px) {
   .ts-dashboard-container {
     background-size: cover;
