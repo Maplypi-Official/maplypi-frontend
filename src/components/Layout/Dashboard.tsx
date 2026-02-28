@@ -9,7 +9,7 @@ import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
 import Navbar from '../Navigation/Navbar';
-import DailyRewards from '../DailyRewards/DailyRewards'; // استيراد المكون الجديد
+import DailyRewards from '../DailyRewards/DailyRewards';
 
 import './Dashboard.css';
 
@@ -61,30 +61,34 @@ const Dashboard: React.FC = () => {
           balance={userData?.piBalance || '125.75'}
         />
 
-        <main className="ts-main-grid">
+        <main className="ts-main-content">
           {/* الصف العلوي: المتجر والمنتجات */}
-          <div className="grid-col-left">
-            <MyStore location={userData?.location || 'Cairo Citadel District'} />
-          </div>
-          <div className="grid-col-right">
-            <ProductsSupply products={products} />
+          <div className="top-row-layout">
+            <div className="layout-col-left">
+              <MyStore location={userData?.location || 'Cairo Citadel District'} />
+            </div>
+            <div className="layout-col-right">
+              <ProductsSupply products={products} />
+            </div>
           </div>
 
-          {/* الصف السفلي: تقسيم ثلاثي متساوٍ للمكافآت والمبيعات والنمو */}
-          <div className="bottom-row-container">
+          {/* الصف السفلي: المكافآت، المبيعات، والنمو */}
+          <div className="bottom-row-layout">
             <DailyRewards />
-
-            <section className="ts-panel recent-sales">
+            
+            <section className="ts-panel recent-sales-panel">
               <h3>RECENT SALES</h3>
-              {[1, 2, 3].map((item) => (
-                <div key={item} className="mini-sale-row">
-                   <span className="sale-icon">⚖️ 0.5π</span>
-                   <div className="sale-data">
-                      <span className="s-price">0.5π</span>
-                      <span className="s-buyer">Buyer 47</span>
-                   </div>
-                </div>
-              ))}
+              <div className="sales-list-container">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="mini-sale-item">
+                     <span className="s-icon">⚖️ 0.5π</span>
+                     <div className="s-info">
+                        <span className="s-val">0.5π</span>
+                        <span className="s-user">Buyer 47</span>
+                     </div>
+                  </div>
+                ))}
+              </div>
             </section>
 
             <BusinessGrowth />
