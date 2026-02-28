@@ -1,15 +1,13 @@
-/* الخلفية الكلية - تم ضبط التدرج ليكون "كونياً" (Cosmic Nebula) 
-   عبر دمج أكثر من تدرج لوني لكسر حدة السواد الميت 
-*/
+/* الخلفية الكلية - التعديل الجوهري للوصول لشكل الصورة الأصلية */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج مركزي مضيء + بقع ضوئية جانبية لمحاكاة الصورة الأصلية بالملي */
+  /* تدرج شعاعي متعدد الطبقات لخلق تأثير "السديم" الأرجواني */
   background: 
-    radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 60%, #050508 100%) !important;
-  background-attachment: fixed !important; 
+    radial-gradient(circle at 10% 20%, rgba(106, 90, 205, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 60%, #020205 100%) !important;
+  background-attachment: fixed !important;
   padding: 85px 10px 100px 10px; 
   display: flex;
   justify-content: center;
@@ -18,14 +16,15 @@
   position: relative;
 }
 
-/* إضافة ملمس النجوم الخفيف جداً كطبقة فوق التدرج */
-.ts-dashboard-container::before {
-  content: '';
+/* إضافة طبقة النجوم (Stardust) لمحاكاة الصورة بالظبط */
+.ts-dashboard-container::after {
+  content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.15;
+  opacity: 0.2; /* نجوم خفيفة جداً تعطي حياة للسواد */
   pointer-events: none;
+  z-index: 0;
 }
 
 /* الإطار البنفسجي الموحد بحدود ذهبية */
@@ -37,13 +36,13 @@
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* توهج أرجواني عميق خلف الإطار ليعطيه أبعاداً فضائية */
+  /* الظل المتوهج (Glow) اللي بيخلي الفريم يظهر فوق السديم */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
-              0 0 40px rgba(106, 90, 205, 0.15);
+              0 0 30px rgba(106, 90, 205, 0.15);
   z-index: 1;
 }
 
-/* منطقة الهيدر - نترك مساحة كافية للتاج الدائري */
+/* منطقة الهيدر تحت التاج مباشرة */
 .header-integration-zone {
   margin-top: 35px; 
   width: 100%;
@@ -65,7 +64,7 @@
 .flex-item-store { flex: 1; }
 .flex-item-products { flex: 2; }
 
-/* توزيع الثلاث كروت السفلية بالتساوي */
+/* توزيع الثلاث كروت السفلية */
 .grid-bottom-adaptive {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -73,7 +72,7 @@
   width: 100%;
 }
 
-/* تنسيق شاشة التحميل */
+/* تنسيق شاشة التحميل لضمان استمرارية الهوية */
 .loading-screen { 
   height: 100vh; 
   background: #0d0b1a; 
@@ -82,15 +81,10 @@
   justify-content: center; 
   align-items: center;
   font-weight: bold;
-  font-family: 'Inter', sans-serif;
 }
 
-/* ضمان عدم تداخل البادينج مع العرض */
 * { box-sizing: border-box; }
 
-/* تحسينات الشاشات الصغيرة */
 @media screen and (min-width: 320px) {
-  .ts-dashboard-container {
-    background-size: cover;
-  }
+  .ts-dashboard-container { background-size: cover; }
 }
