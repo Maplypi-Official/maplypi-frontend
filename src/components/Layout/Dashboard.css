@@ -1,12 +1,12 @@
-/* --- الخلفية الكونية المطورة (Cosmic Background) --- */
+/* 1. تعديل الخلفية لتكون "سديم أرجواني" عميق بدلاً من السواد الميت */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج كوني مركب: أرجواني عميق في المركز وبقع ضوئية جانبية لكسر حدة السواد */
+  /* تدرج كوني يدمج الأرجواني المضيء مع الأسود الفضائي */
   background: 
-    radial-gradient(circle at 50% 50%, rgba(46, 38, 109, 0.4) 0%, transparent 60%),
-    radial-gradient(circle at 10% 10%, rgba(106, 90, 205, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 90% 90%, rgba(75, 0, 130, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 50% 40%, rgba(58, 48, 126, 0.3) 0%, transparent 60%),
+    radial-gradient(circle at 20% 20%, rgba(106, 90, 205, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(75, 0, 130, 0.15) 0%, transparent 40%),
     #05050a !important;
   background-attachment: fixed !important;
   padding: 85px 10px 100px 10px; 
@@ -17,35 +17,34 @@
   position: relative;
 }
 
-/* --- طبقة النجوم المتوهجة (Shiny Stars) --- */
+/* 2. طبقة النجوم (Stardust) بجعلها أكثر "نعومة" وانتشاراً */
 .ts-dashboard-container::after {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  /* استخدام ملمس النجوم مع زيادة الوضوح لتبدو "مضيئة" */
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.7; 
-  filter: brightness(1.5) contrast(1.2); /* تفتيح النجوم لتظهر بوضوح خلف الفريم */
+  opacity: 0.45; /* توازن بين الوضوح والنعومة */
+  filter: brightness(1.3) contrast(1.1);
   pointer-events: none;
   z-index: 0;
 }
 
-/* --- الإطار الرئيسي (The Main Frame) --- */
+/* 3. الإطار الرئيسي بلمسة "Glow" أرجوانية خفيفة */
 .maply-main-frame {
   width: 100%;
   max-width: 480px;
-  background: rgba(19, 17, 41, 0.92); /* شفافية ذكية تجعل الفريم يندمج مع النجوم خلفه */
+  background: rgba(19, 17, 41, 0.94); /* شفافية بسيطة جداً للاندماج */
   border: 2px solid rgba(255, 202, 40, 0.45);
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* توهج أرجواني (Glow) عريض يحيط بالفريم ليعطيه طابعاً فضائياً */
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), 
-              0 0 40px rgba(106, 90, 205, 0.35);
+  /* ظلال مركبة تعطي عمقاً وتوهجاً خلف الفريم */
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), 
+              0 0 40px rgba(106, 90, 205, 0.25);
   z-index: 1;
 }
 
-/* --- الهيدر (Header Zone) --- */
+/* 4. الهيدر والمساحات الداخلية - لا تغيير في المسميات */
 .header-integration-zone {
   margin-top: 35px; 
   width: 100%;
@@ -67,7 +66,7 @@
 .flex-item-store { flex: 1; }
 .flex-item-products { flex: 2; }
 
-/* --- توزيع الشبكة السفلية --- */
+/* 5. توزيع الكروت بالتساوي */
 .grid-bottom-adaptive {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -75,7 +74,6 @@
   width: 100%;
 }
 
-/* --- شاشة التحميل --- */
 .loading-screen { 
   height: 100vh; 
   background: #0d0b1a; 
