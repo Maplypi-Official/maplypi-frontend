@@ -1,123 +1,158 @@
-.ts-header {
-  background: var(--panel-bg);
-  border: 1.5px solid var(--digital-gold);
-  border-radius: 35px;
-  padding: 65px 18px 20px 18px; 
+.ts-header-mirror {
+  width: 100%;
+  position: relative;
+  padding: 10px 0 20px 0;
   display: flex;
   flex-direction: column;
-  position: relative;
-  /* الفتحة الهندسية المحدثة لتكون أكثر دقة وانحناءً */
-  clip-path: polygon(
-    0% 0%, 
-    28% 0%, 
-    32% 16%, 
-    68% 16%, 
-    72% 0%, 
-    100% 0%, 
-    100% 100%, 
-    0% 100%
-  );
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
 
-/* أيقونة الترس (Settings Gear) */
-.header-settings-gear {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  color: #666;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.header-settings-gear:hover {
-  transform: rotate(90deg);
-  color: var(--digital-gold);
-}
-
-.header-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+/* تنسيق التخطيط العام للكروت */
+.header-main-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
   width: 100%;
 }
 
-.user-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: left;
+/* نمط الكروت الزجاجية البنفسجية الموحد */
+.user-profile-card, .dashboard-info-card, .balance-glass-card {
+  background: rgba(26, 22, 45, 0.55) !important;
+  border: 1.5px solid rgba(106, 90, 205, 0.3) !important;
+  border-radius: 18px;
+  padding: 12px;
+  backdrop-filter: blur(10px);
 }
 
-.status-badge {
-  color: #4caf50; /* نص ONLINE باللون الأخضر */
-  font-size: 0.6rem;
-  font-weight: 900;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+/* كارت المستخدم والصورة الشخصية */
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #ffca28; /* إطار ذهبي كما في الصورة الأصلية */
+  overflow: hidden;
+  background: #2a2440;
+}
+
+.avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .user-name-display {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   color: #fff;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
-/* Badge المستوى الأرجواني */
 .lvl-tag {
-  background: rgba(179, 136, 255, 0.1);
-  color: var(--neon-purple);
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 12px;
-  border: 1px solid rgba(179, 136, 255, 0.4);
-  font-weight: bold;
+  background: rgba(106, 90, 205, 0.2);
+  color: #a399cc;
+  font-size: 0.55rem;
+  padding: 1px 6px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(163, 153, 204, 0.3);
 }
 
-/* الرصيد الممركز */
-.balance-section-center {
+.status-badge-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 4px;
+  margin-top: 2px;
 }
 
-.pi-icon-gold {
-  color: var(--digital-gold);
-  font-size: 1.4rem;
-  font-weight: bold;
+.online-dot {
+  width: 6px;
+  height: 6px;
+  background: #4caf50;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #4caf50;
+}
+
+.status-text {
+  color: #4caf50;
+  font-size: 0.5rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+/* كارت الرصيد (مراية للتصميم الأصلي) */
+.balance-glass-card {
+  grid-column: 1 / 2; /* يأخذ العمود الأول تحت البروفايل */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.balance-label {
+  color: #8a81ad;
+  font-size: 0.45rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.balance-value-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .balance-amount {
-  font-size: 1.7rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 900;
   color: #fff;
-  text-shadow: 0 0 10px rgba(255,255,255,0.1);
+  line-height: 1;
 }
 
-/* العنوان والمحاذاة لليمين */
-.header-title-container {
-  text-align: right;
-  max-width: 50%;
+.pi-icon-gold {
+  color: #ffca28;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 202, 40, 0.4);
+}
+
+/* كارت عنوان الداشبورد */
+.dashboard-info-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
 }
 
 .dashboard-main-title {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #fff;
-  font-weight: 500;
-  line-height: 1.3;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .merchant-name-tag {
-  color: var(--digital-gold);
-  font-size: 0.7rem;
+  color: #ffca28;
+  font-size: 0.6rem;
   margin: 4px 0 0 0;
-  font-weight: 600;
-  opacity: 0.9;
+  font-weight: 800;
+}
+
+/* أيقونة الترس */
+.header-settings-gear {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #8a81ad;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 10;
 }
