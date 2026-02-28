@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { maplypiService } from './services/api'; 
-// استيراد اللوجو من المسار الصحيح لضمان ظهوره
+// استيراد اللوجو كـ Module لضمان معالجته بواسطة Vite
 import maplypiLogo from './assets/logo.png'; 
 
 interface UserData {
@@ -34,12 +34,12 @@ const App: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        // الدالة ثابتة كما هي لضمان الربط مع السيرفر
+        // جلب البيانات من السيرفر
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
-        console.error("❌ Error fetching dashboard data:", err);
-        setError("Unable to connect to Maplypi Server.");
+        console.error("❌ API Error:", err);
+        setError("Offline Mode Active.");
       } finally {
         setLoading(false);
       }
@@ -47,31 +47,41 @@ const App: React.FC = () => {
     loadDashboardData();
   }, []);
 
-  if (loading) return <div className="loading-screen">CONNECTING TO MAPLYPI NETWORK... 🌍</div>;
+  if (loading) return <div className="loading-screen">INITIALIZING MAPLYPI ENGINE... 🌍</div>;
 
   return (
     <div className="ts-dashboard">
       {error && <div className="error-toast">{error}</div>}
       
+      {/* قسم اللوجو المركزي (التاج) ليتطابق مع التصميم المطلوب */}
+      <div className="dashboard-crown">
+        <div className="logo-outer-circle">
+          <div className="logo-inner-circle">
+            <img src={maplypiLogo} alt="Maplypi Logo" className="central-logo" />
+          </div>
+        </div>
+      </div>
+
       <header className="ts-header">
         <div className="user-profile">
-          <div className="status-badge">{userData ? 'ONLINE' : 'OFFLINE'}</div>
+          <div className="status-badge">ONLINE</div>
           <h2>{userData?.username || 'EkoPi'} <span className="lvl">Lvl {userData?.level || 14}</span></h2>
           <div className="balance-container">
             <span className="pi-icon">π</span>
             <span className="amount">{userData?.piBalance || '125.75'}</span>
           </div>
         </div>
-        <div className="branding">
-          {/* تم تحديث الـ src ليستخدم اللوجو المستورد */}
-          <img src={maplypiLogo} alt="Maplypi Logo" className="logo-glow" /> 
-          <h1>Maplypi Store Engine</h1>
+        
+        <div className="dashboard-info">
+          <h3>Store Management Dashboard</h3>
+          <p className="merchant-tag">Merchant: {userData?.username || 'EkoPi'}</p>
         </div>
       </header>
 
       <main className="ts-grid">
         <section className="ts-panel store-summary">
           <h3>MY STORE</h3>
+          {/* أيقونة المتجر السداسية */}
           <div className="isometric-icon">🏪</div>
           <p className="loc-text">{userData?.location || 'Cairo Citadel District'}</p>
         </section>
@@ -97,7 +107,7 @@ const App: React.FC = () => {
 
         <section className="ts-panel growth-analytics">
           <h3>BUSINESS GROWTH</h3>
-          <div className="revenue-stat">Weekly: 25.5π</div>
+          <div className="revenue-stat">Weekly Revenue: 25.5π</div>
           <div className="mini-chart">
              <svg viewBox="0 0 100 30" className="chart-line">
                 <path d="M0 25 L20 20 L40 22 L60 10 L80 15 L100 5" fill="none" stroke="#ffca28" strokeWidth="2" />
