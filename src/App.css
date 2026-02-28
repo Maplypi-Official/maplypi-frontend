@@ -1,17 +1,22 @@
-/* --- الإعدادات المركزية --- */
+/* --- الإعدادات المركزية والمتغيرات --- */
 :root {
   --gold: #ffca28;
-  --dark-panel: rgba(30, 25, 55, 0.7); /* تحويله لشفاف بنفسجي */
-  /* التدرج المطلوب بالملي */
-  --bg-gradient: radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 70%, #050508 100%);
+  /* جعل اللوحات شفافة بنفسجي (Glassmorphism) لتندمج مع الخلفية الكونية */
+  --dark-panel: rgba(30, 25, 55, 0.6); 
+  /* التدرج الكوني المطلوب بالملي لمحاكاة السديم الأرجواني */
+  --bg-gradient: radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.3) 0%, transparent 50%),
+                 radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.2) 0%, transparent 50%),
+                 radial-gradient(circle at center, #131129 0%, #05050a 100%);
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  /* تغيير اللون الأسود بالتدرج الكوني */
+  /* تطبيق الخلفية الكونية المركبة */
   background: var(--bg-gradient) !important;
+  /* إضافة ملمس النجوم لكسر حدة السواد */
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png') !important;
   background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
@@ -32,7 +37,7 @@ body {
 .dashboard-crown {
   position: relative;
   z-index: 100;
-  margin-bottom: -55px;
+  margin-bottom: -55px; /* لسحب الهيدر تحت التاج */
   display: flex;
   justify-content: center;
 }
@@ -40,13 +45,14 @@ body {
 .logo-outer-circle {
   width: 120px;
   height: 120px;
-  background: #131129; /* لون الإطار البنفسجي ليتطابق مع الـ Frame */
+  background: #131129; /* لون متناسق مع الإطار البنفسجي */
   border: 4px solid var(--gold);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 25px rgba(255, 202, 40, 0.4);
+  /* توهج ذهبي حول اللوجو */
+  box-shadow: 0 0 30px rgba(255, 202, 40, 0.4);
 }
 
 .logo-inner-circle {
@@ -62,10 +68,10 @@ body {
   object-fit: cover;
 }
 
-/* --- الهيدر (تم تعديله ليكون زجاجي بنفسجي) --- */
+/* --- الهيدر (تم تعديله ليكون زجاجي بنفسجي ليعكس الخلفية) --- */
 .ts-header {
   background: var(--dark-panel);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px); /* تأثير التضبيب الزجاجي الفخم */
   border: 1px solid rgba(106, 90, 205, 0.3);
   border-radius: 30px;
   padding: 70px 20px 20px 20px;
@@ -80,24 +86,43 @@ body {
 .balance-container { margin-top: 10px; display: flex; align-items: center; gap: 5px; }
 .pi-icon { color: var(--gold); font-weight: bold; font-size: 1.4rem; }
 .amount { font-size: 1.5rem; font-weight: bold; }
+
 .dashboard-info { text-align: right; }
 .dashboard-info h3 { margin: 0; font-size: 0.9rem; color: #fff; max-width: 120px; }
 .merchant-tag { color: var(--gold); font-size: 0.75rem; margin-top: 5px; }
 
 /* --- الشبكة (Grid) --- */
-.ts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-.ts-panel { background: rgba(30, 25, 55, 0.5); border-radius: 20px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
+.ts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.ts-panel {
+  background: rgba(30, 25, 55, 0.5); /* لوحات شفافة قليلاً */
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .full-width { grid-column: span 2; }
 
 /* --- الأزرار --- */
 .ts-btn.gold {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(90deg, #ffca28, #c18e2a);
+  background: linear-gradient(90deg, #ffca28, #c18e2a); /* تدرج ذهبي معدني */
   border: none;
   border-radius: 20px;
   font-weight: bold;
   margin-top: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 202, 40, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 202, 40, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.ts-btn.gold:active {
+  transform: scale(0.98);
 }
