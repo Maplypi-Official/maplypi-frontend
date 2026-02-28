@@ -1,13 +1,13 @@
-/* الخلفية الكلية - التعديل الجوهري للوصول لشكل الصورة الأصلية */
+/* الخلفية الكلية - تم تعديل السطوع الكوني لضمان الظهور على شاشات الموبايل */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج شعاعي متعدد الطبقات لخلق تأثير "السديم" الأرجواني */
+  /* تدرج كوني صريح: أرجواني في المنتصف والزوايا لكسر السواد */
   background: 
-    radial-gradient(circle at 10% 20%, rgba(106, 90, 205, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 60%, #020205 100%) !important;
-  background-attachment: fixed !important;
+    radial-gradient(circle at 10% 20%, rgba(106, 90, 205, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 50%, #010103 100%) !important;
+  background-attachment: fixed !important; 
   padding: 85px 10px 100px 10px; 
   display: flex;
   justify-content: center;
@@ -16,13 +16,13 @@
   position: relative;
 }
 
-/* إضافة طبقة النجوم (Stardust) لمحاكاة الصورة بالظبط */
+/* طبقة النجوم - زودنا الشفافية علشان تبان في لقطة الشاشة */
 .ts-dashboard-container::after {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.2; /* نجوم خفيفة جداً تعطي حياة للسواد */
+  opacity: 0.35; /* زيادة الوضوح لمحاكاة الصورة الأصلية */
   pointer-events: none;
   z-index: 0;
 }
@@ -36,9 +36,9 @@
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* الظل المتوهج (Glow) اللي بيخلي الفريم يظهر فوق السديم */
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
-              0 0 30px rgba(106, 90, 205, 0.15);
+  /* توهج أرجواني (Glow) حول الإطار لتمكينه من البروز */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 
+              0 0 30px rgba(106, 90, 205, 0.25);
   z-index: 1;
 }
 
@@ -72,7 +72,6 @@
   width: 100%;
 }
 
-/* تنسيق شاشة التحميل لضمان استمرارية الهوية */
 .loading-screen { 
   height: 100vh; 
   background: #0d0b1a; 
@@ -84,7 +83,3 @@
 }
 
 * { box-sizing: border-box; }
-
-@media screen and (min-width: 320px) {
-  .ts-dashboard-container { background-size: cover; }
-}
