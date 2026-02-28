@@ -1,93 +1,84 @@
-.product-matrix {
+.product-matrix-grid {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-}
-
-.panel-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.inventory-status {
-  font-size: 0.6rem;
-  color: #4caf50;
-  font-weight: bold;
-}
-
-.prod-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.prod-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 202, 40, 0.1);
-  border-radius: 16px;
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-.prod-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--digital-gold);
-}
-
-.prod-identity {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1.2;
-}
-
-.prod-icon { font-size: 1.1rem; }
-.prod-name { font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.5px; }
-
-.prod-stats {
-  display: flex;
   gap: 12px;
-  flex: 1.5;
-  justify-content: center;
 }
 
-.stat-unit { display: flex; align-items: baseline; gap: 4px; }
-.unit-label { font-size: 0.6rem; color: #777; text-transform: uppercase; }
-.unit-value { font-size: 0.8rem; font-weight: 600; color: #fff; }
+.prod-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
+  gap: 8px;
+}
 
+.prod-card-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prod-header-mini {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding-bottom: 5px;
+}
+
+.p-mini-icon { font-size: 0.9rem; }
+.p-mini-name { font-size: 0.7rem; font-weight: 700; color: #fff; }
+
+.prod-details-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mini-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.m-label { font-size: 0.55rem; color: #777; font-weight: 600; }
+.m-val { font-size: 0.65rem; font-weight: 700; color: #fff; }
 .q-green { color: #81c784 !important; }
+.gold-text { color: var(--digital-gold); }
 
-/* الشكل البيضاوي الذهبي للسعر (Mirror Effect) */
-.p-tag-pill {
-  background: var(--digital-gold);
-  color: #000;
-  padding: 4px 12px;
-  border-radius: 20px; /* جعلها بيضاوية تماماً */
-  font-weight: 800;
-  font-size: 0.75rem;
-  box-shadow: 0 4px 10px rgba(255, 202, 40, 0.2);
-  white-space: nowrap;
-}
-
-.ts-btn-gold-action {
-  width: 100%;
-  background: linear-gradient(90deg, #ffca28, #ffa000);
-  border: none;
-  padding: 14px;
-  border-radius: 18px;
-  color: #000;
-  font-weight: 800;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  cursor: pointer;
+/* تنسيق الأزرار المزدوجة */
+.product-actions-group {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 8px;
   margin-top: 5px;
 }
 
-.ts-btn-gold-action:active {
-  transform: scale(0.98);
+.btn-add-supply {
+  background: #1a1e26;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ts-btn-gold-action-mini {
+  background: linear-gradient(90deg, #ffca28, #ffa000);
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  color: #000;
+  font-weight: 800;
+  font-size: 0.7rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 160, 0, 0.2);
+}
+
+.ts-btn-gold-action-mini:active, .btn-add-supply:active {
+  transform: scale(0.96);
 }
