@@ -1,81 +1,80 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import './App.css';
 
-function App() {
-  const [lands, setLands] = useState([]);
-  const [loading, setLoading] = useState(true);
+// تعريف أنواع البيانات (Interfaces) لضمان الاحترافية
+interface Product {
+  name: string;
+  stock: number;
+  quality: number;
+  price: number;
+  icon: string;
+}
 
-  useEffect(() => {
-    // محاولة جلب البيانات من السيرفر
-    axios.get('http://localhost:5000/api/lands/all')
-      .then(res => {
-        setLands(res.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("خطأ في الاتصال بالسيرفر:", err);
-        setLoading(false);
-      });
-  }, []);
+const App: React.FC = () => {
+  const products: Product[] = [
+    { name: 'FOOD', stock: 10, quality: 85, price: 0.5, icon: '🍴' },
+    { name: 'TECH', stock: 7, quality: 92, price: 1.2, icon: '💻' },
+    { name: 'CRAFT', stock: 14, quality: 88, price: 0.8, icon: '🎨' }
+  ];
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif', 
-      backgroundColor: '#0f0f0f', 
-      color: '#e0e0e0', 
-      minHeight: '100vh',
-      textAlign: 'center'
-    }}>
-      <header style={{ marginBottom: '40px', borderBottom: '2px solid #333', paddingBottom: '20px' }}>
-        <h1 style={{ color: '#ffca28', fontSize: '2.5rem', margin: '0' }}>🌍 Maplypi Engine</h1>
-        <p style={{ color: '#888' }}>Building the future of Pi Network Ecosystem</p>
+    <div className="ts-dashboard">
+      <header className="ts-header">
+        <div className="user-profile">
+          <div className="status-badge">ONLINE</div>
+          <h2>EkoPi <span className="lvl">Lvl 14</span></h2>
+          <div className="balance-container">
+            <span className="pi-icon">π</span>
+            <span className="amount">125.75</span>
+          </div>
+        </div>
+        <div className="branding">
+          <img src="/vite.svg" alt="Maplypi" className="logo-glow" />
+          <h1>Maplypi Store Engine</h1>
+        </div>
       </header>
 
-      {loading ? (
-        <div className="loader">Loading Lands...</div>
-      ) : (
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '20px',
-          maxWidth: '1200px',
-          margin: '0 auto'
-        }}>
-          {lands.length > 0 ? lands.map(land => (
-            <div key={land._id} style={{ 
-              background: '#1e1e1e', 
-              padding: '20px', 
-              borderRadius: '15px', 
-              border: '1px solid #333',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
-              transition: 'transform 0.3s'
-            }}>
-              <div style={{ fontSize: '0.8rem', color: '#00e676', fontWeight: 'bold', marginBottom: '10px' }}>
-                ID: {land.hexId}
-              </div>
-              <h2 style={{ margin: '10px 0', color: '#fff' }}>📍 Digital Land</h2>
-              <p style={{ margin: '5px 0' }}>👤 Owner: <span style={{ color: '#ffca28' }}>{land.owner}</span></p>
-              <p style={{ fontSize: '1.2rem', fontWeight: 'bold', margin: '15px 0' }}>💰 {land.price} Pi</p>
-              <div style={{ 
-                display: 'inline-block',
-                padding: '5px 15px', 
-                borderRadius: '20px', 
-                backgroundColor: land.landType === 'Commercial' ? '#1565c0' : '#455a64',
-                fontSize: '0.9rem'
-              }}>
-                {land.landType}
-              </div>
-            </div>
-          )) : (
-            <p>No lands found. Try adding one with curl!</p>
-          )}
-        </div>
-      )}
+      <main className="ts-grid">
+        {/* قسم المتجر - Location من صورك */}
+        <section className="ts-panel store-summary">
+          <h3>MY STORE</h3>
+          <div className="isometric-icon">🏪</div>
+          <p className="loc-text">Cairo Citadel District</p>
+        </section>
 
-      <footer style={{ marginTop: '50px', color: '#555', fontSize: '0.8rem' }}>
-        Maplypi Web3 Dashboard v1.0 | Developed in Termux
-      </footer>
+        {/* قسم المنتجات باستخدام الخرائط (Mapping) */}
+        <section className="ts-panel product-matrix">
+          <h3>PRODUCTS & SUPPLY</h3>
+          <div className="prod-list">
+            {products.map((p) => (
+              <div key={p.name} className="prod-card">
+                <div className="prod-head">{p.icon} {p.name}</div>
+                <div className="prod-details">
+                  <span>Stock: {p.stock}</span>
+                  <span className="q-tag">Qual: {p.quality}%</span>
+                  <span className="p-tag">{p.price}π</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="action-row">
+            <button className="ts-btn gold">ADVERTISE STORE</button>
+          </div>
+        </section>
+
+        {/* قسم النمو - Business Growth */}
+        <section className="ts-panel growth-analytics">
+          <h3>BUSINESS GROWTH</h3>
+          <div className="revenue-stat">Weekly: 25.5π</div>
+          <div className="mini-chart">
+             {/* هنا نضع الـ SVG الخاص بالرسم البياني */}
+             <svg viewBox="0 0 100 30" className="chart-line">
+                <path d="M0 25 L20 20 L40 22 L60 10 L80 15 L100 5" fill="none" stroke="#ffca28" strokeWidth="2" />
+             </svg>
+          </div>
+          <button className="ts-btn outline">OPEN NEW BRANCH</button>
+        </section>
+      </main>
     </div>
   );
 }
