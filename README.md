@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/logo2.png" width="250" alt="Maplypi Logo">
+</p>
+
 # 🌌 Maplypi: The Decentralized Geo-Commerce Empire
 ### "Where the World Map Becomes Your Wealth"
 
@@ -12,17 +16,17 @@
 
 | 🗺️ The Grand Strategy | 💹 Merchant Intelligence |
 | :---: | :---: |
-| ![Roadmap](https://raw.githubusercontent.com/YourUsername/maplypi/main/assets/roadmap.png) | ![Dashboard](https://raw.githubusercontent.com/YourUsername/maplypi/main/assets/dashboard.png) |
+| ![Roadmap](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/roadmap_img.jpg) | ![Dashboard](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/dashboard_img.jpg) |
 | *Our 6-Phase Roadmap to Sovereignty* | *Advanced Merchant Dashboard & Analytics* |
 
 | 🏗️ Supply Chain | 📍 Geo-Network |
 | :---: | :---: |
-| ![Supply Chain](https://raw.githubusercontent.com/YourUsername/maplypi/main/assets/supply-chain.png) | ![Hex Grid](https://raw.githubusercontent.com/YourUsername/maplypi/main/assets/hex-grid.png) |
+| ![Supply Chain](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/supply_chain.jpg) | ![Hex Grid](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/map_grid.png) |
 | *B2B & B2C Production Simulation* | *Hexagonal Grids & GPS Integration* |
 
 | 🎨 Professional UI | 🛡️ Integrity |
 | :---: | :---: |
-| ![UI Design](https://raw.githubusercontent.com/YourUsername/maplypi/main/assets/ui-design.png) | ![Anti-Cheat](https://raw.githubusercontent.com/YourUsername/maplypi/main/assets/anti-cheat.png) |
+| ![UI Design](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/ui_structure.jpg) | ![Anti-Cheat](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/integrity.jpg) |
 | *Enterprise-Level Feature Architecture* | *Uncompromising Anti-GPS Spoofing* |
 
 ---
