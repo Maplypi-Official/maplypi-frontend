@@ -3,8 +3,8 @@
   --primary-purple: #673ab7;
   --gold-glow: #ffca28;
   --dark-bg: #0b0e14;
-  --panel-bg: rgba(20, 24, 35, 0.9);
-  --neon-blue: #00f2ff;
+  --panel-bg: #151921; /* جعل الخلفية أكثر قتامة لزيادة التباين */
+  --panel-border: #2a2d35;
   --surface-color: #1a1f2c;
 }
 
@@ -19,8 +19,10 @@ body {
 /* --- حاوية الـ Dashboard الرئيسية --- */
 .ts-dashboard {
   min-height: 100vh;
-  padding: 80px 20px 20px 20px; /* زيادة المساحة العلوية لاستيعاب اللوجو البارز */
+  padding: 85px 15px 20px 15px; /* مساحة علوية دقيقة للوجو البارز */
   background: radial-gradient(circle at top, #1a1f2c, #0b0e14);
+  max-width: 500px; /* تحديد العرض ليناسب تصميم الموبايل في الصورة */
+  margin: 0 auto;
 }
 
 /* --- 👑 قسم اللوجو المركزي (التاج) --- */
@@ -28,57 +30,56 @@ body {
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 15px; /* ضبط المكان لينطبق على فتحة الهيدر */
+  top: 10px; /* تموضعه ليكون قاطعاً للإطار العلوي بظبط */
   left: 0;
   right: 0;
   z-index: 100;
 }
 
 .logo-outer-circle {
-  width: 115px; /* تكبير بسيط ليطابق أبعاد الصورة المطلوبة */
-  height: 115px;
-  background: linear-gradient(135deg, var(--gold-glow), var(--primary-purple));
+  width: 125px; /* الحجم المثالي كما في الصورة */
+  height: 125px;
+  background: var(--dark-bg);
+  border: 4px solid var(--gold-glow); /* إطار ذهبي صلب كما يظهر في التصميم */
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 25px rgba(255, 202, 40, 0.4);
-  padding: 4px; /* سمك الإطار الذهبي */
+  box-shadow: 0 0 20px rgba(255, 202, 40, 0.3);
+  padding: 0; /* إزالة الـ padding لضمان امتلاء المساحة */
 }
 
 .logo-inner-circle {
-  width: 100%;
-  height: 100%;
-  background-color: var(--dark-bg);
+  width: 105px;
+  height: 105px;
+  background-color: transparent;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* قص الزوايا السوداء للصورة المربعة */
-  position: relative;
+  overflow: hidden; /* قص الزوايا تماماً */
 }
 
 .central-logo {
-  width: 100%; /* تمديد الصورة لتملأ الدائرة بالكامل */
+  width: 100%;
   height: 100%;
-  object-fit: cover; /* التخلص من الفراغات السوداء الجانبية */
-  filter: drop-shadow(0 0 8px var(--gold-glow));
+  object-fit: cover; /* يملأ الدائرة ويخفي أي سواد جانبي */
+  filter: drop-shadow(0 0 5px var(--gold-glow));
 }
 
 /* --- الهيدر (User Profile & Title) --- */
 .ts-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 30px;
-  padding: 55px 20px 20px 20px; /* زيادة الـ Padding العلوي عشان اللوجو مبيغطي القفلة */
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 50px 15px 15px 15px; 
   background: var(--panel-bg);
-  border: 1px solid rgba(103, 58, 183, 0.5);
+  border: 1px solid var(--panel-border);
   border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   position: relative;
-  /* تأثير القوس العلوي ليحتضن اللوجو */
-  clip-path: polygon(0% 0%, 38% 0%, 42% 12%, 58% 12%, 62% 0%, 100% 0%, 100% 100%, 0% 100%);
+  /* فتحة هندسية دقيقة بأسلوب الـ Clip-path */
+  clip-path: polygon(0% 0%, 35% 0%, 40% 12%, 60% 12%, 65% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .dashboard-info {
@@ -87,143 +88,134 @@ body {
 
 .dashboard-info h3 {
   margin: 0;
-  color: var(--gold-glow);
-  font-size: 1.1rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .merchant-tag {
-  margin: 5px 0 0 0;
-  font-size: 0.85rem;
-  color: #aaa;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: #888;
 }
 
 /* --- ملف المستخدم والبيانات --- */
 .user-profile h2 {
-  margin: 5px 0;
-  font-size: 1.4rem;
+  margin: 0;
+  font-size: 1.1rem;
+  color: white;
 }
 
 .lvl {
-  font-size: 0.9rem;
-  color: var(--primary-purple);
-  background: rgba(103, 58, 183, 0.2);
-  padding: 2px 8px;
-  border-radius: 5px;
+  font-size: 0.75rem;
+  color: #888;
+  background: transparent;
+  padding: 0;
+  margin-left: 0;
 }
 
 .balance-container {
   display: flex;
-  align-items: center;
-  font-size: 1.3rem;
-  margin-top: 5px;
-  font-weight: bold;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  width: fit-content;
 }
 
-.status-badge {
-  font-size: 10px;
-  color: #4caf50;
-  border: 1px solid #4caf50;
-  padding: 2px 8px;
-  border-radius: 10px;
+.balance-container label {
+  font-size: 0.65rem;
+  color: #888;
   text-transform: uppercase;
+}
+
+.pi-balance-value {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .pi-icon {
   color: var(--gold-glow);
-  font-weight: bold;
-  margin-right: 8px;
+  margin-left: 5px;
 }
 
 /* --- نظام الشبكة (Grid System) --- */
 .ts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: 1fr 1fr; /* تقسيم اللوحة إلى عمودين كما في الصورة */
+  gap: 15px;
 }
 
 .ts-panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  padding: 20px;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  padding: 15px;
 }
 
-.ts-panel:hover {
-  border-color: var(--primary-purple);
-  box-shadow: 0 0 15px rgba(103, 58, 183, 0.2);
-  transform: translateY(-5px);
+/* جعل قسم المنتجات يفرش بعرض العمودين */
+.full-width-panel {
+  grid-column: span 2;
 }
 
 .ts-panel h3 {
   margin-top: 0;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.75rem;
   color: #888;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 10px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
 }
 
-/* --- الكروت والمنتجات --- */
-.prod-list { margin-top: 15px; }
+/* --- كروت المنتجات العرضية (Horizontal List) --- */
+.prod-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
 
 .prod-card {
-  background: rgba(255, 255, 255, 0.03);
-  margin-bottom: 12px;
-  padding: 15px;
+  background: #1c212b;
+  flex: 1;
+  padding: 10px;
   border-radius: 12px;
-  border-left: 4px solid var(--primary-purple);
+  border: 1px solid #2d3440;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.prod-head { font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-.prod-details { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+.prod-head { font-size: 0.7rem; color: #fff; margin-bottom: 5px; font-weight: 500; }
+.prod-details { font-size: 0.65rem; color: #888; line-height: 1.4; }
 
-.q-tag { color: #81c784; }
-.p-tag { color: var(--gold-glow); font-weight: bold; font-size: 1.1rem; }
+.p-tag { color: var(--gold-glow); font-weight: bold; font-size: 0.8rem; display: block; margin-top: 4px; }
 
 /* --- الأزرار الاحترافية (Buttons) --- */
 .ts-btn {
   width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
+  padding: 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: all 0.2s ease;
 }
 
 .ts-btn.gold {
-  background: linear-gradient(45deg, #ffca28, #ff8f00);
+  background: linear-gradient(to right, #e2b04a, #c18e2a);
   color: #000;
-  box-shadow: 0 4px 15px rgba(255, 143, 0, 0.3);
-}
-
-.ts-btn.gold:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 6px 20px rgba(255, 143, 0, 0.5);
-}
-
-.ts-btn.outline {
-  background: transparent;
-  border: 1px solid var(--primary-purple);
-  color: white;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 /* --- التحليلات والرسوم البيانية --- */
-.revenue-stat { font-size: 1.2rem; margin: 15px 0; color: var(--gold-glow); }
-.mini-chart { height: 60px; margin: 10px 0; }
-.chart-line { filter: drop-shadow(0 0 5px var(--gold-glow)); }
-
-/* --- الأيقونات --- */
-.isometric-icon { font-size: 3rem; text-align: center; margin: 20px 0; filter: drop-shadow(0 0 10px var(--primary-purple)); }
-.loc-text { text-align: center; color: #aaa; font-style: italic; }
+.mini-chart {
+  height: 50px;
+  margin-top: 10px;
+  border-bottom: 2px solid var(--gold-glow); /* خط الرسم البياني المتوهج */
+}
 
 /* --- شاشة التحميل --- */
 .loading-screen {
@@ -233,7 +225,4 @@ body {
   align-items: center;
   background: var(--dark-bg);
   color: var(--gold-glow);
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  text-shadow: 0 0 10px var(--gold-glow);
 }
