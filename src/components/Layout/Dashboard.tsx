@@ -8,9 +8,8 @@ import Header from '../Header/Header';
 import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
-import Navbar from '../Navigation/Navbar'; // استيراد المكون الجديد
+import Navbar from '../Navigation/Navbar';
 
-// استيراد التنسيق الموحد المحدث
 import './Dashboard.css';
 
 interface UserData {
@@ -51,12 +50,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="ts-dashboard-container">
-      {/* 👑 التاج الذهبي */}
       <Crown logoUrl={maplypiLogo} />
       
-      {/* 📦 الكارت الكبير (Mirror Design) */}
       <div className="maply-main-card">
-        
         <Header 
           userName={userData?.username || 'EkoPi'} 
           level={userData?.level || 14} 
@@ -65,43 +61,48 @@ const Dashboard: React.FC = () => {
         />
 
         <main className="ts-main-grid">
-          {/* العمود الأيسر: معلومات المتجر والمكافآت */}
-          <div className="grid-column">
+          {/* الصف الأول: المتجر والمنتجات */}
+          <div className="grid-col-1">
             <MyStore location={userData?.location || 'Cairo Citadel District'} />
-            
-            <section className="ts-panel daily-reward-panel">
-               <h3>DAILY REWARDS</h3>
-               <div className="reward-content">
-                  <span className="reward-icon">🎁</span>
-                  <span className="reward-amount">+1.00π</span>
-               </div>
-            </section>
           </div>
-
-          {/* العمود الأيمن: المبيعات والنمو */}
-          <div className="grid-column">
-            <section className="ts-panel recent-sales">
-              <h3>RECENT SALES</h3>
-              <div className="sale-item">
-                 <span className="buyer-name">Buyer 47</span>
-                 <span className="sale-val">+2.4π</span>
-              </div>
-              <p className="sub-text">2m ago</p>
-            </section>
-            
-            <BusinessGrowth />
-          </div>
-
-          {/* المنتجات تأخذ العرض الكامل أسفل العمودين */}
-          <div className="full-width">
+          <div className="grid-col-2">
             <ProductsSupply products={products} />
           </div>
+
+          {/* الصف الثاني: المكافآت، المبيعات، والنمو */}
+          <section className="ts-panel daily-reward-panel">
+             <h3>DAILY REWARDS</h3>
+             <div className="reward-bars">
+                <div className="progress-wrapper">
+                   <div className="p-label">Check-ins: <span>15/20</span></div>
+                   <div className="p-bar"><div className="p-fill" style={{width: '75%'}}></div></div>
+                </div>
+                <div className="progress-wrapper">
+                   <div className="p-label">Reviews: <span>3/5</span></div>
+                   <div className="p-bar"><div className="p-fill" style={{width: '60%'}}></div></div>
+                </div>
+                <div className="chest-row">🎁</div>
+             </div>
+          </section>
+
+          <section className="ts-panel recent-sales">
+            <h3>RECENT SALES</h3>
+            {[1, 2, 3].map((item) => (
+              <div key={item} className="mini-sale-row">
+                 <span className="sale-icon">⚖️ 0.5π</span>
+                 <div className="sale-data">
+                    <span className="s-price">0.5π</span>
+                    <span className="s-buyer">Buyer 47</span>
+                 </div>
+              </div>
+            ))}
+          </section>
+
+          <BusinessGrowth />
         </main>
       </div>
 
-      {/* 🧭 شريط التنقل السفلي */}
       <Navbar />
-      
       {error && <div className="error-toast">{error}</div>}
     </div>
   );
