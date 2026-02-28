@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { maplypiService } from './services/api'; 
+// استيراد اللوجو من المسار الصحيح لضمان ظهوره
+import maplypiLogo from './assets/logo.png'; 
 
 interface UserData {
   username: string;
@@ -32,6 +34,7 @@ const App: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
+        // الدالة ثابتة كما هي لضمان الربط مع السيرفر
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
@@ -60,7 +63,8 @@ const App: React.FC = () => {
           </div>
         </div>
         <div className="branding">
-          <img src="/logo.png" alt="Maplypi Logo" className="logo-glow" /> 
+          {/* تم تحديث الـ src ليستخدم اللوجو المستورد */}
+          <img src={maplypiLogo} alt="Maplypi Logo" className="logo-glow" /> 
           <h1>Maplypi Store Engine</h1>
         </div>
       </header>
