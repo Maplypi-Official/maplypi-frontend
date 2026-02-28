@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { maplypiService } from '../../services/api'; 
 import maplypiLogo from '../../assets/logo3.png';
 
+// Components
 import Crown from '../Crown/Crown';
 import Header from '../Header/Header';
 import MyStore from '../Stats/MyStore';
@@ -38,6 +39,7 @@ const Dashboard: React.FC = () => {
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
+        console.error("API Error:", err);
         setError("Offline Mode Active.");
       } finally {
         setLoading(false);
@@ -50,12 +52,13 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="ts-dashboard-container">
-      {/* الحاوية الذهبية الكبيرة - الإطار */}
+      {/* الحاوية الرئيسية (الإطار الذهبي الموحد) */}
       <div className="maply-main-frame">
         
-        {/* استدعاء اللوجو هنا ليكون قريباً من الإطار */}
+        {/* اللوجو (Crown) - يوضع هنا ليكون متمركزاً فوق الإطار مباشرة */}
         <Crown logoUrl={maplypiLogo} />
         
+        {/* حاوية الهيدر لضمان التباعد الصحيح تحت اللوجو */}
         <div className="header-integration-zone">
           <Header 
             userName={userData?.username || 'EkoPi'} 
@@ -76,9 +79,17 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div className="grid-bottom-adaptive">
-            <div className="adaptive-col"><DailyRewards /></div>
-            <div className="adaptive-col"><RecentSales /></div>
-            <div className="adaptive-col"><BusinessGrowth /></div>
+            <div className="adaptive-col">
+               <DailyRewards />
+            </div>
+            
+            <div className="adaptive-col">
+               <RecentSales />
+            </div>
+
+            <div className="adaptive-col">
+               <BusinessGrowth />
+            </div>
           </div>
         </main>
       </div>
