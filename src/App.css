@@ -19,116 +19,119 @@ body {
 /* --- حاوية الـ Dashboard الرئيسية --- */
 .ts-dashboard {
   min-height: 100vh;
-  padding: 100px 15px 20px 15px; /* زيادة الهامش العلوي للسماح بظهور اللوجو */
+  padding: 60px 20px 20px 20px; /* زيادة Padding العلوي لإعطاء مساحة للوجو */
   background: radial-gradient(circle at top, #1a1f2c, #0b0e14);
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* سنتره المحتوى */
 }
 
 /* --- 👑 قسم اللوجو المركزي (التاج) --- */
 .dashboard-crown {
+  display: flex;
+  justify-content: center;
   position: absolute;
-  top: 35px; /* تم تعديله لينزل في منتصف الفتحة */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 101;
+  top: 10px;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 .logo-outer-circle {
-  width: 120px; /* حجم ثابت ومناسب */
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background: linear-gradient(135deg, var(--gold-glow), var(--primary-purple));
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 30px rgba(255, 202, 40, 0.4);
+  box-shadow: 0 0 25px rgba(255, 202, 40, 0.4);
   padding: 3px;
 }
 
 .logo-inner-circle {
   width: 100%;
   height: 100%;
-  background-color: #12151c; /* لون داكن ليبرز اللوجو */
+  background-color: var(--dark-bg);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: visible; /* لضمان عدم قطع التوهج */
+  overflow: hidden;
 }
 
 .central-logo {
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: 85%;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px var(--gold-glow));
+  filter: drop-shadow(0 0 5px var(--gold-glow));
 }
 
-/* --- الهيدر (المكان اللي فيه الفتحة) --- */
+/* --- الهيدر (User Profile & Title) --- */
 .ts-header {
-  width: 100%;
-  max-width: 900px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end; /* لضمان تناسق النصوص مع مكان اللوجو */
   margin-bottom: 30px;
-  padding: 60px 25px 25px 25px; /* Padding علوي كبير لترك مساحة للوجو */
+  padding: 40px 20px 20px 20px; /* مساحة إضافية تحت اللوجو */
   background: var(--panel-bg);
-  border: 2px solid rgba(103, 58, 183, 0.3);
-  border-radius: 30px;
+  border: 1px solid rgba(103, 58, 183, 0.5);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   position: relative;
-  /* إنشاء شكل "الفتحة" العلوية باستخدام mask أو border-radius */
-  clip-path: polygon(0% 0%, 35% 0%, 40% 15%, 60% 15%, 65% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .dashboard-info {
   text-align: right;
-  flex: 1;
 }
 
 .dashboard-info h3 {
   margin: 0;
   color: var(--gold-glow);
-  font-size: 1.1rem;
-  text-transform: uppercase;
+  font-size: 1.2rem;
 }
 
-.user-profile {
-  flex: 1;
-  text-align: left;
+.merchant-tag {
+  margin: 5px 0 0 0;
+  font-size: 0.85rem;
+  color: #aaa;
 }
 
+/* --- ملف المستخدم والبيانات --- */
 .user-profile h2 {
-  margin: 10px 0;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  margin: 5px 0;
+  font-size: 1.4rem;
 }
 
 .lvl {
-  font-size: 0.8rem;
-  background: var(--primary-purple);
+  font-size: 0.9rem;
+  color: var(--primary-purple);
+  background: rgba(103, 58, 183, 0.2);
   padding: 2px 8px;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 .balance-container {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
+
+.status-badge {
+  font-size: 10px;
+  color: #4caf50;
+  border: 1px solid #4caf50;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
 }
 
 .pi-icon {
   color: var(--gold-glow);
-  margin-right: 5px;
+  font-weight: bold;
+  margin-right: 8px;
 }
 
-/* --- نظام الشبكة (Grid) --- */
+/* --- نظام الشبكة (Grid System) --- */
 .ts-grid {
-  width: 100%;
-  max-width: 900px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
@@ -136,41 +139,87 @@ body {
 
 .ts-panel {
   background: var(--panel-bg);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-panel:hover {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 15px rgba(103, 58, 183, 0.2);
+  transform: translateY(-5px);
 }
 
 .ts-panel h3 {
-  font-size: 0.8rem;
+  margin-top: 0;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
   color: #888;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 10px;
-  margin-bottom: 15px;
 }
 
-/* --- الكروت --- */
+/* --- الكروت والمنتجات --- */
+.prod-list { margin-top: 15px; }
+
 .prod-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 12px;
   padding: 15px;
-  border-radius: 15px;
+  border-radius: 12px;
   border-left: 4px solid var(--primary-purple);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-direction: column;
 }
 
-.prod-details {
-  display: flex;
-  gap: 15px;
-  font-size: 0.9rem;
-}
+.prod-head { font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.prod-details { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
 
-.p-tag {
-  color: var(--gold-glow);
+.q-tag { color: #81c784; }
+.p-tag { color: var(--gold-glow); font-weight: bold; font-size: 1.1rem; }
+
+/* --- الأزرار الاحترافية (Buttons) --- */
+.ts-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
   font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
 }
+
+.ts-btn.gold {
+  background: linear-gradient(45deg, #ffca28, #ff8f00);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(255, 143, 0, 0.3);
+}
+
+.ts-btn.gold:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 20px rgba(255, 143, 0, 0.5);
+}
+
+.ts-btn.outline {
+  background: transparent;
+  border: 1px solid var(--primary-purple);
+  color: white;
+  margin-top: 15px;
+}
+
+/* --- التحليلات والرسوم البيانية --- */
+.revenue-stat { font-size: 1.2rem; margin: 15px 0; color: var(--gold-glow); }
+.mini-chart { height: 60px; margin: 10px 0; }
+.chart-line { filter: drop-shadow(0 0 5px var(--gold-glow)); }
+
+/* --- الأيقونات --- */
+.isometric-icon { font-size: 3rem; text-align: center; margin: 20px 0; filter: drop-shadow(0 0 10px var(--primary-purple)); }
+.loc-text { text-align: center; color: #aaa; font-style: italic; }
 
 /* --- شاشة التحميل --- */
 .loading-screen {
@@ -180,4 +229,7 @@ body {
   align-items: center;
   background: var(--dark-bg);
   color: var(--gold-glow);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-shadow: 0 0 10px var(--gold-glow);
 }
