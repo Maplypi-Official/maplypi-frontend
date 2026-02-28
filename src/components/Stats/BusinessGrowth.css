@@ -1,17 +1,83 @@
-.growth-analytics { position: relative; overflow: hidden; }
-.revenue-stat { color: #ffca28; font-size: 1.1rem; font-weight: bold; margin: 10px 0; }
-.mini-chart { width: 100%; height: 60px; margin: 10px 0; }
-.chart-line path {
-  filter: drop-shadow(0 0 5px #ffca28);
+.growth-analytics {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.ts-btn.outline {
+
+.panel-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trend-indicator {
+  font-size: 0.7rem;
+  color: #4caf50;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.revenue-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.revenue-stat .label {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.revenue-stat .value {
+  color: var(--digital-gold);
+  font-size: 1.3rem;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 202, 40, 0.3);
+}
+
+.mini-chart-container {
+  width: 100%;
+  height: 60px;
+  margin: 10px 0;
+  background: linear-gradient(to top, rgba(255, 202, 40, 0.05), transparent);
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.chart-line-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px var(--digital-gold));
+}
+
+/* تحسين الزر ليتناسب مع الـ Dashboard */
+.ts-btn-outline-gold {
   width: 100%;
   background: transparent;
-  border: 1px solid #ffca28;
-  color: #ffca28;
-  padding: 10px;
-  border-radius: 10px;
+  border: 1.5px solid var(--digital-gold);
+  color: var(--digital-gold);
+  padding: 12px;
+  border-radius: 15px;
   font-size: 0.8rem;
-  transition: 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 5px;
 }
-.ts-btn.outline:hover { background: rgba(255,202,40,0.1); }
+
+.ts-btn-outline-gold:hover {
+  background: var(--digital-gold);
+  color: #000;
+  box-shadow: 0 0 20px rgba(255, 202, 40, 0.4);
+}
+
+.ts-btn-outline-gold:active {
+  transform: scale(0.96);
+}
