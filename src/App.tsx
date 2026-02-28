@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { maplypiService } from './services/api'; 
 
-// 1. تعريف أنواع البيانات محلياً لضمان نجاح الـ Build
 interface UserData {
   username: string;
   piBalance: number | string;
@@ -23,7 +22,6 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // بيانات المنتجات الخاصة بـ Maplypi Store Engine
   const products: Product[] = [
     { name: 'FOOD', stock: 10, quality: 85, price: 0.5, icon: '🍴' },
     { name: 'TECH', stock: 7, quality: 92, price: 1.2, icon: '💻' },
@@ -34,21 +32,18 @@ const App: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        // محاولة جلب بيانات EkoPi من الباك اند
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
         console.error("❌ Error fetching dashboard data:", err);
-        setError("Unable to connect to Maplypi Server. Showing offline mode.");
+        setError("Unable to connect to Maplypi Server.");
       } finally {
         setLoading(false);
       }
     };
-
     loadDashboardData();
   }, []);
 
-  // شاشة التحميل لمنع البياض المفاجئ
   if (loading) return <div className="loading-screen">CONNECTING TO MAPLYPI NETWORK... 🌍</div>;
 
   return (
@@ -65,21 +60,18 @@ const App: React.FC = () => {
           </div>
         </div>
         <div className="branding">
-          {/* شعار الماب الذهبي المتألق */}
           <img src="/logo.png" alt="Maplypi Logo" className="logo-glow" /> 
           <h1>Maplypi Store Engine</h1>
         </div>
       </header>
 
       <main className="ts-grid">
-        {/* قسم المتجر والموقع الجغرافي */}
         <section className="ts-panel store-summary">
           <h3>MY STORE</h3>
           <div className="isometric-icon">🏪</div>
           <p className="loc-text">{userData?.location || 'Cairo Citadel District'}</p>
         </section>
 
-        {/* مصفوفة المنتجات */}
         <section className="ts-panel product-matrix">
           <h3>PRODUCTS & SUPPLY</h3>
           <div className="prod-list">
@@ -92,14 +84,13 @@ const App: React.FC = () => {
                   <span className="p-tag">{p.price}π</span>
                 </div>
               </div>
-            </thead>
+            ))}
           </div>
           <div className="action-row">
             <button className="ts-btn gold">ADVERTISE STORE</button>
           </div>
         </section>
 
-        {/* تحليلات النمو */}
         <section className="ts-panel growth-analytics">
           <h3>BUSINESS GROWTH</h3>
           <div className="revenue-stat">Weekly: 25.5π</div>
