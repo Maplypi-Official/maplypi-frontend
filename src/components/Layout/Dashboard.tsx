@@ -8,7 +8,7 @@ import Header from '../Header/Header';
 import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
-import RecentSales from '../Stats/RecentSales/RecentSales'; // المكون الجديد
+import RecentSales from '../Stats/RecentSales/RecentSales';
 import Navbar from '../Navigation/Navbar';
 import DailyRewards from '../DailyRewards/DailyRewards';
 
@@ -52,15 +52,23 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="ts-dashboard-container">
-      <Crown logoUrl={maplypiLogo} />
-      
-      <div className="maply-main-card">
-        <Header 
-          userName={userData?.username || 'EkoPi'} 
-          level={userData?.level || 14} 
-          merchant={userData?.username || 'EkoPi'}
-          balance={userData?.piBalance || '125.75'}
-        />
+      {/* الحاوية الرئيسية التي تضم كل شيء داخل الإطار الموحد */}
+      <div className="maply-main-frame">
+        
+        {/* اللوجو (التاج) مدمج في أعلى الإطار */}
+        <div className="top-crown-integration">
+          <Crown logoUrl={maplypiLogo} />
+        </div>
+        
+        {/* قسم الهيدر مقسم لترك مساحة للوجو */}
+        <div className="header-section-wrapper">
+          <Header 
+            userName={userData?.username || 'EkoPi'} 
+            level={userData?.level || 14} 
+            merchant={userData?.username || 'EkoPi'}
+            balance={userData?.piBalance || '125.75'}
+          />
+        </div>
 
         <main className="ts-main-content">
           <div className="flex-row-adaptive">
@@ -78,7 +86,7 @@ const Dashboard: React.FC = () => {
             </div>
             
             <div className="adaptive-col">
-               <RecentSales /> {/* الآن المكون نظيف ومستقل */}
+               <RecentSales />
             </div>
 
             <div className="adaptive-col">
