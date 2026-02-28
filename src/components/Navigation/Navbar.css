@@ -1,0 +1,76 @@
+.maply-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px; /* نفس عرض الداشبورد */
+  height: 70px;
+  background: rgba(11, 14, 20, 0.95);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 202, 40, 0.15);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2000;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  flex: 1;
+}
+
+.nav-icon {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.nav-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #666;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* حالة الأيقونة النشطة (Active State) */
+.nav-item.active .nav-icon {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-5px);
+  text-shadow: 0 0 10px var(--digital-gold);
+}
+
+.nav-item.active .nav-label {
+  color: var(--digital-gold);
+}
+
+/* النقطة الذهبية تحت الأيقونة النشطة */
+.active-dot {
+  position: absolute;
+  bottom: -8px;
+  width: 5px;
+  height: 5px;
+  background: var(--digital-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--digital-gold);
+}
+
+/* منع تداخل المحتوى مع النيفبار */
+@media screen and (max-height: 700px) {
+  .maply-bottom-nav {
+    height: 60px;
+  }
+}
+
