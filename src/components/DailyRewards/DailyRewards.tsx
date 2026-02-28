@@ -4,7 +4,7 @@ import './DailyRewards.css';
 const DailyRewards: React.FC = () => {
   return (
     <section className="ts-panel daily-reward-panel">
-      <h3>DAILY REWARDS</h3>
+      <h3 className="reward-title-mirror">DAILY REWARDS</h3>
       
       <div className="reward-content-wrapper">
         {/* شريط تسجيل الدخول */}
@@ -29,10 +29,14 @@ const DailyRewards: React.FC = () => {
           </div>
         </div>
 
-        {/* منطقة الصندوق (Chest) */}
+        {/* منطقة الصندوق (Chest) - تم استبدال الإيموجي بأيقونة فخمة */}
         <div className="chest-section">
-          <div className="empty-slot-track"></div>
-          <div className="reward-chest">🎁</div>
+          <div className="empty-slot-track">
+             <div className="inner-glow-track"></div>
+          </div>
+          <div className="reward-chest-mirror">
+             <span className="chest-icon">🧰</span> {/* يمكن استبدالها بصورة PNG لاحقاً */}
+          </div>
         </div>
       </div>
     </section>
@@ -40,4 +44,3 @@ const DailyRewards: React.FC = () => {
 };
 
 export default DailyRewards;
-
