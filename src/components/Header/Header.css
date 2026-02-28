@@ -17,7 +17,7 @@
   width: 100%;
 }
 
-/* الكروت الزجاجية بلمسة احترافية مضغوطة */
+/* الكروت الزجاجية البنفسجية بلمسة احترافية مضغوطة */
 .user-profile-card, .dashboard-info-card, .balance-glass-card {
   background: rgba(26, 22, 45, 0.6) !important;
   border: 1.2px solid rgba(106, 90, 205, 0.25) !important;
@@ -41,7 +41,7 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 1.5px solid #ffca28;
+  border: 1.5px solid #ffca28; /* إطار ذهبي كما في الصورة الأصلية */
   overflow: hidden;
   background: #1a162d;
   flex-shrink: 0;
@@ -69,6 +69,26 @@
   font-weight: 600;
 }
 
+.status-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.online-dot {
+  width: 6px;
+  height: 6px;
+  background: #4caf50;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #4caf50;
+}
+
+.status-text {
+  color: #4caf50;
+  font-size: 0.5rem;
+  font-weight: 900;
+}
+
 /* كارت الرصيد - تم وضعه تحت البروفايل مباشرة */
 .balance-glass-card {
   grid-column: 1 / 2;
@@ -76,7 +96,7 @@
 }
 
 .balance-label {
-  color: #8a81ad;
+  color: #8a81ad; /* البنفسجي الوصفي */
   font-size: 0.4rem;
   font-weight: 700;
   margin-bottom: 2px;
@@ -96,7 +116,7 @@
 }
 
 .pi-icon-gold {
-  color: #ffca28;
+  color: #ffca28; /* الذهب الرقمي */
   font-size: 1.1rem;
   font-weight: bold;
 }
