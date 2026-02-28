@@ -3,81 +3,84 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px; /* تقليل المسافات جداً */
+  padding: 6px !important;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .panel-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2px;
+}
+
+.growth-title {
+  font-size: 0.42rem !important; /* تصغير العنوان ليناسب العرض */
+  color: #666;
+  white-space: nowrap;
 }
 
 .trend-indicator {
-  font-size: 0.7rem;
+  font-size: 0.35rem; /* تصغير المؤشر */
   color: #4caf50;
   background: rgba(76, 175, 80, 0.1);
-  padding: 2px 8px;
-  border-radius: 10px;
+  padding: 1px 4px;
+  border-radius: 4px;
   font-weight: bold;
 }
 
-.revenue-stat {
+.revenue-stat-compact {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin: 5px 0;
+  flex-direction: column;
+  margin: 2px 0;
 }
 
-.revenue-stat .label {
+.revenue-stat-compact .label {
   color: #888;
-  font-size: 0.85rem;
+  font-size: 0.45rem; /* تصغير الكلمة */
+  display: block;
 }
 
-.revenue-stat .value {
+.revenue-stat-compact .value {
   color: var(--digital-gold);
-  font-size: 1.3rem;
+  font-size: 0.85rem; /* تصغير الرقم ليناسب الصندوق */
   font-weight: 800;
-  text-shadow: 0 0 10px rgba(255, 202, 40, 0.3);
+  line-height: 1;
 }
 
-.mini-chart-container {
+.mini-chart-container-compact {
   width: 100%;
-  height: 60px;
-  margin: 10px 0;
+  height: 35px; /* تقليل ارتفاع الرسم البياني */
+  margin: 4px 0;
   background: linear-gradient(to top, rgba(255, 202, 40, 0.05), transparent);
-  border-radius: 8px;
-  padding: 5px;
+  border-radius: 4px;
 }
 
 .chart-line-svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 6px var(--digital-gold));
+  filter: drop-shadow(0 0 4px var(--digital-gold));
 }
 
-/* تحسين الزر ليتناسب مع الـ Dashboard */
-.ts-btn-outline-gold {
+/* زر مخصص ومضغوط للموبايل */
+.ts-btn-outline-gold-compact {
   width: 100%;
   background: transparent;
-  border: 1.5px solid var(--digital-gold);
+  border: 1px solid var(--digital-gold);
   color: var(--digital-gold);
-  padding: 12px;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  padding: 5px 0; /* تقليل مساحة الزر */
+  border-radius: 8px;
+  font-size: 0.4rem; /* خط صغير جداً للزر */
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 5px;
+  margin-top: auto; /* يخلي الزر ديما تحت */
 }
 
-.ts-btn-outline-gold:hover {
-  background: var(--digital-gold);
-  color: #000;
-  box-shadow: 0 0 20px rgba(255, 202, 40, 0.4);
-}
-
-.ts-btn-outline-gold:active {
-  transform: scale(0.96);
+/* منع أي كلاس خارجي من تكبير الصندوق */
+.full-width {
+  width: 100% !important;
+  max-width: 100% !important;
 }
