@@ -1,13 +1,11 @@
-/* الخلفية الكلية - تم تعديل السطوع الكوني لضمان الظهور على شاشات الموبايل */
+/* الخلفية الكلية - تعديل درجات الألوان لتكون أكثر حيوية خلف الإطار */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج كوني صريح: أرجواني في المنتصف والزوايا لكسر السواد */
+  /* تدرج شعاعي أقوى في المنتصف لضمان ظهور اللون الأرجواني */
   background: 
-    radial-gradient(circle at 10% 20%, rgba(106, 90, 205, 0.15) 0%, transparent 45%),
-    radial-gradient(circle at 90% 80%, rgba(75, 0, 130, 0.15) 0%, transparent 45%),
-    radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 50%, #010103 100%) !important;
-  background-attachment: fixed !important; 
+    radial-gradient(circle at center, #2e266d 0%, #131129 45%, #05050a 100%) !important;
+  background-attachment: fixed !important;
   padding: 85px 10px 100px 10px; 
   display: flex;
   justify-content: center;
@@ -16,13 +14,14 @@
   position: relative;
 }
 
-/* طبقة النجوم - زودنا الشفافية علشان تبان في لقطة الشاشة */
+/* طبقة النجوم - رفعنا الكثافة والوضوح لتطابق الصورة */
 .ts-dashboard-container::after {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
+  /* استخدام ملمس نجوم أكثر وضوحاً مع زيادة الشفافية */
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.35; /* زيادة الوضوح لمحاكاة الصورة الأصلية */
+  opacity: 0.5; 
   pointer-events: none;
   z-index: 0;
 }
@@ -31,14 +30,14 @@
 .maply-main-frame {
   width: 100%;
   max-width: 480px;
-  background: #131129; /* البنفسجي العميق الموحد */
-  border: 2px solid rgba(255, 202, 40, 0.4);
+  background: rgba(19, 17, 41, 0.95); /* شفافية بسيطة جداً لإظهار التوهج خلفه */
+  border: 2px solid rgba(255, 202, 40, 0.45);
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* توهج أرجواني (Glow) حول الإطار لتمكينه من البروز */
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 
-              0 0 30px rgba(106, 90, 205, 0.25);
+  /* زيادة قوة التوهج الأرجواني ليفصل الفريم عن السواد */
+  box-shadow: 0 0 80px rgba(0, 0, 0, 1), 
+              0 0 40px rgba(106, 90, 205, 0.3);
   z-index: 1;
 }
 
