@@ -1,31 +1,35 @@
+:root {
+  --maply-purple-gradient: linear-gradient(135deg, #2c1a4d 0%, #0b0e14 100%);
+  --digital-gold: #ffca28;
+  --neon-purple: #b388ff;
+  --panel-bg: rgba(21, 25, 33, 0.95);
+  --glass-border: rgba(179, 136, 255, 0.2);
+}
+
 .ts-dashboard-container {
   width: 100%;
-  max-width: 450px;
+  max-width: 480px;
   margin: 0 auto;
-  background: #0b0e14;
-  padding: 85px 15px 20px 15px;
-  box-sizing: border-box;
   min-height: 100vh;
+  background: var(--maply-purple-gradient);
+  padding: 100px 15px 30px 15px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  color: #ffffff;
 }
+
 .ts-panel {
-  background: #151921;
-  border-radius: 20px;
-  padding: 15px;
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background: var(--panel-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
-.ts-panel h3 {
-  margin: 0 0 15px 0;
-  font-size: 0.8rem;
-  color: #888;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  padding-bottom: 5px;
-}
+
 .ts-main-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
-  margin-top: 20px;
 }
 .full-width { grid-column: span 2; }
