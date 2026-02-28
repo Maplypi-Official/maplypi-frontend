@@ -6,19 +6,19 @@ interface Props {
 }
 
 const MyStore: React.FC<Props> = ({ location }) => (
-  <section className="ts-panel store-summary">
+  <section className="ts-panel store-summary-compact">
     <div className="panel-header-simple">
-      <h3>MY STORE</h3>
+      <h3 className="store-title">MY STORE</h3>
     </div>
     
-    <div className="store-visual-container">
-      <div className="isometric-icon">🏪</div>
-      <div className="pulse-ring"></div>
+    <div className="store-visual-container-compact">
+      <div className="isometric-icon-mini">🏪</div>
+      <div className="pulse-ring-mini"></div>
     </div>
 
-    <div className="location-info">
-      <span className="geo-pin">📍</span>
-      <p className="loc-text">{location}</p>
+    <div className="location-info-compact">
+      <span className="geo-pin-mini">📍</span>
+      <p className="loc-text-mini">{location}</p>
     </div>
   </section>
 );
