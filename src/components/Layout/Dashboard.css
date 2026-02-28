@@ -1,10 +1,12 @@
-/* الخلفية الكلية - تعديل درجات الألوان لتكون أكثر حيوية خلف الإطار */
+/* الخلفية الكلية - رفع درجة "النيون" الأرجواني لمحاكاة السديم الفضائي */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج شعاعي أقوى في المنتصف لضمان ظهور اللون الأرجواني */
+  /* تدرج كوني حيوي: أرجواني مضيء في المركز ليظهر خلف الفريم */
   background: 
-    radial-gradient(circle at center, #2e266d 0%, #131129 45%, #05050a 100%) !important;
+    radial-gradient(circle at 50% 40%, rgba(76, 61, 175, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 10% 10%, rgba(106, 90, 205, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at center, #1a1645 0%, #0a0a1a 70%, #020205 100%) !important;
   background-attachment: fixed !important;
   padding: 85px 10px 100px 10px; 
   display: flex;
@@ -14,14 +16,14 @@
   position: relative;
 }
 
-/* طبقة النجوم - رفعنا الكثافة والوضوح لتطابق الصورة */
+/* طبقة النجوم - جعلناها أكثر سطوعاً "White Stars" لتظهر في لقطات الشاشة */
 .ts-dashboard-container::after {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  /* استخدام ملمس نجوم أكثر وضوحاً مع زيادة الشفافية */
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-  opacity: 0.5; 
+  opacity: 0.6; /* رفعنا الكثافة لتبدو كفضاء حقيقي */
+  filter: brightness(1.2); /* تفتيح النجوم */
   pointer-events: none;
   z-index: 0;
 }
@@ -30,18 +32,18 @@
 .maply-main-frame {
   width: 100%;
   max-width: 480px;
-  background: rgba(19, 17, 41, 0.95); /* شفافية بسيطة جداً لإظهار التوهج خلفه */
-  border: 2px solid rgba(255, 202, 40, 0.45);
+  background: rgba(19, 17, 41, 0.9); /* تقليل التعتيم قليلاً ليتفاعل مع الإضاءة خلفه */
+  border: 2px solid rgba(255, 202, 40, 0.5);
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* زيادة قوة التوهج الأرجواني ليفصل الفريم عن السواد */
-  box-shadow: 0 0 80px rgba(0, 0, 0, 1), 
-              0 0 40px rgba(106, 90, 205, 0.3);
+  /* توهج (Glow) أرجواني عريض لإعطاء عمق فضائي */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 
+              0 0 60px rgba(76, 61, 175, 0.2);
   z-index: 1;
 }
 
-/* منطقة الهيدر تحت التاج مباشرة */
+/* الهيدر والمساحة المخصصة للتاج */
 .header-integration-zone {
   margin-top: 35px; 
   width: 100%;
@@ -71,6 +73,7 @@
   width: 100%;
 }
 
+/* شاشة التحميل المتوافقة */
 .loading-screen { 
   height: 100vh; 
   background: #0d0b1a; 
