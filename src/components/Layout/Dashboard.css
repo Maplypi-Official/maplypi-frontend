@@ -8,7 +8,7 @@
   max-width: 100vw;
   min-height: 100vh;
   background: #05070a;
-  padding: 85px 6px 100px 6px; /* تقليل الهوامش لأقصى حد */
+  padding: 85px 6px 100px 6px;
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -28,7 +28,7 @@
   margin-top: 10px;
 }
 
-/* حل مشكلة تداخل الصف العلوي */
+/* الصف العلوي */
 .flex-row-adaptive {
   display: flex;
   gap: 6px;
@@ -36,15 +36,23 @@
   align-items: stretch;
 }
 
-.flex-item-store { flex: 0.9; min-width: 0; }
-.flex-item-products { flex: 2.1; min-width: 0; }
+.flex-item-store { flex: 1; min-width: 0; }
+.flex-item-products { flex: 2; min-width: 0; }
 
-/* حل مشكلة التداخل في الصف السفلي */
+/* الصف السفلي الثلاثي - تم استخدامه بدلاً من Grid لمرونة أعلى */
 .grid-bottom-adaptive {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 6px;
   width: 100%;
+  justify-content: space-between;
+  align-items: stretch; /* لضمان تساوي ارتفاع BUSINESS GROWTH مع الباقي */
+}
+
+.adaptive-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .ts-panel {
@@ -52,20 +60,21 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 6px;
-  min-width: 0; /* يمنع الصندوق من دفع الجوانب */
+  width: 100%;
+  height: 100%; /* لضمان ملء العمود */
+  box-sizing: border-box;
 }
 
 .ts-panel h3 {
   color: #666;
-  font-size: 0.45rem; /* خط صغير جداً للعناوين لمنع الانكسار */
+  font-size: 0.42rem; /* تصغير طفيف لضمان عدم الانكسار في الأجهزة الصغيرة */
   font-weight: 800;
   margin-bottom: 5px;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-transform: uppercase;
 }
 
-/* تنسيق المبيعات الفائق الصغر ليتناسب مع العرض */
+/* تنسيق المبيعات المصغر */
 .s-row-min {
   display: flex;
   justify-content: space-between;
@@ -73,10 +82,18 @@
   padding: 2px 0;
 }
 
-.s-ico { font-size: 0.55rem; color: #777; }
+.s-ico { font-size: 0.5rem; color: #777; }
 .s-txt { text-align: right; display: flex; flex-direction: column; }
 .s-p { color: var(--digital-gold); font-size: 0.55rem; font-weight: 700; line-height: 1; }
-.s-b { color: #444; font-size: 0.38rem; }
+.s-b { color: #444; font-size: 0.35rem; }
+
+/* إصلاح تمدد Business Growth */
+.business-growth-panel {
+  overflow: hidden; /* منع الرسم البياني من الخروج */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .loading-screen { height: 100vh; display: flex; justify-content: center; align-items: center; color: var(--digital-gold); font-size: 0.8rem; }
 * { box-sizing: border-box; }
