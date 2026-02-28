@@ -1,31 +1,35 @@
-/* الخلفية الكلية خلف التطبيق - تأكيد التطابق مع الصورة الأصلية */
+/* تعديل الخلفية الكلية لتطابق الصورة بالملي 
+  تم رفع درجة السطوع في المركز لكسر حدة السواد القادم من ملفات CSS الأخرى
+*/
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج شعاعي عميق يكسر السواد السادة */
-  background: radial-gradient(circle at center, #1e1b4b 0%, #0f0c29 30%, #05050a 100%) !important;
-  background-attachment: fixed !important; /* لضمان ثبات الخلفية وتأثير العمق */
+  /* تدرج شعاعي يبدأ من أرجواني عميق مضيء وينتهي بأسود فضائي */
+  background: radial-gradient(circle at center, #241d5e 0%, #0f0c29 40%, #05050a 100%) !important;
+  background-attachment: fixed !important;
   padding: 85px 10px 100px 10px; 
   display: flex;
   justify-content: center;
   box-sizing: border-box;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* الإطار البنفسجي الموحد بحدود ذهبية */
 .maply-main-frame {
   width: 100%;
   max-width: 480px;
-  background: #131129; /* البنفسجي العميق */
+  background: #131129; /* البنفسجي العميق الموحد */
   border: 2px solid rgba(255, 202, 40, 0.4);
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* توهج أرجواني خفيف خلف الإطار لتمييزه عن الخلفية الكونية */
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), 0 0 20px rgba(106, 90, 205, 0.15);
+  /* الظلال المركبة: ظل أسود للعمق وتوهج أرجواني للحواف */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 
+              0 0 30px rgba(106, 90, 205, 0.2);
 }
 
-/* منطقة الهيدر تحت التاج */
+/* منطقة الهيدر - نترك مساحة كافية للتاج الدائري */
 .header-integration-zone {
   margin-top: 35px; 
   width: 100%;
@@ -47,7 +51,7 @@
 .flex-item-store { flex: 1; }
 .flex-item-products { flex: 2; }
 
-/* توزيع الثلاث كروت السفلية */
+/* توزيع الثلاث كروت السفلية بالتساوي */
 .grid-bottom-adaptive {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -55,6 +59,7 @@
   width: 100%;
 }
 
+/* تنسيق شاشة التحميل */
 .loading-screen { 
   height: 100vh; 
   background: #0d0b1a; 
@@ -63,6 +68,17 @@
   justify-content: center; 
   align-items: center;
   font-weight: bold;
+  font-family: 'Inter', sans-serif;
 }
 
+/* ضمان عدم تداخل البادينج مع العرض */
 * { box-sizing: border-box; }
+
+/* إضافة طبقة اختيارية في الخلفية لضمان نعومة التدرج 
+  ومنبع أي تداخل من ملفات index.css
+*/
+@media screen and (min-width: 320px) {
+  .ts-dashboard-container {
+    background-size: cover;
+  }
+}
