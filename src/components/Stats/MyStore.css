@@ -1,0 +1,10 @@
+.store-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 160px;
+}
+.isometric-icon { font-size: 3rem; margin: 10px 0; filter: drop-shadow(0 0 10px rgba(255,202,40,0.3)); }
+.loc-text { color: #ffca28; font-size: 0.8rem; margin: 0; font-style: italic; }
