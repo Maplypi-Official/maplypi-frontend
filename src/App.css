@@ -1,15 +1,18 @@
 /* --- الإعدادات المركزية --- */
 :root {
   --gold: #ffca28;
-  --dark-panel: #151921;
-  --bg-color: #0b0e14;
+  --dark-panel: rgba(30, 25, 55, 0.7); /* تحويله لشفاف بنفسجي */
+  /* التدرج المطلوب بالملي */
+  --bg-gradient: radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 70%, #050508 100%);
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background-color: var(--bg-color);
+  /* تغيير اللون الأسود بالتدرج الكوني */
+  background: var(--bg-gradient) !important;
+  background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
   overflow-x: hidden;
@@ -19,7 +22,7 @@ body {
 .ts-dashboard {
   max-width: 480px;
   margin: 0 auto;
-  padding: 20px 15px; /* قللنا البادينج هنا وهنعتمد على مارجن العناصر */
+  padding: 20px 15px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -29,7 +32,7 @@ body {
 .dashboard-crown {
   position: relative;
   z-index: 100;
-  margin-bottom: -55px; /* أهم حركة: بيسحب الهيدر لتحته من غير ما يغطيه */
+  margin-bottom: -55px;
   display: flex;
   justify-content: center;
 }
@@ -37,13 +40,13 @@ body {
 .logo-outer-circle {
   width: 120px;
   height: 120px;
-  background: var(--bg-color);
+  background: #131129; /* لون الإطار البنفسجي ليتطابق مع الـ Frame */
   border: 4px solid var(--gold);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 20px rgba(255, 202, 40, 0.3);
+  box-shadow: 0 0 25px rgba(255, 202, 40, 0.4);
 }
 
 .logo-inner-circle {
@@ -59,93 +62,32 @@ body {
   object-fit: cover;
 }
 
-/* --- الهيدر (الجسم الأساسي) --- */
+/* --- الهيدر (تم تعديله ليكون زجاجي بنفسجي) --- */
 .ts-header {
   background: var(--dark-panel);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(106, 90, 205, 0.3);
   border-radius: 30px;
-  padding: 70px 20px 20px 20px; /* مساحة 70px فوق عشان اللوجو ميداخلش مع الكلام */
+  padding: 70px 20px 20px 20px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  /* الفتحة الهندسية */
-  clip-path: polygon(
-    0% 0%, 30% 0%, 35% 15%, 65% 15%, 70% 0%, 100% 0%, 100% 100%, 0% 100%
-  );
 }
 
 /* --- البيانات داخل الهيدر --- */
-.user-profile {
-  text-align: left;
-}
-
-.user-profile h2 {
-  margin: 0;
-  font-size: 1.1rem;
-}
-
-.balance-container {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
+.user-profile h2 { margin: 0; font-size: 1.1rem; }
+.balance-container { margin-top: 10px; display: flex; align-items: center; gap: 5px; }
 .pi-icon { color: var(--gold); font-weight: bold; font-size: 1.4rem; }
 .amount { font-size: 1.5rem; font-weight: bold; }
-
-.dashboard-info {
-  text-align: right;
-}
-
-.dashboard-info h3 {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #fff;
-  max-width: 120px;
-}
-
-.merchant-tag {
-  color: var(--gold);
-  font-size: 0.75rem;
-  margin-top: 5px;
-}
+.dashboard-info { text-align: right; }
+.dashboard-info h3 { margin: 0; font-size: 0.9rem; color: #fff; max-width: 120px; }
+.merchant-tag { color: var(--gold); font-size: 0.75rem; margin-top: 5px; }
 
 /* --- الشبكة (Grid) --- */
-.ts-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 15px;
-}
-
-.ts-panel {
-  background: var(--dark-panel);
-  border-radius: 20px;
-  padding: 15px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
+.ts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+.ts-panel { background: rgba(30, 25, 55, 0.5); border-radius: 20px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); }
 .full-width { grid-column: span 2; }
-
-/* --- كروت المنتجات --- */
-.prod-list {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.prod-card {
-  flex: 1;
-  background: rgba(255,255,255,0.03);
-  padding: 10px;
-  border-radius: 12px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-.p-tag { color: var(--gold); font-weight: bold; display: block; }
 
 /* --- الأزرار --- */
 .ts-btn.gold {
@@ -157,4 +99,5 @@ body {
   font-weight: bold;
   margin-top: 10px;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 202, 40, 0.2);
 }
