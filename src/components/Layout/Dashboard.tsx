@@ -8,6 +8,7 @@ import Header from '../Header/Header';
 import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
+import Navbar from '../Navigation/Navbar'; // استيراد المكون الجديد
 
 // استيراد التنسيق الموحد المحدث
 import './Dashboard.css';
@@ -97,6 +98,9 @@ const Dashboard: React.FC = () => {
           </div>
         </main>
       </div>
+
+      {/* 🧭 شريط التنقل السفلي */}
+      <Navbar />
       
       {error && <div className="error-toast">{error}</div>}
     </div>
