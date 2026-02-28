@@ -2,6 +2,8 @@
   <img src="https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/logo2.png" width="250" alt="Maplypi Logo">
 </p>
 
+![Maplypi Cover](https://raw.githubusercontent.com/Maplypi-Official/maplypi-frontend/main/src/assets/cover.png)
+
 # 🌌 Maplypi: The Decentralized Geo-Commerce Empire
 ### "Where the World Map Becomes Your Wealth"
 
