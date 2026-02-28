@@ -1,17 +1,13 @@
 import axios from 'axios';
 
-// تحديد عنوان الـ Backend (تأكد أن بورت الباك اند 5000)
-const API_BASE_URL = 'http://localhost:5000/api'; 
-
-// تعريف شكل بيانات المستخدم (Interface) المتوافق مع الـ Dashboard
+// 1. تعريف واجهات البيانات (Interfaces) وتصديرها بوضوح
 export interface UserData {
   username: string;
-  piBalance: number;
+  piBalance: number | string; // جعلناها مرنة لتقبل أرقام أو نصوص الـ Pi
   level: number;
   location: string;
 }
 
-// تعريف شكل بيانات الخريطة والأراضي السداسية
 export interface HexagonData {
   id: string;
   coordinates: [number, number];
@@ -20,45 +16,47 @@ export interface HexagonData {
   price: number;
 }
 
-// إنشاء نسخة Axios مع إعدادات افتراضية
+// 2. إعداد عنوان الـ API
+const API_BASE_URL = 'http://localhost:5000/api'; 
+
+// 3. إنشاء نسخة axios
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 5000, // مهلة 5 ثوانٍ قبل اعتبار الطلب فاشلاً
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
+// 4. تصدير الخدمات البرمجية
 export const maplypiService = {
-  // جلب بيانات الملف الشخصي (EkoPi - Level 14)
+  // جلب ملف المستخدم مع معالجة الخطأ لضمان عدم ظهور صفحة بيضاء
   getUserProfile: async (username: string): Promise<UserData> => {
     try {
       const response = await api.get(`/users/${username}`);
       return response.data;
     } catch (error) {
-      console.warn("⚠️ Backend unreachable. Using offline mock data for:", username);
-      // بيانات افتراضية لضمان عدم توقف الواجهة (Fallback Data)
+      console.warn("⚠️ Using Fallback data for Maplypi Dashboard.");
+      // بيانات افتراضية تطابق هوية Maplypi
       return {
         username: username || 'EkoPi',
-        piBalance: 125.75,
+        piBalance: '125.75',
         level: 14,
         location: 'Cairo Citadel District'
       };
     }
   },
 
-  // جلب بيانات الخريطة (السداسيات)
   getMapHexagons: async (): Promise<HexagonData[]> => {
     try {
       const response = await api.get('/map/hexagons');
       return response.data;
     } catch (error) {
-      console.error("❌ Failed to fetch map hexagons:", error);
-      return []; // إرجاع مصفوفة فارغة لتجنب كسر الـ Map Component
+      console.error("❌ Map Loading Error:", error);
+      return [];
     }
   },
 
-  // تحديث الرصيد (الربط مع محفظة Pi المستقبلي)
   updateBalance: async (username: string, newBalance: number) => {
     const response = await api.post(`/users/${username}/update-balance`, { newBalance });
     return response.data;
