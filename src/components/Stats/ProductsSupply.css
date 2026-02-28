@@ -8,70 +8,70 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
 }
 
 .inventory-status {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: #4caf50;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 .prod-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .prod-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 14px;
-  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 202, 40, 0.1);
+  border-radius: 16px;
+  padding: 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .prod-card:hover {
-  background: rgba(179, 136, 255, 0.05);
-  border-color: var(--neon-purple);
-  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--digital-gold);
 }
 
-.prod-info-group {
+.prod-identity {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex: 1;
+  gap: 8px;
+  flex: 1.2;
 }
 
-.prod-icon { font-size: 1.2rem; }
-.prod-name { font-weight: bold; font-size: 0.9rem; color: #fff; }
+.prod-icon { font-size: 1.1rem; }
+.prod-name { font-weight: 700; font-size: 0.85rem; color: #fff; letter-spacing: 0.5px; }
 
-.prod-stats-group {
+.prod-stats {
   display: flex;
-  gap: 15px;
-  flex: 2;
+  gap: 12px;
+  flex: 1.5;
   justify-content: center;
 }
 
-.stat-item { display: flex; flex-direction: column; align-items: center; }
-.stat-label { font-size: 0.6rem; color: #888; text-transform: uppercase; }
-.stat-value { font-size: 0.85rem; font-weight: 600; color: #fff; }
+.stat-unit { display: flex; align-items: baseline; gap: 4px; }
+.unit-label { font-size: 0.6rem; color: #777; text-transform: uppercase; }
+.unit-value { font-size: 0.8rem; font-weight: 600; color: #fff; }
 
-.q-tag { color: #81c784; }
+.q-green { color: #81c784 !important; }
 
-.p-tag {
-  background: rgba(255, 202, 40, 0.1);
-  color: var(--digital-gold);
-  padding: 5px 12px;
-  border-radius: 10px;
+/* الشكل البيضاوي الذهبي للسعر (Mirror Effect) */
+.p-tag-pill {
+  background: var(--digital-gold);
+  color: #000;
+  padding: 4px 12px;
+  border-radius: 20px; /* جعلها بيضاوية تماماً */
   font-weight: 800;
-  border: 1px solid rgba(255, 202, 40, 0.2);
-  min-width: 50px;
-  text-align: center;
+  font-size: 0.75rem;
+  box-shadow: 0 4px 10px rgba(255, 202, 40, 0.2);
+  white-space: nowrap;
 }
 
 .ts-btn-gold-action {
@@ -85,11 +85,9 @@
   font-size: 0.9rem;
   letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 160, 0, 0.2);
-  transition: all 0.3s ease;
+  margin-top: 5px;
 }
 
-.ts-btn-gold-action:hover {
-  box-shadow: 0 6px 20px rgba(255, 160, 0, 0.4);
-  transform: translateY(-2px);
+.ts-btn-gold-action:active {
+  transform: scale(0.98);
 }
