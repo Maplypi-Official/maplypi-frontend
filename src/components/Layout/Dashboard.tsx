@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
     loadDashboardData();
   }, []);
 
-  if (loading) return <div className="loading-screen">INITIALIZING MAPLYPI... 🌍</div>;
+  if (loading) return <div className="loading-screen">INITIALIZING...</div>;
 
   return (
     <div className="ts-dashboard-container">
@@ -62,35 +62,33 @@ const Dashboard: React.FC = () => {
         />
 
         <main className="ts-main-content">
-          {/* الصف العلوي: المتجر والمنتجات */}
-          <div className="top-row-layout">
-            <div className="layout-col-left">
+          {/* الصف الأول: توزيع مرن للمتجر والمنتجات */}
+          <div className="flex-row-adaptive">
+            <div className="flex-item-store">
               <MyStore location={userData?.location || 'Cairo Citadel District'} />
             </div>
-            <div className="layout-col-right">
+            <div className="flex-item-products">
               <ProductsSupply products={products} />
             </div>
           </div>
 
-          {/* الصف السفلي: المكافآت، المبيعات، والنمو */}
-          <div className="bottom-row-layout">
+          {/* الصف السفلي: 3 عناصر متراصة بدقة */}
+          <div className="grid-bottom-adaptive">
             <DailyRewards />
-            
-            <section className="ts-panel recent-sales-panel">
+            <div className="ts-panel recent-sales-minimized">
               <h3>RECENT SALES</h3>
-              <div className="sales-list-container">
+              <div className="sales-compact-list">
                 {[1, 2, 3].map((item) => (
-                  <div key={item} className="mini-sale-item">
-                     <span className="s-icon">⚖️ 0.5π</span>
-                     <div className="s-info">
-                        <span className="s-val">0.5π</span>
-                        <span className="s-user">Buyer 47</span>
-                     </div>
+                  <div key={item} className="s-row-min">
+                    <span className="s-ico">⚖️</span>
+                    <div className="s-txt">
+                      <span className="s-p">0.5π</span>
+                      <span className="s-b">Buyer 47</span>
+                    </div>
                   </div>
                 ))}
               </div>
-            </section>
-
+            </div>
             <BusinessGrowth />
           </div>
         </main>
