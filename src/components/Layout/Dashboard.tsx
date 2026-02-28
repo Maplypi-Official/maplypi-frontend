@@ -9,6 +9,7 @@ import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
 import Navbar from '../Navigation/Navbar';
+import DailyRewards from '../DailyRewards/DailyRewards'; // استيراد المكون الجديد
 
 import './Dashboard.css';
 
@@ -61,44 +62,33 @@ const Dashboard: React.FC = () => {
         />
 
         <main className="ts-main-grid">
-          {/* الصف الأول: المتجر والمنتجات */}
-          <div className="grid-col-1">
+          {/* الصف العلوي: المتجر والمنتجات */}
+          <div className="grid-col-left">
             <MyStore location={userData?.location || 'Cairo Citadel District'} />
           </div>
-          <div className="grid-col-2">
+          <div className="grid-col-right">
             <ProductsSupply products={products} />
           </div>
 
-          {/* الصف الثاني: المكافآت، المبيعات، والنمو */}
-          <section className="ts-panel daily-reward-panel">
-             <h3>DAILY REWARDS</h3>
-             <div className="reward-bars">
-                <div className="progress-wrapper">
-                   <div className="p-label">Check-ins: <span>15/20</span></div>
-                   <div className="p-bar"><div className="p-fill" style={{width: '75%'}}></div></div>
-                </div>
-                <div className="progress-wrapper">
-                   <div className="p-label">Reviews: <span>3/5</span></div>
-                   <div className="p-bar"><div className="p-fill" style={{width: '60%'}}></div></div>
-                </div>
-                <div className="chest-row">🎁</div>
-             </div>
-          </section>
+          {/* الصف السفلي: تقسيم ثلاثي متساوٍ للمكافآت والمبيعات والنمو */}
+          <div className="bottom-row-container">
+            <DailyRewards />
 
-          <section className="ts-panel recent-sales">
-            <h3>RECENT SALES</h3>
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="mini-sale-row">
-                 <span className="sale-icon">⚖️ 0.5π</span>
-                 <div className="sale-data">
-                    <span className="s-price">0.5π</span>
-                    <span className="s-buyer">Buyer 47</span>
-                 </div>
-              </div>
-            ))}
-          </section>
+            <section className="ts-panel recent-sales">
+              <h3>RECENT SALES</h3>
+              {[1, 2, 3].map((item) => (
+                <div key={item} className="mini-sale-row">
+                   <span className="sale-icon">⚖️ 0.5π</span>
+                   <div className="sale-data">
+                      <span className="s-price">0.5π</span>
+                      <span className="s-buyer">Buyer 47</span>
+                   </div>
+                </div>
+              ))}
+            </section>
 
-          <BusinessGrowth />
+            <BusinessGrowth />
+          </div>
         </main>
       </div>
 
