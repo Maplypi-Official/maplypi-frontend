@@ -1,43 +1,50 @@
 .ts-header-mirror {
   width: 100%;
   position: relative;
-  padding: 10px 0 20px 0;
+  /* تقليل البادينج العلوي عشان الكروت تطلع لفوق */
+  padding: 5px 0 10px 0; 
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
-/* تنسيق التخطيط العام للكروت */
+/* إصلاح التخطيط ليكون صفين متناسقين */
 .header-main-layout {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  grid-template-rows: auto auto;
-  gap: 10px;
+  /* العمود الأول أصغر ليناسب البروفايل، والثاني للعناوين */
+  grid-template-columns: 1.1fr 0.9fr; 
+  gap: 8px;
   width: 100%;
 }
 
-/* نمط الكروت الزجاجية البنفسجية الموحد */
+/* الكروت الزجاجية بلمسة احترافية مضغوطة */
 .user-profile-card, .dashboard-info-card, .balance-glass-card {
-  background: rgba(26, 22, 45, 0.55) !important;
-  border: 1.5px solid rgba(106, 90, 205, 0.3) !important;
-  border-radius: 18px;
-  padding: 12px;
-  backdrop-filter: blur(10px);
+  background: rgba(26, 22, 45, 0.6) !important;
+  border: 1.2px solid rgba(106, 90, 205, 0.25) !important;
+  border-radius: 16px;
+  padding: 8px 12px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* كارت المستخدم والصورة الشخصية */
+/* كارت البروفايل */
 .user-profile-card {
-  display: flex;
+  flex-direction: row !important; /* لضمان وجود الصورة بجانب النص */
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  grid-column: 1 / 2;
 }
 
 .avatar-circle {
-  width: 45px;
-  height: 45px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 2px solid #ffca28; /* إطار ذهبي كما في الصورة الأصلية */
+  border: 1.5px solid #ffca28;
   overflow: hidden;
-  background: #2a2440;
+  background: #1a162d;
+  flex-shrink: 0;
 }
 
 .avatar-circle img {
@@ -48,92 +55,63 @@
 
 .user-name-display {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #fff;
   font-weight: 800;
   display: flex;
-  align-items: center;
-  gap: 6px;
+  flex-direction: column; /* جعل اللفل تحت الاسم لتقليل العرض */
+  align-items: flex-start;
 }
 
 .lvl-tag {
-  background: rgba(106, 90, 205, 0.2);
   color: #a399cc;
-  font-size: 0.55rem;
-  padding: 1px 6px;
-  border-radius: 8px;
-  border: 0.5px solid rgba(163, 153, 204, 0.3);
-}
-
-.status-badge-row {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 2px;
-}
-
-.online-dot {
-  width: 6px;
-  height: 6px;
-  background: #4caf50;
-  border-radius: 50%;
-  box-shadow: 0 0 5px #4caf50;
-}
-
-.status-text {
-  color: #4caf50;
   font-size: 0.5rem;
-  font-weight: 900;
-  letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
-/* كارت الرصيد (مراية للتصميم الأصلي) */
+/* كارت الرصيد - تم وضعه تحت البروفايل مباشرة */
 .balance-glass-card {
-  grid-column: 1 / 2; /* يأخذ العمود الأول تحت البروفايل */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
+  grid-column: 1 / 2;
+  margin-top: -2px; /* تقريب المسافة بين الكرتين */
 }
 
 .balance-label {
   color: #8a81ad;
-  font-size: 0.45rem;
-  font-weight: 800;
-  text-transform: uppercase;
+  font-size: 0.4rem;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .balance-value-row {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: baseline;
+  gap: 4px;
 }
 
 .balance-amount {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 900;
   color: #fff;
-  line-height: 1;
+  letter-spacing: -0.5px;
 }
 
 .pi-icon-gold {
   color: #ffca28;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  text-shadow: 0 0 10px rgba(255, 202, 40, 0.4);
 }
 
-/* كارت عنوان الداشبورد */
+/* كارت العنوان والميرشنت - يمين */
 .dashboard-info-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
+  grid-column: 2 / 3;
+  grid-row: 1 / 3; /* يمتد ليشغل طول الكرتين اللي على اليسار */
+  text-align: right;
+  align-items: flex-end;
 }
 
 .dashboard-main-title {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #fff;
   font-weight: 700;
   line-height: 1.2;
@@ -141,18 +119,17 @@
 
 .merchant-name-tag {
   color: #ffca28;
-  font-size: 0.6rem;
-  margin: 4px 0 0 0;
+  font-size: 0.55rem;
+  margin-top: 4px;
   font-weight: 800;
+  text-transform: uppercase;
 }
 
 /* أيقونة الترس */
 .header-settings-gear {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  color: #8a81ad;
+  top: -35px; /* رفع الترس ليكون بجانب التاج */
+  right: 5px;
+  color: #555;
   font-size: 1rem;
-  cursor: pointer;
-  z-index: 10;
 }
