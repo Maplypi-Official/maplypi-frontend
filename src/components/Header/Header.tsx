@@ -10,41 +10,35 @@ interface Props {
 
 const Header: React.FC<Props> = ({ userName, level, merchant, balance }) => (
   <header className="ts-header-mirror">
-    {/* الزاوية العلوية: أيقونة الإعدادات */}
+    {/* الترس في مكانه الصحيح بالأعلى */}
     <div className="header-settings-gear">⚙️</div>
 
-    <div className="header-main-layout">
-      {/* الكارت العلوي الأيسر: معلومات المستخدم والصورة */}
-      <div className="user-profile-card">
-        <div className="avatar-wrapper">
-          <div className="avatar-circle">
-             {/* صورة افتراضية تطابق ستايل التصميم الأصلي */}
-             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=EkoPi" alt="user" />
-          </div>
+    <div className="header-grid-container">
+      {/* كارت المستخدم */}
+      <div className="glass-card user-card">
+        <div className="avatar-circle">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=EkoPi" alt="avatar" />
         </div>
-        <div className="user-info-text">
-          <h2 className="user-name-display">
-            {userName} <span className="lvl-tag">Lvl {level}</span>
-          </h2>
-          <div className="status-badge-row">
-            <span className="online-dot"></span>
-            <span className="status-text">ONLINE</span>
+        <div className="user-text-info">
+          <div className="name-row">
+            <span className="user-name">{userName}</span>
+            <span className="level-badge">[Level {level}]</span>
           </div>
         </div>
       </div>
 
-      {/* الكارت العلوي الأيمن: عنوان الداشبورد */}
-      <div className="dashboard-info-card">
-        <h3 className="dashboard-main-title">Store Management Dashboard</h3>
-        <p className="merchant-name-tag">Merchant: {merchant}</p>
+      {/* كارت عنوان الداشبورد */}
+      <div className="glass-card title-card">
+        <h3 className="main-dashboard-title">Store Management Dashboard</h3>
+        <p className="merchant-tag">Merchant: {merchant}</p>
       </div>
 
-      {/* كارت الرصيد المنفصل (تحت فتحة التاج مباشرة) */}
-      <div className="balance-glass-card">
+      {/* كارت الرصيد (مكانه الصحيح أسفل كارت المستخدم) */}
+      <div className="glass-card balance-card">
         <span className="balance-label">CURRENT PI BALANCE:</span>
-        <div className="balance-value-row">
-          <span className="balance-amount">{balance}</span>
-          <span className="pi-icon-gold">π</span>
+        <div className="balance-row">
+          <span className="balance-value">{balance}</span>
+          <span className="pi-symbol-gold">π</span>
         </div>
       </div>
     </div>
