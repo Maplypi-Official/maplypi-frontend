@@ -1,31 +1,105 @@
 .ts-header {
   background: var(--panel-bg);
   border: 2px solid var(--digital-gold);
-  border-radius: 30px;
-  padding: 55px 20px 20px 20px;
+  border-radius: 35px;
+  /* padding علوي كبير (65px) لضمان أن النصوص تبدأ تحت منطقة اللوجو */
+  padding: 65px 20px 20px 20px; 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end; /* محاذاة النصوص لأسفل الهيدر */
   position: relative;
-  clip-path: polygon(0% 0%, 35% 0%, 38% 12%, 62% 12%, 65% 0%, 100% 0%, 100% 100%, 0% 100%);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  /* الفتحة الهندسية: تم ضبطها لتناسب قطر اللوجو (130px) */
+  clip-path: polygon(
+    0% 0%, 
+    30% 0%, 
+    33% 15%, 
+    67% 15%, 
+    70% 0%, 
+    100% 0%, 
+    100% 100%, 
+    0% 100%
+  );
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+/* معلومات المستخدم */
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.status-badge {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  width: fit-content;
+  text-transform: uppercase;
+}
+
+.user-name-display {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lvl-tag {
+  background: rgba(179, 136, 255, 0.15);
+  color: var(--neon-purple);
+  font-size: 0.7rem;
+  padding: 1px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(179, 136, 255, 0.3);
+}
+
+/* حاوية الرصيد الذهبي */
+.balance-container-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
 }
 
 .pi-icon-gold {
   color: var(--digital-gold);
-  text-shadow: 0 0 10px rgba(255, 202, 40, 0.6);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  filter: drop-shadow(0 0 8px rgba(255, 202, 40, 0.5));
 }
 
 .balance-amount {
-  font-family: 'Orbitron', sans-serif; /* لو متاح عندك خط تقني */
-  font-size: 1.6rem;
-  letter-spacing: 1px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
 }
 
-.merchant-name {
-  color: var(--digital-gold);
+/* العنوان جهة اليمين */
+.header-title-container {
+  text-align: right;
+  max-width: 40%;
+}
+
+.dashboard-main-title {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #fff;
+  line-height: 1.2;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.merchant-name-tag {
+  color: var(--digital-gold);
   font-size: 0.7rem;
-  letter-spacing: 2px;
+  margin: 4px 0 0 0;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
