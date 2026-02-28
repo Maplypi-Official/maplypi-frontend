@@ -9,7 +9,7 @@ import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
 
-// استيراد التنسيق الموحد للكارت الكبير
+// استيراد التنسيق الموحد المحدث
 import './Dashboard.css';
 
 interface UserData {
@@ -24,7 +24,6 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // قائمة المنتجات (سيتم جلبها مستقبلاً من الـ Backend)
   const products = [
     { name: 'FOOD', stock: 10, quality: 85, price: 0.5, icon: '🍴' },
     { name: 'TECH', stock: 7, quality: 92, price: 1.2, icon: '💻' },
@@ -35,7 +34,6 @@ const Dashboard: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        // نستخدم اسم المستخدم الافتراضي EkoPi كما هو محدد في الـ Backend
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
@@ -48,18 +46,16 @@ const Dashboard: React.FC = () => {
     loadDashboardData();
   }, []);
 
-  // شاشة التحميل (تظهر بلمسة MaplyPi الذهبية)
   if (loading) return <div className="loading-screen">INITIALIZING MAPLYPI... 🌍</div>;
 
   return (
     <div className="ts-dashboard-container">
-      {/* 👑 التاج الذهبي: يطفو فوق الكارت (Absolute) */}
+      {/* 👑 التاج الذهبي */}
       <Crown logoUrl={maplypiLogo} />
       
-      {/* 📦 الكارت الموحد: يحتوي على كل أقسام الداشبورد */}
+      {/* 📦 الكارت الكبير (Mirror Design) */}
       <div className="maply-main-card">
         
-        {/* الهيدر: تم دمج الرصيد والاسم فيه بدقة */}
         <Header 
           userName={userData?.username || 'EkoPi'} 
           level={userData?.level || 14} 
@@ -68,27 +64,40 @@ const Dashboard: React.FC = () => {
         />
 
         <main className="ts-main-grid">
-          {/* قسم المتجر والموقع الجغرافي */}
-          <MyStore location={userData?.location || 'Cairo Citadel District'} />
-          
-          {/* قسم الإيرادات السريعة (تحديث لحظي) */}
-          <section className="ts-panel recent-sales">
-            <div className="panel-header-simple">
-              <h3>RECENT SALES</h3>
-            </div>
-            <div className="revenue-stat">+2.4π</div>
-            <p className="sub-text">Last transaction 2m ago</p>
-          </section>
+          {/* العمود الأيسر: معلومات المتجر والمكافآت */}
+          <div className="grid-column">
+            <MyStore location={userData?.location || 'Cairo Citadel District'} />
+            
+            <section className="ts-panel daily-reward-panel">
+               <h3>DAILY REWARDS</h3>
+               <div className="reward-content">
+                  <span className="reward-icon">🎁</span>
+                  <span className="reward-amount">+1.00π</span>
+               </div>
+            </section>
+          </div>
 
-          {/* قائمة المنتجات وسلاسل الإمداد */}
-          <ProductsSupply products={products} />
-          
-          {/* تحليل النمو والزر الرئيسي */}
-          <BusinessGrowth />
+          {/* العمود الأيمن: المبيعات والنمو */}
+          <div className="grid-column">
+            <section className="ts-panel recent-sales">
+              <h3>RECENT SALES</h3>
+              <div className="sale-item">
+                 <span className="buyer-name">Buyer 47</span>
+                 <span className="sale-val">+2.4π</span>
+              </div>
+              <p className="sub-text">2m ago</p>
+            </section>
+            
+            <BusinessGrowth />
+          </div>
+
+          {/* المنتجات تأخذ العرض الكامل أسفل العمودين */}
+          <div className="full-width">
+            <ProductsSupply products={products} />
+          </div>
         </main>
       </div>
       
-      {/* تنبيه الخطأ في حالة انقطاع الاتصال بالـ Backend */}
       {error && <div className="error-toast">{error}</div>}
     </div>
   );
