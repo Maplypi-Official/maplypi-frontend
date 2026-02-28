@@ -3,57 +3,80 @@
   flex-direction: column;
   gap: 6px;
   height: 100%;
+  /* تعديل الخلفية والحدود لتطابق الصورة الأصلية */
+  background: rgba(26, 22, 45, 0.5) !important;
+  border: 1.5px solid rgba(106, 90, 205, 0.3) !important;
+  border-radius: 15px;
   padding: 8px !important;
   box-sizing: border-box;
 }
 
 .p-supply-title {
-  font-size: 0.45rem !important;
-  color: #666;
+  font-size: 0.5rem !important;
+  /* اللون البنفسجي الباهت للعنوان من التصميم الأصلي */
+  color: #a399cc !important; 
   font-weight: 800;
   margin: 0;
+  text-transform: uppercase;
 }
 
-/* الفكرة العبقرية: حاوية التمرير */
+/* الفكرة العبقرية: حاوية التمرير الأفقي اللانهائي */
 .prod-scroll-wrapper {
   width: 100%;
-  overflow-x: auto; /* تفعيل التمرير الأفقي */
+  overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 4px;
-  /* إخفاء شريط التمرير للمظهر الجمالي */
+  /* إخفاء شريط التمرير للحفاظ على نظافة التصميم */
   scrollbar-width: none; 
 }
 .prod-scroll-wrapper::-webkit-scrollbar { display: none; }
 
 .prod-grid-container-adaptive {
-  display: flex; /* تحويل لـ flex لدعم التمرير */
-  gap: 5px;
-  width: max-content; /* يجعل العرض يتحدد بعدد المنتجات */
+  display: flex;
+  gap: 6px;
+  width: max-content;
 }
 
 .prod-card-box-mini {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  /* خلفية الكروت البنفسجية الداكنة */
+  background: rgba(35, 30, 60, 0.6) !important;
+  border: 1px solid rgba(106, 90, 205, 0.2) !important;
+  border-radius: 12px;
   padding: 6px 4px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 65px; /* عرض ثابت لكل كارت لضمان ظهور 3 دائماً */
+  width: 68px; /* عرض ثابت يضمن ظهور 3 كروت في الشاشة */
   flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.prod-card-box-mini:hover {
+  transform: translateY(-2px);
+  background: rgba(45, 40, 75, 0.8) !important;
 }
 
 .prod-header-nano {
   display: flex;
-  flex-direction: column; /* جعل الأيقونة فوق الاسم لتوفير مساحة عرضية */
+  flex-direction: column;
   align-items: center;
   gap: 1px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(106, 90, 205, 0.1);
+  padding-bottom: 3px;
 }
 
-.p-nano-icon { font-size: 0.75rem; }
-.p-nano-name { font-size: 0.38rem; font-weight: 800; color: #aaa; text-transform: uppercase; }
+.p-nano-icon { 
+  font-size: 0.85rem;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+}
+
+.p-nano-name { 
+  font-size: 0.42rem; 
+  font-weight: 800; 
+  color: #fff; 
+  text-transform: uppercase; 
+  letter-spacing: 0.3px;
+}
 
 .prod-details-nano {
   display: flex;
@@ -67,42 +90,67 @@
   align-items: center;
 }
 
-.n-label { font-size: 0.32rem; color: #555; font-weight: 700; }
-.n-val { font-size: 0.38rem; font-weight: 800; color: #eee; }
-.n-price-row { display: flex; align-items: baseline; gap: 1px; width: 100%; justify-content: center; margin-top: 1px; }
-.n-unit { font-size: 0.28rem; color: #444; }
+.n-label { 
+  font-size: 0.35rem; 
+  color: #8a81ad; /* لون الليبل البنفسجي كما في الصورة */
+  font-weight: 700; 
+}
 
-.q-green { color: #4caf50 !important; }
-.gold-text { color: var(--digital-gold); }
+.n-val { 
+  font-size: 0.4rem; 
+  font-weight: 800; 
+  color: #eee; 
+}
 
-/* تنسيق الأزرار المضغوطة */
+.n-price-row { 
+  display: flex; 
+  align-items: baseline; 
+  gap: 1px; 
+  width: 100%; 
+  justify-content: center; 
+  margin-top: 2px; 
+}
+
+.n-unit { font-size: 0.3rem; color: #555; }
+
+.q-green { color: #4caf50 !important; text-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+.gold-text { color: #ffca28; text-shadow: 0 0 5px rgba(255, 202, 40, 0.3); }
+
+/* تنسيق الأزرار المضغوطة باحترافية */
 .product-actions-group-compact {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
-  gap: 5px;
-  margin-top: auto; /* دفع الأزرار للأسفل دائماً */
+  gap: 6px;
+  margin-top: auto;
 }
 
 .btn-add-supply-mini {
-  background: #0f1218;
-  border: 1px solid #222;
-  color: #777;
-  border-radius: 8px;
-  padding: 6px;
-  font-size: 0.38rem;
+  background: rgba(15, 18, 24, 0.8);
+  border: 1px solid rgba(106, 90, 205, 0.4);
+  color: #a399cc;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 0.42rem;
   font-weight: 900;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-supply-mini:hover {
+  background: rgba(30, 35, 50, 1);
+  color: #fff;
 }
 
 .ts-btn-gold-action-nano {
   background: linear-gradient(90deg, #ffca28, #ffa000);
   border: none;
-  padding: 6px;
-  border-radius: 8px;
+  padding: 8px;
+  border-radius: 10px;
   color: #000;
   font-weight: 900;
-  font-size: 0.38rem;
+  font-size: 0.42rem;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 160, 0, 0.2);
 }
 
-.ts-btn-gold-action-nano:active { transform: scale(0.95); opacity: 0.8; }
+.ts-btn-gold-action-nano:active { transform: scale(0.95); }
