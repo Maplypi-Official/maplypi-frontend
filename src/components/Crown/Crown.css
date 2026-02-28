@@ -3,22 +3,26 @@
   justify-content: center;
   width: 100%;
   position: absolute;
-  top: -65px; /* رفع اللوجو ليتوسط الفتحة العلوية للإطار الذهبي */
+  /* سحب اللوجو للأعلى ليغطي الفتحة في الإطار الذهبي */
+  top: -62px; 
   left: 0;
-  z-index: 9999; /* أعلى طبقة ممكنة لضمان عدم الاختفاء */
-  pointer-events: none; /* للسماح بالضغط على ما خلفه إذا لزم الأمر */
+  /* z-index عالي جداً لضمان عدم الاختفاء خلف الهيدر */
+  z-index: 9999; 
+  pointer-events: none; 
 }
 
 .logo-outer-circle {
   width: 125px;
   height: 125px;
-  background: #131129; /* لون الخلفية البنفسجية العميقة */
-  border: 4px solid #ffca28; /* الإطار الذهبي المشع */
+  /* استخدام نفس لون خلفية الإطار البنفسجي لتبدو مدمجة */
+  background: #131129; 
+  border: 4.5px solid #ffca28; /* الذهب الرقمي */
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 30px rgba(255, 202, 40, 0.4);
+  /* توهج خارجي يعطي فخامة للوجو */
+  box-shadow: 0 0 35px rgba(255, 202, 40, 0.45);
   pointer-events: auto;
   overflow: hidden;
 }
@@ -32,8 +36,15 @@
 }
 
 .central-logo {
-  width: 110%; /* تكبير بسيط للملء التام كما في الصورة */
-  height: 110%;
+  /* تكبير طفيف لملء الفراغ ومنع الحواف الميتة */
+  width: 108%; 
+  height: 108%;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(255, 202, 40, 0.5));
+  /* ظل ذهبي خفيف خلف اللوجو */
+  filter: drop-shadow(0 0 10px rgba(255, 202, 40, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.central-logo:hover {
+  transform: scale(1.05);
 }
