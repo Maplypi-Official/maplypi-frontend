@@ -1,36 +1,39 @@
 .dashboard-crown-container {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 60px; /* مساحة محجوزة للوجو لمنع اختفائه */
-  margin-bottom: -30px; /* سحب الهيدر ليحضن اللوجو كما في الصورة */
-  position: relative;
-  z-index: 2000;
+  position: absolute;
+  top: -65px; /* رفع اللوجو ليتوسط الفتحة العلوية للإطار الذهبي */
+  left: 0;
+  z-index: 9999; /* أعلى طبقة ممكنة لضمان عدم الاختفاء */
+  pointer-events: none; /* للسماح بالضغط على ما خلفه إذا لزم الأمر */
 }
 
 .logo-outer-circle {
-  width: 110px;
-  height: 110px;
-  background: #05050a; 
-  border: 4px solid #ffca28;
+  width: 125px;
+  height: 125px;
+  background: #131129; /* لون الخلفية البنفسجية العميقة */
+  border: 4px solid #ffca28; /* الإطار الذهبي المشع */
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 25px rgba(255, 202, 40, 0.4);
-}
-
-.logo-inner-circle {
-  width: 90%;
-  height: 90%;
-  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(255, 202, 40, 0.4);
+  pointer-events: auto;
   overflow: hidden;
 }
 
-.central-logo {
+.logo-inner-circle {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.central-logo {
+  width: 110%; /* تكبير بسيط للملء التام كما في الصورة */
+  height: 110%;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px #ffca28);
+  filter: drop-shadow(0 0 8px rgba(255, 202, 40, 0.5));
 }
