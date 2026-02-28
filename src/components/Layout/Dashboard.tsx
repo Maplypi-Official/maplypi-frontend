@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
         />
 
         <main className="ts-main-content">
-          {/* الصف الأول: توزيع مرن للمتجر والمنتجات */}
+          {/* الصف الأول: المتجر والمنتجات */}
           <div className="flex-row-adaptive">
             <div className="flex-item-store">
               <MyStore location={userData?.location || 'Cairo Citadel District'} />
@@ -72,24 +72,32 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* الصف السفلي: 3 عناصر متراصة بدقة */}
+          {/* الصف السفلي: تم إصلاح التوزيع ليكون 3 أعمدة متساوية تماماً */}
           <div className="grid-bottom-adaptive">
-            <DailyRewards />
-            <div className="ts-panel recent-sales-minimized">
-              <h3>RECENT SALES</h3>
-              <div className="sales-compact-list">
-                {[1, 2, 3].map((item) => (
-                  <div key={item} className="s-row-min">
-                    <span className="s-ico">⚖️</span>
-                    <div className="s-txt">
-                      <span className="s-p">0.5π</span>
-                      <span className="s-b">Buyer 47</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="adaptive-col">
+               <DailyRewards />
             </div>
-            <BusinessGrowth />
+            
+            <div className="adaptive-col">
+              <section className="ts-panel recent-sales-minimized">
+                <h3>RECENT SALES</h3>
+                <div className="sales-compact-list">
+                  {[1, 2, 3].map((item) => (
+                    <div key={item} className="s-row-min">
+                      <span className="s-ico">⚖️</span>
+                      <div className="s-txt">
+                        <span className="s-p">0.5π</span>
+                        <span className="s-b">Buyer 47</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            <div className="adaptive-col">
+               <BusinessGrowth />
+            </div>
           </div>
         </main>
       </div>
