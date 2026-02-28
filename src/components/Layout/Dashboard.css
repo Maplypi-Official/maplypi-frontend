@@ -1,34 +1,33 @@
-/* الخلفية الكلية خلف التطبيق - تم تعديلها لتطابق الصورة الأصلية بالملي */
+/* الخلفية الكلية خلف التطبيق - تأكيد التطابق مع الصورة الأصلية */
 .ts-dashboard-container {
-  width: 100%;
-  min-height: 100vh;
-  /* تدرج لوني عميق يبدأ من البنفسجي المضيء في المنتصف إلى الأسود الفضائي في الأطراف */
-  background: radial-gradient(circle at 50% 50%, #1a1635 0%, #0a0a1a 50%, #050508 100%);
-  padding: 85px 10px 100px 10px; /* مساحة علوية كافية لبروز التاج */
+  width: 100% !important;
+  min-height: 100vh !important;
+  /* تدرج شعاعي عميق يكسر السواد السادة */
+  background: radial-gradient(circle at center, #1e1b4b 0%, #0f0c29 30%, #05050a 100%) !important;
+  background-attachment: fixed !important; /* لضمان ثبات الخلفية وتأثير العمق */
+  padding: 85px 10px 100px 10px; 
   display: flex;
   justify-content: center;
   box-sizing: border-box;
   overflow-x: hidden;
-  position: relative;
 }
 
 /* الإطار البنفسجي الموحد بحدود ذهبية */
 .maply-main-frame {
   width: 100%;
   max-width: 480px;
-  background: #131129; /* اللون البنفسجي العميق الموحد */
+  background: #131129; /* البنفسجي العميق */
   border: 2px solid rgba(255, 202, 40, 0.4);
   border-radius: 30px;
   padding: 15px;
-  position: relative; /* لجعل التاج يتحرك بالنسبة لهذا الإطار */
-  /* إضافة توهج (Glow) أرجواني واسع خلف الإطار ليعطيه أبعاداً كما في الصورة */
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 
-              0 0 30px rgba(106, 90, 205, 0.1); 
+  position: relative; 
+  /* توهج أرجواني خفيف خلف الإطار لتمييزه عن الخلفية الكونية */
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), 0 0 20px rgba(106, 90, 205, 0.15);
 }
 
-/* منطقة الهيدر - نترك مساحة كافية للتاج الدائري */
+/* منطقة الهيدر تحت التاج */
 .header-integration-zone {
-  margin-top: 35px; /* يمنع تداخل التاج مع بيانات المستخدم */
+  margin-top: 35px; 
   width: 100%;
 }
 
@@ -48,7 +47,7 @@
 .flex-item-store { flex: 1; }
 .flex-item-products { flex: 2; }
 
-/* توزيع الثلاث كروت السفلية بالتساوي */
+/* توزيع الثلاث كروت السفلية */
 .grid-bottom-adaptive {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
