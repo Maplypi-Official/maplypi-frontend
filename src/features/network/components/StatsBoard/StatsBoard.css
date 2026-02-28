@@ -1,0 +1,8 @@
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.stat-card { background: #1a1433; padding: 15px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
+.border-gold { border-color: rgba(234, 179, 8, 0.4); }
+.border-purple { border-color: rgba(139, 92, 246, 0.4); }
+.label { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
+.value { font-size: 18px; font-weight: bold; }
+.gold-text { color: #eab308; text-shadow: 0 0 10px rgba(234,179,8,0.3); }
+.purple-text { color: #a78bfa; }

@@ -1,0 +1,9 @@
+.map-wrapper { position: relative; height: 320px; background: #0f0a1e; border-radius: 24px; border: 1px solid rgba(139, 92, 246, 0.2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hex-bg { position: absolute; inset: 0; opacity: 0.1; background-image: url('https://www.transparenttextures.com/patterns/hexellence.png'); }
+.pulse-center { position: relative; z-index: 10; }
+.pi-node { width: 60px; height: 60px; background: #eab308; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: black; font-weight: 900; font-size: 24px; shadow: 0 0 20px #eab308; }
+.ring { position: absolute; inset: 0; border: 2px solid #eab308; border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+.scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #a78bfa, transparent); animation: scan 3s linear infinite; }
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+.node-label { position: absolute; bottom: 15px; font-size: 10px; color: #64748b; letter-spacing: 2px; }

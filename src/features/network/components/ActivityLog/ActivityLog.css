@@ -1,0 +1,6 @@
+.activity-container { background: #1a1433; border-radius: 16px; padding: 15px; margin-top: 20px; border: 1px solid rgba(139, 92, 246, 0.2); }
+.activity-title { font-size: 14px; color: #eab308; margin-bottom: 12px; }
+.activity-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.status-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; margin-top: 6px; box-shadow: 0 0 8px #22c55e; }
+.activity-content p { font-size: 12px; color: #e2e8f0; }
+.activity-content span { font-size: 10px; color: #64748b; }
