@@ -1,84 +1,108 @@
-.product-matrix-grid {
+.product-matrix-grid-compact {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
+  height: 100%;
+  padding: 8px !important;
+  box-sizing: border-box;
 }
 
-.prod-grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
-  gap: 8px;
+.p-supply-title {
+  font-size: 0.45rem !important;
+  color: #666;
+  font-weight: 800;
+  margin: 0;
 }
 
-.prod-card-box {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 10px 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+/* الفكرة العبقرية: حاوية التمرير */
+.prod-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; /* تفعيل التمرير الأفقي */
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  /* إخفاء شريط التمرير للمظهر الجمالي */
+  scrollbar-width: none; 
 }
+.prod-scroll-wrapper::-webkit-scrollbar { display: none; }
 
-.prod-header-mini {
-  display: flex;
-  align-items: center;
+.prod-grid-container-adaptive {
+  display: flex; /* تحويل لـ flex لدعم التمرير */
   gap: 5px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  padding-bottom: 5px;
+  width: max-content; /* يجعل العرض يتحدد بعدد المنتجات */
 }
 
-.p-mini-icon { font-size: 0.9rem; }
-.p-mini-name { font-size: 0.7rem; font-weight: 700; color: #fff; }
-
-.prod-details-mini {
+.prod-card-box-mini {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 6px 4px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: 65px; /* عرض ثابت لكل كارت لضمان ظهور 3 دائماً */
+  flex-shrink: 0;
 }
 
-.mini-stat {
+.prod-header-nano {
+  display: flex;
+  flex-direction: column; /* جعل الأيقونة فوق الاسم لتوفير مساحة عرضية */
+  align-items: center;
+  gap: 1px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  padding-bottom: 2px;
+}
+
+.p-nano-icon { font-size: 0.75rem; }
+.p-nano-name { font-size: 0.38rem; font-weight: 800; color: #aaa; text-transform: uppercase; }
+
+.prod-details-nano {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nano-stat {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.m-label { font-size: 0.55rem; color: #777; font-weight: 600; }
-.m-val { font-size: 0.65rem; font-weight: 700; color: #fff; }
-.q-green { color: #81c784 !important; }
+.n-label { font-size: 0.32rem; color: #555; font-weight: 700; }
+.n-val { font-size: 0.38rem; font-weight: 800; color: #eee; }
+.n-price-row { display: flex; align-items: baseline; gap: 1px; width: 100%; justify-content: center; margin-top: 1px; }
+.n-unit { font-size: 0.28rem; color: #444; }
+
+.q-green { color: #4caf50 !important; }
 .gold-text { color: var(--digital-gold); }
 
-/* تنسيق الأزرار المزدوجة */
-.product-actions-group {
+/* تنسيق الأزرار المضغوطة */
+.product-actions-group-compact {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 8px;
-  margin-top: 5px;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5px;
+  margin-top: auto; /* دفع الأزرار للأسفل دائماً */
 }
 
-.btn-add-supply {
-  background: #1a1e26;
-  border: 1px solid #333;
-  color: #fff;
-  border-radius: 15px;
-  padding: 10px;
-  font-size: 0.7rem;
-  font-weight: bold;
+.btn-add-supply-mini {
+  background: #0f1218;
+  border: 1px solid #222;
+  color: #777;
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 0.38rem;
+  font-weight: 900;
   cursor: pointer;
 }
 
-.ts-btn-gold-action-mini {
+.ts-btn-gold-action-nano {
   background: linear-gradient(90deg, #ffca28, #ffa000);
   border: none;
-  padding: 10px;
-  border-radius: 15px;
+  padding: 6px;
+  border-radius: 8px;
   color: #000;
-  font-weight: 800;
-  font-size: 0.7rem;
+  font-weight: 900;
+  font-size: 0.38rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 160, 0, 0.2);
 }
 
-.ts-btn-gold-action-mini:active, .btn-add-supply:active {
-  transform: scale(0.96);
-}
+.ts-btn-gold-action-nano:active { transform: scale(0.95); opacity: 0.8; }
