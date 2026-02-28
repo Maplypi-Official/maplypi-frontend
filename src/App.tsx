@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { maplypiService } from './services/api'; 
-// استيراد اللوجو كـ Module لضمان معالجته بواسطة Vite
-import maplypiLogo from './assets/logo.png'; 
+// تم تحديث اسم الملف هنا ليتوافق مع ما رفعته على جيت هاب logo3.png
+import maplypiLogo from './assets/logo3.png'; 
 
 interface UserData {
   username: string;
@@ -34,7 +34,7 @@ const App: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        // جلب البيانات من السيرفر
+        // جلب البيانات من السيرفر باستخدام الدالة الأصلية دون تغيير
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
@@ -53,11 +53,15 @@ const App: React.FC = () => {
     <div className="ts-dashboard">
       {error && <div className="error-toast">{error}</div>}
       
-      {/* قسم اللوجو المركزي (التاج) ليتطابق مع التصميم المطلوب */}
+      {/* قسم اللوجو المركزي (التاج) - تم ربطه بـ logo3.png الجديد */}
       <div className="dashboard-crown">
         <div className="logo-outer-circle">
           <div className="logo-inner-circle">
-            <img src={maplypiLogo} alt="Maplypi Logo" className="central-logo" />
+            <img 
+              src={maplypiLogo} 
+              alt="Maplypi Logo" 
+              className="central-logo" 
+            />
           </div>
         </div>
       </div>
