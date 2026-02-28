@@ -14,42 +14,46 @@ interface Props {
 }
 
 const ProductsSupply: React.FC<Props> = ({ products }) => (
-  <section className="ts-panel product-matrix-grid">
+  <section className="ts-panel product-matrix-grid-compact">
     <div className="panel-header-row">
-      <h3>PRODUCTS & SUPPLY</h3>
+      <h3 className="p-supply-title">PRODUCTS & SUPPLY</h3>
     </div>
 
-    {/* شبكة المنتجات (3 كروت بجانب بعضها) */}
-    <div className="prod-grid-container">
-      {products.map((p) => (
-        <div key={p.name} className="prod-card-box">
-          <div className="prod-header-mini">
-            <span className="p-mini-icon">{p.icon}</span>
-            <span className="p-mini-name">{p.name}</span>
+    {/* حاوية التمرير الأفقي المبهرة */}
+    <div className="prod-scroll-wrapper">
+      <div className="prod-grid-container-adaptive">
+        {products.map((p) => (
+          <div key={p.name} className="prod-card-box-mini">
+            <div className="prod-header-nano">
+              <span className="p-nano-icon">{p.icon}</span>
+              <span className="p-nano-name">{p.name}</span>
+            </div>
+            
+            <div className="prod-details-nano">
+              <div className="nano-stat">
+                <span className="n-label">STOCK:</span>
+                <span className="n-val">{p.stock}</span>
+              </div>
+              <div className="nano-stat">
+                <span className="n-label">QUAL:</span>
+                <span className="n-val q-green">{p.quality}%</span>
+              </div>
+              <div className="nano-stat">
+                <span className="n-price-row">
+                   <span className="n-val gold-text">{p.price}π</span>
+                   <span className="n-unit">/ea</span>
+                </span>
+              </div>
+            </div>
           </div>
-          
-          <div className="prod-details-mini">
-            <div className="mini-stat">
-              <span className="m-label">STOCK:</span>
-              <span className="m-val">{p.stock}</span>
-            </div>
-            <div className="mini-stat">
-              <span className="m-label">QUALITY:</span>
-              <span className="m-val q-green">{p.quality}%</span>
-            </div>
-            <div className="mini-stat">
-              <span className="m-label">PRICE:</span>
-              <span className="m-val gold-text">{p.price}π each</span>
-            </div>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
 
-    {/* أزرار الأكشن المزدوجة */}
-    <div className="product-actions-group">
-      <button className="btn-add-supply">ADD SUPPLY</button>
-      <button className="ts-btn-gold-action-mini">ADVERTISE STORE</button>
+    {/* أزرار الأكشن المزدوجة المصغرة */}
+    <div className="product-actions-group-compact">
+      <button className="btn-add-supply-mini">ADD SUPPLY</button>
+      <button className="ts-btn-gold-action-nano">ADVERTISE STORE</button>
     </div>
   </section>
 );
