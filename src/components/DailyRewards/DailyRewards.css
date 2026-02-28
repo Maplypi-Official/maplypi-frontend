@@ -1,83 +1,108 @@
 .daily-reward-panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 18px;
-  padding: 12px;
+  gap: 8px;
+  /* الهوية البنفسجية الزجاجية الموحدة */
+  background: rgba(26, 22, 45, 0.5) !important;
+  border: 1.5px solid rgba(106, 90, 205, 0.3) !important;
+  border-radius: 15px;
+  padding: 8px !important;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.reward-title-mirror {
+  font-size: 0.5rem !important;
+  color: #a399cc !important; /* البنفسجي الباهت الموحد */
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 0 4px 0;
 }
 
 .reward-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .progress-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-}
-
-.progress-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 4px;
 }
 
 .p-text {
-  font-size: 0.65rem;
-  color: #888;
-  font-weight: 600;
-}
-
-.p-count {
-  font-size: 0.65rem;
-  color: #fff;
+  font-size: 0.45rem;
+  color: #8a81ad; /* لون بنفسجي وصفي من الصورة */
   font-weight: 700;
 }
 
-/* شريط التقدم بتوهج ذهبي */
+.p-count {
+  font-size: 0.48rem;
+  color: #fff;
+  font-weight: 900;
+}
+
+/* شريط التقدم بتصميم "المراية" */
 .progress-track {
   width: 100%;
-  height: 5px;
-  background: #1a1e26;
+  height: 6px;
+  background: rgba(10, 8, 20, 0.6);
   border-radius: 10px;
   overflow: hidden;
+  border: 0.5px solid rgba(106, 90, 205, 0.1);
 }
 
 .progress-fill {
   height: 100%;
+  /* التدرج الذهبي المشرق من الصورة الأصلية */
   background: linear-gradient(90deg, #ffca28, #ffa000);
-  box-shadow: 0 0 8px rgba(255, 202, 40, 0.4);
+  box-shadow: 0 0 10px rgba(255, 202, 40, 0.4);
   border-radius: 10px;
 }
 
-/* منطقة الصندوق */
+/* منطقة الصندوق الاحترافية */
 .chest-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 5px;
-  position: relative;
+  margin-top: 4px;
+  gap: 10px;
 }
 
 .empty-slot-track {
   flex: 1;
-  height: 6px;
-  background: #2a2e38;
+  height: 8px;
+  background: rgba(40, 35, 65, 0.6);
   border-radius: 10px;
-  margin-right: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
-.reward-chest {
-  font-size: 1.4rem;
-  filter: drop-shadow(0 0 5px rgba(255, 202, 40, 0.3));
+.inner-glow-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%; /* يمثل التقدم الإجمالي */
+  height: 100%;
+  background: rgba(106, 90, 205, 0.4);
+  filter: blur(2px);
+}
+
+.reward-chest-mirror {
+  font-size: 1.6rem;
+  /* توهج ذهبي للصندوق الخشبي */
+  filter: drop-shadow(0 0 8px rgba(255, 202, 40, 0.5));
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.reward-chest:hover {
-  transform: scale(1.1);
+.reward-chest-mirror:hover {
+  transform: scale(1.15) rotate(5deg);
 }
 
+.chest-icon {
+  display: inline-block;
+  /* تأثر بسيط ليجعل الإيموجي يبدو كأنه أيقونة تصميم */
+  filter: saturate(1.2) contrast(1.1);
+}
