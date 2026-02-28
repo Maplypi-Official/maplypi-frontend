@@ -4,8 +4,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark; /* إجبار الوضع الداكن ليناسب الهوية */
-  background-color: #0b0e14; /* نفس لون خلفية Maplypi */
+  color-scheme: dark;
+  /* مسح اللون الأسود السادة واستخدام التدرج الكوني كقاعدة ثابتة */
+  background: radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 70%, #050508 100%) !important;
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,13 +14,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- إصلاح هيكل الصفحة (Critical Fix) --- */
 body {
   margin: 0;
+  padding: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* إزالة display: flex الافتراضي للسماح لـ App.tsx بالتمدد */
   display: block; 
+  /* التأكيد على إزالة أي خلفية سوداء قديمة */
+  background: transparent !important; 
 }
 
 #root {
@@ -27,25 +29,17 @@ body {
   margin: 0 auto;
 }
 
-/* --- تنسيقات الروابط العامة --- */
 a {
   font-weight: 500;
-  color: #673ab7; /* اللون البنفسجي الخاص بالهوية */
+  color: #a399cc; /* لون بنفسجي فاتح للروابط */
   text-decoration: inherit;
   transition: color 0.3s;
 }
 
-a:hover {
-  color: #ffca28; /* الذهب الرقمي عند التحويم */
-}
+a:hover { color: #ffca28; }
 
-/* --- تنسيقات العناوين --- */
-h1, h2, h3 {
-  margin: 0;
-  letter-spacing: 1px;
-}
+h1, h2, h3 { margin: 0; letter-spacing: 1px; }
 
-/* --- تنسيقات عامة للأزرار (Fallback) --- */
 button {
   font-family: inherit;
   cursor: pointer;
@@ -53,13 +47,6 @@ button {
   outline: none;
 }
 
-button:focus-visible {
-  box-shadow: 0 0 0 2px #ffca28;
-}
-
-/* --- التجاوب مع الشاشات (Mobile Friendly) --- */
 @media (max-width: 768px) {
-  :root {
-    font-size: 14px;
-  }
+  :root { font-size: 14px; }
 }
