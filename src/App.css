@@ -19,7 +19,7 @@ body {
 /* --- حاوية الـ Dashboard الرئيسية --- */
 .ts-dashboard {
   min-height: 100vh;
-  padding: 60px 20px 20px 20px; /* زيادة Padding العلوي لإعطاء مساحة للوجو */
+  padding: 80px 20px 20px 20px; /* زيادة المساحة العلوية لاستيعاب اللوجو البارز */
   background: radial-gradient(circle at top, #1a1f2c, #0b0e14);
 }
 
@@ -28,22 +28,22 @@ body {
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 10px;
+  top: 15px; /* ضبط المكان لينطبق على فتحة الهيدر */
   left: 0;
   right: 0;
   z-index: 100;
 }
 
 .logo-outer-circle {
-  width: 100px;
-  height: 100px;
+  width: 115px; /* تكبير بسيط ليطابق أبعاد الصورة المطلوبة */
+  height: 115px;
   background: linear-gradient(135deg, var(--gold-glow), var(--primary-purple));
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 25px rgba(255, 202, 40, 0.4);
-  padding: 3px;
+  padding: 4px; /* سمك الإطار الذهبي */
 }
 
 .logo-inner-circle {
@@ -54,28 +54,31 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow: hidden; /* قص الزوايا السوداء للصورة المربعة */
+  position: relative;
 }
 
 .central-logo {
-  width: 85%;
-  height: 85%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 5px var(--gold-glow));
+  width: 100%; /* تمديد الصورة لتملأ الدائرة بالكامل */
+  height: 100%;
+  object-fit: cover; /* التخلص من الفراغات السوداء الجانبية */
+  filter: drop-shadow(0 0 8px var(--gold-glow));
 }
 
 /* --- الهيدر (User Profile & Title) --- */
 .ts-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end; /* لضمان تناسق النصوص مع مكان اللوجو */
+  align-items: flex-end;
   margin-bottom: 30px;
-  padding: 40px 20px 20px 20px; /* مساحة إضافية تحت اللوجو */
+  padding: 55px 20px 20px 20px; /* زيادة الـ Padding العلوي عشان اللوجو مبيغطي القفلة */
   background: var(--panel-bg);
   border: 1px solid rgba(103, 58, 183, 0.5);
-  border-radius: 20px;
+  border-radius: 25px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   position: relative;
+  /* تأثير القوس العلوي ليحتضن اللوجو */
+  clip-path: polygon(0% 0%, 38% 0%, 42% 12%, 58% 12%, 62% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .dashboard-info {
@@ -85,7 +88,7 @@ body {
 .dashboard-info h3 {
   margin: 0;
   color: var(--gold-glow);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .merchant-tag {
@@ -111,8 +114,9 @@ body {
 .balance-container {
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-top: 5px;
+  font-weight: bold;
 }
 
 .status-badge {
