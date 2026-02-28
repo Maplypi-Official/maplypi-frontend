@@ -1,70 +1,129 @@
+/* --- المتغيرات المركزية للهوية البصرية --- */
 :root {
   --maply-purple-gradient: linear-gradient(135deg, #1a1033 0%, #0b0e14 100%);
   --digital-gold: #ffca28;
   --panel-bg: rgba(21, 25, 33, 0.98);
-  --glass-border: rgba(255, 202, 40, 0.2); /* إطار ذهبي شفاف */
+  --glass-border: rgba(255, 202, 40, 0.2); 
+  --neon-purple: #b388ff;
 }
 
-/* الحاوية الخارجية (الخلفية السوداء للموبايل) */
+/* --- الحاوية الخارجية (المسؤولة عن التمركز) --- */
 .ts-dashboard-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 500px; /* العرض المثالي للموبايل */
   margin: 0 auto;
   min-height: 100vh;
-  background: #000; /* خلفية سوداء عميقة خارج الكارت */
-  padding: 80px 10px 20px 10px; /* مساحة للتاج من فوق */
+  background: #000; /* خلفية سوداء عميقة لإبراز الكارت */
+  padding: 85px 12px 30px 12px; /* مساحة علوية للتاج */
   box-sizing: border-box;
   overflow-x: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-/* الكارت الكبير الموحد (Main Card) */
+/* --- الكارت الكبير الموحد (The Main Shell) --- */
 .maply-main-card {
   background: var(--maply-purple-gradient);
-  border: 2px solid var(--glass-border);
-  border-radius: 40px; /* كارت دائري الحواف جداً */
+  border: 1px solid var(--glass-border);
+  border-radius: 45px; /* حواف دائرية احترافية */
   padding: 20px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
   position: relative;
-  margin-top: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* ضبط الشبكة داخل الكارت */
+/* --- نظام الشبكة (Grid System) داخل الكارت --- */
 .ts-main-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr; /* عمودين متساويين */
   gap: 12px;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
-/* اللوحات الداخلية */
+/* --- اللوحات المشتركة (Panels) --- */
 .ts-panel {
-  background: rgba(255, 255, 255, 0.03); /* شفافية بسيطة داخل الكارت */
+  background: rgba(255, 255, 255, 0.03); 
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  padding: 15px;
+  border-radius: 24px;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
 }
 
-.full-width { grid-column: span 2; }
+.full-width { 
+  grid-column: span 2; 
+}
 
-/* نصوص العناوين الصغيرة داخل اللوحات */
+/* --- نصوص العناوين والبيانات المشتركة --- */
 .ts-panel h3 {
   color: #888;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   margin-top: 0;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
+  margin-bottom: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 8px;
 }
 
-.revenue-stat { color: var(--digital-gold); font-weight: bold; font-size: 1.2rem; }
-.sub-text { font-size: 0.65rem; color: #666; }
+/* --- تنسيق قسم المبيعات السريعة (Recent Sales) --- */
+.recent-sales {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-/* شاشة التحميل */
+.revenue-stat { 
+  color: var(--digital-gold); 
+  font-weight: 900; 
+  font-size: 1.6rem; 
+  margin: 5px 0;
+  text-shadow: 0 0 15px rgba(255, 202, 40, 0.3);
+}
+
+.sub-text { 
+  font-size: 0.65rem; 
+  color: #555; 
+  margin: 0;
+}
+
+/* --- شاشة التحميل (Loading) --- */
 .loading-screen {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #000;
   color: var(--digital-gold);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+/* --- التنبيهات (Toasts) --- */
+.error-toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 82, 82, 0.9);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  z-index: 2000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* منع التمرير الأفقي في حال وجود عناصر واسعة */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
