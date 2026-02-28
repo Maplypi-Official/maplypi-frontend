@@ -1,12 +1,14 @@
-/* --- إعدادات الخطوط والأساسيات --- */
 :root {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
-
   color-scheme: dark;
-  /* مسح اللون الأسود السادة واستخدام التدرج الكوني كقاعدة ثابتة */
-  background: radial-gradient(circle at center, #1e1b4b 0%, #0a0a1a 70%, #050508 100%) !important;
+
+  /* الخلفية الكونية المركبة: بقع ضوئية أرجوانية + قاعدة سوداء عميقة */
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at center, #131129 0%, #05050a 100%) !important;
+  background-attachment: fixed !important;
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,12 +18,12 @@
 
 body {
   margin: 0;
-  padding: 0;
-  min-width: 320px;
   min-height: 100vh;
   display: block; 
-  /* التأكيد على إزالة أي خلفية سوداء قديمة */
-  background: transparent !important; 
+  /* إضافة ملمس النجوم الخفيف جداً ليحاكي الصورة الأصلية */
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png') !important;
+  background-attachment: fixed;
+  color: white;
 }
 
 #root {
@@ -31,21 +33,13 @@ body {
 
 a {
   font-weight: 500;
-  color: #a399cc; /* لون بنفسجي فاتح للروابط */
+  color: #a399cc;
   text-decoration: inherit;
-  transition: color 0.3s;
 }
-
-a:hover { color: #ffca28; }
 
 h1, h2, h3 { margin: 0; letter-spacing: 1px; }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  outline: none;
-}
+* { box-sizing: border-box; }
 
 @media (max-width: 768px) {
   :root { font-size: 14px; }
