@@ -1,35 +1,70 @@
 :root {
-  --maply-purple-gradient: linear-gradient(135deg, #2c1a4d 0%, #0b0e14 100%);
+  --maply-purple-gradient: linear-gradient(135deg, #1a1033 0%, #0b0e14 100%);
   --digital-gold: #ffca28;
-  --neon-purple: #b388ff;
-  --panel-bg: rgba(21, 25, 33, 0.95);
-  --glass-border: rgba(179, 136, 255, 0.2);
+  --panel-bg: rgba(21, 25, 33, 0.98);
+  --glass-border: rgba(255, 202, 40, 0.2); /* إطار ذهبي شفاف */
 }
 
+/* الحاوية الخارجية (الخلفية السوداء للموبايل) */
 .ts-dashboard-container {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
   margin: 0 auto;
   min-height: 100vh;
-  background: var(--maply-purple-gradient);
-  padding: 100px 15px 30px 15px;
+  background: #000; /* خلفية سوداء عميقة خارج الكارت */
+  padding: 80px 10px 20px 10px; /* مساحة للتاج من فوق */
   box-sizing: border-box;
   overflow-x: hidden;
-  color: #ffffff;
+  position: relative;
 }
 
-.ts-panel {
-  background: var(--panel-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
+/* الكارت الكبير الموحد (Main Card) */
+.maply-main-card {
+  background: var(--maply-purple-gradient);
+  border: 2px solid var(--glass-border);
+  border-radius: 40px; /* كارت دائري الحواف جداً */
   padding: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  position: relative;
+  margin-top: 20px;
 }
 
+/* ضبط الشبكة داخل الكارت */
 .ts-main-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 12px;
+  margin-top: 15px;
 }
+
+/* اللوحات الداخلية */
+.ts-panel {
+  background: rgba(255, 255, 255, 0.03); /* شفافية بسيطة داخل الكارت */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 15px;
+}
+
 .full-width { grid-column: span 2; }
+
+/* نصوص العناوين الصغيرة داخل اللوحات */
+.ts-panel h3 {
+  color: #888;
+  font-size: 0.75rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.revenue-stat { color: var(--digital-gold); font-weight: bold; font-size: 1.2rem; }
+.sub-text { font-size: 0.65rem; color: #666; }
+
+/* شاشة التحميل */
+.loading-screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  color: var(--digital-gold);
+}
