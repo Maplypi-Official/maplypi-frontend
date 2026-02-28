@@ -1,0 +1,81 @@
+.recent-sales-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 8px !important;
+  box-sizing: border-box;
+  /* الهوية البنفسجية الموحدة */
+  background: rgba(26, 22, 45, 0.5) !important;
+  border: 1.5px solid rgba(106, 90, 205, 0.3) !important;
+  border-radius: 15px;
+}
+
+.sales-title {
+  font-size: 0.5rem !important;
+  color: #a399cc !important;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.sales-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.s-row-mini {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(35, 30, 60, 0.6);
+  padding: 5px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(106, 90, 205, 0.1);
+  transition: all 0.2s ease;
+}
+
+.s-row-mini:hover {
+  background: rgba(45, 40, 75, 0.8);
+  border-color: rgba(106, 90, 205, 0.3);
+  transform: scale(1.02);
+}
+
+.s-icon-glow {
+  font-size: 0.65rem;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.2));
+}
+
+.s-info-group {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.s-amount-gold {
+  color: #ffca28; /* الذهب الرقمي */
+  font-size: 0.6rem;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 0 0 5px rgba(255, 202, 40, 0.3);
+}
+
+.s-buyer-name {
+  color: #8a81ad; /* البنفسجي الوصفي */
+  font-size: 0.38rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.sales-footer-hint {
+  margin-top: auto;
+  font-size: 0.32rem;
+  color: #4caf50; /* أخضر التحديث الحي */
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
