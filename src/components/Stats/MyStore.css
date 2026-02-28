@@ -5,7 +5,7 @@
   justify-content: space-between;
   text-align: center;
   height: 100%;
-  min-height: 115px; /* زيادة بسيطة لاستيعاب سطرين نص */
+  min-height: 115px; /* زيادة طفيفة جداً لاستيعاب سطرين عند الضرورة */
   position: relative;
   overflow: hidden;
   padding: 8px 4px !important;
@@ -25,7 +25,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4px 0;
+  margin: 5px 0;
 }
 
 .isometric-icon-mini {
@@ -53,32 +53,36 @@
 
 .location-info-compact {
   display: flex;
-  align-items: flex-start; /* محاذاة من الأعلى للتعامل مع تعدد الأسطر */
+  align-items: center; /* توسيط عمودي للأيقونة مع النص */
   justify-content: center;
-  gap: 3px;
+  gap: 2px;
   background: rgba(0, 0, 0, 0.3);
   padding: 4px 6px;
   border-radius: 10px;
   border: 1px solid rgba(255, 202, 40, 0.1);
-  width: 95%;
+  width: 95%; /* استغلال العرض المتاح بالكامل */
   margin: 0 auto;
 }
 
 .geo-pin-mini {
-  font-size: 0.55rem;
-  margin-top: 1px;
+  font-size: 0.5rem; /* تصغير الدبوس لزيادة مساحة النص العرضية */
+  flex-shrink: 0;
 }
 
 .loc-text-mini {
   color: var(--digital-gold);
-  font-size: 0.48rem; /* تصغير طفيف جداً للمساعدة في الاحتواء */
+  font-size: 0.48rem;
   margin: 0;
   font-weight: 600;
-  line-height: 1.2;
-  /* الحل: السماح بكسر النص وإظهار سطرين */
-  white-space: normal; 
-  word-wrap: break-word;
+  line-height: 1.1;
   text-align: left;
+  /* تفعيل كسر النص لسطرين بحد أقصى */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: visible; /* غيرناه لـ visible عشان النص يبان لو نزل سطر */
+  white-space: normal;
+  word-break: break-word;
 }
 
 .store-summary-compact:hover .isometric-icon-mini {
