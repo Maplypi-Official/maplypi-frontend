@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { maplypiService } from '../../services/api'; 
 import maplypiLogo from '../../assets/logo3.png';
 
-// Components
 import Crown from '../Crown/Crown';
 import Header from '../Header/Header';
 import MyStore from '../Stats/MyStore';
@@ -39,7 +38,6 @@ const Dashboard: React.FC = () => {
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
-        console.error("API Error:", err);
         setError("Offline Mode Active.");
       } finally {
         setLoading(false);
@@ -52,16 +50,13 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="ts-dashboard-container">
-      {/* الحاوية الرئيسية التي تضم كل شيء داخل الإطار الموحد */}
+      {/* الحاوية الذهبية الكبيرة - الإطار */}
       <div className="maply-main-frame">
         
-        {/* اللوجو (التاج) مدمج في أعلى الإطار */}
-        <div className="top-crown-integration">
-          <Crown logoUrl={maplypiLogo} />
-        </div>
+        {/* استدعاء اللوجو هنا ليكون قريباً من الإطار */}
+        <Crown logoUrl={maplypiLogo} />
         
-        {/* قسم الهيدر مقسم لترك مساحة للوجو */}
-        <div className="header-section-wrapper">
+        <div className="header-integration-zone">
           <Header 
             userName={userData?.username || 'EkoPi'} 
             level={userData?.level || 14} 
@@ -81,17 +76,9 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div className="grid-bottom-adaptive">
-            <div className="adaptive-col">
-               <DailyRewards />
-            </div>
-            
-            <div className="adaptive-col">
-               <RecentSales />
-            </div>
-
-            <div className="adaptive-col">
-               <BusinessGrowth />
-            </div>
+            <div className="adaptive-col"><DailyRewards /></div>
+            <div className="adaptive-col"><RecentSales /></div>
+            <div className="adaptive-col"><BusinessGrowth /></div>
           </div>
         </main>
       </div>
