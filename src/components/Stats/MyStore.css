@@ -4,11 +4,11 @@
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  height: 100%; /* جعل الارتفاع يتحدد بواسطة الحاوية الأب */
-  min-height: 110px; /* تقليل الحد الأدنى للارتفاع ليتناسب مع المنتجات */
+  height: 100%;
+  min-height: 115px; /* زيادة بسيطة لاستيعاب سطرين نص */
   position: relative;
   overflow: hidden;
-  padding: 8px !important;
+  padding: 8px 4px !important;
   box-sizing: border-box;
 }
 
@@ -25,21 +25,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px 0;
+  margin: 4px 0;
 }
 
 .isometric-icon-mini {
-  font-size: 2.2rem; /* تصغير الأيقونة لتناسب العرض الصغير */
+  font-size: 2rem; 
   z-index: 2;
   filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)) 
           drop-shadow(0 0 5px rgba(255, 202, 40, 0.3));
 }
 
-/* تأثير النبض المصغر */
 .pulse-ring-mini {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border: 1.5px solid var(--digital-gold);
   border-radius: 50%;
   opacity: 0;
@@ -54,32 +53,34 @@
 
 .location-info-compact {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* محاذاة من الأعلى للتعامل مع تعدد الأسطر */
   justify-content: center;
   gap: 3px;
   background: rgba(0, 0, 0, 0.3);
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 4px 6px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 202, 40, 0.1);
-  width: 90%; /* جعل العرض متجاوباً */
+  width: 95%;
   margin: 0 auto;
 }
 
 .geo-pin-mini {
-  font-size: 0.6rem;
+  font-size: 0.55rem;
+  margin-top: 1px;
 }
 
 .loc-text-mini {
   color: var(--digital-gold);
-  font-size: 0.55rem; /* تصغير الخط لضمان عدم خروجه عن الصندوق */
+  font-size: 0.48rem; /* تصغير طفيف جداً للمساعدة في الاحتواء */
   margin: 0;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; /* إضافة نقاط عند زيادة النص */
+  line-height: 1.2;
+  /* الحل: السماح بكسر النص وإظهار سطرين */
+  white-space: normal; 
+  word-wrap: break-word;
+  text-align: left;
 }
 
-/* تحسين الاستجابة عند التفاعل */
 .store-summary-compact:hover .isometric-icon-mini {
   transform: translateY(-2px) scale(1.05);
 }
