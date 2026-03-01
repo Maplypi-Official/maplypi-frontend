@@ -1,81 +1,116 @@
 :root {
-  --digital-gold: #eab308;
+  --digital-gold: #ffca28;
   --cyber-blue: #00f2ff;
+  --nav-bg: rgba(13, 11, 26, 0.85);
 }
 
 .maply-bottom-nav {
   position: fixed;
-  bottom: 0;
+  /* رفعه قليلاً عن الحافة ليعطي شعوراً بأنه عائم (Floating) */
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 500px;
-  height: 75px; /* زيادة بسيطة للشياكة */
-  background: rgba(11, 14, 20, 0.95);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(234, 179, 8, 0.2);
+  width: 92%;
+  max-width: 450px;
+  height: 70px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 202, 40, 0.3);
+  border-radius: 25px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 
+              inset 0 0 15px rgba(255, 202, 40, 0.05);
+  /* منع التداخل مع المحتوى عند السكرول */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-content-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 2000;
-  padding-bottom: env(safe-area-inset-bottom);
-  border-radius: 20px 20px 0 0; /* حواف ناعمة من الأعلى */
+  width: 100%;
+  padding: 0 10px;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
   cursor: pointer;
   position: relative;
   transition: 0.3s;
+  flex: 1;
 }
 
-/* تمييز زر الإضافة بشكل عصري */
-.nav-item.special-add .nav-icon {
-  background: linear-gradient(135deg, var(--digital-gold), #fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 1.5rem;
-  filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.5));
+.icon-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-icon {
-  font-size: 1.2rem;
-  opacity: 0.6;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-size: 1.3rem;
+  z-index: 2;
+  transition: all 0.3s ease;
+  filter: grayscale(0.5);
+  opacity: 0.7;
 }
 
 .nav-label {
-  font-size: 9px;
+  font-size: 8px;
   color: #94a3b8;
-  font-weight: 800;
-  margin-top: 4px;
-  letter-spacing: 0.5px;
+  font-weight: 900;
+  margin-top: 5px;
+  letter-spacing: 0.8px;
+  transition: 0.3s;
 }
 
+/* --- 🌟 حالة النشاط (Active State) --- */
 .nav-item.active .nav-icon {
+  transform: translateY(-8px) scale(1.2);
+  filter: grayscale(0) drop-shadow(0 0 12px var(--digital-gold));
   opacity: 1;
-  transform: translateY(-5px) scale(1.1);
-  filter: drop-shadow(0 0 10px var(--digital-gold));
 }
 
 .nav-item.active .nav-label {
   color: var(--digital-gold);
-  text-shadow: 0 0 5px rgba(234, 179, 8, 0.3);
+  transform: translateY(-2px);
+  text-shadow: 0 0 8px rgba(255, 202, 40, 0.4);
 }
 
-.active-dot {
-  width: 5px;
-  height: 5px;
-  background: var(--digital-gold);
+/* --- 💓 تأثير النبض (Pulse Effect) --- */
+.pulse-ring {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 202, 40, 0.2);
   border-radius: 50%;
-  margin-top: 4px;
-  box-shadow: 0 0 8px var(--digital-gold);
+  animation: navPulse 2s infinite ease-out;
+  z-index: 1;
+  top: -8px;
 }
 
-/* تأثير التفاعل عند اللمس لمستخدمي الموبايل */
-.nav-item:active {
-  transform: scale(0.9);
+@keyframes navPulse {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
+
+/* --- ✨ تمييز زر SELL ITEM --- */
+.nav-item.special-add .nav-icon {
+  background: linear-gradient(135deg, #fff, var(--digital-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.6rem;
+}
+
+/* --- 📱 تفاعل الموبايل --- */
+.nav-item:active {
+  transform: scale(0.85);
+}
+
+/* إخفاء الـ Navbar تلقائياً عند السكرول لأسفل بشكل بسيط لإعطاء مساحة (اختياري عبر JS)
+   أو الحفاظ عليه ثابتاً ولكن شفاف لضمان سهولة الوصول */
