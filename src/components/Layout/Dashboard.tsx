@@ -9,7 +9,6 @@ import MyStore from '../Stats/MyStore';
 import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
 import RecentSales from '../Stats/RecentSales/RecentSales';
-import Navbar from '../Navigation/Navbar';
 import DailyRewards from '../DailyRewards/DailyRewards';
 
 import './Dashboard.css';
@@ -48,17 +47,13 @@ const Dashboard: React.FC = () => {
     loadDashboardData();
   }, []);
 
-  if (loading) return <div className="loading-screen">INITIALIZING...</div>;
+  if (loading) return <div className="loading-screen">INITIALIZING MATRIX...</div>;
 
   return (
     <div className="ts-dashboard-container">
-      {/* الحاوية الرئيسية (الإطار الذهبي الموحد) */}
       <div className="maply-main-frame">
-        
-        {/* اللوجو (Crown) - يوضع هنا ليكون متمركزاً فوق الإطار مباشرة */}
         <Crown logoUrl={maplypiLogo} />
         
-        {/* حاوية الهيدر لضمان التباعد الصحيح تحت اللوجو */}
         <div className="header-integration-zone">
           <Header 
             userName={userData?.username || 'EkoPi'} 
@@ -79,22 +74,12 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div className="grid-bottom-adaptive">
-            <div className="adaptive-col">
-               <DailyRewards />
-            </div>
-            
-            <div className="adaptive-col">
-               <RecentSales />
-            </div>
-
-            <div className="adaptive-col">
-               <BusinessGrowth />
-            </div>
+            <div className="adaptive-col"><DailyRewards /></div>
+            <div className="adaptive-col"><RecentSales /></div>
+            <div className="adaptive-col"><BusinessGrowth /></div>
           </div>
         </main>
       </div>
-
-      <Navbar />
       {error && <div className="error-toast">{error}</div>}
     </div>
   );
