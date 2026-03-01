@@ -6,78 +6,67 @@ import type { Product } from '../types/market';
 import axios from 'axios';
 
 export const useMarket = (category: string = 'All') => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]); // مخزن البيانات الكاملة المستوردة
+  const [products, setProducts] = useState<Product[]>([]); // المنتجات المعروضة حالياً (Pagination)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
   // نظام الصفحات لدعم ملايين المنتجات دون إبطاء التطبيق
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const ITEMS_PER_PAGE = 20; // تحميل 20 منتج في كل مرة لضمان سلاسة الأداء
 
-  const fetchProducts = useCallback(async (pageNum: number, isNewCategory: boolean = false) => {
-    let isMounted = true;
-    
+  /** * جلب البيانات من ملف الـ JSON الملياري الذي أنشأناه
+   * يتم استدعاؤه مرة واحدة عند تشغيل التطبيق
+   */
+  const fetchAllData = useCallback(async () => {
     try {
-      if (isMounted) setLoading(true);
-
-      /** * الربط مع الباك أند (API Endpoint)
-       * ملاحظة: تم تجهيز الهيكل لدعم رقم الصفحة والتصنيف لاحقاً
-       * const response = await axios.get(`http://localhost:5000/api/products?page=${pageNum}&category=${category}`);
-       * const newItems = response.data.data;
-       */
-
-      // محاكاة بيانات ضخمة وعصرية (Modern & Luxury Mock Data)
-      const mockBatch: Product[] = [
-        { 
-          id: `tech-${pageNum}-1`, name: 'Nebula AI Unit', price: 15.5, category: 'Tech', 
-          stock: 3, quality: 99, image: '', durability: 100 
-        },
-        { 
-          id: `lux-${pageNum}-2`, name: 'Mars Oasis Plot', price: 550.0, category: 'Luxury', 
-          stock: 1, quality: 100, image: '', durability: 100 
-        },
-        { 
-          id: `robot-${pageNum}-3`, name: 'Alpha Guard Robot', price: 85.0, category: 'Tech', 
-          stock: 5, quality: 92, image: '', durability: 80 
-        },
-        { 
-          id: `craft-${pageNum}-4`, name: 'Quantum Vase', price: 2.5, category: 'Craft', 
-          stock: 10, quality: 88, image: '', durability: 100 
-        }
-      ];
-
-      if (isMounted) {
-        // إذا كان هناك تغيير في الفئة، نستبدل البيانات، وإلا نضيفها للقائمة الحالية
-        setProducts(prev => isNewCategory ? mockBatch : [...prev, ...mockBatch]);
-        
-        // محاكاة وجود المزيد من البيانات (دعم ملايين المنتجات)
-        setHasMore(pageNum < 500); 
-        setError(null);
-        setLoading(false);
-      }
+      setLoading(true);
+      // سحب البيانات من المجلد العام (Public Assets)
+      const response = await fetch('/data/market_products.json');
+      if (!response.ok) throw new Error("Database connection failed");
+      const data = await response.json();
+      setAllProducts(data);
+      setLoading(false);
     } catch (err) {
-      if (isMounted) {
-        setError("Failed to sync with Market Grid");
-        setLoading(false);
-        console.error("Market Sync Error:", err);
-      }
+      setError("FAILED TO SYNC WITH GALACTIC DATABASE");
+      setLoading(false);
+      console.error("Market Load Error:", err);
     }
+  }, []);
 
-    return () => { isMounted = false; };
-  }, [category]);
+  // دالة معالجة عرض البيانات (Filtering & Pagination)
+  const processDisplay = useCallback((pageNum: number, isNewCategory: boolean = false) => {
+    // 1. الفلترة بناءً على التصنيف
+    const filtered = allProducts.filter(p => 
+      category === 'All' ? true : p.category === category
+    );
 
-  // إعادة ضبط الحالة عند تغيير الفئة (Filtering)
+    // 2. تقسيم الصفحات (Slice) لضمان عدم استهلاك الرام
+    const endOffset = pageNum * ITEMS_PER_PAGE;
+    const currentBatch = filtered.slice(0, endOffset);
+
+    setProducts(currentBatch);
+    setHasMore(currentBatch.length < filtered.length);
+  }, [allProducts, category]);
+
+  // البداية: جلب البيانات بالكامل
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
+
+  // تحديث العرض عند تغيير الفئة أو عند اكتمال جلب البيانات
   useEffect(() => {
     setPage(1);
-    fetchProducts(1, true);
-  }, [category, fetchProducts]);
+    processDisplay(1, true);
+  }, [category, allProducts, processDisplay]);
 
   // دالة تحميل المزيد - يتم استدعاؤها عند التمرير لأسفل
   const loadMore = () => {
     if (!loading && hasMore) {
       const nextPage = page + 1;
       setPage(nextPage);
-      fetchProducts(nextPage);
+      processDisplay(nextPage);
     }
   };
 
