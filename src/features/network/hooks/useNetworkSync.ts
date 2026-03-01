@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react';
-// استيراد التعريفات لضمان توافق الأنواع مع الباك أند
-import { NetworkNode, UserLocation } from '../types/network.d.ts';
+import { NetworkNode, UserLocation } from '../types/network.d';
 
 export const useNetworkSync = () => {
   const [nodes, setNodes] = useState<NetworkNode[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  // إضافة حالة لإحصائيات المستخدم (Balance/Level) للوصول لشكل 100% طبق الأصل
   const [userStats, setUserStats] = useState<UserLocation | null>(null);
 
   useEffect(() => {
-    // محاكاة جلب البيانات الحقيقية من الـ API والـ Socket.io
+    let isMounted = true;
+
     const fetchNetworkData = async () => {
       try {
         setLoading(true);
         
-        // هنا سيتم الربط مع الـ Backend API لاحقاً
-        // البيانات الافتراضية الآن تطابق التصميم الفخم
+        // هنا سيتم الربط مع الـ Backend API لاحقاً عبر axios
+        // البيانات الافتراضية الآن تطابق تصميم الـ Matrix
         const mockNodes: NetworkNode[] = [
           { 
             id: 'n1', name: 'TechZone 314', type: 'Merchant', tier: 'Premium', 
@@ -37,19 +35,23 @@ export const useNetworkSync = () => {
           balance: 125.75
         };
 
-        setNodes(mockNodes);
-        setUserStats(mockUser);
+        if (isMounted) {
+          setNodes(mockNodes);
+          setUserStats(mockUser);
+        }
       } catch (error) {
         console.error("Matrix Sync Error:", error);
       } finally {
-        // تأخير بسيط لمحاكاة واقعية التحميل نيونياً
-        setTimeout(() => setLoading(false), 1000);
+        if (isMounted) {
+          // تأخير محاكاة تحميل الشبكة العصبية
+          setTimeout(() => setLoading(false), 1000);
+        }
       }
     };
 
     fetchNetworkData();
+    return () => { isMounted = false; };
   }, []);
 
-  // الحفاظ على نفس المسميات المرجعة لضمان عدم كسر التطبيق
   return { nodes, loading, userStats };
 };
