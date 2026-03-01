@@ -5,6 +5,10 @@ import L from 'leaflet';
 import { NetworkNode, UserLocation } from '../../types/network';
 import './MapContainer.css';
 
+/**
+ * 🛠️ تهيئة الأيقونات المخصصة لتطابق مظهر الـ Pins في الصورة بأسلوب أسطوري
+ */
+
 // أيقونة Pi Network المعيارية (زرقاء متوهجة)
 const standardPiIcon = L.divIcon({
   className: 'pi-icon-div marker-standard-pi glow-blue',
@@ -38,7 +42,9 @@ interface MapContainerProps {
 const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, nodes }) => {
   const displaySector = sectorName || "Cairo Citadel Sector";
 
-  // ترتيب يدوي مطابق للصورة لضمان المظهر الجذاب في الـ MVP
+  /**
+   * ترتيب الـ Pins يدوياً بناءً على الصورة المرجعية لضمان مظهر أسطوري في الـ MVP.
+   */
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', subLabel: 'Checking-in... [50m]', offset: [0.002, -0.004] },
     { type: standardPiIcon, offset: [0.004, -0.001] },
@@ -50,19 +56,21 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
 
   return (
     <div className="map-wrapper main-matrix-v2 pixelated-map">
+      {/* حاوية الخريطة الأساسية */}
       <LeafletMap 
         center={[userLocation.lat, userLocation.lng]} 
         zoom={14} 
         zoomControl={false}
         attributionControl={false}
         className="leaflet-canvas-container"
-        style={{ height: '100%', width: '100%', background: '#0d081d', zIndex: 1 }}
+        style={{ height: '100%', width: '100%', background: '#0d081d' }}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           className="dark-tile-layer"
         />
 
+        {/* رسم العقد (Nodes) بتوزيع فني مطابق للصورة */}
         {pinOrdering.map((pin, index) => {
           const lat = userLocation.lat + (pin.offset[0] || 0);
           const lng = userLocation.lng + (pin.offset[1] || 0);
@@ -81,6 +89,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
           );
         })}
 
+        {/* موقع المستخدم ودائرة البحث */}
         <Marker position={[userLocation.lat, userLocation.lng]} icon={userLocationIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v2"></div>
@@ -89,8 +98,8 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
         </Marker>
       </LeafletMap>
 
-      {/* عناصر الـ UI والـ Matrix فوق الخريطة مباشرة */}
-      <div className="matrix-overlay-container">
+      {/* عناصر الـ Matrix والـ UI الفاخرة فوق الخريطة */}
+      <div className="matrix-overlay-elements">
         <div className="hex-bg"></div>
         <div className="map-grid-lines"></div>
         <div className="scan-line-v2"></div>
