@@ -12,13 +12,16 @@ const MarketPage: React.FC = () => {
   // الحفاظ على الحالة الأصلية للفلترة
   const [activeCategory, setActiveCategory] = useState<string>('All');
   
-  // استدعاء الهوك المستقر الآن
-  const { products = [], loading = false, error = null } = useMarket() || {};
-
-  // فلترة المنتجات بناءً على التصنيف المختار
-  const filteredProducts = products.filter(p => 
-    activeCategory === 'All' ? true : p.category === activeCategory
-  );
+  /** * استدعاء الهوك مع دعم التمرير اللانهائي
+   * نمرر التصنيف الحالي للهوك ليقوم بجلب البيانات المناسبة تلقائياً
+   */
+  const { 
+    products = [], 
+    loading = false, 
+    error = null, 
+    loadMore, 
+    hasMore 
+  } = useMarket(activeCategory) || {};
 
   return (
     <div className="market-page-container">
@@ -35,19 +38,31 @@ const MarketPage: React.FC = () => {
       />
 
       {/* منطقة العرض الرئيسية */}
-      {loading ? (
-        <div className="market-sync-indicator">● SYNCING WITH PI NETWORK...</div>
-      ) : error ? (
-        <div style={{ color: '#ef4444', textAlign: 'center', padding: '20px' }}>{error}</div>
-      ) : (
-        <div className="market-products-grid">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))
-          ) : (
-            <div className="empty-market-state">No sectors found in this quadrant.</div>
-          )}
+      <div className="market-products-grid">
+        {products.length > 0 ? (
+          products.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : !loading && (
+          <div className="empty-market-state">No sectors found in this quadrant.</div>
+        )}
+
+        {/* مستشعر التمرير اللانهائي (تحميل المزيد) */}
+        {hasMore && (
+          <button 
+            onClick={loadMore} 
+            className="load-more-trigger"
+            disabled={loading}
+          >
+            {loading ? "SEARCHING NEBULA..." : "LOAD MORE RESOURCES"}
+          </button>
+        )}
+      </div>
+
+      {/* عرض رسالة الخطأ إن وجدت بشكل غير معيق */}
+      {error && (
+        <div style={{ color: '#ef4444', textAlign: 'center', padding: '10px', fontSize: '12px' }}>
+          {error}
         </div>
       )}
 
