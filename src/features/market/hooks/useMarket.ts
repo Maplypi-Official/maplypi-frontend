@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Product } from '../types/market'; 
+/** * إضافة كلمة type هنا هي السر لحل مشكلة السواد (Unexpected token)
+ * لأنها تخبر Vite أن هذا الملف للتعريفات فقط ولا يحتوي على كود برمي 
+ */
+import type { Product } from '../types/market'; 
 import axios from 'axios';
 
 export const useMarket = () => {
@@ -12,20 +15,20 @@ export const useMarket = () => {
     
     const fetchProducts = async () => {
       try {
-        // نضمن أن التحميل يبدأ فوراً
+        // بدء عملية المزامنة مع الماركت
         if (isMounted) setLoading(true);
 
         /** * الربط مع الباك أند (API Endpoint)
-         * سيبقى كما هو لسهولة التفعيل لاحقاً حسب طلبك
+         * ملاحظة: تم الإبقاء على الهيكل كما هو لضمان التوافق المستقبلي
          */
         // const response = await axios.get('http://localhost:5000/api/products');
         // if (isMounted) setProducts(response.data.data);
 
-        // بيانات تجريبية (Mock Data) مطابقة تماماً لتصميم الماركت
+        // بيانات تجريبية (Mock Data) مطابقة تماماً لتصميم الماركت لضمان استقرار العرض
         const mockData: Product[] = [
           { 
             id: '1', name: 'Cyber Burger', price: 0.55, category: 'Food', 
-            stock: 12, quality: 85, image: '' // تركناها فارغة مؤقتاً لضمان عدم تعليق التحميل
+            stock: 12, quality: 85, image: '' 
           },
           { 
             id: '2', name: 'Quantum CPU', price: 1.20, category: 'Tech', 
@@ -44,13 +47,13 @@ export const useMarket = () => {
         if (isMounted) {
           setProducts(mockData);
           setError(null);
-          // إلغاء الـ setTimeout الخارجي ودمجه هنا لضمان استقرار الرندر
+          // إيقاف حالة التحميل فور تجهيز البيانات
           setLoading(false);
         }
       } catch (err) {
         if (isMounted) {
           setError("Failed to sync with Market Grid");
-          setLoading(false); // نوقف التحميل حتى في حالة الخطأ
+          setLoading(false); 
           console.error("Market Sync Error:", err);
         }
       }
@@ -58,9 +61,10 @@ export const useMarket = () => {
 
     fetchProducts();
     
-    // تنظيف الموارد عند مغادرة الصفحة لمنع الـ Memory Leak
+    // تنظيف الذاكرة عند إغلاق المكون
     return () => { isMounted = false; };
   }, []);
 
+  // إرجاع نفس المسميات التي يتوقعها ملف MarketPage.tsx
   return { products, loading, error };
 };
