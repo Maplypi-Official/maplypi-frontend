@@ -73,15 +73,4 @@
   width: 100%;
 }
 
-/* Loading Screen Aesthetics */
-.loading-screen { 
-  height: 100vh; 
-  background: #0d0b1a; 
-  color: #ffca28;
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-  font-weight: bold;
-}
-
 * { box-sizing: border-box; }
