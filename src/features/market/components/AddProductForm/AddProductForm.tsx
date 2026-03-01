@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AppLoader from '../../../../components/AppLoader/AppLoader'; // استدعاء اللودر الموحد
 import './AddProductForm.css';
 
 const AddProductForm: React.FC = () => {
@@ -14,14 +15,29 @@ const AddProductForm: React.FC = () => {
     stock: 1
   });
 
+  // حالة التحميل الخاصة بعملية الإرسال
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // تفعيل اللودر الفخم بنوع 'form' لإبهار المستخدم
+    setIsSubmitting(true);
+
     console.log("Submitting Asset to Galactic Database:", formData);
-    alert(`Success! Your ${formData.origin === 'REAL_WORLD' ? 'Physical' : 'Digital'} item is now live.`);
+
+    // محاكاة وقت المعالجة والتشفير قبل إظهار النجاح
+    setTimeout(() => {
+      setIsSubmitting(false);
+      alert(`Success! Your ${formData.origin === 'REAL_WORLD' ? 'Physical' : 'Digital'} item is now live.`);
+    }, 4000); // 4 ثواني كافية لقرأة جمل التحميل الفخمة
   };
 
   return (
     <div className="add-product-container animate-fade-in">
+      {/* استدعاء اللودر بنوع 'form' ليقوم بعرض جمل التشفير والتحقق من الأصول */}
+      {isSubmitting && <AppLoader type="form" />}
+
       <div className="form-header">
         <h2 className="form-title">🚀 List New Asset</h2>
         <p className="form-subtitle">Bridge the Physical and Digital Worlds via Pi Network</p>
@@ -136,8 +152,8 @@ const AddProductForm: React.FC = () => {
           />
         </div>
 
-        <button type="submit" className="submit-form-btn">
-          PUBLISH TO GLOBAL MARKET
+        <button type="submit" className="submit-form-btn" disabled={isSubmitting}>
+          {isSubmitting ? "ENCRYPTING ASSET..." : "PUBLISH TO GLOBAL MARKET"}
         </button>
       </form>
     </div>
