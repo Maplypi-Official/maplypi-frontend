@@ -1,3 +1,44 @@
-.filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
-.filter-chip { background: #140f29; border: 1px solid rgba(139, 92, 246, 0.3); color: #94a3b8; padding: 6px 16px; border-radius: 20px; font-size: 12px; white-space: nowrap; }
-.filter-chip:first-child { border-color: #eab308; color: #eab308; }
+.filter-scroll { 
+  display: flex; 
+  gap: 12px; 
+  overflow-x: auto; 
+  padding: 15px 5px; 
+  scrollbar-width: none; /* إخفاء في Firefox */
+  -ms-overflow-style: none; /* إخفاء في IE/Edge */
+  mask-image: linear-gradient(to right, black 85%, transparent 100%); /* تأثير تلاشي في النهاية */
+}
+
+/* إخفاء الـ Scrollbar في Chrome/Safari */
+.filter-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip { 
+  background: rgba(26, 20, 51, 0.8); 
+  border: 1px solid rgba(139, 92, 246, 0.2); 
+  color: #94a3b8; 
+  padding: 8px 18px; 
+  border-radius: 20px; 
+  font-size: 11px; 
+  font-weight: 600;
+  white-space: nowrap; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-chip:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #fff;
+}
+
+/* التنسيق الخاص بالفلتر النشط (Active) */
+.filter-chip.active, .filter-chip:first-child { 
+  background: rgba(234, 179, 8, 0.1);
+  border-color: #eab308; 
+  color: #eab308; 
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+  font-weight: 800;
+}
