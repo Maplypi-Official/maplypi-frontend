@@ -27,18 +27,20 @@ export const useMarket = (category: string = 'All') => {
       if (!response.ok) throw new Error("Database connection failed");
       const data = await response.json();
       
-      /** * دمج محرك الصور الديناميكي: 
-       * نقوم بتحديث رابط الصورة لكل منتج ليعرض Placeholder ملون بدلاً من المسار الفارغ 
-       * لضمان انبهار المستخدم وفريق Pi بالواجهة فوراً
+      /** * ربط الموارد الحقيقية (Real Assets Injection):
+       * نقوم بتوزيع الصور الـ 5 التي حملتها في المجلدات على الـ 50,000 منتج بشكل دوري ذكي
+       * لضمان ظهور صور فخمة وحقيقية بدلاً من المربعات الملونة
        */
-      const enhancedData = data.map((p: Product) => ({
-        ...p,
-        image: `https://placehold.co/400x200/${
-          p.category === 'Legendary' ? 'ff00ea' : 
-          p.category === 'Mythic' ? '00f2ff' : 
-          '1e40af'
-        }/ffffff?text=${encodeURIComponent(p.name)}`
-      }));
+      const enhancedData = data.map((p: Product) => {
+        // اختيار رقم صورة بين 1 و 5 بناءً على معرف المنتج لضمان الثبات
+        const imageId = (Math.abs(p.id.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % 5) + 1;
+        
+        return {
+          ...p,
+          // المسار المباشر للصور الحقيقية التي تم تحميلها في Termux
+          image: `/Resources/Products/${p.category}/item-${imageId}.webp`
+        };
+      });
 
       setAllProducts(enhancedData);
       setLoading(false);
