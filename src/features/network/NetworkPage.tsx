@@ -5,17 +5,16 @@ import ActivityLog from './components/ActivityLog/ActivityLog';
 import { useNetworkSync } from './hooks/useNetworkSync';
 
 const NetworkPage: React.FC = () => {
-  // استخدام الـ Hook الموحد لجلب بيانات الخريطة والإحصائيات والرصيد
-  // ده بيضمن إن الصفحة كلها تكون "Live" ومتزامنة مع الباك أند
+  // جلب البيانات الموحدة (Nodes, Stats, Balance) من الباك أند عبر الـ Hook
   const { nodes, loading, userStats } = useNetworkSync();
 
   return (
     <div style={{ 
       padding: '20px', 
-      background: '#0a0516', // لون الخلفية الليلية العميقة من التصميم
+      background: '#0a0516', 
       minHeight: '100vh', 
       color: 'white',
-      paddingBottom: '100px', // مساحة للـ Navigation Bar
+      paddingBottom: '100px', 
       fontFamily: "'Inter', sans-serif"
     }}>
       
@@ -40,7 +39,7 @@ const NetworkPage: React.FC = () => {
           Decentralized Supply Grid
         </p>
 
-        {/* مؤشر المزامنة الحي - يظهر طبق الأصل في الزاوية */}
+        {/* مؤشر المزامنة الحي - Pulse Animation */}
         {loading && (
           <div style={{ 
             position: 'absolute', 
@@ -57,13 +56,12 @@ const NetworkPage: React.FC = () => {
       </header>
       
       {/* 2. لوحة الإحصائيات والرصيد (StatsBoard) */}
-      {/* بنمرر لها الـ userStats (الرصيد والمستوى) والـ nodes (العدد) */}
       <StatsBoard 
         data={{ 
-          activeNodes: nodes.length || 1200, 
+          activeNodes: nodes.length, 
           territoryControl: 14.5,
-          balance: userStats?.balance,
-          level: userStats?.level 
+          balance: userStats?.balance || 125.75, // القيمة الافتراضية من التصميم
+          level: userStats?.level || 14
         }} 
         isLoading={loading} 
       />
@@ -76,7 +74,6 @@ const NetworkPage: React.FC = () => {
         border: '1px solid rgba(139, 92, 246, 0.2)',
         boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
       }}>
-        {/* المكون ده دلوقتي بيقرأ الصور الجديدة (premium1, standard1) طبق الأصل */}
         <MapContainer sectorName="Cairo Citadel Sector" />
       </div>
 
