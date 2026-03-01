@@ -6,7 +6,6 @@
   --bg-gradient: radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.3) 0%, transparent 50%),
                  radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.2) 0%, transparent 50%),
                  radial-gradient(circle at center, #131129 0%, #05050a 100%);
-  --max-app-width: 1200px;
 }
 
 * { 
@@ -18,66 +17,47 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  /* إزالة أي قيود على العرض لضمان ملء الجوانب */
   background: #05050a !important;
-  background-image: 
-    var(--bg-gradient),
-    url('https://www.transparenttextures.com/patterns/stardust.png') !important;
+  background-image: var(--bg-gradient) !important;
   background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
-  overflow-x: hidden; /* منع التمرير الأفقي في كافة الأجهزة */
+  overflow-x: hidden; 
 }
 
 .App {
   width: 100%;
-  max-width: var(--max-app-width);
-  margin: 0 auto; /* تمركز التطبيق في الشاشات الكبيرة */
   min-height: 100vh;
   position: relative;
-  transform: translateZ(0); /* تسريع العتاد GPU */
+  /* تفعيل تسريع العتاد */
+  transform: translateZ(0);
 }
 
-/* حاوية المحتوى المتجاوبة */
 .page-container {
   width: 100%;
   min-height: 100vh;
-  padding-bottom: 110px; /* مساحة أمان للـ Navbar العائم */
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-/* تحسينات الشاشات الكبيرة (التابلت والكمبيوتر) */
-@media (min-width: 768px) {
-  .ts-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .ts-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
+  /* إضافة مساحة سفلية أكبر لضمان عدم تغطية الـ Navbar لآخر سطر في المحتوى */
+  padding-bottom: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* --- ✨ تأثير الانتقال (Super Smooth) --- */
 .page-transition-wrapper {
-  animation: slideFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: slideFadeIn 0.3s ease-out forwards;
   backface-visibility: hidden;
-  perspective: 1000px;
   will-change: opacity, transform;
 }
 
 @keyframes slideFadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
-    filter: brightness(0.8);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: brightness(1);
   }
 }
 
@@ -91,20 +71,20 @@ body {
 }
 
 .logo-outer-circle {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   background: #131129; 
-  border: 4px solid var(--gold);
+  border: 3px solid var(--gold);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 30px rgba(255, 202, 40, 0.4);
+  box-shadow: 0 0 25px rgba(255, 202, 40, 0.3);
 }
 
 .logo-inner-circle {
-  width: 92%;
-  height: 92%;
+  width: 90%;
+  height: 90%;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -115,62 +95,50 @@ body {
   object-fit: cover;
 }
 
-/* --- الهيدر الزجاجي المتجاوب --- */
+/* --- الهيدر الزجاجي --- */
 .ts-header {
   background: var(--dark-panel);
-  backdrop-filter: blur(12px); 
-  -webkit-backdrop-filter: blur(12px); /* دعم متصفح Safari و Pi Browser */
-  border: 1px solid rgba(106, 90, 205, 0.3);
-  border-radius: 30px;
-  padding: 70px 20px 20px 20px;
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(106, 90, 205, 0.2);
+  border-radius: 25px;
+  padding: 65px 15px 15px 15px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  position: relative;
-  flex-wrap: wrap; /* للسماح بالعناصر بالنزول في الشاشات الصغيرة جداً */
-  gap: 10px;
 }
 
-.user-profile h2 { margin: 0; font-size: 1.1rem; text-transform: uppercase; }
-.balance-container { margin-top: 10px; display: flex; align-items: center; gap: 5px; }
-.pi-icon { color: var(--gold); font-weight: bold; font-size: 1.4rem; }
-.amount { font-size: 1.5rem; font-weight: bold; }
-
-.dashboard-info { text-align: right; }
-.dashboard-info h3 { margin: 0; font-size: 0.9rem; color: #fff; max-width: 120px; }
-.merchant-tag { color: var(--gold); font-size: 0.75rem; margin-top: 5px; }
-
-/* --- الشبكة (Grid) --- */
+/* --- الشبكة (Grid) متجاوبة تلقائياً --- */
 .ts-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
   margin-top: 15px;
 }
 
+/* تحسين الشبكة للشاشات الكبيرة */
+@media (min-width: 768px) {
+  .ts-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 .ts-panel {
-  background: rgba(30, 25, 55, 0.5);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(30, 25, 55, 0.4);
+  border-radius: 15px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .full-width { grid-column: span 2; }
 
-/* --- الأزرار الذهبية المعدنية --- */
+/* الأزرار */
 .ts-btn.gold {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   background: linear-gradient(90deg, #ffca28, #c18e2a);
   border: none;
-  border-radius: 20px;
+  border-radius: 15px;
   font-weight: bold;
   color: #000;
-  margin-top: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 202, 40, 0.3);
-  transition: transform 0.2s ease;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(255, 202, 40, 0.2);
 }
-
-.ts-btn.gold:active { transform: scale(0.98); }
