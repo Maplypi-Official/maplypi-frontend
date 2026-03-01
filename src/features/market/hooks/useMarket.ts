@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Product } from '../types/market';
+import { Product } from '../types/market.d.ts';
 import axios from 'axios'; // جاهز للربط مع السيرفر
 
 export const useMarket = () => {
