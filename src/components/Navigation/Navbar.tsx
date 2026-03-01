@@ -8,7 +8,6 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
   const navItems = [
-    // أيقونة Dashboard الفخمة (المعبد/المبنى العريق)
     { id: 'DASHBOARD', icon: '🏛️', label: 'DASHBOARD' },
     { id: 'MARKET', icon: '🛒', label: 'MARKET' },
     { id: 'NETWORK', icon: '🌐', label: 'NETWORK' },
@@ -16,7 +15,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
   ];
 
   return (
-    <nav className="maply-bottom-nav nav-visible">
+    <nav className="maply-bottom-nav">
       <div className="nav-content-wrapper">
         {navItems.map((item) => (
           <div 
@@ -26,7 +25,6 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
           >
             <div className="icon-container">
               <span className="nav-icon">{item.icon}</span>
-              {/* تأثير النبض (Pulse) للعنصر المختار فقط */}
               {activeTab === item.id && <div className="pulse-ring"></div>}
             </div>
             <span className="nav-label">{item.label}</span>
