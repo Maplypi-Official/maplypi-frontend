@@ -1,8 +1,8 @@
 .market-page-container {
   padding: 20px;
-  background: #0a0516;
+  background: #0a0516; /* Dark background consistent with Matrix theme */
   min-height: 100vh;
-  padding-bottom: 160px;
+  padding-bottom: 160px; /* Space for Bottom Navigation and Cart */
   font-family: 'Inter', sans-serif;
   color: white;
 }
@@ -12,7 +12,7 @@
 }
 
 .market-title {
-  color: #eab308;
+  color: #eab308; /* Gold color for brand consistency */
   font-size: 28px;
   font-weight: 900;
   margin: 0;
@@ -25,7 +25,7 @@
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  marginTop: 5px;
+  margin-top: 5px; /* Corrected syntax */
 }
 
 .market-sync-indicator {
@@ -35,7 +35,7 @@
   font-size: 12px;
   letter-spacing: 2px;
   font-weight: bold;
-  animation: marketPulse 1.5s infinite;
+  animation: marketPulse 1.5s infinite; /* Pulsing sync effect */
 }
 
 .market-products-grid {
@@ -53,17 +53,17 @@
   font-size: 14px;
 }
 
-/* أنيميشن النبض الخاص بمزامنة الماركت */
+/* Market synchronization pulse animation */
 @keyframes marketPulse {
   0% { opacity: 1; }
   50% { opacity: 0.3; }
   100% { opacity: 1; }
 }
 
-/* تحسينات الموبايل لشبكة المنتجات */
+/* Mobile optimizations for product grid */
 @media (max-width: 400px) {
   .market-products-grid {
-    grid-template-columns: repeat(2, 1fr); /* عرض منتجين في كل صف على الشاشات الصغيرة جداً */
+    grid-template-columns: repeat(2, 1fr); /* Two products per row on small screens */
     gap: 10px;
   }
 }
