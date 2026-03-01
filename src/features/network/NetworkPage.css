@@ -1,0 +1,70 @@
+.network-page-container {
+  padding: 20px;
+  background: #0a0516;
+  min-height: 100vh;
+  color: white;
+  padding-bottom: 100px;
+  font-family: 'Inter', sans-serif;
+}
+
+.network-header {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.network-title {
+  color: #eab308;
+  font-size: 26px;
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+  text-transform: uppercase;
+}
+
+.network-subtitle {
+  color: #64748b;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.sync-indicator {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  font-size: 9px;
+  color: #eab308;
+  font-weight: bold;
+  animation: networkPulse 1.5s infinite;
+}
+
+.map-wrapper {
+  margin-top: 25px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  background: #05050a; /* خلفية احتياطية للخريطة */
+}
+
+.activity-wrapper {
+  margin-top: 25px;
+}
+
+/* أنيميشن النبض لمؤشر المزامنة */
+@keyframes networkPulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* تحسينات الموبايل */
+@media (max-width: 480px) {
+  .network-title {
+    font-size: 22px;
+  }
+  .sync-indicator {
+    font-size: 8px;
+  }
+}
