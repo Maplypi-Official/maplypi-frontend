@@ -24,10 +24,6 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  /**
-   * دالة الرندر (Render Logic)
-   * الحفاظ على استقرار التسميات لضمان توافق Backend
-   */
   const renderPage = () => {
     const isolatedStyle: React.CSSProperties = {
       padding: '40px 20px',
@@ -61,18 +57,19 @@ const App: React.FC = () => {
     }
   };
 
-  // عرض شاشة التحميل أولاً
   if (isLoading) {
     return <SplashScreen />;
   }
 
   return (
-    <div className="App" style={{ minHeight: '100vh', backgroundColor: '#05050a', paddingBottom: '80px' }}>
-      {/* السر هنا: إضافة مفتاح (key) متغير يجبر المتصفح على تشغيل أنيميشن الدخول 
-          في كل مرة تتغير فيها الصفحة لضمان النعومة المطلوبة
+    <div className="App">
+      {/* تم استخدام key لضمان تشغيل الأنيميشن عند كل تنقل
+          وتم تغليف المحتوى لضمان ثبات الخلفية تحت الانتقال
       */}
-      <div key={currentPage} className="page-transition-wrapper">
-        {renderPage()}
+      <div className="page-container">
+        <div key={currentPage} className="page-transition-wrapper">
+          {renderPage()}
+        </div>
       </div>
       
       <Navbar activeTab={currentPage} onTabChange={setCurrentPage} />
