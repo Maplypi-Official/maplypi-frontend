@@ -1,17 +1,23 @@
-import React from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import './index.css' // تحميل التنسيقات العامة والأساسية
+import App from './App' 
 
-const TestApp = () => (
-  <div style={{ background: '#0a0516', color: '#eab308', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', textAlign: 'center' }}>
-    <h1 style={{ fontSize: '40px' }}>MAPLYPI SYSTEM</h1>
-    <p style={{ color: 'white' }}>If you see this, the compiler is working.</p>
-    <div style={{ border: '1px solid #eab308', padding: '10px', marginTop: '20px' }}>
-      CORE READY
-    </div>
-  </div>
-)
+// رسالة تأكيد في الكونسول لمراقبة استقرار التشغيل عند بدء المصفوفة
+console.log("Maplypi Matrix: Core Initialized."); 
 
 const rootElement = document.getElementById('root');
+
 if (rootElement) {
-  createRoot(rootElement).render(<TestApp />);
+  // إنشاء الجذر الأساسي لـ React 19
+  const root = createRoot(rootElement);
+  
+  root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+} else {
+  // رسالة تحذيرية في حال وجود مشكلة في الربط بملف index.html
+  console.error("Critical Error: Root element not found! Check your index.html file.");
 }
