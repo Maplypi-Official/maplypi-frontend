@@ -26,7 +26,21 @@ export const useMarket = (category: string = 'All') => {
       const response = await fetch('/data/market_products.json');
       if (!response.ok) throw new Error("Database connection failed");
       const data = await response.json();
-      setAllProducts(data);
+      
+      /** * دمج محرك الصور الديناميكي: 
+       * نقوم بتحديث رابط الصورة لكل منتج ليعرض Placeholder ملون بدلاً من المسار الفارغ 
+       * لضمان انبهار المستخدم وفريق Pi بالواجهة فوراً
+       */
+      const enhancedData = data.map((p: Product) => ({
+        ...p,
+        image: `https://placehold.co/400x200/${
+          p.category === 'Legendary' ? 'ff00ea' : 
+          p.category === 'Mythic' ? '00f2ff' : 
+          '1e40af'
+        }/ffffff?text=${encodeURIComponent(p.name)}`
+      }));
+
+      setAllProducts(enhancedData);
       setLoading(false);
     } catch (err) {
       setError("FAILED TO SYNC WITH GALACTIC DATABASE");
