@@ -4,6 +4,8 @@ import Dashboard from './components/Layout/Dashboard';
 import MarketPage from './features/market/MarketPage'; 
 import Navbar from './components/Navigation/Navbar';
 import AddProductForm from './features/market/components/AddProductForm/AddProductForm';
+// استدعاء صفحة الـ Network الحقيقية بعد معالجة المشاكل
+import NetworkPage from './features/network/NetworkPage';
 // استدعاء شاشة التحميل النابضة المحسنة
 import SplashScreen from './components/Shared/SplashScreen/SplashScreen';
 
@@ -12,7 +14,7 @@ import './App.css';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
-  // حالة التحكم في شاشة التحميل
+  // حالة التحكم في شاشة التحميل الافتتاحية
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -46,18 +48,21 @@ const App: React.FC = () => {
         case 'ADD_PRODUCT': 
           return <AddProductForm />;
         case 'NETWORK': 
-          return (
-            <div style={isolatedStyle}>
-              <h2 style={{ textShadow: '0 0 10px #ffca28' }}>NETWORK SECURED</h2>
-              <p style={{ color: '#64748b' }}>Nodes Syncing...</p>
-            </div>
-          );
+          /* تم إرجاع المكون الحقيقي للشبكة هنا. 
+             في حالة حدوث أي مشكلة في المكون، الـ catch سيمسكها لمنع الشاشة السوداء.
+          */
+          return <NetworkPage />;
         default: 
           return <Dashboard />;
       }
     } catch (error) {
       console.error("Component Render Error:", error);
-      return <div style={isolatedStyle}>ERROR LOADING COMPONENT</div>;
+      return (
+        <div style={isolatedStyle}>
+          <h2 style={{ textShadow: '0 0 10px #ffca28' }}>SYSTEM RECOVERY</h2>
+          <p style={{ color: '#64748b' }}>Error loading component. Initializing safe mode...</p>
+        </div>
+      );
     }
   };
 
