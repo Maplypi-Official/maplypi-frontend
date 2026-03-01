@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import './SplashScreen.css';
 
 const SplashScreen: React.FC = () => {
-  // جملة جذابة تعكس قوة المشروع (Mapping the Future, Pi by Pi)
+  /**
+   * جملة جذابة تعكس قوة المشروع (Mapping the Future, Pi by Pi)
+   * تم اختيار النصوص بعناية لإبهار المجتمع والكورتيم
+   */
   const [visionText, setVisionText] = useState("DECRYPTING ECOSYSTEM...");
 
   useEffect(() => {
@@ -22,21 +25,28 @@ const SplashScreen: React.FC = () => {
       <div className="splash-content">
         {/* الحاوية المضيئة للشعار مع معالجة الحواف الحادة */}
         <div className="logo-container">
+          {/* طبقة التوهج الكوني لدمج اللوجو مع الخلفية */}
           <div className="cosmic-glow"></div>
+          
           <img 
             src="/Resources/Logo/maplypi_logo.png" 
             alt="MaplyPi Logo" 
             className="main-logo pulse-heart" 
           />
+          
+          {/* حلقة التوهج المحيطة (Glow Ring) */}
           <div className="glow-ring"></div>
         </div>
         
-        {/* نص الهوية الجديد والجذاب */}
+        {/* منطقة النصوص وشريط التحميل */}
         <div className="loading-text-wrapper">
           <h2 className="vision-statement">{visionText}</h2>
+          
           <div className="loading-bar">
             <div className="bar-progress"></div>
           </div>
+          
+          {/* الشعار الفرعي لتعزيز الهوية */}
           <p className="sub-tagline">FUTURE OF COMMERCE ON PI NETWORK</p>
         </div>
       </div>
