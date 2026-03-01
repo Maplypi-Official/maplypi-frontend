@@ -10,6 +10,7 @@ import ProductsSupply from '../Stats/ProductsSupply';
 import BusinessGrowth from '../Stats/BusinessGrowth';
 import RecentSales from '../Stats/RecentSales/RecentSales';
 import DailyRewards from '../DailyRewards/DailyRewards';
+import AppLoader from '../AppLoader/AppLoader'; // استدعاء النظام الموحد للتحميل
 
 import './Dashboard.css';
 
@@ -43,7 +44,6 @@ const Dashboard: React.FC = () => {
         setLoading(true);
         /**
          * Fetching user profile from the centralized API service.
-         * Falls back to mock data if the backend is unreachable
          */
         const data = await maplypiService.getUserProfile('EkoPi');
         if (isMounted) {
@@ -63,13 +63,13 @@ const Dashboard: React.FC = () => {
     return () => { isMounted = false; };
   }, []);
 
-  /**
-   * تم إزالة شاشة التحميل (INITIALIZING MATRIX) من هنا 
-   * لضمان الاعتماد على نظام الانتقال الموحد في App.tsx
-   */
-
   return (
     <div className="ts-dashboard-container">
+      {/* تفعيل نظام التحميل الموحد الخاص بالـ Dashboard 
+          يظهر فقط عندما تكون حالة loading صحيحة ولم تكتمل البيانات بعد
+      */}
+      {loading && !userData && <AppLoader type="dashboard" />}
+
       <div className="maply-main-frame">
         {/* Central Identity Crown */}
         <Crown logoUrl={maplypiLogo} />
