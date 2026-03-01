@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import Dashboard from './components/Layout/Dashboard.tsx';
-import MarketPage from './features/market/MarketPage.tsx';
-import NetworkPage from './features/network/NetworkPage.tsx';
-import Navbar from './components/Navigation/Navbar.tsx';
+// Cleaned imports: Removing .tsx extensions to ensure Vite compatibility
+import Dashboard from './components/Layout/Dashboard';
+import MarketPage from './features/market/MarketPage';
+import NetworkPage from './features/network/NetworkPage';
+import Navbar from './components/Navigation/Navbar';
 
-// استيراد التنسيقات المركزية
+// Core central styles
 import './App.css';
 
 const App: React.FC = () => {
-  // الحالة المسؤولة عن التنقل بين الصفحات
+  // State for page navigation management
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
 
-  // دالة الرندر الآمنة (Safety Render)
+  /**
+   * Safety Render Logic
+   * Handles dynamic component switching based on the active state
+   */
   const renderPage = () => {
     try {
       switch (currentPage) {
@@ -23,8 +27,8 @@ const App: React.FC = () => {
           return <NetworkPage />;
         case 'SETTINGS':
           return (
-            <div style={{ padding: '40px', color: 'var(--gold)', textAlign: 'center' }}>
-              <h2>Security Protocol</h2>
+            <div style={{ padding: '40px', color: '#eab308', textAlign: 'center' }}>
+              <h2 style={{ textShadow: '0 0 10px #eab308' }}>Security Protocol</h2>
               <p style={{ color: '#64748b' }}>Terminal Access Restricted.</p>
             </div>
           );
@@ -34,7 +38,7 @@ const App: React.FC = () => {
     } catch (error) {
       console.error("Matrix Render Error:", error);
       return (
-        <div style={{ color: '#ff4444', padding: '20px', textAlign: 'center' }}>
+        <div style={{ color: '#ff4444', padding: '20px', textAlign: 'center', background: '#000' }}>
           <h3>CRITICAL SYSTEM ERROR</h3>
           <p>Rebooting Interface...</p>
         </div>
@@ -43,11 +47,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      {/* عرض الصفحة النشطة بناءً على اختيار المستخدم */}
+    <div className="App" style={{ minHeight: '100vh', backgroundColor: '#05050a' }}>
+      {/* Dynamic Viewport */}
       {renderPage()}
       
-      {/* شريط التنقل السفلي - يمرر له الحالة الحالية ودالة التغيير */}
+      {/* Global Navigation System */}
       <Navbar activeTab={currentPage} onTabChange={setCurrentPage} />
     </div>
   );
