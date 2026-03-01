@@ -1,37 +1,35 @@
 /* --- إعدادات الألوان والمتغيرات --- */
 :root {
   --digital-gold: #ffca28;
-  --nav-bg: rgba(13, 11, 26, 0.92); /* تعتيم مثالي لضمان الوضوح فوق العناصر الخلفية */
+  --nav-bg: rgba(13, 11, 26, 0.95); /* زيادة التعتيم قليلاً لضمان الوضوح */
 }
 
 /* --- الحاوية الرئيسية للـ Navbar --- */
 .maply-bottom-nav {
-  /* الوضع الثابت الإجباري لضمان الظهور الفوري والدائم */
+  /* وضع ثابت إجباري ليظهر فور فتح التطبيق ويبقى أثناء السكرول */
   position: fixed !important; 
-  bottom: 20px !important; /* رفعه قليلاً ليعطي تأثيراً عائماً (Floating UI) */
+  bottom: 20px !important; 
   left: 50% !important;
   transform: translateX(-50%) !important;
   
-  /* التجاوب مع عرض الشاشة */
+  /* الأبعاد والتجاوب */
   width: 92% !important; 
-  max-width: 460px; /* الحفاظ على مظهر متناسق في الأجهزة الكبيرة */
+  max-width: 460px;
   height: 68px;
   
   /* التصميم الزجاجي المتطور */
-  background: var(--nav-bg);
+  background: var(--nav-bg) !important;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%); /* دعم متصفحات الـ Pi و Safari */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 202, 40, 0.3);
   border-radius: 22px;
   
-  /* التأكد من الظهور فوق كافة عناصر التطبيق */
-  z-index: 99999 !important; 
+  /* أعلى طبقة ممكنة لضمان الظهور الفوري فوق أي تداخل */
+  z-index: 999999 !important; 
   display: flex;
   align-items: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-  
-  /* ضمان استجابة اللمس */
-  pointer-events: auto; 
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+  pointer-events: auto; /* لضمان استجابة الأزرار */
 }
 
 /* --- غلاف العناصر الداخلية --- */
@@ -79,7 +77,7 @@
   text-transform: uppercase;
 }
 
-/* --- 🌟 الحالة النشطة (Active State) --- */
+/* --- الحالة النشطة --- */
 .nav-item.active .nav-icon {
   transform: translateY(-6px) scale(1.15);
   filter: grayscale(0) drop-shadow(0 0 12px var(--digital-gold));
@@ -91,7 +89,7 @@
   text-shadow: 0 0 8px rgba(255, 202, 40, 0.3);
 }
 
-/* --- 💓 تأثير النبض الرقمي (Pulse Ring) --- */
+/* --- تأثير النبض الرقمي --- */
 .pulse-ring {
   position: absolute;
   width: 32px;
@@ -107,7 +105,7 @@
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* --- ✨ تمييز زر SELL ITEM --- */
+/* --- تمييز زر SELL ITEM --- */
 .nav-item.special-add .nav-icon {
   background: linear-gradient(135deg, #fff, var(--digital-gold));
   -webkit-background-clip: text;
@@ -115,12 +113,11 @@
   font-size: 1.5rem;
 }
 
-/* --- 📱 التفاعل مع اللمس --- */
 .nav-item:active {
   transform: scale(0.92);
 }
 
-/* لضمان اختفاء الفراغات الجانبية السوداء */
+/* تعديل العرض للشاشات الصغيرة جداً */
 @media screen and (max-width: 480px) {
   .maply-bottom-nav {
     width: 94% !important;
