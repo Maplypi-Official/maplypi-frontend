@@ -3,18 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    
     <title>Maplypi - Web3 Commerce Engine</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
-      /* خلفية احتياطية سريعة تظهر قبل تحميل الـ React لمنع البياض */
       body {
         margin: 0;
-        background-color: #05050a; /* نفس لون خلفية الماتريكس */
+        background-color: #05050a;
       }
       #root {
         min-height: 100vh;
@@ -23,7 +22,6 @@
   </head>
   <body>
     <div id="root"></div>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
