@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  /* تثبيت الخلفية على الـ body يمنع ظهور السواد أثناء انتقال العناصر */
   background: #05050a !important;
   background-image: 
     var(--bg-gradient),
@@ -27,29 +28,40 @@ body {
   overflow-x: hidden;
 }
 
-/* الحاوية الرئيسية للتطبيق */
 .App {
   width: 100%;
   min-height: 100vh;
   position: relative;
+  /* تفعيل تسريع العتاد للحاوية الرئيسية */
+  transform: translateZ(0);
 }
 
-/* --- ✨ تأثير الانتقال بين الصفحات الجديد --- */
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* --- ✨ تحسين تأثير الانتقال (Super Smooth) --- */
 .page-transition-wrapper {
-  animation: slideFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  will-change: transform, opacity;
+  /* تقليل الوقت لـ 0.4 ثانية يجعله يبدو أسرع وأقل تقطيعاً */
+  animation: slideFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  /* منع "القفز" أو السواد من خلال الحفاظ على الحالة النهائية */
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: opacity, transform;
 }
 
 @keyframes slideFadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.99);
-    filter: blur(4px);
+    transform: translateY(8px);
+    filter: brightness(0.8);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: translateY(0);
+    filter: brightness(1);
   }
 }
 
