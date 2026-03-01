@@ -55,8 +55,7 @@ const Dashboard: React.FC = () => {
         if (isMounted) setError("Offline Mode Active.");
       } finally {
         if (isMounted) {
-          // Simulated delay for matrix synchronization effect
-          setTimeout(() => setLoading(false), 800);
+          setLoading(false);
         }
       }
     };
@@ -64,18 +63,10 @@ const Dashboard: React.FC = () => {
     return () => { isMounted = false; };
   }, []);
 
-  // Matrix Initialization Screen
-  if (loading) {
-    return (
-      <div className="loading-screen" style={{
-        background: '#0a0516', height: '100vh', display: 'flex', 
-        justifyContent: 'center', alignItems: 'center', color: '#eab308',
-        letterSpacing: '3px', fontWeight: 'bold', fontFamily: 'monospace'
-      }}>
-        INITIALIZING MATRIX...
-      </div>
-    );
-  }
+  /**
+   * تم إزالة شاشة التحميل (INITIALIZING MATRIX) من هنا 
+   * لضمان الاعتماد على نظام الانتقال الموحد في App.tsx
+   */
 
   return (
     <div className="ts-dashboard-container">
