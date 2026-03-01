@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Product } from '../types/market.d.ts';
-import axios from 'axios'; // جاهز للربط مع السيرفر
+import { Product } from '../types/market.d'; 
+import axios from 'axios';
 
 export const useMarket = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -8,18 +8,19 @@ export const useMarket = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // دالة جلب البيانات من الباك أند (Matrix API)
+    let isMounted = true;
+    
     const fetchProducts = async () => {
       try {
         setLoading(true);
         
-        /** * الربط مع الباك أند اللي عملناه (API Endpoint)
-         * بمجرد تشغيل السيرفر، الكود ده هيسحب البيانات الحقيقية
+        /** * الربط مع الباك أند (API Endpoint)
+         * بمجرد تفعيل السيرفر، قم بإزالة التعليق عن الأسطر التالية:
          */
         // const response = await axios.get('http://localhost:5000/api/products');
-        // setProducts(response.data.data);
+        // if (isMounted) setProducts(response.data.data);
 
-        // بيانات تجريبية "فخمة" لحين تفعيل السيرفر (تطابق الـ Schema في الباك أند)
+        // بيانات تجريبية (Mock Data) تطابق الـ Schema لضمان استقرار العرض
         const mockData: Product[] = [
           { 
             id: '1', name: 'Cyber Burger', price: 0.55, category: 'Food', 
@@ -39,19 +40,26 @@ export const useMarket = () => {
           }
         ];
 
-        setProducts(mockData);
+        if (isMounted) {
+          setProducts(mockData);
+          setError(null);
+        }
       } catch (err) {
-        setError("Failed to sync with Market Grid");
-        console.error("Market Sync Error:", err);
+        if (isMounted) {
+          setError("Failed to sync with Market Grid");
+          console.error("Market Sync Error:", err);
+        }
       } finally {
-        // تأخير بسيط لمحاكاة الـ Matrix loading
-        setTimeout(() => setLoading(false), 800);
+        if (isMounted) {
+          // تأخير بسيط لمحاكاة الـ Matrix loading
+          setTimeout(() => setLoading(false), 800);
+        }
       }
     };
 
     fetchProducts();
+    return () => { isMounted = false; };
   }, []);
 
-  // الحفاظ على المسميات الأصلية لضمان عدم كسر المكونات
   return { products, loading, error };
 };
