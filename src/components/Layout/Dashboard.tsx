@@ -35,10 +35,11 @@ const Dashboard: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
+        // استدعاء الخدمة المرتبطة بالباك أند
         const data = await maplypiService.getUserProfile('EkoPi');
         setUserData(data);
       } catch (err) {
-        console.error("API Error:", err);
+        console.error("Matrix Sync Error:", err);
         setError("Offline Mode Active.");
       } finally {
         setLoading(false);
@@ -47,13 +48,25 @@ const Dashboard: React.FC = () => {
     loadDashboardData();
   }, []);
 
-  if (loading) return <div className="loading-screen">INITIALIZING MATRIX...</div>;
+  if (loading) {
+    return (
+      <div className="loading-screen" style={{
+        background: '#0a0516', height: '100vh', display: 'flex', 
+        justifyContent: 'center', alignItems: 'center', color: '#eab308',
+        letterSpacing: '3px', fontWeight: 'bold'
+      }}>
+        INITIALIZING MATRIX...
+      </div>
+    );
+  }
 
   return (
     <div className="ts-dashboard-container">
       <div className="maply-main-frame">
+        {/* اللوجو المركزي */}
         <Crown logoUrl={maplypiLogo} />
         
+        {/* منطقة الهيدر والبيانات الشخصية */}
         <div className="header-integration-zone">
           <Header 
             userName={userData?.username || 'EkoPi'} 
@@ -80,7 +93,17 @@ const Dashboard: React.FC = () => {
           </div>
         </main>
       </div>
-      {error && <div className="error-toast">{error}</div>}
+      
+      {/* رسالة الخطأ تظهر كـ Toast خفيف في حالة فشل الباك أند */}
+      {error && (
+        <div className="error-toast" style={{
+          position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)',
+          background: 'rgba(234, 179, 8, 0.1)', color: '#eab308', padding: '5px 15px',
+          borderRadius: '20px', fontSize: '10px', border: '1px solid rgba(234, 179, 8, 0.2)'
+        }}>
+          {error}
+        </div>
+      )}
     </div>
   );
 };
