@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// استيراد النوع بدون امتداد .ts أو .d.ts لضمان توافق Vite
 import { Product } from '../types/market'; 
 import axios from 'axios';
 
@@ -13,10 +12,11 @@ export const useMarket = () => {
     
     const fetchProducts = async () => {
       try {
-        setLoading(true);
-        
+        // نضمن أن التحميل يبدأ فوراً
+        if (isMounted) setLoading(true);
+
         /** * الربط مع الباك أند (API Endpoint)
-         * ملاحظة: تم ترك التعليقات كما هي لسهولة التفعيل لاحقاً
+         * سيبقى كما هو لسهولة التفعيل لاحقاً حسب طلبك
          */
         // const response = await axios.get('http://localhost:5000/api/products');
         // if (isMounted) setProducts(response.data.data);
@@ -25,40 +25,40 @@ export const useMarket = () => {
         const mockData: Product[] = [
           { 
             id: '1', name: 'Cyber Burger', price: 0.55, category: 'Food', 
-            stock: 12, quality: 85, image: 'https://placehold.co/400x300/1a1433/eab308?text=Cyber+Food' 
+            stock: 12, quality: 85, image: '' // تركناها فارغة مؤقتاً لضمان عدم تعليق التحميل
           },
           { 
             id: '2', name: 'Quantum CPU', price: 1.20, category: 'Tech', 
-            stock: 5, quality: 98, image: 'https://placehold.co/400x300/1a1433/eab308?text=Quantum+Tech' 
+            stock: 5, quality: 98, image: '' 
           },
           { 
             id: '3', name: 'Golden π Vase', price: 0.80, category: 'Craft', 
-            stock: 2, quality: 90, image: 'https://placehold.co/400x300/1a1433/eab308?text=Pi+Craft' 
+            stock: 2, quality: 90, image: '' 
           },
           { 
             id: '4', name: 'Neural Link', price: 2.50, category: 'Tech', 
-            stock: 8, quality: 99, image: 'https://placehold.co/400x300/1a1433/eab308?text=Neural+Link' 
+            stock: 8, quality: 99, image: '' 
           }
         ];
 
         if (isMounted) {
           setProducts(mockData);
           setError(null);
+          // إلغاء الـ setTimeout الخارجي ودمجه هنا لضمان استقرار الرندر
+          setLoading(false);
         }
       } catch (err) {
         if (isMounted) {
           setError("Failed to sync with Market Grid");
+          setLoading(false); // نوقف التحميل حتى في حالة الخطأ
           console.error("Market Sync Error:", err);
-        }
-      } finally {
-        if (isMounted) {
-          // تأخير بسيط لمحاكاة الـ Matrix loading لضمان استقرار الرندر
-          setTimeout(() => setLoading(false), 800);
         }
       }
     };
 
     fetchProducts();
+    
+    // تنظيف الموارد عند مغادرة الصفحة لمنع الـ Memory Leak
     return () => { isMounted = false; };
   }, []);
 
