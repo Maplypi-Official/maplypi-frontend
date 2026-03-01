@@ -1,19 +1,24 @@
+/* الحاوية الرئيسية للماركت - تحسين الأبعاد لضمان الظهور */
 .market-page-container {
   padding: 20px;
-  background: #0a0516; /* Dark background consistent with Matrix theme */
+  background: #05050a; /* لون متناسق مع Dashboard لضمان عدم وجود فوارق */
   min-height: 100vh;
-  padding-bottom: 160px; /* Space for Bottom Navigation and Cart */
+  padding-bottom: 100px; /* تقليل المساحة السفلية لضمان رؤية المنتجات على الموبايل */
   font-family: 'Inter', sans-serif;
   color: white;
+  position: relative; /* لضمان ترتيب العناصر بشكل صحيح */
+  z-index: 1;
 }
 
+/* الهيدر الخاص بالقسم */
 .market-header {
   margin-bottom: 25px;
+  text-align: center; /* توسيط العنوان لضمان التناسق */
 }
 
 .market-title {
-  color: #eab308; /* Gold color for brand consistency */
-  font-size: 28px;
+  color: #eab308;
+  font-size: 24px; /* تقليل الحجم قليلاً ليتناسب مع شاشات الموبايل الصغيرة */
   font-weight: 900;
   margin: 0;
   text-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
@@ -22,12 +27,13 @@
 
 .market-subtitle {
   color: #64748b;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-top: 5px; /* Corrected syntax */
+  margin-top: 5px;
 }
 
+/* مؤشر المزامنة - معالجة الأنيميشن ليكون أخف على المعالج */
 .market-sync-indicator {
   color: #eab308;
   text-align: center;
@@ -35,14 +41,16 @@
   font-size: 12px;
   letter-spacing: 2px;
   font-weight: bold;
-  animation: marketPulse 1.5s infinite; /* Pulsing sync effect */
+  animation: marketPulse 2s infinite ease-in-out;
 }
 
+/* شبكة المنتجات - تحسين التوزيع لضمان عدم التداخل */
 .market-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
   margin-top: 10px;
+  width: 100%;
 }
 
 .empty-market-state {
@@ -53,17 +61,21 @@
   font-size: 14px;
 }
 
-/* Market synchronization pulse animation */
+/* أنيميشن النبض - Matrix Effect */
 @keyframes marketPulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
 }
 
-/* Mobile optimizations for product grid */
+/* تحسينات الموبايل (Responsive Design) */
 @media (max-width: 400px) {
   .market-products-grid {
-    grid-template-columns: repeat(2, 1fr); /* Two products per row on small screens */
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* عرض منتجين في كل صف */
+    gap: 8px;
+  }
+  
+  .market-title {
+    font-size: 20px;
   }
 }
