@@ -16,13 +16,15 @@
 body {
   margin: 0;
   padding: 0;
+  /* الحل للفراغات الجانبية: التأكد من ملء العرض بنسبة 100% */
+  width: 100vw;
   min-height: 100vh;
-  /* ثبات الخلفية ومنع التمدد الأفقي */
   background: #05050a !important;
   background-image: var(--bg-gradient) !important;
   background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
+  /* منع التمدد الأفقي وظهور اللون الأسود الجانبي */
   overflow-x: hidden; 
 }
 
@@ -30,17 +32,19 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  /* تفعيل تسريع العتاد */
   transform: translateZ(0);
 }
 
 .page-container {
-  width: 100%;
+  /* جعل المحتوى يملأ العرض بالكامل لالغاء الحواف السوداء */
+  width: 100% !important;
+  max-width: 100% !important;
   min-height: 100vh;
-  /* مساحة سفلية كافية لضمان عدم اختفاء المحتوى خلف الـ Navbar */
-  padding-bottom: 120px;
-  padding-left: 12px;
-  padding-right: 12px;
+  /* إلغاء الحواف الجانبية لضمان عرض كامل في متصفح Pi */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  /* مساحة سفلية كافية لأن الـ Navbar الآن ثابت (Fixed) */
+  padding-bottom: 110px;
 }
 
 /* --- ✨ تأثير الانتقال (Super Smooth) --- */
@@ -107,6 +111,8 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
+  /* الحفاظ على مسافة صغيرة من أطراف الشاشة للهيدر فقط */
+  margin: 0 10px;
 }
 
 /* --- الشبكة (Grid) --- */
@@ -115,6 +121,8 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 15px;
+  /* ضمان توزيع المحتوى بالكامل */
+  padding: 0 10px;
 }
 
 /* تحسين الشبكة للشاشات الكبيرة */
@@ -150,4 +158,16 @@ body {
 .ts-btn.gold:active { 
   transform: scale(0.97); 
   box-shadow: 0 2px 8px rgba(255, 202, 40, 0.2);
+}
+
+/* --- 📱 إصلاح الـ Navbar ليظهر فوراً (Fixed Position) --- */
+/* ملاحظة: تأكد أن كلاس الـ Navbar في ملفه الخاص هو .maply-bottom-nav */
+.maply-bottom-nav {
+  position: fixed !important;
+  bottom: 15px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 92% !important;
+  max-width: 500px;
+  z-index: 9999 !important; /* لضمان ظهوره فوق كل المحتوى */
 }
