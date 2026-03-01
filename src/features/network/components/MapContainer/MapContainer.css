@@ -8,6 +8,13 @@
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
 }
 
+/* حاوية Mapbox يجب أن تغطي الخلفية بالكامل */
+.mapbox-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
 .hex-bg {
   position: absolute;
   inset: 0;
@@ -15,9 +22,9 @@
   background-image: url('https://www.transparenttextures.com/patterns/hexellence.png');
   filter: invert(1);
   z-index: 1;
+  pointer-events: none; /* للسماح بالتحكم في الخريطة تحتها */
 }
 
-/* طبقة الخطوط المتقاطعة لمحاكاة شوارع الخريطة */
 .map-grid-lines {
   position: absolute;
   inset: 0;
@@ -26,41 +33,39 @@
     linear-gradient(-30deg, transparent 49%, rgba(139, 92, 246, 0.1) 50%, transparent 51%);
   background-size: 80px 80px;
   z-index: 2;
+  pointer-events: none;
 }
 
-/* توزيع المواقع طبق الأصل */
-.pos-center { top: 40%; left: 50%; }
-.pos-techzone { top: 25%; left: 75%; }
-.pos-urbanmart { top: 35%; left: 25%; }
-.pos-extra-1 { top: 15%; left: 50%; }
-.pos-extra-2 { top: 55%; left: 85%; }
-.pos-extra-3 { top: 60%; left: 65%; }
-.pos-user { bottom: 15%; right: 15%; }
+/* تنسيق لوحة البيانات العلوية */
+.top-right-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
+  z-index: 10;
+  background: rgba(13, 8, 29, 0.7);
+  padding: 10px;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
 
-.map-pin { width: 50px; height: auto; z-index: 10; }
-.pin-sm { width: 25px; height: auto; opacity: 0.8; }
-.main-pi { width: 70px; }
+.ui-bal-label { color: #94a3b8; font-size: 8px; margin: 0; }
+.ui-bal-value { color: #ffca28; font-size: 16px; font-weight: bold; margin: 0; }
+.ui-lvl-label { color: #ffca28; font-size: 10px; margin: 0; opacity: 0.8; }
 
 .glow-gold { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.7)); }
 .glow-blue { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.6)); }
 
-.pin-label {
-  color: #fff;
-  font-size: 13px;
-  font-weight: bold;
-  margin-top: 5px;
-  text-shadow: 0 0 10px #000;
+/* موقع المستخدم الثابت */
+.pos-user-fixed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  pointer-events: none;
 }
 
-.status-sub-label {
-  color: #94a3b8;
-  font-size: 9px;
-  background: rgba(0,0,0,0.5);
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-/* تصميم دائرة البحث للمستخدم */
 .range-circle-v2 {
   position: absolute;
   width: 160px;
@@ -68,21 +73,25 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  transform: translate(0, -30%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.user-icon-v2 { width: 40px; z-index: 15; position: relative; }
+.user-icon-v2 { width: 40px; position: relative; }
 
 .search-range-tag {
   position: absolute;
-  bottom: -40px;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
   white-space: nowrap;
   background: rgba(15, 10, 30, 0.8);
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 10px;
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
 }
 
 .scan-line-v2 {
@@ -94,6 +103,7 @@
   background: linear-gradient(180deg, transparent, rgba(234, 179, 8, 0.05), transparent);
   animation: scan-v2 5s linear infinite;
   z-index: 3;
+  pointer-events: none;
 }
 
 @keyframes scan-v2 { 0% { top: -100px; } 100% { top: 100%; } }
