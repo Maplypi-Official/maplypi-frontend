@@ -4,94 +4,49 @@ import MapContainer from './components/MapContainer/MapContainer';
 import ActivityLog from './components/ActivityLog/ActivityLog';
 import { useNetworkSync } from './hooks/useNetworkSync';
 
+// استيراد التنسيقات الجديدة
+import './NetworkPage.css';
+
 const NetworkPage: React.FC = () => {
-  // جلب البيانات الموحدة (Nodes, Stats, Balance) من الباك أند عبر الـ Hook
+  // جلب البيانات من الـ Hook المرتبط بالباك أند
   const { nodes, loading, userStats } = useNetworkSync();
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      background: '#0a0516', 
-      minHeight: '100vh', 
-      color: 'white',
-      paddingBottom: '100px', 
-      fontFamily: "'Inter', sans-serif"
-    }}>
+    <div className="network-page-container">
       
       {/* 1. Header الصفحة - الهوية البصرية لـ Maplypi */}
-      <header style={{ marginBottom: '25px', position: 'relative' }}>
-        <h1 style={{ 
-          color: '#eab308', 
-          fontSize: '26px', 
-          fontWeight: '900', 
-          margin: 0,
-          textShadow: '0 0 20px rgba(234,179,8,0.3)' 
-        }}>
-          Maplypi Matrix
-        </h1>
-        <p style={{ 
-          color: '#64748b', 
-          fontSize: '11px', 
-          letterSpacing: '2px', 
-          textTransform: 'uppercase',
-          marginTop: '4px' 
-        }}>
-          Decentralized Supply Grid
-        </p>
+      <header className="network-header">
+        <h1 className="network-title">Maplypi Matrix</h1>
+        <p className="network-subtitle">Decentralized Supply Grid</p>
 
-        {/* مؤشر المزامنة الحي - Pulse Animation */}
+        {/* مؤشر المزامنة الحي */}
         {loading && (
-          <div style={{ 
-            position: 'absolute', 
-            top: '5px', 
-            right: '0', 
-            fontSize: '9px', 
-            color: '#eab308',
-            fontWeight: 'bold',
-            animation: 'pulse 1.5s infinite'
-          }}>
+          <div className="sync-indicator">
             ● SYNCING MATRIX...
           </div>
         )}
       </header>
       
-      {/* 2. لوحة الإحصائيات والرصيد (StatsBoard) */}
+      {/* 2. لوحة الإحصائيات والرصيد */}
       <StatsBoard 
         data={{ 
-          activeNodes: nodes.length, 
+          activeNodes: nodes?.length || 0, 
           territoryControl: 14.5,
-          balance: userStats?.balance || 125.75, // القيمة الافتراضية من التصميم
+          balance: userStats?.balance || 125.75, 
           level: userStats?.level || 14
         }} 
         isLoading={loading} 
       />
       
-      {/* 3. حاوية الخريطة (MapContainer) */}
-      <div style={{ 
-        marginTop: '25px', 
-        borderRadius: '28px', 
-        overflow: 'hidden', 
-        border: '1px solid rgba(139, 92, 246, 0.2)',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
-      }}>
+      {/* 3. حاوية الخريطة */}
+      <div className="map-wrapper">
         <MapContainer sectorName="Cairo Citadel Sector" />
       </div>
 
-      {/* 4. سجل النشاط (ActivityLog) */}
-      <div style={{ marginTop: '25px' }}>
+      {/* 4. سجل النشاط */}
+      <div className="activity-wrapper">
         <ActivityLog />
       </div>
-
-      {/* تنسيق الأنيميشن للمؤشر */}
-      <style>
-        {`
-          @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-          }
-        `}
-      </style>
     </div>
   );
 };
