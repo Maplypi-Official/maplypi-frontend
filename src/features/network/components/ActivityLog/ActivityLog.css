@@ -1,66 +1,90 @@
-/* الحفاظ على الهيكل التنظيمي للماركت والنيتورك */
 .activity-container { 
-  background: #1a1433; 
-  border-radius: 16px; 
-  padding: 15px; 
+  background: rgba(26, 20, 51, 0.6); 
+  border-radius: 20px; 
+  padding: 18px; 
   margin-top: 20px; 
-  border: 1px solid rgba(139, 92, 246, 0.2); 
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(139, 92, 246, 0.15); 
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.activity-header {
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 10px;
 }
 
 .activity-title { 
-  font-size: 14px; 
+  font-size: 13px; 
   color: #eab308; 
-  margin-bottom: 12px; 
-  font-weight: bold;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
 }
 
 .activity-item { 
   display: flex; 
-  gap: 12px; 
-  padding: 10px 0; 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
-  transition: background 0.2s ease;
+  gap: 15px; 
+  padding: 12px 0; 
+  position: relative;
 }
 
-/* تأثير عند التمرير لجعل اللوج تفاعلي */
-.activity-item:hover {
-  background: rgba(139, 92, 246, 0.05);
+/* مؤشر الحالة المتسلسل */
+.status-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .status-dot { 
-  min-width: 6px; 
-  height: 6px; 
+  width: 8px; 
+  height: 8px; 
   background: #22c55e; 
   border-radius: 50%; 
-  margin-top: 6px; 
-  box-shadow: 0 0 10px #22c55e; 
+  box-shadow: 0 0 12px #22c55e; 
   animation: pulse-dot 2s infinite;
 }
 
-@keyframes pulse-dot {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.activity-content p { 
-  font-size: 12px; 
-  color: #e2e8f0; 
-  margin: 0;
-  line-height: 1.4;
-}
-
-.activity-content span { 
-  font-size: 10px; 
-  color: #64748b; 
-  display: block;
+.status-line {
+  width: 1px;
+  flex-grow: 1;
+  background: linear-gradient(180deg, #22c55e 0%, transparent 100%);
+  opacity: 0.2;
   margin-top: 4px;
 }
 
-/* تنسيق إضافي للوقت ليكون متناسقاً */
-.activity-time {
-  font-family: 'Courier New', Courier, monospace;
+@keyframes pulse-dot {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.user-tag {
+  color: #eab308;
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.activity-text { 
+  font-size: 12px; 
+  color: #cbd5e1; 
+  margin: 0;
+  line-height: 1.5;
+}
+
+.activity-time { 
+  font-size: 9px; 
+  color: #64748b; 
+  display: block;
+  margin-top: 4px;
+  text-transform: uppercase;
+  font-family: 'Orbitron', monospace;
+}
+
+.live-badge {
+  background: rgba(34, 197, 94, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(34, 197, 94, 0.2);
 }
