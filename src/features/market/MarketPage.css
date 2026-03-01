@@ -1,81 +1,109 @@
-/* الحاوية الرئيسية للماركت - تحسين الأبعاد لضمان الظهور */
+/* الحاوية الرئيسية للماركت - تحويلها لـ Nebula Theme */
 .market-page-container {
   padding: 20px;
-  background: #05050a; /* لون متناسق مع Dashboard لضمان عدم وجود فوارق */
+  /* دمج لون الـ Dashboard مع تدرج عميق ليلاً */
+  background: radial-gradient(circle at top, #1a1433 0%, #05050a 100%);
+  background-attachment: fixed;
   min-height: 100vh;
-  padding-bottom: 100px; /* تقليل المساحة السفلية لضمان رؤية المنتجات على الموبايل */
+  padding-bottom: 120px;
   font-family: 'Inter', sans-serif;
   color: white;
-  position: relative; /* لضمان ترتيب العناصر بشكل صحيح */
+  position: relative;
   z-index: 1;
+  overflow-x: hidden;
+}
+
+/* إضافة تأثير النجوم المتلألئة خلف المنتجات */
+.market-page-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 150px 50px, #eab308, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 80px 120px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 250px 200px, #eab308, rgba(0,0,0,0));
+  background-size: 300px 300px;
+  opacity: 0.2;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* الهيدر الخاص بالقسم */
 .market-header {
-  margin-bottom: 25px;
-  text-align: center; /* توسيط العنوان لضمان التناسق */
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .market-title {
   color: #eab308;
-  font-size: 24px; /* تقليل الحجم قليلاً ليتناسب مع شاشات الموبايل الصغيرة */
+  font-size: 26px;
   font-weight: 900;
   margin: 0;
-  text-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
+  /* توهج ذهبي فخم يماثل أيقونة الـ Pi */
+  text-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
   text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .market-subtitle {
   color: #64748b;
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 10px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-top: 5px;
+  margin-top: 8px;
+  font-weight: 600;
 }
 
-/* مؤشر المزامنة - معالجة الأنيميشن ليكون أخف على المعالج */
+/* مؤشر المزامنة - Matrix Pulse */
 .market-sync-indicator {
   color: #eab308;
   text-align: center;
-  margin-top: 50px;
-  font-size: 12px;
-  letter-spacing: 2px;
+  margin-top: 60px;
+  font-size: 11px;
+  letter-spacing: 3px;
   font-weight: bold;
+  text-transform: uppercase;
   animation: marketPulse 2s infinite ease-in-out;
 }
 
-/* شبكة المنتجات - تحسين التوزيع لضمان عدم التداخل */
+/* شبكة المنتجات - تحسين الانسيابية للموبايل */
 .market-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
   width: 100%;
 }
 
 .empty-market-state {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 40px;
-  color: #64748b;
+  padding: 60px 20px;
+  color: #475569;
   font-size: 14px;
+  font-style: italic;
 }
 
-/* أنيميشن النبض - Matrix Effect */
+/* أنيميشن النبض */
 @keyframes marketPulse {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
-  100% { opacity: 0.4; }
+  0% { opacity: 0.3; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.3; transform: scale(0.98); }
 }
 
 /* تحسينات الموبايل (Responsive Design) */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .market-products-grid {
-    grid-template-columns: repeat(2, 1fr); /* عرض منتجين في كل صف */
-    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
   
   .market-title {
-    font-size: 20px;
+    font-size: 22px;
+  }
+
+  .market-page-container {
+    padding: 15px;
   }
 }
