@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Product } from '../types/market.ts'; 
+import { Product } from '../types/market'; 
 import axios from 'axios';
 
 export const useMarket = () => {
