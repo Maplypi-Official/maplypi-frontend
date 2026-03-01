@@ -1,60 +1,83 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { NetworkNode, UserLocation } from '../../types/network';
 import './MapContainer.css';
 
-const MapContainer: React.FC<{ sectorName?: string }> = ({ sectorName }) => {
+// تأكد من وضع التوكن الخاص بك هنا
+mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+interface MapContainerProps {
+  sectorName?: string;
+  userLocation: UserLocation;
+  nodes: NetworkNode[];
+}
+
+const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, nodes }) => {
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
   const displaySector = sectorName || "Cairo Citadel Sector";
+
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+
+    // تهيئة خريطة Mapbox في الخلفية
+    mapRef.current = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/navigation-night-v1', 
+      center: [userLocation.lng, userLocation.lat],
+      zoom: 14,
+      pitch: 45,
+      interactive: true // السماح للمستخدم بالتحريك
+    });
+
+    // إضافة ماركرات العقد ديناميكياً بناءً على البيانات
+    mapRef.current.on('load', () => {
+      nodes.forEach(node => {
+        const el = document.createElement('div');
+        el.className = `map-pin ${node.tier === 'Premium' ? 'glow-gold' : 'glow-blue'}`;
+        // استخدام الأيقونات الأصلية من مشروعك
+        const iconPath = node.tier === 'Premium' ? '/src/assets/pin-premium1.png' : '/src/assets/pin-standard1.png';
+        el.style.backgroundImage = `url(${iconPath})`;
+        el.style.width = node.tier === 'Premium' ? '50px' : '25px';
+        el.style.height = '50px';
+        el.style.backgroundSize = 'contain';
+        el.style.backgroundRepeat = 'no-repeat';
+
+        new mapboxgl.Marker(el)
+          .setLngLat([node.lng, node.lat])
+          .setPopup(new mapboxgl.Popup().setHTML(`<b>${node.name}</b>`))
+          .addTo(mapRef.current!);
+      });
+    });
+
+    return () => mapRef.current?.remove();
+  }, [userLocation, nodes]);
 
   return (
     <div className="map-wrapper main-matrix-v2">
-      {/* 1. شبكة الهيكساجون والخطوط الخلفية */}
+      {/* حاوية Mapbox الفعلية */}
+      <div ref={mapContainerRef} className="mapbox-canvas-container" />
+
+      {/* 1. طبقات التصميم الجمالية فوق الخريطة */}
       <div className="hex-bg"></div>
       <div className="map-grid-lines"></div>
       
-      {/* 2. واجهة الرصيد والمستوى - الزاوية العلوية اليمنى */}
+      {/* 2. واجهة الرصيد والمستوى - ثابتة فوق الخريطة */}
       <div className="map-ui-overlay top-right-panel">
         <p className="ui-bal-label">MY PI BALANCE:</p>
-        <p className="ui-bal-value">125.75 π</p>
-        <p className="ui-lvl-label">LEVEL: 14</p>
+        <p className="ui-bal-value">{userLocation.balance} π</p>
+        <p className="ui-lvl-label">LEVEL: {userLocation.level}</p>
       </div>
 
-      {/* 3. طبقة الأيقونات - توزيع طبق الأصل من الصورة */}
-      <div className="markers-layer">
-        
-        {/* العقدة الذهبية الرئيسية (المركزية) */}
-        <div className="marker-node pos-center">
-          <img src="/src/assets/pin-premium1.png" className="map-pin glow-gold main-pi" alt="Main" />
-        </div>
-
-        {/* TechZone 314 (Premium) - أعلى اليمين */}
-        <div className="marker-node pos-techzone">
-          <img src="/src/assets/pin-premium1.png" className="map-pin glow-gold" alt="Premium" />
-          <span className="pin-label">TechZone 314</span>
-        </div>
-
-        {/* UrbanMart Pi (Standard) - منتصف اليسار */}
-        <div className="marker-node pos-urbanmart">
-          <img src="/src/assets/pin-standard1.png" className="map-pin glow-blue" alt="Standard" />
-          <span className="pin-label">UrbanMart Pi</span>
-          <span className="status-sub-label">Checking-in... [50m]</span>
-        </div>
-
-        {/* عقد إضافية صغيرة لتعبئة الخريطة كما في الصورة */}
-        <div className="marker-node pos-extra-1"><img src="/src/assets/pin-standard1.png" className="pin-sm glow-blue" /></div>
-        <div className="marker-node pos-extra-2"><img src="/src/assets/pin-standard1.png" className="pin-sm glow-blue" /></div>
-        <div className="marker-node pos-extra-3">
-            <img src="/src/assets/pin-standard1.png" className="pin-sm glow-blue" />
-            <span className="pin-label-sm">Checking-in</span>
-        </div>
-
-        {/* موقع المستخدم - أسفل اليمين */}
-        <div className="marker-node pos-user">
-          <div className="range-circle-v2"></div>
-          <img src="/src/assets/user-location1.png" className="user-icon-v2" alt="Me" />
-          <div className="search-range-tag">Search Range: 1km</div>
-        </div>
+      {/* 3. موقع المستخدم - Marker ثابت في المنتصف أو يتحرك مع الخريطة */}
+      <div className="marker-node pos-user-fixed">
+        <div className="range-circle-v2"></div>
+        <img src="/src/assets/user-location1.png" className="user-icon-v2" alt="Me" />
+        <div className="search-range-tag">Search Range: {userLocation.searchRange}km</div>
       </div>
 
-      {/* 4. خط المسح الراداري */}
+      {/* 4. خط المسح الراداري الأسطوري */}
       <div className="scan-line-v2"></div>
       
       {/* 5. لوحة المعلومات السفلية */}
