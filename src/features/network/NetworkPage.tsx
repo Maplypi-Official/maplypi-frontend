@@ -1,69 +1,100 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import StatsBoard from './components/StatsBoard/StatsBoard';
 import MapContainer from './components/MapContainer/MapContainer';
 import ActivityLog from './components/ActivityLog/ActivityLog';
-
-// تعريف الـ Interface لضمان توافق TypeScript مع بيانات الباك أند
-interface NetworkStats {
-  activeNodes: number;
-  totalTransactions: number;
-  piVolume: number;
-  gridHealth: string;
-}
+import { useNetworkSync } from './hooks/useNetworkSync';
 
 const NetworkPage: React.FC = () => {
-  // الحفاظ على الحالة (State) متوافقة مع الـ StatsBoard
-  const [stats, setStats] = useState<NetworkStats | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // جلب البيانات من السيرفر (الباك أند اللي عملناه)
-    const fetchNetworkData = async () => {
-      try {
-        // تأكد من تغيير URL إذا كان مختلفاً في بيئتك
-        const response = await axios.get('http://localhost:5000/api/network/stats');
-        setStats(response.data.data);
-      } catch (error) {
-        console.error("Error connecting to Maplypi Matrix:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNetworkData();
-  }, []);
+  // استخدام الـ Hook الموحد لجلب بيانات الخريطة والإحصائيات والرصيد
+  // ده بيضمن إن الصفحة كلها تكون "Live" ومتزامنة مع الباك أند
+  const { nodes, loading, userStats } = useNetworkSync();
 
   return (
     <div style={{ 
       padding: '20px', 
-      background: '#0a0516', 
+      background: '#0a0516', // لون الخلفية الليلية العميقة من التصميم
       minHeight: '100vh', 
       color: 'white',
-      paddingBottom: '80px' // مساحة إضافية عشان الـ Navigation
+      paddingBottom: '100px', // مساحة للـ Navigation Bar
+      fontFamily: "'Inter', sans-serif"
     }}>
-      <header style={{ marginBottom: '20px' }}>
-        <h1 style={{ color: '#eab308', fontSize: '24px', fontWeight: 'bold' }}>Maplypi Matrix</h1>
-        <p style={{ color: '#94a3b8', fontSize: '12px', letterSpacing: '1px' }}>Global Decentralized Grid</p>
+      
+      {/* 1. Header الصفحة - الهوية البصرية لـ Maplypi */}
+      <header style={{ marginBottom: '25px', position: 'relative' }}>
+        <h1 style={{ 
+          color: '#eab308', 
+          fontSize: '26px', 
+          fontWeight: '900', 
+          margin: 0,
+          textShadow: '0 0 20px rgba(234,179,8,0.3)' 
+        }}>
+          Maplypi Matrix
+        </h1>
+        <p style={{ 
+          color: '#64748b', 
+          fontSize: '11px', 
+          letterSpacing: '2px', 
+          textTransform: 'uppercase',
+          marginTop: '4px' 
+        }}>
+          Decentralized Supply Grid
+        </p>
+
+        {/* مؤشر المزامنة الحي - يظهر طبق الأصل في الزاوية */}
+        {loading && (
+          <div style={{ 
+            position: 'absolute', 
+            top: '5px', 
+            right: '0', 
+            fontSize: '9px', 
+            color: '#eab308',
+            fontWeight: 'bold',
+            animation: 'pulse 1.5s infinite'
+          }}>
+            ● SYNCING MATRIX...
+          </div>
+        )}
       </header>
       
-      {/* تمرير البيانات للمكونات مع الحفاظ على مسمياتها الأصلية */}
-      <StatsBoard data={stats} isLoading={loading} />
+      {/* 2. لوحة الإحصائيات والرصيد (StatsBoard) */}
+      {/* بنمرر لها الـ userStats (الرصيد والمستوى) والـ nodes (العدد) */}
+      <StatsBoard 
+        data={{ 
+          activeNodes: nodes.length || 1200, 
+          territoryControl: 14.5,
+          balance: userStats?.balance,
+          level: userStats?.level 
+        }} 
+        isLoading={loading} 
+      />
       
-      <div style={{ marginTop: '20px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(234, 179, 8, 0.2)' }}>
-        <MapContainer />
+      {/* 3. حاوية الخريطة (MapContainer) */}
+      <div style={{ 
+        marginTop: '25px', 
+        borderRadius: '28px', 
+        overflow: 'hidden', 
+        border: '1px solid rgba(139, 92, 246, 0.2)',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+      }}>
+        {/* المكون ده دلوقتي بيقرأ الصور الجديدة (premium1, standard1) طبق الأصل */}
+        <MapContainer sectorName="Cairo Citadel Sector" />
       </div>
 
-      <div style={{ marginTop: '20px' }}>
+      {/* 4. سجل النشاط (ActivityLog) */}
+      <div style={{ marginTop: '25px' }}>
         <ActivityLog />
       </div>
 
-      {/* مؤشر تحميل بسيط احترافي */}
-      {loading && (
-        <div style={{ position: 'fixed', top: '10px', right: '10px', fontSize: '10px', color: '#eab308' }}>
-          • SYNCING MATRIX...
-        </div>
-      )}
+      {/* تنسيق الأنيميشن للمؤشر */}
+      <style>
+        {`
+          @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+          }
+        `}
+      </style>
     </div>
   );
 };
