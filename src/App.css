@@ -16,7 +16,6 @@
 body {
   margin: 0;
   padding: 0;
-  /* الحل للفراغات الجانبية: التأكد من ملء العرض بنسبة 100% */
   width: 100vw;
   min-height: 100vh;
   background: #05050a !important;
@@ -24,30 +23,28 @@ body {
   background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
-  /* منع التمدد الأفقي وظهور اللون الأسود الجانبي */
-  overflow-x: hidden; 
+  overflow-x: hidden; /* منع التمدد الأفقي */
 }
 
 .App {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  transform: translateZ(0);
+  /* لضمان عمل التموضع الثابت بشكل صحيح في بعض المتصفحات */
+  transform: none !important; 
 }
 
 .page-container {
-  /* جعل المحتوى يملأ العرض بالكامل لالغاء الحواف السوداء */
   width: 100% !important;
   max-width: 100% !important;
   min-height: 100vh;
-  /* إلغاء الحواف الجانبية لضمان عرض كامل في متصفح Pi */
   padding-left: 0 !important;
   padding-right: 0 !important;
-  /* مساحة سفلية كافية لأن الـ Navbar الآن ثابت (Fixed) */
-  padding-bottom: 110px;
+  /* مساحة أمان سفلية ضرورية لأن الـ Navbar الآن ثابت ويغطي جزءاً من الأسفل */
+  padding-bottom: 120px !important; 
 }
 
-/* --- ✨ تأثير الانتقال (Super Smooth) --- */
+/* --- ✨ تأثير الانتقال --- */
 .page-transition-wrapper {
   animation: slideFadeIn 0.35s ease-out forwards;
   backface-visibility: hidden;
@@ -55,17 +52,11 @@ body {
 }
 
 @keyframes slideFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 👑 التاج الذهبي (اللوجو) --- */
+/* --- 👑 التاج الذهبي --- */
 .dashboard-crown {
   position: relative;
   z-index: 100;
@@ -99,7 +90,7 @@ body {
   object-fit: cover;
 }
 
-/* --- الهيدر الزجاجي المتجاوب --- */
+/* --- الهيدر الزجاجي --- */
 .ts-header {
   background: var(--dark-panel);
   backdrop-filter: blur(15px); 
@@ -111,7 +102,6 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  /* الحفاظ على مسافة صغيرة من أطراف الشاشة للهيدر فقط */
   margin: 0 10px;
 }
 
@@ -121,11 +111,9 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 15px;
-  /* ضمان توزيع المحتوى بالكامل */
   padding: 0 10px;
 }
 
-/* تحسين الشبكة للشاشات الكبيرة */
 @media (min-width: 768px) {
   .ts-grid { grid-template-columns: repeat(3, 1fr); }
 }
@@ -140,7 +128,7 @@ body {
 
 .full-width { grid-column: span 2; }
 
-/* --- الأزرار الذهبية الفاخرة --- */
+/* --- الأزرار --- */
 .ts-btn.gold {
   width: 100%;
   padding: 12px;
@@ -152,22 +140,4 @@ body {
   margin-top: 10px;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(255, 202, 40, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.ts-btn.gold:active { 
-  transform: scale(0.97); 
-  box-shadow: 0 2px 8px rgba(255, 202, 40, 0.2);
-}
-
-/* --- 📱 إصلاح الـ Navbar ليظهر فوراً (Fixed Position) --- */
-/* ملاحظة: تأكد أن كلاس الـ Navbar في ملفه الخاص هو .maply-bottom-nav */
-.maply-bottom-nav {
-  position: fixed !important;
-  bottom: 15px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 92% !important;
-  max-width: 500px;
-  z-index: 9999 !important; /* لضمان ظهوره فوق كل المحتوى */
 }
