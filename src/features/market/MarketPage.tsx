@@ -1,59 +1,61 @@
 import React, { useState } from 'react';
-// Cleaned imports: Removing extensions for Vite compatibility
+// استدعاء المكونات الفرعية - تأكد من وجود هذه الملفات في مساراتها
 import ProductCard from './components/ProductCard/ProductCard';
 import FilterBar from './components/FilterBar/FilterBar';
 import Cart from './components/Cart/Cart';
 import { useMarket } from './hooks/useMarket';
 
-// Integrated Styles
+// التنسيقات
 import './MarketPage.css';
 
 const MarketPage: React.FC = () => {
-  // State for active category filtering
+  // الحفاظ على مسميات الـ State كما هي
   const [activeCategory, setActiveCategory] = useState<string>('All');
   
-  // Real-time data fetching from the Market Hook
+  // استدعاء الهوك المسؤول عن الربط مع الـ Backend
   const { products, loading } = useMarket();
 
-  // Filter products based on category selection with null-safety
-  const filteredProducts = activeCategory === 'All' 
-    ? (products || []) 
-    : (products || []).filter(p => p.category === activeCategory);
+  // فلترة المنتجات مع إضافة حماية (Null Check) لضمان عدم الكسر
+  const filteredProducts = (products || []).filter(p => 
+    activeCategory === 'All' ? true : p.category === activeCategory
+  );
 
   return (
-    <div className="market-page-container">
+    <div className="market-page-container" style={{ minHeight: '100vh', backgroundColor: '#05050a' }}>
       
-      {/* Market Header - Aligned with Maplypi Matrix Identity */}
+      {/* الهيدر الخاص بالماركت */}
       <header className="market-header">
         <h1 className="market-title">Maplypi Market</h1>
         <p className="market-subtitle">Trade Resources via Pi Mainnet</p>
       </header>
 
-      {/* Filter System - Dynamic State Linkage */}
+      {/* نظام الفلترة - مرتبط بالـ State الحالية */}
       <FilterBar 
         activeCategory={activeCategory} 
-        onCategoryChange={(cat) => setActiveCategory(cat)} 
+        onCategoryChange={(cat: string) => setActiveCategory(cat)} 
       />
 
-      {/* Professional Sync Indicator */}
+      {/* مؤشر التحميل - يظهر أثناء جلب البيانات من الـ Backend */}
       {loading ? (
-        <div className="market-sync-indicator">
+        <div className="market-sync-indicator" style={{ color: '#eab308', textAlign: 'center', padding: '20px' }}>
           ● SYNCING MARKET GRID...
         </div>
       ) : (
-        /* Responsive Product Grid */
+        /* شبكة المنتجات - مع حماية ضد المصفوفات الفارغة */
         <div className="market-products-grid">
-          {filteredProducts.length > 0 ? (
+          {filteredProducts && filteredProducts.length > 0 ? (
             filteredProducts.map(p => (
               <ProductCard key={p.id} product={p} />
             ))
           ) : (
-            <div className="empty-market-state">No products found in this sector.</div>
+            <div className="empty-market-state" style={{ color: '#64748b', textAlign: 'center' }}>
+              No products found in this sector.
+            </div>
           )}
         </div>
       )}
 
-      {/* Bottom Cart Overlay */}
+      {/* مكون السلة - القيم صفرية حالياً كما طلبت */}
       <Cart totalAmount={0.00} itemCount={0} />
     </div>
   );
