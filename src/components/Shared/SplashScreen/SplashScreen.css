@@ -1,7 +1,3 @@
-/**
- * MaplyPi SplashScreen - Cosmic Integration Edition
- */
-
 .splash-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -23,7 +19,6 @@
   align-items: center;
 }
 
-/* التوهج الكوني خلف اللوجو لدمج الحواف */
 .cosmic-glow {
   position: absolute;
   width: 140px;
@@ -40,7 +35,7 @@
   object-fit: contain;
   position: relative;
   z-index: 2;
-  /* التعديل السحري: إخفاء الحواف المربعة وجعلها دائرية مندمجة */
+  /* مسح الحواف المربعة ودمجها دائرياً مع الخلفية */
   mask-image: radial-gradient(circle, black 55%, transparent 100%);
   -webkit-mask-image: radial-gradient(circle, black 55%, transparent 100%);
   filter: drop-shadow(0 0 20px rgba(234, 179, 8, 0.5));
@@ -70,7 +65,6 @@
   100% { transform: scale(1.6); opacity: 0; }
 }
 
-/* ستايل النصوص الجديد والجذاب */
 .vision-statement {
   color: #eab308;
   font-family: 'Courier New', monospace;
@@ -78,7 +72,7 @@
   letter-spacing: 3px;
   text-shadow: 0 0 10px rgba(234, 179, 8, 0.6);
   margin-bottom: 20px;
-  height: 20px; /* للحفاظ على ثبات العناصر عند تغير النص */
+  height: 20px;
 }
 
 .sub-tagline {
@@ -91,7 +85,7 @@
 
 .loading-bar {
   width: 220px;
-  height: 1px; /* أنحف ليكون أكثر أناقة */
+  height: 1px;
   background: rgba(255, 255, 255, 0.05);
   margin: 0 auto;
   overflow: hidden;
