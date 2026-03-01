@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+// استيراد النوع بدون امتداد .ts أو .d.ts لضمان توافق Vite
 import { Product } from '../types/market'; 
 import axios from 'axios';
 
@@ -15,12 +16,12 @@ export const useMarket = () => {
         setLoading(true);
         
         /** * الربط مع الباك أند (API Endpoint)
-         * بمجرد تفعيل السيرفر، قم بإزالة التعليق عن الأسطر التالية:
+         * ملاحظة: تم ترك التعليقات كما هي لسهولة التفعيل لاحقاً
          */
         // const response = await axios.get('http://localhost:5000/api/products');
         // if (isMounted) setProducts(response.data.data);
 
-        // بيانات تجريبية (Mock Data) تطابق الـ Schema لضمان استقرار العرض
+        // بيانات تجريبية (Mock Data) مطابقة تماماً لتصميم الماركت
         const mockData: Product[] = [
           { 
             id: '1', name: 'Cyber Burger', price: 0.55, category: 'Food', 
@@ -51,7 +52,7 @@ export const useMarket = () => {
         }
       } finally {
         if (isMounted) {
-          // تأخير بسيط لمحاكاة الـ Matrix loading
+          // تأخير بسيط لمحاكاة الـ Matrix loading لضمان استقرار الرندر
           setTimeout(() => setLoading(false), 800);
         }
       }
