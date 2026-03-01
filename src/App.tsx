@@ -12,11 +12,10 @@ import './App.css';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
-  // حالة التحكم في شاشة التحميل
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // إبقاء الشعار النابض لمدة 3.5 ثانية لإبهار المستخدم
+    // إبقاء الشاشة الافتتاحية للمدة المحددة لضمان تحميل الأصول
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3500);
@@ -24,6 +23,10 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  /**
+   * دالة الرندر الأساسية
+   * الحفاظ على استقرار التسميات لضمان توافق الـ Backend
+   */
   const renderPage = () => {
     const isolatedStyle: React.CSSProperties = {
       padding: '40px 20px',
@@ -63,15 +66,14 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {/* تم استخدام key لضمان تشغيل الأنيميشن عند كل تنقل
-          وتم تغليف المحتوى لضمان ثبات الخلفية تحت الانتقال
-      */}
-      <div className="page-container">
+      {/* حاوية المحتوى الرئيسية التي تتعامل مع التجاوب والسكرول */}
+      <main className="page-container">
         <div key={currentPage} className="page-transition-wrapper">
           {renderPage()}
         </div>
-      </div>
+      </main>
       
+      {/* الـ Navbar العائم والذكي الذي يعمل على كافة الأنظمة */}
       <Navbar activeTab={currentPage} onTabChange={setCurrentPage} />
     </div>
   );
