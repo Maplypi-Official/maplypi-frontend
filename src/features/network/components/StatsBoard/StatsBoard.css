@@ -1,8 +1,54 @@
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-.stat-card { background: #1a1433; padding: 15px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); }
-.border-gold { border-color: rgba(234, 179, 8, 0.4); }
-.border-purple { border-color: rgba(139, 92, 246, 0.4); }
-.label { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
-.value { font-size: 18px; font-weight: bold; }
-.gold-text { color: #eab308; text-shadow: 0 0 10px rgba(234,179,8,0.3); }
-.purple-text { color: #a78bfa; }
+.stats-grid { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 12px; 
+  margin-bottom: 20px; 
+}
+
+.stat-card { 
+  background: rgba(26, 20, 51, 0.8); 
+  padding: 15px; 
+  border-radius: 16px; 
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.border-gold { 
+  border-color: rgba(234, 179, 8, 0.4); 
+  box-shadow: inset 0 0 10px rgba(234, 179, 8, 0.05);
+}
+
+.border-purple { 
+  border-color: rgba(139, 92, 246, 0.4); 
+  box-shadow: inset 0 0 10px rgba(139, 92, 246, 0.05);
+}
+
+.label { 
+  font-size: 10px; 
+  color: #94a3b8; 
+  text-transform: uppercase; 
+  margin-bottom: 4px; 
+  letter-spacing: 1px;
+}
+
+.value { 
+  font-size: 18px; 
+  font-weight: bold; 
+  font-family: 'Orbitron', sans-serif; /* اختياري لو مدعوم، أو يرجع للـ default */
+}
+
+.gold-text { 
+  color: #eab308; 
+  text-shadow: 0 0 15px rgba(234, 179, 8, 0.4); 
+}
+
+.purple-text { 
+  color: #a78bfa; 
+  text-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+}
