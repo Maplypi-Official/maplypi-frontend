@@ -8,23 +8,26 @@
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
 }
 
-/* حاوية Mapbox يجب أن تغطي الخلفية بالكامل */
-.mapbox-canvas-container {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+/* 🛡️ السر في المظهر "الشبكي الأسطوري": فلاتر CSS */
+.pixelated-map .leaflet-tile-container {
+  /* تحويل الخريطة العادية إلى اللون البنفسجي المظلم (Dark Matrix) */
+  filter: invert(1) hue-rotate(240deg) contrast(1.2) brightness(0.9);
+  /* إعطاء مظهر البكسلة/الشبكة للمباني والطرق - مدعوم في المتصفحات الحديثة */
+  image-rendering: pixelated; 
 }
 
+/* طبقة الخلفية الشبكية السداسية (Hexagon Grid) - لإعطاء المظهر الشبكي */
 .hex-bg {
   position: absolute;
   inset: 0;
-  opacity: 0.1;
+  opacity: 0.15;
   background-image: url('https://www.transparenttextures.com/patterns/hexellence.png');
   filter: invert(1);
   z-index: 1;
   pointer-events: none; /* للسماح بالتحكم في الخريطة تحتها */
 }
 
+/* طبقة الخطوط المتقاطعة لمحاكاة شوارع الخريطة الشبكية */
 .map-grid-lines {
   position: absolute;
   inset: 0;
@@ -36,7 +39,7 @@
   pointer-events: none;
 }
 
-/* تنسيق لوحة البيانات العلوية */
+/* ستايل لوحة البيانات العلوية الثابتة */
 .top-right-panel {
   position: absolute;
   top: 20px;
@@ -53,19 +56,44 @@
 .ui-bal-value { color: #ffca28; font-size: 16px; font-weight: bold; margin: 0; }
 .ui-lvl-label { color: #ffca28; font-size: 10px; margin: 0; opacity: 0.8; }
 
-.glow-gold { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.7)); }
-.glow-blue { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.6)); }
+/* ستايل الماركرات المخصصة */
+.pi-icon-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/* موقع المستخدم الثابت */
-.pos-user-fixed {
+.pi-marker-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* لمنع التداخل مع الـ Popup */
+}
+
+.pi-marker-content img { width: 100%; height: auto; }
+
+/* الوهج (Glow) للبيانات - للفخامة والاحترافية */
+.glow-gold { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.9)); }
+.glow-blue { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8)); }
+
+.marker-premium-pi img { width: 70px; transform: translate(0, -10px); }
+.marker-standard-pi img { width: 50px; }
+
+/* ستايل النصوص الخاصة بالـ Pins لتطابق الصورة */
+.pin-label-v2 {
   position: absolute;
-  top: 50%;
+  bottom: -45px; /* وضع النص أسفل الـ Pin مباشرة */
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 15;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
   pointer-events: none;
 }
 
+.pin-label-text { color: #fff; font-size: 13px; font-weight: bold; text-shadow: 0 0 10px #000; }
+.pin-sublabel-text { color: #94a3b8; font-size: 9px; display: block; margin-top: 2px; }
+
+/* تصميم دائرة البحث للمستخدم لتطابق الصورة */
 .range-circle-v2 {
   position: absolute;
   width: 160px;
@@ -76,13 +104,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
-.user-icon-v2 { width: 40px; position: relative; }
+.user-location-content img { width: 40px; position: relative; }
 
 .search-range-tag {
   position: absolute;
-  bottom: -30px;
+  bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -92,6 +121,7 @@
   font-size: 10px;
   color: #fff;
   border: 1px solid rgba(234, 179, 8, 0.3);
+  pointer-events: none;
 }
 
 .scan-line-v2 {
