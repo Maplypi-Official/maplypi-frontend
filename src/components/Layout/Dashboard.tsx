@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { maplypiService } from '../../services/api'; 
 import maplypiLogo from '../../assets/logo3.png';
 
-// Components
+// Components Integration
 import Crown from '../Crown/Crown';
 import Header from '../Header/Header';
 import MyStore from '../Stats/MyStore';
@@ -13,6 +13,10 @@ import DailyRewards from '../DailyRewards/DailyRewards';
 
 import './Dashboard.css';
 
+/**
+ * User Data Interface
+ * Reflects the schema provided in the API service
+ */
 interface UserData {
   username: string;
   piBalance: number | string;
@@ -25,6 +29,7 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Default product matrix
   const products = [
     { name: 'FOOD', stock: 10, quality: 85, price: 0.5, icon: '🍴' },
     { name: 'TECH', stock: 7, quality: 92, price: 1.2, icon: '💻' },
@@ -36,7 +41,10 @@ const Dashboard: React.FC = () => {
     const loadDashboardData = async () => {
       try {
         setLoading(true);
-        // استدعاء الخدمة المرتبطة بالباك أند
+        /**
+         * Fetching user profile from the centralized API service.
+         * Falls back to mock data if the backend is unreachable
+         */
         const data = await maplypiService.getUserProfile('EkoPi');
         if (isMounted) {
           setUserData(data);
@@ -46,14 +54,17 @@ const Dashboard: React.FC = () => {
         console.error("Matrix Sync Error:", err);
         if (isMounted) setError("Offline Mode Active.");
       } finally {
-        if (isMounted) setLoading(false);
+        if (isMounted) {
+          // Simulated delay for matrix synchronization effect
+          setTimeout(() => setLoading(false), 800);
+        }
       }
     };
     loadDashboardData();
     return () => { isMounted = false; };
   }, []);
 
-  // شاشة التحميل (Initializing)
+  // Matrix Initialization Screen
   if (loading) {
     return (
       <div className="loading-screen" style={{
@@ -69,10 +80,10 @@ const Dashboard: React.FC = () => {
   return (
     <div className="ts-dashboard-container">
       <div className="maply-main-frame">
-        {/* اللوجو المركزي - مع حماية في حالة عدم تحميل الصورة */}
+        {/* Central Identity Crown */}
         <Crown logoUrl={maplypiLogo} />
         
-        {/* منطقة الهيدر والبيانات الشخصية */}
+        {/* User Stats & Profile Integration */}
         <div className="header-integration-zone">
           <Header 
             userName={userData?.username || 'EkoPi'} 
@@ -106,7 +117,7 @@ const Dashboard: React.FC = () => {
         </main>
       </div>
       
-      {/* رسالة الخطأ (Toast) تظهر فقط عند وجود خطأ حقيقي في الجلب */}
+      {/* Dynamic Error Feedback */}
       {error && (
         <div className="error-toast" style={{
           position: 'fixed', bottom: '85px', left: '50%', transform: 'translateX(-50%)',
