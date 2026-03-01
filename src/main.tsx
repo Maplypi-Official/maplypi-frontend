@@ -3,12 +3,17 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App' 
 
+console.log("Matrix Initializing..."); // هيظهر في الكونسول لو شغال
+
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
-  createRoot(rootElement).render(
+  const root = createRoot(rootElement);
+  root.render(
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   );
+} else {
+  console.error("Root element not found! Check index.html");
 }
