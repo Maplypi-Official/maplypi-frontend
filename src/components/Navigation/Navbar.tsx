@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Navbar.css';
 
-const Navbar: React.FC = () => {
-  // حالة لمعرفة الأيقونة النشطة (Dashboard هي الافتراضية)
-  const [activeTab, setActiveTab] = useState('DASHBOARD');
+interface NavbarProps {
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}
 
+const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
   const navItems = [
     { id: 'DASHBOARD', icon: '📊', label: 'DASHBOARD' },
     { id: 'MARKET', icon: '🛒', label: 'MARKET' },
@@ -18,7 +20,7 @@ const Navbar: React.FC = () => {
         <div 
           key={item.id} 
           className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-          onClick={() => setActiveTab(item.id)}
+          onClick={() => onTabChange(item.id)}
         >
           <span className="nav-icon">{item.icon}</span>
           <span className="nav-label">{item.label}</span>
@@ -30,4 +32,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-
