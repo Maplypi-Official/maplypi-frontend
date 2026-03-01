@@ -1,5 +1,67 @@
-.cart-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; background: #1a1433; border: 1px solid #eab308; border-radius: 15px; padding: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 100; }
-.cart-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-.cart-title { color: #fff; font-size: 14px; }
-.pi-total { color: #eab308; font-weight: bold; }
-.checkout-btn { width: 100%; background: #eab308; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.cart-container { 
+  position: fixed; 
+  bottom: 85px; /* رفعناه شوية عشان ميتداخلش مع الـ Navigation Bar */
+  left: 50%; 
+  transform: translateX(-50%); 
+  width: 92%; 
+  background: rgba(26, 20, 51, 0.9); 
+  border: 1px solid rgba(234, 179, 8, 0.4); 
+  border-radius: 20px; 
+  padding: 18px; 
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.6), inset 0 0 15px rgba(234, 179, 8, 0.05); 
+  z-index: 1000; 
+  backdrop-filter: blur(15px);
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translate(-50%, 100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.cart-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 15px; 
+}
+
+.cart-title { 
+  color: #fff; 
+  font-size: 13px; 
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+.pi-total { 
+  color: #eab308; 
+  font-weight: 900; 
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+}
+
+.checkout-btn { 
+  width: 100%; 
+  background: linear-gradient(90deg, #eab308 0%, #ca8a04 100%); 
+  color: #000; 
+  border: none; 
+  padding: 14px; 
+  border-radius: 12px; 
+  font-weight: 900; 
+  font-size: 15px;
+  text-transform: uppercase;
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
+}
+
+.checkout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 179, 8, 0.5);
+  filter: brightness(1.1);
+}
+
+.checkout-btn:active {
+  transform: scale(0.98);
+}
