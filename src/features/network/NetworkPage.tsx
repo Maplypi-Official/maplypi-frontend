@@ -1,25 +1,26 @@
 import React from 'react';
+// Cleaned internal component imports
 import StatsBoard from './components/StatsBoard/StatsBoard';
 import MapContainer from './components/MapContainer/MapContainer';
 import ActivityLog from './components/ActivityLog/ActivityLog';
 import { useNetworkSync } from './hooks/useNetworkSync';
 
-// استيراد التنسيقات الجديدة
+// Integrated Styles
 import './NetworkPage.css';
 
 const NetworkPage: React.FC = () => {
-  // جلب البيانات من الـ Hook المرتبط بالباك أند
+  // Decentralized data synchronization from Network Hook
   const { nodes, loading, userStats } = useNetworkSync();
 
   return (
     <div className="network-page-container">
       
-      {/* 1. Header الصفحة - الهوية البصرية لـ Maplypi */}
+      {/* 1. Header Section - Visual Matrix Identity */}
       <header className="network-header">
         <h1 className="network-title">Maplypi Matrix</h1>
         <p className="network-subtitle">Decentralized Supply Grid</p>
 
-        {/* مؤشر المزامنة الحي */}
+        {/* Live Sync Pulse */}
         {loading && (
           <div className="sync-indicator">
             ● SYNCING MATRIX...
@@ -27,7 +28,7 @@ const NetworkPage: React.FC = () => {
         )}
       </header>
       
-      {/* 2. لوحة الإحصائيات والرصيد */}
+      {/* 2. Real-time Stats & Balance Board */}
       <StatsBoard 
         data={{ 
           activeNodes: nodes?.length || 0, 
@@ -38,12 +39,12 @@ const NetworkPage: React.FC = () => {
         isLoading={loading} 
       />
       
-      {/* 3. حاوية الخريطة */}
+      {/* 3. Geographic Grid Container (Leaflet Ready) */}
       <div className="map-wrapper">
         <MapContainer sectorName="Cairo Citadel Sector" />
       </div>
 
-      {/* 4. سجل النشاط */}
+      {/* 4. Neural Activity Log */}
       <div className="activity-wrapper">
         <ActivityLog />
       </div>
