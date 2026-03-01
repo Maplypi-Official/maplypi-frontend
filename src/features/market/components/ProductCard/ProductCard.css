@@ -1,98 +1,124 @@
 .product-card { 
   background: rgba(26, 20, 51, 0.7); 
   border: 1px solid rgba(139, 92, 246, 0.15); 
-  border-radius: 20px; 
+  border-radius: 16px; /* تقليل الزوايا قليلاً ليتناسب مع الحجم المدمج */
   overflow: hidden; 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
   backdrop-filter: blur(10px);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* لضمان تساوي الطول في الشبكة */
 }
 
 .product-card:hover { 
   border-color: rgba(234, 179, 8, 0.6); 
-  transform: translateY(-8px); 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 179, 8, 0.1);
+  transform: translateY(-5px); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .product-image { 
-  height: 140px; 
+  height: 110px; /* تقليل الطول لترك مساحة للأزرار في الموبايل */
   background-size: cover; 
   background-position: center; 
+  background-color: #0f0a1e;
   position: relative; 
   border-bottom: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .quality-badge { 
   position: absolute; 
-  top: 10px; 
-  left: 10px; 
+  top: 8px; 
+  left: 8px; 
   background: rgba(34, 197, 94, 0.2); 
-  color: #22c55e;
+  color: #4ade80;
   border: 1px solid rgba(34, 197, 94, 0.4);
-  font-size: 8px; 
+  font-size: 7px; 
   font-weight: bold;
-  padding: 3px 8px; 
-  border-radius: 20px; 
+  padding: 2px 6px; 
+  border-radius: 4px; 
   backdrop-filter: blur(4px);
   text-transform: uppercase;
 }
 
-.product-info { padding: 15px; }
+.product-info { 
+  padding: 10px; 
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
 .product-name { 
-  font-size: 15px; 
+  font-size: 13px; 
   font-weight: 800; 
   color: #fff; 
-  margin-bottom: 10px; 
+  margin-bottom: 8px; 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: 0.5px;
+}
+
+/* تنسيق بار المتانة والاستهلاك */
+.durability-container {
+  margin-bottom: 10px;
+}
+
+.durability-label {
+  font-size: 8px;
+  color: #64748b;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.durability-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.durability-fill {
+  height: 100%;
+  transition: width 0.5s ease;
 }
 
 .product-meta { 
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
-  margin-bottom: 15px; 
+  margin-bottom: 12px; 
 }
 
 .price { 
   color: #eab308; 
   font-weight: 900; 
-  font-size: 16px; 
+  font-size: 14px; 
   text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
 }
 
 .stock { 
-  font-size: 9px; 
+  font-size: 8px; 
   color: #64748b; 
   background: rgba(255, 255, 255, 0.05);
-  padding: 2px 6px;
-  border-radius: 4px;
-  text-transform: uppercase;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 .buy-btn { 
   width: 100%; 
   background: linear-gradient(90deg, #eab308, #ca8a04); 
   border: none; 
-  padding: 12px; 
-  border-radius: 12px; 
+  padding: 10px; 
+  border-radius: 8px; 
   color: #000; 
   font-weight: 900; 
-  font-size: 12px; 
+  font-size: 11px; 
   cursor: pointer; 
   text-transform: uppercase;
   transition: 0.3s;
-  letter-spacing: 1px;
-}
-
-.buy-btn:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 5px 15px rgba(234, 179, 8, 0.4);
+  margin-top: auto; /* يدفعه لأسفل البطاقة دائماً */
 }
 
 .buy-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
