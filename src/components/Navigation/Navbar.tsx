@@ -11,7 +11,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
     { id: 'DASHBOARD', icon: '📊', label: 'DASHBOARD' },
     { id: 'MARKET', icon: '🛒', label: 'MARKET' },
     { id: 'NETWORK', icon: '🌐', label: 'NETWORK' },
-    { id: 'SETTINGS', icon: '⚙️', label: 'SETTINGS' }
+    // استبدال الإعدادات بلوحة إضافة المنتجات
+    { id: 'ADD_PRODUCT', icon: '➕', label: 'SELL ITEM' } 
   ];
 
   return (
@@ -19,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
       {navItems.map((item) => (
         <div 
           key={item.id} 
-          className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
+          className={`nav-item ${activeTab === item.id ? 'active' : ''} ${item.id === 'ADD_PRODUCT' ? 'special-add' : ''}`}
           onClick={() => onTabChange(item.id)}
         >
           <span className="nav-icon">{item.icon}</span>
