@@ -68,9 +68,13 @@ const App: React.FC = () => {
 
   return (
     <div className="App" style={{ minHeight: '100vh', backgroundColor: '#05050a', paddingBottom: '80px' }}>
-      <div className="main-content-fade">
+      {/* السر هنا: إضافة مفتاح (key) متغير يجبر المتصفح على تشغيل أنيميشن الدخول 
+          في كل مرة تتغير فيها الصفحة لضمان النعومة المطلوبة
+      */}
+      <div key={currentPage} className="page-transition-wrapper">
         {renderPage()}
       </div>
+      
       <Navbar activeTab={currentPage} onTabChange={setCurrentPage} />
     </div>
   );
