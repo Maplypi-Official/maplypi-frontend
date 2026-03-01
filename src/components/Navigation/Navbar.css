@@ -1,28 +1,40 @@
+/* --- إعدادات الألوان والمتغيرات --- */
 :root {
   --digital-gold: #ffca28;
-  --nav-bg: rgba(13, 11, 26, 0.9); /* تعتيم الخلفية لضمان الوضوح فوق العناصر الأخرى */
+  --nav-bg: rgba(13, 11, 26, 0.92); /* تعتيم مثالي لضمان الوضوح فوق العناصر الخلفية */
 }
 
+/* --- الحاوية الرئيسية للـ Navbar --- */
 .maply-bottom-nav {
-  position: fixed !important; /* ثابت إجبارياً فوق المحتوى */
-  bottom: 20px !important; /* مسافة من الأسفل للشكل العائم */
+  /* الوضع الثابت الإجباري لضمان الظهور الفوري والدائم */
+  position: fixed !important; 
+  bottom: 20px !important; /* رفعه قليلاً ليعطي تأثيراً عائماً (Floating UI) */
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 92%; 
-  max-width: 460px;
+  
+  /* التجاوب مع عرض الشاشة */
+  width: 92% !important; 
+  max-width: 460px; /* الحفاظ على مظهر متناسق في الأجهزة الكبيرة */
   height: 68px;
+  
+  /* التصميم الزجاجي المتطور */
   background: var(--nav-bg);
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); /* دعم متصفحات الـ Pi و Safari */
   border: 1px solid rgba(255, 202, 40, 0.3);
   border-radius: 22px;
-  z-index: 99999 !important; /* أعلى طبقة ممكنة ليظهر فوق أي تداخل برمجى */
+  
+  /* التأكد من الظهور فوق كافة عناصر التطبيق */
+  z-index: 99999 !important; 
   display: flex;
   align-items: center;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-  pointer-events: auto; /* لضمان استجابة الأزرار للضغط */
+  
+  /* ضمان استجابة اللمس */
+  pointer-events: auto; 
 }
 
+/* --- غلاف العناصر الداخلية --- */
 .nav-content-wrapper {
   display: flex;
   justify-content: space-around;
@@ -31,6 +43,7 @@
   padding: 0 5px;
 }
 
+/* --- تصميم العنصر الفردي --- */
 .nav-item {
   display: flex;
   flex-direction: column;
@@ -38,6 +51,7 @@
   cursor: pointer;
   flex: 1;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease;
 }
 
 .icon-container {
@@ -65,7 +79,7 @@
   text-transform: uppercase;
 }
 
-/* الحالة النشطة */
+/* --- 🌟 الحالة النشطة (Active State) --- */
 .nav-item.active .nav-icon {
   transform: translateY(-6px) scale(1.15);
   filter: grayscale(0) drop-shadow(0 0 12px var(--digital-gold));
@@ -77,7 +91,7 @@
   text-shadow: 0 0 8px rgba(255, 202, 40, 0.3);
 }
 
-/* تأثير النبض (Pulse) */
+/* --- 💓 تأثير النبض الرقمي (Pulse Ring) --- */
 .pulse-ring {
   position: absolute;
   width: 32px;
@@ -93,7 +107,7 @@
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* تمييز زر SELL ITEM */
+/* --- ✨ تمييز زر SELL ITEM --- */
 .nav-item.special-add .nav-icon {
   background: linear-gradient(135deg, #fff, var(--digital-gold));
   -webkit-background-clip: text;
@@ -101,6 +115,14 @@
   font-size: 1.5rem;
 }
 
+/* --- 📱 التفاعل مع اللمس --- */
 .nav-item:active {
   transform: scale(0.92);
+}
+
+/* لضمان اختفاء الفراغات الجانبية السوداء */
+@media screen and (max-width: 480px) {
+  .maply-bottom-nav {
+    width: 94% !important;
+  }
 }
