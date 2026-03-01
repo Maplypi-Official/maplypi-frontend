@@ -32,28 +32,34 @@ const Dashboard: React.FC = () => {
   ];
 
   useEffect(() => {
+    let isMounted = true;
     const loadDashboardData = async () => {
       try {
         setLoading(true);
         // استدعاء الخدمة المرتبطة بالباك أند
         const data = await maplypiService.getUserProfile('EkoPi');
-        setUserData(data);
+        if (isMounted) {
+          setUserData(data);
+          setError(null);
+        }
       } catch (err) {
         console.error("Matrix Sync Error:", err);
-        setError("Offline Mode Active.");
+        if (isMounted) setError("Offline Mode Active.");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     loadDashboardData();
+    return () => { isMounted = false; };
   }, []);
 
+  // شاشة التحميل (Initializing)
   if (loading) {
     return (
       <div className="loading-screen" style={{
         background: '#0a0516', height: '100vh', display: 'flex', 
         justifyContent: 'center', alignItems: 'center', color: '#eab308',
-        letterSpacing: '3px', fontWeight: 'bold'
+        letterSpacing: '3px', fontWeight: 'bold', fontFamily: 'monospace'
       }}>
         INITIALIZING MATRIX...
       </div>
@@ -63,7 +69,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="ts-dashboard-container">
       <div className="maply-main-frame">
-        {/* اللوجو المركزي */}
+        {/* اللوجو المركزي - مع حماية في حالة عدم تحميل الصورة */}
         <Crown logoUrl={maplypiLogo} />
         
         {/* منطقة الهيدر والبيانات الشخصية */}
@@ -87,19 +93,26 @@ const Dashboard: React.FC = () => {
           </div>
 
           <div className="grid-bottom-adaptive">
-            <div className="adaptive-col"><DailyRewards /></div>
-            <div className="adaptive-col"><RecentSales /></div>
-            <div className="adaptive-col"><BusinessGrowth /></div>
+            <div className="adaptive-col">
+              <DailyRewards />
+            </div>
+            <div className="adaptive-col">
+              <RecentSales />
+            </div>
+            <div className="adaptive-col">
+              <BusinessGrowth />
+            </div>
           </div>
         </main>
       </div>
       
-      {/* رسالة الخطأ تظهر كـ Toast خفيف في حالة فشل الباك أند */}
+      {/* رسالة الخطأ (Toast) تظهر فقط عند وجود خطأ حقيقي في الجلب */}
       {error && (
         <div className="error-toast" style={{
-          position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)',
-          background: 'rgba(234, 179, 8, 0.1)', color: '#eab308', padding: '5px 15px',
-          borderRadius: '20px', fontSize: '10px', border: '1px solid rgba(234, 179, 8, 0.2)'
+          position: 'fixed', bottom: '85px', left: '50%', transform: 'translateX(-50%)',
+          background: 'rgba(234, 179, 8, 0.1)', color: '#eab308', padding: '6px 16px',
+          borderRadius: '20px', fontSize: '11px', border: '1px solid rgba(234, 179, 8, 0.2)',
+          zIndex: 3000, backdropFilter: 'blur(5px)'
         }}>
           {error}
         </div>
