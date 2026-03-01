@@ -46,12 +46,25 @@ const NetworkPage: React.FC = () => {
       
       {/* 3. Geographic Grid Container (Leaflet Ready) */}
       <div className="map-wrapper">
-        <MapContainer sectorName="Cairo Citadel Sector" />
+        {/* تم تمرير userLocation و nodes المستخرجة من الـ Hook 
+            لضمان عدم ظهور شاشة سوداء ولتفعيل الخريطة فوراً بالبيانات الحقيقية.
+        */}
+        {userStats ? (
+          <MapContainer 
+            sectorName="Cairo Citadel Sector" 
+            userLocation={userStats} 
+            nodes={nodes} 
+          />
+        ) : (
+          <div style={{ height: '550px', background: '#0d081d', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <p style={{ color: '#eab308', fontSize: '12px', letterSpacing: '2px' }}>INITIALIZING SATELLITE LINK...</p>
+          </div>
+        )}
       </div>
 
       {/* 4. Neural Activity Log */}
       <div className="activity-wrapper">
-        <ActivityLog />
+        <ActivityLog data={undefined} />
       </div>
     </div>
   );
