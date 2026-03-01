@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // استيراد التعريفات لضمان توافق الأنواع مع الباك أند
-import { NetworkNode, UserLocation } from '../types/network';
+import { NetworkNode, UserLocation } from '../types/network.d.ts';
 
 export const useNetworkSync = () => {
   const [nodes, setNodes] = useState<NetworkNode[]>([]);
