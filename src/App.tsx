@@ -4,7 +4,7 @@ import Dashboard from './components/Layout/Dashboard';
 import MarketPage from './features/market/MarketPage'; 
 import Navbar from './components/Navigation/Navbar';
 import AddProductForm from './features/market/components/AddProductForm/AddProductForm';
-// استدعاء شاشة التحميل النابضة
+// استدعاء شاشة التحميل النابضة المحسنة
 import SplashScreen from './components/Shared/SplashScreen/SplashScreen';
 
 // استيراد التنسيقات المركزية
@@ -12,11 +12,11 @@ import './App.css';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
-  // حالة التحكم في شاشة التحميل (تبدأ بـ true)
+  // حالة التحكم في شاشة التحميل
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // إبقاء الشعار النابض لمدة 3.5 ثانية ليشعر المستخدم بالفخامة
+    // إبقاء الشعار النابض لمدة 3.5 ثانية لإبهار المستخدم
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3500);
@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
   /**
    * دالة الرندر (Render Logic)
-   * تشغيل المكونات مع الحفاظ على استقرار التسميات لضمان توافق Backend
+   * الحفاظ على استقرار التسميات لضمان توافق Backend
    */
   const renderPage = () => {
     const isolatedStyle: React.CSSProperties = {
@@ -44,7 +44,6 @@ const App: React.FC = () => {
         case 'MARKET': 
           return <MarketPage />;
         case 'ADD_PRODUCT': 
-          // عرض لوحة إضافة المنتجات الجديدة (واقعي/افتراضي)
           return <AddProductForm />;
         case 'NETWORK': 
           return (
@@ -69,8 +68,9 @@ const App: React.FC = () => {
 
   return (
     <div className="App" style={{ minHeight: '100vh', backgroundColor: '#05050a', paddingBottom: '80px' }}>
-      {renderPage()}
-      {/* Navbar بوضع الثبات لضمان تجربة موبايل احترافية */}
+      <div className="main-content-fade">
+        {renderPage()}
+      </div>
       <Navbar activeTab={currentPage} onTabChange={setCurrentPage} />
     </div>
   );
