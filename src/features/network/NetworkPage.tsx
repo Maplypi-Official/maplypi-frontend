@@ -1,39 +1,24 @@
 import React from 'react';
-// Cleaned internal component imports
 import StatsBoard from './components/StatsBoard/StatsBoard';
-import MapContainer from './components/MapContainer/MapContainer';
 import ActivityLog from './components/ActivityLog/ActivityLog';
-import AppLoader from '../../components/AppLoader/AppLoader'; // استدعاء النظام الموحد للتحميل
+import AppLoader from '../../components/AppLoader/AppLoader';
 import { useNetworkSync } from './hooks/useNetworkSync';
-
-// Integrated Styles
 import './NetworkPage.css';
 
+// استيراد الخريطة مؤقتاً لاختبار العزل
+import MapContainer from './components/MapContainer/MapContainer';
+
 const NetworkPage: React.FC = () => {
-  // Decentralized data synchronization from Network Hook
   const { nodes, loading, userStats } = useNetworkSync();
 
   return (
-    <div className="network-page-container">
-      {/* استدعاء اللودر الفخم بنوع 'network'
-          يظهر فقط عند التحميل الأولي للبيانات ليقوم بإبهار المستخدم بجمل الاستكشاف
-      */}
+    <div className="network-page-container" style={{ background: '#1a1a2e', minHeight: '100vh', border: '5px solid red' }}>
       {loading && (!nodes || nodes.length === 0) && <AppLoader type="network" />}
       
-      {/* 1. Header Section - Visual Matrix Identity */}
       <header className="network-header">
-        <h1 className="network-title">Maplypi Matrix</h1>
-        <p className="network-subtitle">Decentralized Supply Grid</p>
-
-        {/* Live Sync Pulse - مؤشر صغير بجانب الهيدر */}
-        {loading && nodes && nodes.length > 0 && (
-          <div className="sync-indicator">
-            ● SYNCING MATRIX...
-          </div>
-        )}
+        <h1 className="network-title" style={{ color: '#fff' }}>TESTING MODE: NETWORK PAGE</h1>
       </header>
       
-      {/* 2. Real-time Stats & Balance Board */}
       <StatsBoard 
         data={{ 
           activeNodes: nodes?.length || 0, 
@@ -44,27 +29,21 @@ const NetworkPage: React.FC = () => {
         isLoading={loading} 
       />
       
-      {/* 3. Geographic Grid Container (Leaflet Ready) */}
-      <div className="map-wrapper">
-        {/* تم تمرير userLocation و nodes المستخرجة من الـ Hook 
-            لضمان عدم ظهور شاشة سوداء ولتفعيل الخريطة فوراً بالبيانات الحقيقية.
-        */}
-        {userStats ? (
-          <MapContainer 
-            sectorName="Cairo Citadel Sector" 
-            userLocation={userStats} 
-            nodes={nodes} 
-          />
-        ) : (
-          <div style={{ height: '550px', background: '#0d081d', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <p style={{ color: '#eab308', fontSize: '12px', letterSpacing: '2px' }}>INITIALIZING SATELLITE LINK...</p>
-          </div>
-        )}
+      {/* 🛡️ منطقة العزل الاختبارية */}
+      <div className="map-wrapper" style={{ height: '500px', background: 'green', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0' }}>
+         {userStats ? (
+           <div style={{ width: '100%', height: '100%' }}>
+              {/* سنحاول رندر الخريطة هنا، إذا فشلت ستظل الشاشة خضراء (الخلفية) */}
+              <p style={{ color: 'white', textAlign: 'center' }}>Map Container Should Be Below This Text</p>
+              <MapContainer sectorName="Testing Sector" userLocation={userStats} nodes={nodes} />
+           </div>
+         ) : (
+           <h2 style={{ color: 'white' }}>WAITING FOR DATA...</h2>
+         )}
       </div>
 
-      {/* 4. Neural Activity Log */}
       <div className="activity-wrapper">
-        <ActivityLog data={undefined} />
+        <ActivityLog />
       </div>
     </div>
   );
