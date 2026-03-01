@@ -1,66 +1,57 @@
 import { useState, useEffect } from 'react';
-// استيراد النوع بدون امتداد .ts أو .d.ts لضمان توافق Vite
-import { Product } from '../types/market'; 
-import axios from 'axios';
+// استيراد الأنواع بدون امتدادات لضمان عمل Vite في البيئات المختلفة
+import { NetworkNode, UserLocation } from '../types/network';
 
-export const useMarket = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+export const useNetworkSync = () => {
+  const [nodes, setNodes] = useState<NetworkNode[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [userStats, setUserStats] = useState<UserLocation | null>(null);
 
   useEffect(() => {
     let isMounted = true;
-    
-    const fetchProducts = async () => {
+
+    const fetchNetworkData = async () => {
       try {
         setLoading(true);
         
-        /** * الربط مع الباك أند (API Endpoint)
-         * ملاحظة: تم ترك التعليقات كما هي لسهولة التفعيل لاحقاً
-         */
-        // const response = await axios.get('http://localhost:5000/api/products');
-        // if (isMounted) setProducts(response.data.data);
-
-        // بيانات تجريبية (Mock Data) مطابقة تماماً لتصميم الماركت
-        const mockData: Product[] = [
+        // بيانات الشبكة الافتراضية - مطابقة للهوية البصرية للـ Matrix
+        const mockNodes: NetworkNode[] = [
           { 
-            id: '1', name: 'Cyber Burger', price: 0.55, category: 'Food', 
-            stock: 12, quality: 85, image: 'https://placehold.co/400x300/1a1433/eab308?text=Cyber+Food' 
+            id: 'n1', name: 'TechZone 314', type: 'Merchant', tier: 'Premium', 
+            lat: 30.01, lng: 31.23, status: 'active' 
           },
           { 
-            id: '2', name: 'Quantum CPU', price: 1.20, category: 'Tech', 
-            stock: 5, quality: 98, image: 'https://placehold.co/400x300/1a1433/eab308?text=Quantum+Tech' 
-          },
-          { 
-            id: '3', name: 'Golden π Vase', price: 0.80, category: 'Craft', 
-            stock: 2, quality: 90, image: 'https://placehold.co/400x300/1a1433/eab308?text=Pi+Craft' 
-          },
-          { 
-            id: '4', name: 'Neural Link', price: 2.50, category: 'Tech', 
-            stock: 8, quality: 99, image: 'https://placehold.co/400x300/1a1433/eab308?text=Neural+Link' 
+            id: 'n2', name: 'UrbanMart Pi', type: 'Merchant', tier: 'Standard', 
+            lat: 30.02, lng: 31.24, status: 'active',
+            metadata: { isCheckingIn: true, distanceText: '50m' } 
           }
         ];
 
+        const mockUser: UserLocation = {
+          lat: 30.00,
+          lng: 31.22,
+          searchRange: 1, // 1km كما في التصميم
+          level: 14,
+          balance: 125.75
+        };
+
         if (isMounted) {
-          setProducts(mockData);
-          setError(null);
+          setNodes(mockNodes);
+          setUserStats(mockUser);
         }
-      } catch (err) {
-        if (isMounted) {
-          setError("Failed to sync with Market Grid");
-          console.error("Market Sync Error:", err);
-        }
+      } catch (error) {
+        console.error("Matrix Sync Error:", error);
       } finally {
         if (isMounted) {
-          // تأخير بسيط لمحاكاة الـ Matrix loading لضمان استقرار الرندر
-          setTimeout(() => setLoading(false), 800);
+          // تأخير محاكاة تحميل الشبكة العصبية لإعطاء إحساس بالمزامنة الحية
+          setTimeout(() => setLoading(false), 1000);
         }
       }
     };
 
-    fetchProducts();
+    fetchNetworkData();
     return () => { isMounted = false; };
   }, []);
 
-  return { products, loading, error };
+  return { nodes, loading, userStats };
 };
