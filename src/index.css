@@ -5,25 +5,29 @@
 
   /* الخلفية الكونية المركبة: بقع ضوئية أرجوانية + قاعدة سوداء عميقة */
   background: 
-    radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at center, #131129 0%, #05050a 100%) !important;
+    radial-gradient(circle at 20% 30%, rgba(80, 60, 150, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(60, 40, 120, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at center, #0a0516 0%, #05050a 100%) !important;
   background-attachment: fixed !important;
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* المتغيرات الذهبية للبراند */
+  --digital-gold: #eab308;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   display: block; 
-  /* إضافة ملمس النجوم الخفيف جداً ليحاكي الصورة الأصلية */
+  /* ملمس النجوم الخفيف */
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png') !important;
   background-attachment: fixed;
   color: white;
+  overflow-x: hidden;
 }
 
 #root {
@@ -37,10 +41,30 @@ a {
   text-decoration: inherit;
 }
 
-h1, h2, h3 { margin: 0; letter-spacing: 1px; }
+h1, h2, h3 { 
+  margin: 0; 
+  letter-spacing: 1px; 
+  text-transform: uppercase;
+}
 
-* { box-sizing: border-box; }
+* { 
+  box-sizing: border-box; 
+  -webkit-tap-highlight-color: transparent; /* تحسين تجربة الموبايل */
+}
 
+/* تحجيم الخطوط للموبايل لضمان عدم خروج العناصر عن الإطار */
 @media (max-width: 768px) {
   :root { font-size: 14px; }
+}
+
+/* تحسين شكل شريط التمرير (Scrollbar) ليناسب الروح الليلية */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #05050a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1433;
+  border-radius: 10px;
 }
