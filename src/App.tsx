@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Dashboard from './components/Layout/Dashboard';
-import MarketPage from './features/market/MarketPage';
-import NetworkPage from './features/network/NetworkPage';
-import Navbar from './components/Navigation/Navbar';
+import Dashboard from './components/Layout/Dashboard.tsx';
+import MarketPage from './features/market/MarketPage.tsx';
+import NetworkPage from './features/network/NetworkPage.tsx';
+import Navbar from './components/Navigation/Navbar.tsx';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
