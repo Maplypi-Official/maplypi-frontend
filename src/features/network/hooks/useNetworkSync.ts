@@ -1,57 +1,66 @@
 import { useState, useEffect } from 'react';
-import { NetworkNode, UserLocation } from '../types/network';
+// استيراد النوع بدون امتداد .ts أو .d.ts لضمان توافق Vite
+import { Product } from '../types/market'; 
+import axios from 'axios';
 
-export const useNetworkSync = () => {
-  const [nodes, setNodes] = useState<NetworkNode[]>([]);
+export const useMarket = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [userStats, setUserStats] = useState<UserLocation | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
-
-    const fetchNetworkData = async () => {
+    
+    const fetchProducts = async () => {
       try {
         setLoading(true);
         
-        // هنا سيتم الربط مع الـ Backend API لاحقاً عبر axios
-        // البيانات الافتراضية الآن تطابق تصميم الـ Matrix
-        const mockNodes: NetworkNode[] = [
+        /** * الربط مع الباك أند (API Endpoint)
+         * ملاحظة: تم ترك التعليقات كما هي لسهولة التفعيل لاحقاً
+         */
+        // const response = await axios.get('http://localhost:5000/api/products');
+        // if (isMounted) setProducts(response.data.data);
+
+        // بيانات تجريبية (Mock Data) مطابقة تماماً لتصميم الماركت
+        const mockData: Product[] = [
           { 
-            id: 'n1', name: 'TechZone 314', type: 'Merchant', tier: 'Premium', 
-            lat: 30.01, lng: 31.23, status: 'active' 
+            id: '1', name: 'Cyber Burger', price: 0.55, category: 'Food', 
+            stock: 12, quality: 85, image: 'https://placehold.co/400x300/1a1433/eab308?text=Cyber+Food' 
           },
           { 
-            id: 'n2', name: 'UrbanMart Pi', type: 'Merchant', tier: 'Standard', 
-            lat: 30.02, lng: 31.24, status: 'active',
-            metadata: { isCheckingIn: true, distanceText: '50m' } 
+            id: '2', name: 'Quantum CPU', price: 1.20, category: 'Tech', 
+            stock: 5, quality: 98, image: 'https://placehold.co/400x300/1a1433/eab308?text=Quantum+Tech' 
+          },
+          { 
+            id: '3', name: 'Golden π Vase', price: 0.80, category: 'Craft', 
+            stock: 2, quality: 90, image: 'https://placehold.co/400x300/1a1433/eab308?text=Pi+Craft' 
+          },
+          { 
+            id: '4', name: 'Neural Link', price: 2.50, category: 'Tech', 
+            stock: 8, quality: 99, image: 'https://placehold.co/400x300/1a1433/eab308?text=Neural+Link' 
           }
         ];
 
-        const mockUser: UserLocation = {
-          lat: 30.00,
-          lng: 31.22,
-          searchRange: 1, // 1km كما في التصميم
-          level: 14,
-          balance: 125.75
-        };
-
         if (isMounted) {
-          setNodes(mockNodes);
-          setUserStats(mockUser);
+          setProducts(mockData);
+          setError(null);
         }
-      } catch (error) {
-        console.error("Matrix Sync Error:", error);
+      } catch (err) {
+        if (isMounted) {
+          setError("Failed to sync with Market Grid");
+          console.error("Market Sync Error:", err);
+        }
       } finally {
         if (isMounted) {
-          // تأخير محاكاة تحميل الشبكة العصبية
-          setTimeout(() => setLoading(false), 1000);
+          // تأخير بسيط لمحاكاة الـ Matrix loading لضمان استقرار الرندر
+          setTimeout(() => setLoading(false), 800);
         }
       }
     };
 
-    fetchNetworkData();
+    fetchProducts();
     return () => { isMounted = false; };
   }, []);
 
-  return { nodes, loading, userStats };
+  return { products, loading, error };
 };
