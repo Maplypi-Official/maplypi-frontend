@@ -1,24 +1,43 @@
 .product-card { 
   background: rgba(26, 20, 51, 0.7); 
   border: 1px solid rgba(139, 92, 246, 0.15); 
-  border-radius: 16px; /* تقليل الزوايا قليلاً ليتناسب مع الحجم المدمج */
+  border-radius: 16px; 
   overflow: hidden; 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
   backdrop-filter: blur(10px);
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%; /* لضمان تساوي الطول في الشبكة */
+  height: 100%;
+}
+
+/* التوهج الأسطوري (Legendary RGB Glow) */
+.product-card.legendary {
+  border: 2px solid #ff00ea !important;
+  background: rgba(255, 0, 234, 0.05) !important;
+  box-shadow: 0 0 25px rgba(255, 0, 234, 0.3);
+  animation: pulse-legendary 2s infinite ease-in-out;
+}
+
+/* التوهج الميثيك (Mythic Glow) */
+.product-card.mythic {
+  border: 2px solid #00f2ff !important;
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+@keyframes pulse-legendary {
+  0% { box-shadow: 0 0 10px rgba(255, 0, 234, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 0, 234, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(255, 0, 234, 0.3); }
 }
 
 .product-card:hover { 
   border-color: rgba(234, 179, 8, 0.6); 
   transform: translateY(-5px); 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .product-image { 
-  height: 110px; /* تقليل الطول لترك مساحة للأزرار في الموبايل */
+  height: 110px; 
   background-size: cover; 
   background-position: center; 
   background-color: #0f0a1e;
@@ -41,12 +60,22 @@
   text-transform: uppercase;
 }
 
-.product-info { 
-  padding: 10px; 
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+/* وسوم الندرة البصرية */
+.rarity-tag {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 7px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.5px;
 }
+.rarity-legendary { background: #ff00ea; color: #fff; box-shadow: 0 0 10px #ff00ea; }
+.rarity-mythic { background: #00f2ff; color: #000; }
+
+.product-info { padding: 10px; display: flex; flex-direction: column; flex-grow: 1; }
 
 .product-name { 
   font-size: 13px; 
@@ -58,51 +87,14 @@
   text-overflow: ellipsis;
 }
 
-/* تنسيق بار المتانة والاستهلاك */
-.durability-container {
-  margin-bottom: 10px;
-}
+.durability-container { margin-bottom: 10px; }
+.durability-label { font-size: 8px; color: #64748b; margin-bottom: 3px; text-transform: uppercase; }
+.durability-bar { height: 4px; background: rgba(255, 255, 255, 0.05); border-radius: 2px; overflow: hidden; }
+.durability-fill { height: 100%; transition: width 0.5s ease; }
 
-.durability-label {
-  font-size: 8px;
-  color: #64748b;
-  margin-bottom: 3px;
-  text-transform: uppercase;
-}
-
-.durability-bar {
-  height: 4px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.durability-fill {
-  height: 100%;
-  transition: width 0.5s ease;
-}
-
-.product-meta { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 12px; 
-}
-
-.price { 
-  color: #eab308; 
-  font-weight: 900; 
-  font-size: 14px; 
-  text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
-}
-
-.stock { 
-  font-size: 8px; 
-  color: #64748b; 
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2px 4px;
-  border-radius: 3px;
-}
+.product-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.price { color: #eab308; font-weight: 900; font-size: 14px; text-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+.stock { font-size: 8px; color: #64748b; background: rgba(255, 255, 255, 0.05); padding: 2px 4px; border-radius: 3px; }
 
 .buy-btn { 
   width: 100%; 
@@ -116,9 +108,7 @@
   cursor: pointer; 
   text-transform: uppercase;
   transition: 0.3s;
-  margin-top: auto; /* يدفعه لأسفل البطاقة دائماً */
+  margin-top: auto;
 }
 
-.buy-btn:active {
-  transform: scale(0.95);
-}
+.buy-btn:active { transform: scale(0.95); }
