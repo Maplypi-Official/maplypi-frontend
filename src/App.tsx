@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+// استدعاء المكونات الحقيقية
 import Dashboard from './components/Layout/Dashboard';
+import MarketPage from './features/market/MarketPage'; // تفعيل الماركت
 import Navbar from './components/Navigation/Navbar';
 
+// استيراد التنسيقات المركزية
 import './App.css';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
 
+  /**
+   * دالة الرندر (Render Logic)
+   * تشغيل Dashboard و Market وعزل Network
+   */
   const renderPage = () => {
-    const sectionStyle: React.CSSProperties = {
+    const isolatedStyle: React.CSSProperties = {
       padding: '40px 20px',
       color: '#eab308',
       textAlign: 'center',
@@ -21,25 +28,22 @@ const App: React.FC = () => {
         case 'DASHBOARD': 
           return <Dashboard />;
         case 'MARKET': 
-          return (
-            <div style={sectionStyle}>
-              <h2 style={{ textShadow: '0 0 10px #eab308' }}>MARKET ISOLATED</h2>
-              <p style={{ color: '#64748b' }}>Check Dashboard Status First.</p>
-            </div>
-          );
+          // محاولة تشغيل الماركت الحقيقي
+          return <MarketPage />;
         case 'NETWORK': 
+          // بقاء النيتورك معزولة لاختبارها لاحقاً
           return (
-            <div style={sectionStyle}>
+            <div style={isolatedStyle}>
               <h2 style={{ textShadow: '0 0 10px #eab308' }}>NETWORK ISOLATED</h2>
-              <p style={{ color: '#64748b' }}>Preventing Asset Conflicts.</p>
+              <p style={{ color: '#64748b' }}>Assets Sync Pending...</p>
             </div>
           );
         default: 
           return <Dashboard />;
       }
     } catch (error) {
-      console.error("Critical Render Error:", error);
-      return <div style={sectionStyle}>SYSTEM ERROR - REBOOTING</div>;
+      console.error("Component Render Error:", error);
+      return <div style={isolatedStyle}>ERROR LOADING COMPONENT</div>;
     }
   };
 
