@@ -1,13 +1,13 @@
-/* --- 🌌 المرحلة النهائية: الخلفية الكونية المضيئة (Vibrant Nebula) --- */
+/* --- 🌌 The Nebula/Cosmic Background --- */
 .ts-dashboard-container {
   width: 100% !important;
   min-height: 100vh !important;
-  /* تدرج كوني صريح يدمج الأرجواني الفاتح والغامق لكسر السواد الميت */
+  /* Deep cosmic gradients for visual depth */
   background: 
     radial-gradient(circle at 50% 40%, rgba(94, 76, 185, 0.4) 0%, transparent 60%),
     radial-gradient(circle at 10% 10%, rgba(106, 90, 205, 0.25) 0%, transparent 45%),
     radial-gradient(circle at 90% 90%, rgba(75, 0, 130, 0.25) 0%, transparent 45%),
-    #0a0a1a !important; /* أسود بنفسجي عميق لعمق بصري حقيقي */
+    #0a0a1a !important; 
   background-attachment: fixed !important;
   padding: 85px 10px 100px 10px; 
   display: flex;
@@ -17,12 +17,11 @@
   position: relative;
 }
 
-/* --- ✨ طبقة النجوم المتوهجة (Galaxy Stars) --- */
+/* --- ✨ Galactic Star Overlay --- */
 .ts-dashboard-container::after {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  /* جعل النجوم أكثر كثافة ووضوحاً لمحاكاة الصورة بالظبط */
   background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
   opacity: 0.8; 
   filter: brightness(1.8) contrast(1.3) drop-shadow(0 0 2px white);
@@ -30,22 +29,21 @@
   z-index: 0;
 }
 
-/* --- 🖼️ الإطار الرئيسي المضيء (Main Frame Glow) --- */
+/* --- 🖼️ Main Glassmorphic Frame --- */
 .maply-main-frame {
   width: 100%;
   max-width: 480px;
-  background: rgba(19, 17, 41, 0.88); /* شفافية ذكية للسماح بمرور ضوء الخلفية */
-  border: 2px solid rgba(255, 202, 40, 0.5); /* حدود ذهبية لامعة */
+  background: rgba(19, 17, 41, 0.88); /* Smart transparency */
+  border: 2px solid rgba(255, 202, 40, 0.5); /* Glowing gold border */
   border-radius: 30px;
   padding: 15px;
   position: relative; 
-  /* توهج أرجواني (Glow) خلف الفريم ليفصله عن الفضاء */
   box-shadow: 0 0 70px rgba(0, 0, 0, 0.9), 
               0 0 50px rgba(106, 90, 205, 0.4);
   z-index: 1;
 }
 
-/* --- 🏗️ الهيكل الداخلي (بدون تغيير مسميات لضمان عدم كسر التطبيق) --- */
+/* --- 🏗️ Adaptive Layout Structure --- */
 .header-integration-zone {
   margin-top: 35px; 
   width: 100%;
@@ -67,7 +65,7 @@
 .flex-item-store { flex: 1; }
 .flex-item-products { flex: 2; }
 
-/* توزيع الثلاث كروت السفلية */
+/* Bottom Grid Distribution */
 .grid-bottom-adaptive {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -75,7 +73,7 @@
   width: 100%;
 }
 
-/* شاشة التحميل المتوافقة */
+/* Loading Screen Aesthetics */
 .loading-screen { 
   height: 100vh; 
   background: #0d0b1a; 
