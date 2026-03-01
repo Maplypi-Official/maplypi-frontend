@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NetworkNode, UserLocation } from '../types/network.d';
+import { NetworkNode, UserLocation } from '../types/network.ts';
 
 export const useNetworkSync = () => {
   const [nodes, setNodes] = useState<NetworkNode[]>([]);
