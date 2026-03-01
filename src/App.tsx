@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import Dashboard from './components/Layout/Dashboard.tsx';
-import MarketPage from './features/market/MarketPage.tsx';
-import NetworkPage from './features/network/NetworkPage.tsx';
-import Navbar from './components/Navigation/Navbar.tsx';
+import Dashboard from './components/Layout/Dashboard';
+import MarketPage from './features/market/MarketPage';
+import NetworkPage from './features/network/NetworkPage';
+import Navbar from './components/Navigation/Navbar';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
 
   const renderPage = () => {
-    switch (currentPage) {
-      case 'DASHBOARD': return <Dashboard />;
-      case 'MARKET': return <MarketPage />;
-      case 'NETWORK': return <NetworkPage />;
-      default: return <Dashboard />;
+    try {
+      switch (currentPage) {
+        case 'DASHBOARD': return <Dashboard />;
+        case 'MARKET': return <MarketPage />;
+        case 'NETWORK': return <NetworkPage />;
+        default: return <Dashboard />;
+      }
+    } catch (error) {
+      console.error("Render Error:", error);
+      return <div style={{color: 'red', padding: '20px'}}>Error Loading Component. Check Console.</div>;
     }
   };
 
