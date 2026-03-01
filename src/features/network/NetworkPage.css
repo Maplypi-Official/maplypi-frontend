@@ -1,6 +1,6 @@
 .network-page-container {
   padding: 20px;
-  background: #0a0516;
+  background: #0a0516; /* Matrix background */
   min-height: 100vh;
   color: white;
   padding-bottom: 100px;
@@ -13,7 +13,7 @@
 }
 
 .network-title {
-  color: #eab308;
+  color: #eab308; /* Pi Network identity gold */
   font-size: 26px;
   font-weight: 900;
   margin: 0;
@@ -45,21 +45,21 @@
   overflow: hidden;
   border: 1px solid rgba(139, 92, 246, 0.2);
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  background: #05050a; /* خلفية احتياطية للخريطة */
+  background: #05050a; /* Fallback for map loading */
 }
 
 .activity-wrapper {
   margin-top: 25px;
 }
 
-/* أنيميشن النبض لمؤشر المزامنة */
+/* Sync indicator pulse animation */
 @keyframes networkPulse {
   0% { opacity: 1; }
   50% { opacity: 0.4; }
   100% { opacity: 1; }
 }
 
-/* تحسينات الموبايل */
+/* Screen size adjustments for smaller mobile devices */
 @media (max-width: 480px) {
   .network-title {
     font-size: 22px;
