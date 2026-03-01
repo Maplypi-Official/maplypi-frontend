@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-// استخدام الـ URL من البيئة أو الافتراضي لضمان الربط مع السيرفر المحلي
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+/**
+ * تحسين جلب الـ URL ليتوافق مع Vite و Termux
+ * نستخدم الصيغة المتوافقة مع Vite لضمان عدم حدوث سواد في الشاشة
+ */
+const API_URL = (import.meta.env?.VITE_API_URL as string) || 'http://localhost:5000/api';
 
 /**
  * جلب المنتجات من الماركت (Matrix Market)
@@ -13,11 +16,12 @@ export const fetchProducts = async (category?: string) => {
       params: { category: category !== 'All' ? category : undefined }
     });
     
-    // إرجاع البيانات بنفس الهيكل المتوقع في useMarket.ts
+    // إرجاع البيانات بنفس الهيكل المتوقع في useMarket.ts لضمان التوافق
     return response.data;
   } catch (error) {
     console.error("Matrix API Error [fetchProducts]:", error);
-    throw error;
+    // نرجع مصفوفة فارغة في حالة الخطأ بدلاً من رمي خطأ يكسر الواجهة
+    return { data: [] };
   }
 };
 
@@ -27,18 +31,13 @@ export const fetchProducts = async (category?: string) => {
  */
 export const createPiPayment = async (productId: string) => {
   try {
-    // 1. طلب إنشاء معاملة من الباك أند الخاص بنا أولاً لتوثيق الطلب
+    // 1. طلب إنشاء معاملة من الباك أند لتوثيق الطلب
     const orderResponse = await axios.post(`${API_URL}/market/orders/create`, {
       productId,
       paymentMethod: 'Pi'
     });
 
-    /** * 2. هنا يتم استدعاء Pi SDK الرسمي لاحقاً:
-     * window.Pi.createPayment({ ...orderData ... })
-     * تم تجهيز المكان لربط الـ Access Token والـ Payment ID
-     */
-    console.log("Pi Payment Initialized for Order:", orderResponse.data.orderId);
-    
+    console.log("Pi Payment Initialized for Order:", orderResponse.data?.orderId);
     return orderResponse.data;
   } catch (error) {
     console.error("Pi SDK Bridge Error:", error);
@@ -50,7 +49,12 @@ export const createPiPayment = async (productId: string) => {
  * تحديث حالة المخزن بعد نجاح الدفع (Inventory Sync)
  */
 export const syncInventory = async (productId: string, quantity: number) => {
-  return await axios.patch(`${API_URL}/market/products/${productId}/sync`, {
-    quantity
-  });
+  try {
+    return await axios.patch(`${API_URL}/market/products/${productId}/sync`, {
+      quantity
+    });
+  } catch (error) {
+    console.error("Inventory Sync Error:", error);
+    throw error;
+  }
 };
