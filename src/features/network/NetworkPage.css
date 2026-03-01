@@ -46,6 +46,11 @@
   border: 1px solid rgba(139, 92, 246, 0.2);
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   background: #05050a; /* Fallback for map loading */
+  
+  /* ✅ إضافة الارتفاع الإجباري لمنع الشاشة السوداء */
+  min-height: 550px; 
+  height: 550px;
+  position: relative;
 }
 
 .activity-wrapper {
@@ -66,5 +71,9 @@
   }
   .sync-indicator {
     font-size: 8px;
+  }
+  .map-wrapper {
+    height: 450px;
+    min-height: 450px;
   }
 }
