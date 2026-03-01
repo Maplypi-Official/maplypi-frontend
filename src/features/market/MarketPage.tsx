@@ -1,52 +1,53 @@
 import React, { useState } from 'react';
 import { useMarket } from './hooks/useMarket';
-import FilterBar from './components/FilterBar/FilterBar';
-// استيراد المكونات ولكن سنستخدمها بحذر
-import ProductCard from './components/ProductCard/ProductCard';
-import Cart from './components/Cart/Cart';
+// قمنا بتعطيل الاستيراد للمكونات المشبوهة مؤقتاً لنضمن عمل الصفحة
+// import ProductCard from './components/ProductCard/ProductCard';
+// import FilterBar from './components/FilterBar/FilterBar';
+// import Cart from './components/Cart/Cart';
 
 import './MarketPage.css';
 
 const MarketPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const { products = [], loading = false, error = null } = useMarket() || {};
-
-  // دالة أمان لمنع انهيار الصفحة بسبب المكونات الفرعية
-  const renderContent = () => {
-    if (loading) return <div className="market-sync-indicator">● SYSTEM INITIALIZING...</div>;
-    if (error) return <div style={{color: 'red', textAlign: 'center'}}>{error}</div>;
-
-    return (
-      <div className="market-products-grid">
-        {products.length > 0 ? (
-          products.map(p => (
-            <div key={p.id} style={{ border: '1px solid #333', padding: '10px' }}>
-              {/* استبدال المنتج مؤقتاً بنص بسيط لنعرف هل المشكلة في ProductCard */}
-              <h3 style={{color: '#eab308'}}>{p.name}</h3>
-              <p>{p.price} PI</p>
-            </div>
-          ))
-        ) : (
-          <div className="empty-market-state">No Data Found</div>
-        )}
-      </div>
-    );
-  };
+  
+  // استدعاء الـ Hook الخاص بك (سليم برمجياً)
+  const { products = [], loading = false } = useMarket() || {};
 
   return (
-    <div className="market-page-container">
-      <header className="market-header">
-        <h1 className="market-title">Maplypi Market</h1>
-        <p className="market-subtitle">Sector: {activeCategory}</p>
-      </header>
+    <div className="market-page-container" style={{ background: '#05050a', minHeight: '100vh', padding: '20px' }}>
+      
+      {/* هيدر يدوي بسيط لضمان عدم الاعتماد على أي ملف خارجي */}
+      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+        <h1 style={{ color: '#eab308', fontSize: '24px' }}>MAPLYPI MARKET</h1>
+        <p style={{ color: '#64748b' }}>DEBUG MODE: ACTIVE</p>
+      </div>
 
-      {/* اختبار الفلتر بار */}
-      <FilterBar activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
+      {loading ? (
+        <div style={{ color: '#eab308', textAlign: 'center' }}>● LOADING DATA...</div>
+      ) : (
+        <div className="debug-grid" style={{ display: 'grid', gap: '10px' }}>
+          {products.map((p: any) => (
+            <div key={p.id} style={{ border: '1px solid #eab308', padding: '10px', borderRadius: '8px' }}>
+              <strong style={{ color: '#fff' }}>{p.name}</strong>
+              <span style={{ color: '#eab308', marginLeft: '10px' }}>{p.price} PI</span>
+            </div>
+          ))}
+          
+          {products.length === 0 && (
+            <div style={{ color: '#64748b', textAlign: 'center' }}>No products found in memory.</div>
+          )}
+        </div>
+      )}
 
-      <main>{renderContent()}</main>
-
-      {/* تعطيل السلة مؤقتاً للتأكد أنها ليست سبب السواد */}
-      {/* <Cart totalAmount={0} itemCount={0} /> */}
+      {/* زر اختبار يدوي للفلترة لضمان عمل الـ State */}
+      <div style={{ marginTop: '20px', textAlign: 'center' }}>
+        <button 
+          onClick={() => setActiveCategory('Tech')}
+          style={{ background: '#eab308', border: 'none', padding: '10px', borderRadius: '5px' }}
+        >
+          Test Filter (Tech)
+        </button>
+      </div>
     </div>
   );
 };
