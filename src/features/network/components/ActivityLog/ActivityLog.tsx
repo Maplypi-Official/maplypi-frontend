@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ActivityItem from './ActivityItem';
 import './ActivityLog.css';
 
-// تعريف واجهة البيانات لضمان التوافق مع ActivityItem والباك أند
+// تعريف الـ Interface بما يتوافق مع هيكل البيانات في الباك أند
 interface LogEntry {
   id: string;
   user: string;
@@ -11,21 +11,22 @@ interface LogEntry {
 }
 
 const ActivityLog: React.FC<{ data?: LogEntry[] }> = ({ data }) => {
-  // بيانات افتراضية "فخمة" تظهر في حالة عدم وجود بيانات من الباك أند
+  // بيانات افتراضية تعكس روح الـ Matrix والماركت
   const defaultLogs: LogEntry[] = [
-    { id: '1', user: 'System_Node', action: 'Matrix Grid Initialized', time: 'Just now' },
-    { id: '2', user: 'User_402', action: 'Connected to Node A', time: '2m ago' },
-    { id: '3', user: 'Merchant_Pi', action: 'Updated Inventory', time: '5m ago' },
+    { id: '1', user: 'TechZone_Node', action: 'Confirmed Premium Status', time: 'Just now' },
+    { id: '2', user: 'UrbanMart_Pi', action: 'New Inventory Synchronized', time: '2m ago' },
+    { id: '3', user: 'Explorer_Alpha', action: 'Initiated Checking-in [50m]', time: '5m ago' },
   ];
 
-  // استخدام البيانات القادمة من Props (الباك أند) أو البيانات الافتراضية
   const logsToDisplay = data || defaultLogs;
 
   return (
     <div className="activity-container">
       <div className="activity-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h3 className="activity-title">Live Network Feed</h3>
-        <span style={{ color: '#22c55e', fontSize: '10px', fontWeight: 'bold' }}>● LIVE</span>
+        <div className="live-badge">
+          <span style={{ color: '#22c55e', fontSize: '9px', fontWeight: 'bold' }}>● LIVE</span>
+        </div>
       </div>
 
       <div className="activity-list">
