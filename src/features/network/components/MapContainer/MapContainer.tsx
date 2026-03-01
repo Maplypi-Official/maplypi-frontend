@@ -5,14 +5,18 @@ import L from 'leaflet';
 import { NetworkNode, UserLocation } from '../../types/network';
 import './MapContainer.css';
 
+// استيراد الصور كـ Modules لضمان عملها في المتصفح والـ Pi Browser
+import piLogo from '../../../../assets/logo3.png';
+import userLocImg from '../../../../assets/user-location1.png';
+
 /**
- * 🛠️ تهيئة الأيقونات المخصصة لتطابق مظهر الـ Pins في الصورة بأسلوب أسطوري
+ * 🛠️ تهيئة الأيقونات المخصصة باستخدام الصور المستوردة
  */
 
 // أيقونة Pi Network المعيارية (زرقاء متوهجة)
 const standardPiIcon = L.divIcon({
   className: 'pi-icon-div marker-standard-pi glow-blue',
-  html: `<div class="pi-marker-content"><img src="/src/assets/logo3.png" alt="Pi" /></div>`,
+  html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
   iconSize: [40, 40],
   iconAnchor: [20, 20]
 });
@@ -20,7 +24,7 @@ const standardPiIcon = L.divIcon({
 // أيقونة Pi Network المميزة (ذهبية متوهجة)
 const premiumPiIcon = L.divIcon({
   className: 'pi-icon-div marker-premium-pi glow-gold',
-  html: `<div class="pi-marker-content"><img src="/src/assets/logo3.png" alt="Pi" /></div>`,
+  html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
   iconSize: [60, 60],
   iconAnchor: [30, 30]
 });
@@ -28,7 +32,7 @@ const premiumPiIcon = L.divIcon({
 // أيقونة موقع المستخدم
 const userLocationIcon = L.divIcon({
   className: 'pi-icon-div marker-user-location',
-  html: `<div class="user-location-content"><img src="/src/assets/user-location1.png" alt="Me" /></div>`,
+  html: `<div class="user-location-content"><img src="${userLocImg}" alt="Me" /></div>`,
   iconSize: [40, 40],
   iconAnchor: [20, 20]
 });
@@ -42,9 +46,6 @@ interface MapContainerProps {
 const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, nodes }) => {
   const displaySector = sectorName || "Cairo Citadel Sector";
 
-  /**
-   * ترتيب الـ Pins يدوياً بناءً على الصورة المرجعية لضمان مظهر أسطوري في الـ MVP.
-   */
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', subLabel: 'Checking-in... [50m]', offset: [0.002, -0.004] },
     { type: standardPiIcon, offset: [0.004, -0.001] },
@@ -56,21 +57,19 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
 
   return (
     <div className="map-wrapper main-matrix-v2 pixelated-map">
-      {/* حاوية الخريطة الأساسية */}
       <LeafletMap 
         center={[userLocation.lat, userLocation.lng]} 
         zoom={14} 
         zoomControl={false}
         attributionControl={false}
         className="leaflet-canvas-container"
-        style={{ height: '100%', width: '100%', background: '#0d081d' }}
+        style={{ height: '550px', width: '100%', background: '#0d081d' }}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           className="dark-tile-layer"
         />
 
-        {/* رسم العقد (Nodes) بتوزيع فني مطابق للصورة */}
         {pinOrdering.map((pin, index) => {
           const lat = userLocation.lat + (pin.offset[0] || 0);
           const lng = userLocation.lng + (pin.offset[1] || 0);
@@ -89,7 +88,6 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
           );
         })}
 
-        {/* موقع المستخدم ودائرة البحث */}
         <Marker position={[userLocation.lat, userLocation.lng]} icon={userLocationIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v2"></div>
@@ -98,7 +96,6 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
         </Marker>
       </LeafletMap>
 
-      {/* عناصر الـ Matrix والـ UI الفاخرة فوق الخريطة */}
       <div className="matrix-overlay-elements">
         <div className="hex-bg"></div>
         <div className="map-grid-lines"></div>
