@@ -1,30 +1,41 @@
 :root {
   --digital-gold: #ffca28;
-  --cyber-blue: #00f2ff;
-  --nav-bg: rgba(13, 11, 26, 0.85);
+  --nav-bg: rgba(13, 11, 26, 0.82);
 }
 
 .maply-bottom-nav {
   position: fixed;
-  /* رفعه قليلاً عن الحافة ليعطي شعوراً بأنه عائم (Floating) */
-  bottom: 15px;
+  bottom: 20px; /* رفعه قليلاً ليكون عائماً بشكل عصري */
   left: 50%;
   transform: translateX(-50%);
-  width: 92%;
-  max-width: 450px;
+  width: 90%;
+  max-width: 460px; /* متوافق مع كافة أحجام الموبايل والتابلت */
   height: 70px;
   background: var(--nav-bg);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); /* لدعم Safari ومتصفح Pi */
   border: 1px solid rgba(255, 202, 40, 0.3);
   border-radius: 25px;
   z-index: 9999;
   display: flex;
   align-items: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 
-              inset 0 0 15px rgba(255, 202, 40, 0.05);
-  /* منع التداخل مع المحتوى عند السكرول */
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  
+  /* الانتقال السلس عند الظهور والاختفاء */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+/* حالة الظهور والاختفاء الذكي */
+.nav-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-hidden {
+  opacity: 0;
+  transform: translate(-50%, 100px); /* ينسحب لأسفل الشاشة */
+  pointer-events: none;
 }
 
 .nav-content-wrapper {
@@ -32,7 +43,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
 .nav-item {
@@ -40,9 +51,8 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  position: relative;
-  transition: 0.3s;
   flex: 1;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .icon-container {
@@ -56,7 +66,7 @@
   font-size: 1.3rem;
   z-index: 2;
   transition: all 0.3s ease;
-  filter: grayscale(0.5);
+  filter: grayscale(0.4);
   opacity: 0.7;
 }
 
@@ -64,25 +74,24 @@
   font-size: 8px;
   color: #94a3b8;
   font-weight: 900;
-  margin-top: 5px;
+  margin-top: 4px;
   letter-spacing: 0.8px;
-  transition: 0.3s;
+  text-transform: uppercase;
 }
 
-/* --- 🌟 حالة النشاط (Active State) --- */
+/* --- 🌟 الحالة النشطة (Active) --- */
 .nav-item.active .nav-icon {
   transform: translateY(-8px) scale(1.2);
-  filter: grayscale(0) drop-shadow(0 0 12px var(--digital-gold));
+  filter: grayscale(0) drop-shadow(0 0 10px var(--digital-gold));
   opacity: 1;
 }
 
 .nav-item.active .nav-label {
   color: var(--digital-gold);
-  transform: translateY(-2px);
-  text-shadow: 0 0 8px rgba(255, 202, 40, 0.4);
+  text-shadow: 0 0 5px rgba(255, 202, 40, 0.3);
 }
 
-/* --- 💓 تأثير النبض (Pulse Effect) --- */
+/* --- 💓 تأثير النبض الرقمي (Pulse Ring) --- */
 .pulse-ring {
   position: absolute;
   width: 35px;
@@ -91,11 +100,10 @@
   border-radius: 50%;
   animation: navPulse 2s infinite ease-out;
   z-index: 1;
-  top: -8px;
 }
 
 @keyframes navPulse {
-  0% { transform: scale(0.5); opacity: 0.8; }
+  0% { transform: scale(0.6); opacity: 0.8; }
   100% { transform: scale(1.8); opacity: 0; }
 }
 
@@ -107,10 +115,15 @@
   font-size: 1.6rem;
 }
 
-/* --- 📱 تفاعل الموبايل --- */
+/* --- 📱 التفاعل مع اللمس --- */
 .nav-item:active {
-  transform: scale(0.85);
+  transform: scale(0.9);
 }
 
-/* إخفاء الـ Navbar تلقائياً عند السكرول لأسفل بشكل بسيط لإعطاء مساحة (اختياري عبر JS)
-   أو الحفاظ عليه ثابتاً ولكن شفاف لضمان سهولة الوصول */
+/* ضمان التجاوب مع شاشات الكمبيوتر واللابتوب */
+@media (min-width: 1024px) {
+  .maply-bottom-nav {
+    bottom: 30px;
+    width: 400px;
+  }
+}
