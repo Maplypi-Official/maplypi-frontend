@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-// استدعاء المكونات الحقيقية (بدون امتدادات لضمان عمل Vite)
-import Dashboard from './components/Layout/Dashboard';
-import MarketPage from './features/market/MarketPage';
-import NetworkPage from './features/network/NetworkPage';
+// استدعاء المكونات الأساسية والآمنة حالياً
 import Navbar from './components/Navigation/Navbar';
 
 // استيراد التنسيقات المركزية
@@ -13,45 +10,61 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('DASHBOARD');
 
   /**
-   * دالة الرندر الأساسية
-   * تقوم بعرض المكون الحقيقي بناءً على الصفحة المختارة
+   * دالة الرندر المعزولة (Isolated Render)
+   * تعرض محتوى نصي بسيط لكل صفحة للتأكد من سلامة النظام الأساسي
    */
   const renderPage = () => {
-    try {
-      switch (currentPage) {
-        case 'DASHBOARD': 
-          return <Dashboard />;
-        case 'MARKET': 
-          return <MarketPage />;
-        case 'NETWORK': 
-          return <NetworkPage />;
-        case 'SETTINGS':
-          return (
-            <div style={{ padding: '40px', color: '#eab308', textAlign: 'center', marginTop: '100px' }}>
-              <h2 style={{ textShadow: '0 0 10px #eab308' }}>SECURITY PROTOCOL</h2>
-              <p style={{ color: '#64748b' }}>Terminal Access Restricted.</p>
+    const sectionStyle: React.CSSProperties = {
+      padding: '40px 20px',
+      color: '#eab308',
+      textAlign: 'center',
+      marginTop: '100px',
+      fontFamily: 'monospace'
+    };
+
+    switch (currentPage) {
+      case 'DASHBOARD': 
+        return (
+          <div style={sectionStyle}>
+            <h2 style={{ textShadow: '0 0 10px #eab308' }}>DASHBOARD CORE</h2>
+            <p style={{ color: '#64748b' }}>SYSTEM STATUS: ONLINE</p>
+            <div style={{ marginTop: '20px', border: '1px dotted #eab308', padding: '20px' }}>
+              WAITING FOR DATA SYNC...
             </div>
-          );
-        default: 
-          return <Dashboard />;
-      }
-    } catch (error) {
-      console.error("Matrix Render Error:", error);
-      return (
-        <div style={{ color: '#ff4444', padding: '20px', textAlign: 'center', background: '#05050a', height: '100vh' }}>
-          <h3>CRITICAL SYSTEM ERROR</h3>
-          <p>Rebooting Interface...</p>
-        </div>
-      );
+          </div>
+        );
+      case 'MARKET': 
+        return (
+          <div style={sectionStyle}>
+            <h2 style={{ textShadow: '0 0 10px #eab308' }}>MAPLYPI MARKET</h2>
+            <p style={{ color: '#64748b' }}>ISOLATED MODE ACTIVE</p>
+          </div>
+        );
+      case 'NETWORK': 
+        return (
+          <div style={sectionStyle}>
+            <h2 style={{ textShadow: '0 0 10px #eab308' }}>NETWORK MATRIX</h2>
+            <p style={{ color: '#64748b' }}>ASSETS LOADING SUSPENDED</p>
+          </div>
+        );
+      case 'SETTINGS':
+        return (
+          <div style={sectionStyle}>
+            <h2 style={{ textShadow: '0 0 10px #eab308' }}>SECURITY PROTOCOL</h2>
+            <p style={{ color: '#64748b' }}>TERMINAL ACCESS RESTRICTED</p>
+          </div>
+        );
+      default: 
+        return <div style={sectionStyle}>INITIALIZING...</div>;
     }
   };
 
   return (
     <div className="App" style={{ minHeight: '100vh', backgroundColor: '#05050a' }}>
-      {/* عرض المكون النشط (Dashboard, Market, or Network) */}
+      {/* عرض المحتوى المعزول لضمان عدم حدوث شاشة سوداء */}
       {renderPage()}
       
-      {/* شريط التنقل السفلي الثابت */}
+      {/* شريط التنقل السفلي - يعمل بشكل مستقل وآمن */}
       <Navbar activeTab={currentPage} onTabChange={setCurrentPage} />
     </div>
   );
