@@ -5,20 +5,20 @@ import App from './App';
 
 /**
  * System Initialization Log
- * Monitors core boot stability within the browser console.
+ * يراقب استقرار إقلاع النظام في متصفح Pi Browser
  */
 console.log("Maplypi Matrix: Core Initialized.");
 
 /**
  * Root Element Validation
- * Ensures the 'root' container exists in index.html before mounting.
+ * التأكد من وجود حاوية الـ DOM قبل بدء الرندر لمنع الـ White Screen.
  */
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
   /**
    * React 19 Root Rendering
-   * Mounting the application with StrictMode enabled for best development practices.
+   * استخدام StrictMode لضمان أفضل الممارسات البرمجية وتجنب الأخطاء الجانبية.
    */
   const root = createRoot(rootElement);
   
@@ -30,7 +30,7 @@ if (rootElement) {
 } else {
   /**
    * Critical Error Handling
-   * Dispatched if the DOM fails to provide a mounting point.
+   * يتم إرساله في حالة فشل الوصول لعنصر الـ Root في index.html.
    */
   console.error("Critical Error: Root element not found! Check your index.html file.");
 }
