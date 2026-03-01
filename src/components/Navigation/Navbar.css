@@ -1,32 +1,26 @@
 :root {
   --digital-gold: #ffca28;
-  --nav-bg: rgba(13, 11, 26, 0.85);
+  --nav-bg: rgba(13, 11, 26, 0.9); /* تعتيم الخلفية لضمان الوضوح فوق العناصر الأخرى */
 }
 
 .maply-bottom-nav {
-  position: fixed;
-  bottom: 15px; /* مسافة بسيطة من الأسفل ليعطي شكل الـ Floating */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 94%; /* يملأ أغلب الشاشة لضمان عدم وجود فراغات في الجوانب */
-  max-width: 480px; /* أقصى عرض لراحة العين في الشاشات الكبيرة */
+  position: fixed !important; /* ثابت إجبارياً فوق المحتوى */
+  bottom: 20px !important; /* مسافة من الأسفل للشكل العائم */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 92%; 
+  max-width: 460px;
   height: 68px;
   background: var(--nav-bg);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border: 1px solid rgba(255, 202, 40, 0.25);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 202, 40, 0.3);
   border-radius: 22px;
-  z-index: 10000; /* لضمان ظهوره فوق كافة عناصر التطبيق */
+  z-index: 99999 !important; /* أعلى طبقة ممكنة ليظهر فوق أي تداخل برمجى */
   display: flex;
   align-items: center;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-  transition: all 0.3s ease;
-}
-
-/* حالة الظهور الدائم */
-.nav-visible {
-  opacity: 1;
-  pointer-events: auto;
+  pointer-events: auto; /* لضمان استجابة الأزرار للضغط */
 }
 
 .nav-content-wrapper {
@@ -71,7 +65,7 @@
   text-transform: uppercase;
 }
 
-/* --- 🌟 الحالة النشطة (Active) --- */
+/* الحالة النشطة */
 .nav-item.active .nav-icon {
   transform: translateY(-6px) scale(1.15);
   filter: grayscale(0) drop-shadow(0 0 12px var(--digital-gold));
@@ -83,7 +77,7 @@
   text-shadow: 0 0 8px rgba(255, 202, 40, 0.3);
 }
 
-/* --- 💓 تأثير النبض (Pulse Effect) --- */
+/* تأثير النبض (Pulse) */
 .pulse-ring {
   position: absolute;
   width: 32px;
@@ -99,7 +93,7 @@
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* --- ✨ تمييز زر SELL ITEM --- */
+/* تمييز زر SELL ITEM */
 .nav-item.special-add .nav-icon {
   background: linear-gradient(135deg, #fff, var(--digital-gold));
   -webkit-background-clip: text;
@@ -107,7 +101,6 @@
   font-size: 1.5rem;
 }
 
-/* --- 📱 التفاعل مع اللمس --- */
 .nav-item:active {
   transform: scale(0.92);
 }
