@@ -2,7 +2,8 @@ import React from 'react';
 import { MapContainer as LeafletMap, TileLayer, Marker, Pane } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { NetworkNode, UserLocation } from '../../types/network';
+// ✅ تأمين استيراد الأنواع لضمان عدم انهيار الشاشة
+import type { NetworkNode, UserLocation } from '../../types/network';
 import './MapContainer.css';
 
 // استيراد الصور كـ Modules لضمان عملها في المتصفح والـ Pi Browser
@@ -46,6 +47,7 @@ interface MapContainerProps {
 const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, nodes }) => {
   const displaySector = sectorName || "Cairo Citadel Sector";
 
+  // ترتيب الـ Pins حول موقع المستخدم لمحاكاة الشبكة الحية
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', subLabel: 'Checking-in... [50m]', offset: [0.002, -0.004] },
     { type: standardPiIcon, offset: [0.004, -0.001] },
@@ -96,6 +98,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
         </Marker>
       </LeafletMap>
 
+      {/* واجهات الـ Matrix الفخمة */}
       <div className="matrix-overlay-elements">
         <div className="hex-bg"></div>
         <div className="map-grid-lines"></div>
