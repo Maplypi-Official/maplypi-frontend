@@ -1,37 +1,38 @@
-/* 🛠️ الطبقة الأساسية - تضمن تغطية الشاشة بالكامل خلف الخريطة */
+/* 🧪 الطبقة الأساسية - تضمن تغطية الشاشة بالكامل خلف الخريطة والـ HUD */
 .tech-overlays-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* تأكيد الوجود خلف الخريطة والـ HUD */
+  z-index: 0; /* تأكيد الوجود خلف الخريطة والـ HUD لعدم حجب البيانات */
   overflow: hidden;
-  pointer-events: none; /* لضمان عدم اعتراض اللمس أو النقر على الخريطة */
-  background: #080511; /* لون أساسي غامق جداً لضمان عدم وجود فجوات بيضاء */
+  pointer-events: none; /* ضروري جداً لضمان الضغط على الخريطة والأزرار */
+  background: #080511; /* لون أساسي غامق جداً يمنع أي وميض أبيض أثناء التحميل */
 }
 
-/* 🏗️ طبقة الكربون فايبر - الملمس التقني الخشن */
+/* 🏗️ طبقة الكربون فايبر - الملمس التقني الخشن (Texture Base) */
 .carbon-fiber-base {
   position: absolute;
   inset: 0;
-  /* تأكد من مسار الصورة الصحيح في مجلد الـ public */
+  /* تأكد من وجود ملف carbon_fiber_base.png في مجلد public/textures/ */
   background: url('/textures/carbon_fiber_base.png') repeat;
   background-size: 200px;
   opacity: 0.5;
   mix-blend-mode: overlay;
 }
 
-/* 🖼️ إطار الـ HUD التقني - اللمسة الفخمة الثابتة */
+/* 🖼️ إطار الـ HUD التقني - اللمسة الفخمة الثابتة (Border Frame) */
 .tech-hud-frame {
   position: absolute;
   inset: 0;
+  /* تأكد من وجود ملف tech_hud_overlay.png في مجلد public/textures/ */
   background: url('/textures/tech_hud_overlay.png') no-repeat center / cover;
   opacity: 0.35;
   filter: hue-rotate(10deg) brightness(0.7) contrast(1.2);
   mix-blend-mode: screen;
 }
 
-/* 📡 أنيميشن خط المسح الضوئي (Scanning Line) لزيادة الحيوية */
+/* 📡 أنيميشن خط المسح الضوئي (Scanning Line) - يضيف حياة للرادار */
 .scanning-line {
   position: absolute;
   width: 100%;
@@ -52,7 +53,7 @@
   to { top: 110%; }
 }
 
-/* 📺 تأثير الـ CRT Grid لزيادة الواقعية الرقمية */
+/* 📺 تأثير الـ CRT Grid - لإعطاء مظهر الشاشات العسكرية القديمة */
 .crt-grid-effect {
   position: absolute;
   inset: 0;
@@ -65,7 +66,7 @@
   z-index: 3;
 }
 
-/* 🛡️ تأثير الظل الجانبي (Tech Vignette) لتركيز الرؤية */
+/* 🛡️ تأثير الظل الجانبي (Tech Vignette) - لتركيز الانتباه في المنتصف */
 .tech-vignette {
   position: absolute;
   inset: 0;
@@ -75,10 +76,9 @@
     rgba(0, 0, 0, 0.8) 100%
   );
   z-index: 4;
-  pointer-events: none;
 }
 
-/* ✨ إضافة توهج أرجواني خافت في الأركان لربط الألوان بالخريطة */
+/* ✨ توهج أرجواني خافت في الأركان لربط ألوان الـ HUD بالخريطة */
 .tech-overlays-layer::after {
   content: '';
   position: absolute;
