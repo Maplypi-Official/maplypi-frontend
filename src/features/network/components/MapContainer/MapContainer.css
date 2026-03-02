@@ -1,19 +1,37 @@
-/* الحاوية الرئيسية للخريطة */
-.map-wrapper.main-matrix-v2 {
+/* الحاوية الرئيسية للخريطة - Full Screen */
+.map-wrapper.main-matrix-v2.full-viewport-map {
   position: relative;
   width: 100%;
-  height: 550px; 
+  height: 100%; /* تأخذ مساحة الـ wrapper بالكامل */
   background: #0d081d;
-  border-radius: 30px;
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 0; /* إلغاء الحواف لوضع ملء الشاشة */
   overflow: hidden;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
 }
 
-/* 🛡️ تأثير Minecraft الواقعي باستخدام فلاتر CSS */
+/* 🛡️ تأثير Isometric خفيف لمحاكاة التصميم Diamond */
+.pixelated-map .leaflet-container {
+  transform: rotateX(10deg) rotateZ(-5deg); /* ميلان خفيف للشاشة */
+  transform-style: preserve-3d;
+}
+
 .pixelated-map .leaflet-tile-container {
-  filter: invert(1) hue-rotate(240deg) contrast(1.3) brightness(0.8);
+  filter: invert(1) hue-rotate(240deg) contrast(1.2) brightness(0.7);
   image-rendering: pixelated; 
+}
+
+/* توهج الـ Pins (ذهبي وأزرق فخم) */
+.glow-gold img { 
+  filter: drop-shadow(0 0 20px #eab308) drop-shadow(0 0 40px rgba(234, 179, 8, 0.4)); 
+  animation: marker-pulse 2s infinite ease-in-out;
+}
+.glow-blue img { 
+  filter: drop-shadow(0 0 15px #3b82f6); 
+  animation: marker-pulse 3s infinite ease-in-out;
+}
+
+@keyframes marker-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
 }
 
 .matrix-overlay-elements {
@@ -23,100 +41,60 @@
   z-index: 500;
 }
 
-.hex-bg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.12;
-  background-image: url('https://www.transparenttextures.com/patterns/hexellence.png');
-  filter: invert(1);
-}
-
+/* خطوط الشبكة المربعة - أوضح وأفخم */
 .map-grid-lines {
   position: absolute;
   inset: 0;
   background: 
-    linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(rgba(139, 92, 246, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-.glow-gold img { filter: drop-shadow(0 0 15px #eab308); }
-.glow-blue img { filter: drop-shadow(0 0 10px #3b82f6); }
-
-.pin-label-v2 {
-  position: absolute;
-  bottom: -45px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  white-space: nowrap;
-}
-
-.pin-label-text { color: #fff; font-size: 13px; font-weight: bold; text-shadow: 0 0 10px #000; }
-.pin-sublabel-text { color: #94a3b8; font-size: 9px; display: block; margin-top: 2px; }
-
+/* لوحة الرصيد - شفافة مطابقة للتصميم */
 .top-right-panel {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   text-align: right;
-  background: rgba(13, 8, 29, 0.8);
-  padding: 12px 18px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(13, 8, 29, 0.7);
+  padding: 15px 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(234, 179, 8, 0.3);
   pointer-events: auto;
 }
 
-.ui-bal-label { color: #94a3b8; font-size: 9px; margin: 0; }
-.ui-bal-value { color: #ffca28; font-size: 18px; font-weight: 800; margin: 0; }
-.ui-lvl-label { color: #ffca28; font-size: 10px; opacity: 0.8; }
+.ui-bal-value { color: #ffca28; font-size: 22px; font-weight: 900; text-shadow: 0 0 10px rgba(255, 202, 40, 0.5); }
 
+/* دائرة المدى حول المستخدم */
 .range-circle-v2 {
   position: absolute;
-  width: 160px;
-  height: 160px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 75%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  animation: range-expand 4s infinite linear;
 }
 
-.search-range-tag {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(15, 10, 30, 0.85);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 10px;
-  color: #fff;
-  border: 1px solid rgba(234, 179, 8, 0.3);
+@keyframes range-expand {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
 
-.scan-line-v2 {
-  position: absolute;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(transparent, rgba(139, 92, 246, 0.08), transparent);
-  animation: scan-v2 5s linear infinite;
-}
-
-@keyframes scan-v2 { 0% { top: -120px; } 100% { top: 100%; } }
-
+/* لوحة القطاع السفلي */
 .node-label-v2 {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(13, 8, 29, 0.9);
-  padding: 10px 20px;
-  border-radius: 12px;
-  border-left: 4px solid #eab308;
-  font-size: 11px;
-  color: #fff;
+  bottom: 40px;
+  left: 30px;
+  background: rgba(13, 8, 29, 0.85);
+  padding: 12px 25px;
+  border-radius: 10px;
+  border-left: 5px solid #eab308;
+  box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
 }
-
-.sync-text { color: #eab308; font-weight: 900; margin-right: 5px; }
