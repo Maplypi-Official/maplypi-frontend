@@ -1,10 +1,14 @@
-/* 🛰️ الحاوية الرئيسية للخريطة - ضمان الشفافية الكاملة لمرور الخلفية */
+/* 🛰️ الحاوية الرئيسية - منع السكرول نهائياً وضمان ملء كامل الشاشة */
 .map-canvas-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background: transparent !important;
+  width: 100vw;
+  height: 100vh;
+  position: fixed; /* التثبيت يمنع أي سحب أو سكرول عشوائي */
+  top: 0;
+  left: 0;
+  background: #000 !important;
   overflow: hidden;
+  touch-action: none; /* يمنع المتصفح من سحب الصفحة عند لمس الخريطة */
+  z-index: 0;
 }
 
 .leaflet-canvas-container, 
@@ -12,7 +16,6 @@
   width: 100%;
   height: 100%;
   background: transparent !important; 
-  z-index: 1;
 }
 
 /* 🧬 سحر الـ Blueprint Mode: تحويل مربعات الخريطة لخيوط ليزر أرجوانية */
@@ -23,12 +26,15 @@
   image-rendering: auto; 
 }
 
-/* 📍 تنسيق الأيقونات (Pins) - الحل السحري لإزالة السواد */
+/* 📍 تنسيق الأيقونات (Pins) - الحل الجذري للسواد والتداخل */
 .pi-icon-div {
   background: transparent !important;
   border: none !important;
-  /* تثبيت نقطة الارتكاز في الأسفل لضمان دقة الموقع الجغرافي */
+  /* ارتكاز القاعدة لضمان دقة الموقع الجغرافي عند الزوم */
   transform-origin: bottom center !important; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pi-marker-content {
@@ -40,63 +46,63 @@
   position: relative;
 }
 
-/* 🖼️ معالجة الصور المربعة لتبدو أيقونات شفافة احترافية */
+/* 🖼️ معالجة الصور المربعة لتبدو شفافة تماماً (Zero Black) */
 .pi-marker-content img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* 🛑 أهم سطر: تحويل اللون الأسود في الصورة إلى شفاف */
+  /* 🛑 السحر التقني: mix-blend-mode يحذف اللون الأسود فوراً ويظهر التوهج فقط */
   mix-blend-mode: screen; 
-  /* إزالة أي حواف حادة ناتجة عن التوليد */
+  /* إزالة أي حواف حادة ناتجة عن صور الذكاء الاصطناعي */
   mask-image: radial-gradient(circle, black 65%, transparent 100%);
+  filter: brightness(1.1) contrast(1.1);
+  pointer-events: none;
 }
 
-/* ✨ توهج الـ Pins (ذهبي وأزرق) مع أنيميشن النبض */
+/* ✨ توهج الـ Pins (ذهبي وأزرق) مع أنيميشن النبض الهادئ */
 .glow-gold img { 
-  filter: drop-shadow(0 0 12px #eab308) drop-shadow(0 0 25px rgba(234, 179, 8, 0.5)); 
-  animation: marker-pulse 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px #eab308) drop-shadow(0 0 20px rgba(234, 179, 8, 0.4)); 
+  animation: marker-pulse 2.5s infinite ease-in-out;
 }
 
 .glow-blue img { 
-  filter: drop-shadow(0 0 12px #3b82f6) drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)); 
+  filter: drop-shadow(0 0 10px #3b82f6) drop-shadow(0 0 18px rgba(59, 130, 246, 0.3)); 
   animation: marker-pulse 3s infinite ease-in-out;
 }
 
 @keyframes marker-pulse {
   0%, 100% { transform: scale(1); filter: brightness(1.2); }
-  50% { transform: scale(1.08); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(0.9); }
 }
 
-/* 🏷️ ملصقات البيانات فوق الـ Pins (Labels) */
+/* 🏷️ ملصقات البيانات فوق الـ Pins (Labels) - معالجة التداخل */
 .pin-label-v3 {
-  background: rgba(13, 13, 25, 0.9);
-  border: 1px solid rgba(234, 179, 8, 0.4);
-  padding: 4px 10px;
-  border-radius: 6px;
+  background: rgba(13, 13, 25, 0.85);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
   color: white;
   white-space: nowrap;
   font-family: 'Inter', sans-serif;
   pointer-events: none;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
   position: absolute;
-  top: -45px;
+  top: -40px; /* المسافة لمنع تداخل الكلام مع الأيقونة */
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   z-index: 2000;
+  scale: 0.9; /* تصغير طفيف لعدم الزحام */
 }
 
-.pin-label-text { font-size: 10px; font-weight: 900; color: #eab308; }
-.pin-sublabel-text { font-size: 8px; opacity: 0.7; }
+.pin-label-text { font-size: 9px; font-weight: 900; color: #eab308; }
+.pin-sublabel-text { font-size: 7px; opacity: 0.7; }
 
 /* ⭕ دائرة موقع المستخدم (User Range) */
 .range-circle-v3 {
-  width: 120px;
-  height: 120px;
-  border: 2px solid rgba(139, 92, 246, 0.3);
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -106,28 +112,27 @@
 }
 
 @keyframes range-pulse {
-  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.2; }
-  50% { opacity: 0.5; }
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.1; }
+  50% { opacity: 0.4; }
   100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
 
-/* 🛠️ إخفاء شعارات Leaflet لزيادة الاحترافية */
+/* 🛠️ إخفاء شعارات المكاتب لزيادة الاحترافية */
 .leaflet-control-attribution {
   display: none !important;
 }
 
-/* ⚡ تخصيص أزرار الزوم لتليق بالـ HUD */
+/* ⚡ تخصيص أزرار الزوم لتليق بالـ HUD - موقع مدروس */
 .leaflet-bar {
-  border: 1px solid rgba(234, 179, 8, 0.3) !important;
-  background: rgba(13, 13, 25, 0.8) !important;
+  border: 1px solid rgba(234, 179, 8, 0.2) !important;
+  background: rgba(13, 13, 25, 0.7) !important;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
-  margin-left: 20px !important;
-  margin-top: 20px !important;
+  margin-left: 15px !important;
+  margin-top: 15px !important;
+  scale: 0.8; /* تصغير الأزرار لعدم تغطية الخريطة */
 }
 
 .leaflet-bar a {
   color: #eab308 !important;
   background: transparent !important;
-  border-bottom: 1px solid rgba(234, 179, 8, 0.1) !important;
 }
