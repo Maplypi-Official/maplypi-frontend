@@ -1,9 +1,8 @@
-/* الحاوية الرئيسية - ملء الشاشة مع مراعاة الـ Navbar */
+/* الحاوية الرئيسية - ملء الشاشة */
 .network-page-container {
   padding: 0;
   background: #0a0516; 
-  /* vh تضمن أن الحاوية تأخذ طول الشاشة المتاح فوراً */
-  height: calc(100vh - 70px); 
+  height: calc(100vh - 70px); /* مراعاة ارتفاع الـ Navbar */
   width: 100vw;
   color: white;
   font-family: 'Inter', sans-serif;
@@ -11,10 +10,10 @@
   position: relative;
 }
 
-/* الهيدر الشفاف فوق الخريطة (HUD Style) */
+/* الهيدر الشفاف (HUD Style) */
 .network-header {
   position: absolute;
-  top: 20px;
+  top: 25px;
   left: 20px;
   z-index: 1000;
   pointer-events: none;
@@ -22,23 +21,24 @@
 
 .network-title {
   color: #eab308; 
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 900;
   margin: 0;
-  text-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
+  text-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
   text-transform: uppercase;
   background: rgba(10, 5, 22, 0.4);
-  padding: 5px 15px;
+  padding: 8px 15px;
   border-radius: 8px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(10px);
+  border-left: 4px solid #eab308;
 }
 
 .network-subtitle {
   color: #94a3b8;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-top: 4px;
+  margin-top: 5px;
   padding-left: 15px;
 }
 
@@ -53,13 +53,48 @@
   background: #05050a; 
 }
 
-@keyframes networkPulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
+/* تذييل الصفحة للمعلومات التقنية */
+.network-debug-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  font-size: 10px;
+  color: rgba(234, 179, 8, 0.8);
+  font-family: monospace;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.debug-label {
+  font-weight: bold;
+}
+
+/* حالة التحميل */
+.sync-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #0a0516;
+}
+
+.sync-text {
+  color: #eab308;
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-top: 20px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 @media (max-width: 480px) {
-  .network-title { font-size: 20px; }
+  .network-title { font-size: 18px; }
   .network-page-container { height: calc(100vh - 65px); }
 }
