@@ -1,156 +1,97 @@
-/* 🧪 الحاويات الزجاجية (Glassmorphism Base) - النسخة المصغرة المتناسقة */
+/* 🧪 الحاويات الزجاجية - النسخة الذرية (Atomic Nano Base) */
 .glass-panel-v3 {
-  background: rgba(13, 13, 25, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* دعم متصفحات Safari و Pi Browser */
-  border: 1px solid rgba(234, 179, 8, 0.25);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  border-radius: 10px; 
-  padding: 10px 15px; 
+  background: rgba(13, 13, 25, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   pointer-events: auto;
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
 }
 
-.glass-panel-v3:hover {
-  border-color: rgba(234, 179, 8, 0.5);
-  box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
-}
-
-/* 💰 لوحة الرصيد - أعلى اليمين (Top Right) */
-.balance-panel-v3 {
+/* 📊 مؤشرات الحالة التقنية - النسخة الذرية (تصغير 40% إضافي) */
+.status-indicators-v3.atomic-nano {
   position: absolute;
-  top: 20px; 
-  right: 20px;
-  min-width: 170px; 
+  top: 15px;
+  left: 15px;
+  /* حجم ميكرو فائق الرشاقة */
+  min-width: 85px !important;
+  max-width: 100px !important;
+  padding: 4px 6px !important;
+  border-radius: 4px !important;
   z-index: 1000;
-}
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
-.panel-label {
-  font-size: 9px; 
-  color: #94a3b8;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.balance-value-container {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.currency-symbol {
-  color: #eab308;
-  font-size: 14px; 
-  font-weight: 900;
-}
-
-.ui-bal-value {
-  color: #fff;
-  font-size: 24px; 
-  font-weight: 900;
-  margin: 0;
-  text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
-}
-
-/* 📟 لوحة القطاع - أسفل اليسار (Bottom Left) */
-.sector-info-v3 {
-  position: absolute;
-  bottom: 100px; 
-  left: 20px;
-  min-width: 200px; 
-  z-index: 1000;
-  border-left: 3px solid #eab308; 
-}
-
-.sector-tag {
-  font-size: 8px;
-  background: rgba(234, 179, 8, 0.15);
-  color: #eab308;
-  padding: 1px 6px;
-  display: inline-block;
-  border-radius: 3px;
-  margin-bottom: 6px;
-}
-
-.sector-title {
-  color: #fff;
-  font-size: 15px; 
-  font-weight: 800;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
-}
-
-.sector-details {
   display: flex;
   flex-direction: column;
+}
+
+.indicator-item-atomic {
+  display: flex;
+  align-items: flex-start;
   gap: 4px;
-}
-
-.detail-item {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px; 
-  font-family: 'Share Tech Mono', monospace;
-  margin-bottom: 2px;
-}
-
-.detail-label { color: #64748b; }
-.detail-value { color: #cbd5e1; }
-
-/* 📊 مؤشرات الحالة التقنية - أعلى اليسار (Top Left) - النسخة النانو المحدثة */
-.status-indicators-v3.nano-scale {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  min-width: 110px !important; /* تقليص الحجم 40% */
-  max-width: 125px !important;
-  z-index: 1000;
-  padding: 5px 8px !important;
-  border-radius: 6px !important;
-}
-
-.indicator-item-nano {
-  display: flex;
-  gap: 5px;
-  align-items: center;
   margin-bottom: 3px;
 }
 
-.indicator-icon-nano {
-  font-size: 10px;
+.indicator-icon-atomic {
+  font-size: 8px;
+  line-height: 1;
 }
 
-.progress-nano {
-  width: 50px; 
-  height: 2px; 
-  background: rgba(255, 255, 255, 0.05);
-  margin-top: 1px;
+.indicator-content-atomic {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.label-nano { 
-  font-size: 6.5px; 
-  color: #94a3b8; 
-  font-weight: 900; 
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1px;
+}
+
+.label-atomic {
+  font-size: 5.5px;
+  font-weight: 900;
+  color: #94a3b8;
+  letter-spacing: 0.2px;
   text-transform: uppercase;
 }
 
-.value-nano { 
-  font-size: 7.5px; 
-  color: #fff; 
-  font-family: 'Share Tech Mono', monospace; 
+.value-atomic {
+  font-size: 6px;
+  color: #ffffff;
+  font-weight: 800;
+  font-family: 'Share Tech Mono', monospace;
 }
 
-/* ✨ تأثير التوهج الرقمي لـ QUANTUM FLUX و SYSTEM POWER */
+.progress-atomic {
+  width: 100%;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+/* 🌌 تنسيق QUANTUM FLUX المدمج والمتوهج */
+.flux-atomic-wrapper {
+  margin-top: 3px;
+  padding-top: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label-atomic-flux {
+  font-size: 5px;
+  color: #eab308;
+  font-weight: 900;
+  text-shadow: 0 0 3px rgba(234, 179, 8, 0.5);
+}
+
+/* ✨ تأثيرات التوهج والوميض الرقمي */
 .gold-glow-text {
   color: #eab308 !important;
   text-shadow: 0 0 4px rgba(234, 179, 8, 0.6);
@@ -158,28 +99,39 @@
 
 .digital-flicker {
   color: #fff;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
   animation: flicker 2s infinite;
 }
 
 @keyframes flicker {
-  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
-  20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+  0%, 19%, 22%, 62%, 64%, 70%, 100% { opacity: 1; }
+  20%, 21%, 63%, 65%, 69% { opacity: 0.5; }
 }
 
-/* 📊 الرسم البياني التجميلي الصغير */
-.mini-graph-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 18px; 
-  margin-top: 10px;
+/* 💰 لوحة الرصيد - أعلى اليمين (نفس التنسيق مع لمسة رشيقة) */
+.balance-panel-v3 {
+  position: absolute;
+  top: 15px; 
+  right: 15px;
+  min-width: 140px; 
+  z-index: 1000;
+  padding: 8px 12px;
 }
 
-.bar {
-  flex: 1;
-  background: rgba(234, 179, 8, 0.4);
-  border-radius: 1px;
+.ui-bal-value {
+  color: #fff;
+  font-size: 20px; 
+  font-weight: 900;
+  text-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
+}
+
+/* 📟 لوحة القطاع - أسفل اليسار */
+.sector-info-v3 {
+  position: absolute;
+  bottom: 95px; 
+  left: 15px;
+  min-width: 180px; 
+  z-index: 1000;
 }
 
 /* ⚡ تأثير خط المسح الأسطوري */
@@ -188,8 +140,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 1.5px;
-  background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.3), transparent);
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.2), transparent);
   animation: scan-move 4s linear infinite;
 }
 
@@ -198,25 +150,16 @@
   100% { top: 105%; }
 }
 
-/* 📱 استجابة الموبايل (Ultra Compact Mode) */
+/* 📱 استجابة الموبايل (Micro Mode) */
 @media (max-width: 480px) {
+  .status-indicators-v3.atomic-nano { 
+    top: 10px; 
+    left: 10px; 
+    min-width: 80px !important; 
+  }
   .balance-panel-v3 { 
-    top: 15px; 
-    right: 15px; 
-    min-width: 130px; 
-    padding: 8px 10px;
+    top: 10px; 
+    right: 10px; 
+    min-width: 120px;
   }
-  .status-indicators-v3.nano-scale { 
-    top: 15px; 
-    left: 15px; 
-    min-width: 100px !important; 
-  }
-  .ui-bal-value { font-size: 18px; }
-  .sector-info-v3 { 
-    bottom: 85px; 
-    left: 15px; 
-    min-width: 160px;
-  }
-  .progress-nano { width: 40px; }
-  .sector-title { font-size: 13px; }
 }
