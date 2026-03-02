@@ -18,7 +18,7 @@ import userLocImg from '../../../../assets/user-location1.png';
 const standardPiIcon = L.divIcon({
   className: 'pi-icon-div marker-standard-pi glow-blue',
   html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
-  iconSize: [50, 50], // تكبير الحجم لتطابق التصميم
+  iconSize: [50, 50], 
   iconAnchor: [25, 25]
 });
 
@@ -26,7 +26,7 @@ const standardPiIcon = L.divIcon({
 const premiumPiIcon = L.divIcon({
   className: 'pi-icon-div marker-premium-pi glow-gold',
   html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
-  iconSize: [80, 80], // حجم أضخم للـ Premium
+  iconSize: [80, 80], 
   iconAnchor: [40, 40]
 });
 
@@ -61,7 +61,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
     <div className="map-wrapper main-matrix-v2 pixelated-map full-viewport-map">
       <LeafletMap 
         center={[userLocation.lat, userLocation.lng]} 
-        zoom={15} // تقريب المسافة قليلاً لتفاصيل أدق
+        zoom={15} 
         zoomControl={false}
         attributionControl={false}
         className="leaflet-canvas-container"
