@@ -2,37 +2,40 @@ import React from 'react';
 import './HUD.css';
 
 /**
- * 🪙 BalancePanel - لوحة الرصيد الذهبية (النسخة النهائية)
- * تم الحفاظ على المسميات والهيكل الزجاجي (Glassmorphism)
- * متوافق تماماً مع نظام الـ Layers الجديد في الـ NetworkMaster
+ * 🪙 BalancePanel - لوحة الرصيد الذهبية (النسخة الأسطورية)
+ * تم الحفاظ على المسميات الأصلية لضمان التوافق التام مع الـ Backend
+ * التصميم يعتمد على الـ Glassmorphism والتوهج الذهبي (Gold Glow)
  */
 interface BalancePanelProps {
   balance?: string | number;
   status?: string;
 }
 
-const BalancePanel: React.FC<BalancePanelProps> = ({ balance = "1,250.00", status = "SECURE_SYNC_ACTIVE" }) => {
+const BalancePanel: React.FC<BalancePanelProps> = ({ 
+  balance = "125.75", 
+  status = "SECURE_SYNC_ACTIVE" 
+}) => {
   return (
     <div className="balance-panel-v3 glass-panel-v3 gold-glow-border">
-      {/* رأس اللوحة بتصميم الـ HUD المتطور */}
+      {/* رأس اللوحة - يعكس هوية الشبكة */}
       <div className="panel-header">
         <span className="panel-icon">🪙</span>
         <span className="panel-label">NETWORK_CREDITS</span>
       </div>
 
-      {/* منطقة عرض القيمة - التركيز البصري هنا */}
+      {/* منطقة القيمة الرقمية - الخط عريض وواضح (High Visibility) */}
       <div className="balance-value-container">
         <span className="currency-symbol">π</span>
         <h2 className="ui-bal-value">{balance}</h2>
       </div>
 
-      {/* شريط الحالة السفلي (Live Monitor) */}
+      {/* شريط الحالة الحية (Live Monitor) */}
       <div className="panel-status-bar">
         <div className="status-dot-active pulsing-dot"></div>
         <span className="status-text">{status}</span>
       </div>
 
-      {/* تأثير المسح الضوئي الفخم (Scanner Effect) */}
+      {/* تأثير المسح الضوئي (Scanner Effect) الذي يمر فوق اللوحة لفخامة التصميم */}
       <div className="panel-scan-line"></div>
     </div>
   );
