@@ -11,32 +11,19 @@ import piLogo from '../../../../assets/logo3.png';
 import userLocImg from '../../../../assets/user-location1.png';
 
 /**
- * 🛠️ تهيئة الأيقونات المخصصة - تم تكبير الأحجام لتطابق التصميم
+ * 🛠️ تهيئة الأيقونات المخصصة باستخدام دالة موحدة لمنع التمطيط (Stretching)
  */
-
-// أيقونة Pi Network المعيارية (زرقاء متوهجة)
-const standardPiIcon = L.divIcon({
-  className: 'pi-icon-div marker-standard-pi glow-blue',
-  html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
-  iconSize: [50, 50], 
-  iconAnchor: [25, 25]
+const createIcon = (url: string, size: number, className: string) => L.divIcon({
+  className: `pi-icon-div ${className}`,
+  html: `<div class="pi-marker-content"><img src="${url}" style="width:100%; height:100%; object-fit:contain;" alt="marker" /></div>`,
+  iconSize: [size, size],
+  iconAnchor: [size / 2, size / 2]
 });
 
-// أيقونة Pi Network المميزة (ذهبية متوهجة ضخمة)
-const premiumPiIcon = L.divIcon({
-  className: 'pi-icon-div marker-premium-pi glow-gold',
-  html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
-  iconSize: [80, 80], 
-  iconAnchor: [40, 40]
-});
-
-// أيقونة موقع المستخدم
-const userLocationIcon = L.divIcon({
-  className: 'pi-icon-div marker-user-location',
-  html: `<div class="user-location-content"><img src="${userLocImg}" alt="Me" /></div>`,
-  iconSize: [45, 45],
-  iconAnchor: [22, 22]
-});
+// الأيقونات بأحجامها الفخمة والمضبوطة
+const standardPiIcon = createIcon(piLogo, 50, 'marker-standard-pi glow-blue');
+const premiumPiIcon = createIcon(piLogo, 80, 'marker-premium-pi glow-gold');
+const userLocationIcon = createIcon(userLocImg, 45, 'marker-user-location');
 
 interface MapContainerProps {
   sectorName?: string;
@@ -47,13 +34,16 @@ interface MapContainerProps {
 const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, nodes }) => {
   const displaySector = sectorName || "Cairo Citadel Sector";
 
-  // ترتيب الـ Pins حول موقع المستخدم لمحاكاة الشبكة الحية كما في الصورة Target
+  /**
+   * 📍 توزيع الدبابيس (Pins) حول المستخدم لمحاكاة الشبكة الحية
+   * تم الاحتفاظ بالتوزيعة الأصلية الكاملة الخاصة بك (6 نقاط)
+   */
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', subLabel: 'Checking-in... [50m]', offset: [0.002, -0.004] },
-    { type: standardPiIcon, offset: [0.004, -0.001] },
-    { type: premiumPiIcon, offset: [0, 0] },
+    { type: standardPiIcon, label: '', subLabel: '', offset: [0.004, -0.001] },
+    { type: premiumPiIcon, label: 'PREMIUM NODE', subLabel: 'Active', offset: [0.0005, 0.0005] }, // قريبة جداً من المستخدم
     { type: standardPiIcon, label: 'Checking-in', offset: [-0.003, 0.003] },
-    { type: standardPiIcon, offset: [-0.001, 0.005] },
+    { type: standardPiIcon, label: '', offset: [-0.001, 0.005] },
     { type: premiumPiIcon, label: 'TechZone 314', subLabel: 'PREMIUM', offset: [0.002, 0.004] },
   ];
 
@@ -90,6 +80,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
           );
         })}
 
+        {/* موقع المستخدم مع دائرة النطاق المتحركة */}
         <Marker position={[userLocation.lat, userLocation.lng]} icon={userLocationIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v2"></div>
@@ -98,9 +89,8 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
         </Marker>
       </LeafletMap>
 
-      {/* واجهات الـ Matrix الفخمة */}
+      {/* واجهات الـ Matrix الـ Overlay (HUD) */}
       <div className="matrix-overlay-elements">
-        <div className="hex-bg"></div>
         <div className="map-grid-lines"></div>
         <div className="scan-line-v2"></div>
         
