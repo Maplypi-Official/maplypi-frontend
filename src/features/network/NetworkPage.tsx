@@ -4,61 +4,49 @@ import MapContainer from './components/MapContainer/MapContainer';
 import './NetworkPage.css';
 
 /**
- * صفحة الشبكة (Network Page) - وضع الاختبار والعزل
- * تم الحفاظ على المسميات والدوال لضمان استقرار الربط مع الـ Hook والـ Backend
+ * النسخة النهائية لصفحة الشبكة (MaplyPi Network Page)
+ * تم الحفاظ على نفس أسماء الدوال والمسميات لضمان عدم كسر التطبيق
  */
 const NetworkPage: React.FC = () => {
-  // استدعاء البيانات من الـ Hook المؤمن بـ import type
+  // استخدام نفس الـ Hook بنفس المسميات لضمان التوافق مع الـ Backend
   const { nodes, loading, userStats } = useNetworkSync();
 
   return (
-    <div className="network-page-container" style={{ 
-      background: '#1a1a2e', 
-      minHeight: '100vh', 
-      border: '5px solid red', // حدود حمراء للتأكد من رندر الصفحة
-      display: 'block' 
-    }}>
+    <div className="network-full-screen-container">
       
-      <header className="network-header">
-        <h1 className="network-title" style={{ color: '#fff', fontSize: '20px' }}>
-          SYSTEM ACTIVE: NETWORK
-        </h1>
-      </header>
-
-      {/* 🛡️ منطقة العزل الاختبارية: تظهر باللون الأخضر في حال وجود بيانات المستخدم */}
-      <div className="map-wrapper" style={{ 
-        height: '500px', 
-        background: 'green', 
-        position: 'relative', 
-        margin: '20px 0',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
+      {/* 🗺️ منطقة الخريطة: تشغل كامل الشاشة خلف العناصر العلوية */}
+      <main className="map-main-viewport">
          {userStats ? (
-           <>
-              {/* رسالة تأكيد وصول البيانات فوق طبقة الخريطة */}
-              <p style={{ color: 'white', background: 'black', zIndex: 10, textAlign: 'center' }}>
-                DATA RECEIVED - LOADING MAP...
-              </p>
-              
-              <MapContainer 
-                sectorName="Testing Sector" 
-                userLocation={userStats} 
-                nodes={nodes} 
-              />
-           </>
+           <MapContainer 
+             sectorName="Testing Sector" 
+             userLocation={userStats} 
+             nodes={nodes} 
+           />
          ) : (
-           <div style={{ textAlign: 'center', padding: '20px' }}>
-              <h2 style={{ color: 'white' }}>
-                {loading ? "SYNCING MATRIX..." : "WAITING FOR USER STATS (GPS)..."}
+           <div className="neural-sync-overlay">
+              <div className="sync-loader"></div>
+              <h2 className="sync-text">
+                {loading ? "ESTABLISHING NEURAL LINK..." : "WAITING FOR GPS SATELLITE..."}
               </h2>
            </div>
          )}
-      </div>
+      </main>
 
-      <div style={{ color: '#64748b', fontSize: '10px', padding: '0 20px' }}>
-        Node Count: {nodes?.length || 0}
-      </div>
+      {/* 🛡️ واجهة المستخدم الشفافة (HUD) - مطابقة للتصميم الهدف */}
+      <header className="network-hud-header">
+        <div className="status-indicator">
+          <span className="live-pulse"></span>
+          <h1 className="hud-title">SYSTEM ACTIVE: NETWORK</h1>
+        </div>
+      </header>
+
+      {/* معلومات الرصيد تظهر في الـ MapContainer نفسه لضمان وضعها الصحيح */}
+      
+      {/* عداد الـ Nodes الصغير للـ Debugging أسفل الصفحة */}
+      <footer className="network-debug-footer">
+        <span className="debug-label">ACTIVE_NODES_IN_RANGE:</span> {nodes?.length || 0}
+      </footer>
+
     </div>
   );
 };
