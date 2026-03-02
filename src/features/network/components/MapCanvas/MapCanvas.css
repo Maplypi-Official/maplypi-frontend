@@ -1,29 +1,107 @@
+/* 🛰️ الحاوية الرئيسية للخريطة - ضمان الشفافية الكاملة لمرور الخلفية */
 .map-canvas-wrapper {
   width: 100%;
   height: 100%;
   position: relative;
   background: transparent !important;
+  overflow: hidden;
 }
 
+.leaflet-canvas-container, 
 .leaflet-master-container {
   width: 100%;
   height: 100%;
-  background: transparent !important; /* إجبار الحاوية على الشفافية */
+  background: transparent !important; 
+  z-index: 1;
 }
 
-/* 🧬 سحر الـ Blueprint Mode: تعديل مربعات الخريطة */
+/* 🧬 سحر الـ Blueprint Mode: تحويل مربعات الخريطة لخيوط ليزر أرجوانية */
 .pixelated-map .leaflet-tile-container img {
-  /* 1. عكس الألوان ثم تلوينها بالأرجواني التقني */
-  filter: invert(1) hue-rotate(255deg) brightness(0.6) contrast(1.4) saturate(0.5);
+  /* 1. عكس الألوان (Dark Mode) ثم تلوينها بالأرجواني التقني */
+  filter: invert(1) hue-rotate(255deg) brightness(0.5) contrast(1.6) saturate(0.4);
   
-  /* 2. جعل الخريطة شفافة بنسبة 30% لظهور الكربون والـ HUD من تحتها */
+  /* 2. شفافية عالية (30%) لظهور نسيج الكربون فايبر أسفل الخريطة */
   opacity: 0.3 !important; 
   
-  /* 3. دمج الطبقات لضمان عدم وجود مساحات رمادية معتمة */
+  /* 3. دمج الطبقات (Screen) لضمان سطوع الخطوط الفاتحة فقط */
   mix-blend-mode: screen; 
   
-  /* 4. الحفاظ على وضوح الخطوط (Blueprint Look) */
+  /* 4. الحفاظ على المظهر الرقمي الحاد */
   image-rendering: auto; 
+}
+
+/* 📍 تنسيق الأيقونات (Pins) - العنصر الأسطوري في الشاشة */
+.pi-icon-div {
+  background: transparent !important;
+  border: none !important;
+}
+
+.pi-marker-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ✨ توهج الـ Pins (ذهبي وأزرق) */
+.glow-gold img { 
+  filter: drop-shadow(0 0 12px #eab308) drop-shadow(0 0 25px rgba(234, 179, 8, 0.5)); 
+  animation: marker-pulse 2s infinite ease-in-out;
+}
+
+.glow-blue img { 
+  filter: drop-shadow(0 0 12px #3b82f6) drop-shadow(0 0 20px rgba(59, 130, 246, 0.4)); 
+  animation: marker-pulse 3s infinite ease-in-out;
+}
+
+@keyframes marker-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1.2); }
+  50% { transform: scale(1.08); filter: brightness(1); }
+}
+
+/* 🏷️ ملصقات البيانات فوق الـ Pins (Labels) */
+.pin-label-v3 {
+  background: rgba(13, 13, 25, 0.9);
+  border: 1px solid rgba(234, 179, 8, 0.4);
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: white;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  pointer-events: none;
+  backdrop-filter: blur(5px);
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pin-label-text { font-size: 10px; font-weight: 900; color: #eab308; }
+.pin-sublabel-text { font-size: 8px; opacity: 0.7; }
+
+/* ⭕ دائرة موقع المستخدم (User Range) */
+.range-circle-v3 {
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: range-pulse 4s infinite linear;
+}
+
+@keyframes range-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
 
 /* 🛠️ إخفاء شعارات Leaflet لزيادة الاحترافية */
@@ -33,14 +111,14 @@
 
 /* ⚡ تخصيص أزرار الزوم لتليق بالـ HUD */
 .leaflet-bar {
-  border: 1px solid rgba(234, 179, 8, 0.4) !important;
+  border: 1px solid rgba(234, 179, 8, 0.3) !important;
   background: rgba(13, 13, 25, 0.8) !important;
   backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
 }
 
 .leaflet-bar a {
   color: #eab308 !important;
   background: transparent !important;
-  border-bottom: 1px solid rgba(234, 179, 8, 0.2) !important;
+  border-bottom: 1px solid rgba(234, 179, 8, 0.1) !important;
 }
-
