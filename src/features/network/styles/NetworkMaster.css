@@ -1,7 +1,7 @@
 /* 🌌 الحاوية الرئيسية - الهيكل الأساسي (Master Container) */
 .network-master-container {
   padding: 0;
-  background: #05050a; /* خلفية سوداء عميقة لبروز الكربون */
+  background: #05050a; /* خلفية سوداء عميقة لبروز ملمس الكربون */
   height: calc(100vh - 70px); 
   width: 100vw;
   color: white;
@@ -10,7 +10,7 @@
   position: relative;
 }
 
-/* 🏗️ طبقة الخلفية التقنية (Carbon Fiber & Effects) */
+/* 🏗️ الطبقة 0: الخلفية التقنية (Carbon Fiber & Effects) */
 .tech-overlays-layer {
   position: absolute;
   inset: 0;
@@ -18,29 +18,29 @@
   pointer-events: none;
 }
 
-/* 🗺️ طبقة الخريطة - (Leaflet Layer) */
+/* 🗺️ الطبقة 1: الخريطة - (Leaflet Layer) */
 .map-layer-container {
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* دمج الخريطة مع الكربون بالأسفل */
+  /* سحر الدمج: الخريطة تندمج كخيوط ضوئية فوق الكربون */
   mix-blend-mode: screen; 
 }
 
-/* 🛡️ واجهة المستخدم (HUD Layer) - الطبقة العلوية */
+/* 🛡️ الطبقة 2: واجهة المستخدم (HUD Layer) - الطبقة العلوية */
 .hud-interface-layer {
   position: absolute;
   inset: 0;
   z-index: 10;
-  pointer-events: none; /* للسماح بلمس الخريطة */
+  pointer-events: none; /* للسماح بلمس الخريطة تحت الواجهة */
 }
 
-/* تأمين التفاعل مع عناصر الـ HUD فقط */
+/* تأمين التفاعل مع عناصر الـ HUD فقط (الأزرار واللوحات) */
 .hud-interface-layer > * {
   pointer-events: auto;
 }
 
-/* 📟 الهيدر الشفاف (HUD Title) */
+/* 📟 الهيدر الشفاف (HUD Title) - المرجع الذهبي */
 .network-header-hud {
   position: absolute;
   top: 25px;
@@ -71,12 +71,17 @@
   padding-left: 15px;
 }
 
-/* 💰 تنسيق لوحة الرصيد والقطاع (الزجاجي الفخم) */
+/* 💰 تنسيق لوحة الرصيد والقطاع (الزجاجي الفخم Glassmorphism) */
 .glass-panel-v3 {
   background: rgba(13, 13, 25, 0.8);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(234, 179, 8, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.glass-panel-v3:hover {
+  border-color: rgba(234, 179, 8, 0.6);
 }
 
 /* 📊 تذييل الصفحة للمعلومات التقنية (Debug Footer) */
@@ -97,7 +102,7 @@
   font-weight: bold;
 }
 
-/* 🔄 حالة التحميل والمزامنة */
+/* 🔄 حالة التحميل والمزامنة (Loading States) */
 .sync-loading-state {
   display: flex;
   flex-direction: column;
@@ -122,7 +127,7 @@
   50% { opacity: 0.5; transform: scale(0.98); }
 }
 
-/* 📱 تعديلات الشاشات الصغيرة للموبايل */
+/* 📱 تعديلات الشاشات الصغيرة للموبايل (Responsiveness) */
 @media (max-width: 480px) {
   .network-title { 
     font-size: 18px; 
@@ -131,5 +136,8 @@
   .network-master-container { 
     height: calc(100vh - 65px); 
   }
+  .network-header-hud {
+    top: 15px;
+    left: 15px;
+  }
 }
-
