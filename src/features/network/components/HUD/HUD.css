@@ -1,42 +1,42 @@
-/* 🧪 الحاويات الزجاجية (Glassmorphism Base) - القاعدة الذهبية للفخامة */
+/* 🧪 الحاويات الزجاجية (Glassmorphism Base) - النسخة المصغرة المتناسقة */
 .glass-panel-v3 {
-  background: rgba(13, 13, 25, 0.75); /* زيادة طفيفة في التعتيم لبروز النصوص */
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(234, 179, 8, 0.3);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
-  padding: 15px 20px;
-  pointer-events: auto; /* ضروري للتفاعل مع الأزرار */
+  background: rgba(13, 13, 25, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border-radius: 10px; /* تقليل الانحناء ليتناسب مع الحجم الأصغر */
+  padding: 10px 15px; /* تصغير الحشو الداخلي لعدم إهدار المساحة */
+  pointer-events: auto;
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
 }
 
 .glass-panel-v3:hover {
-  border-color: rgba(234, 179, 8, 0.6);
-  box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+  border-color: rgba(234, 179, 8, 0.5);
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
 }
 
-/* 💰 لوحة الرصيد - Top Right (المرجع الذهبي للفخامة) */
+/* 💰 لوحة الرصيد - أعلى اليمين (Top Right) */
 .balance-panel-v3 {
   position: absolute;
-  top: 30px;
-  right: 30px;
-  min-width: 220px;
+  top: 20px; /* تقليل المسافة من الحافة */
+  right: 20px;
+  min-width: 170px; /* تصغير العرض الأدنى من 220px */
   z-index: 1000;
 }
 
 .panel-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .panel-label {
-  font-size: 10px;
+  font-size: 9px; /* تصغير الخط من 10px */
   color: #94a3b8;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -44,175 +44,120 @@
 .balance-value-container {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px;
 }
 
 .currency-symbol {
   color: #eab308;
-  font-size: 18px;
+  font-size: 14px; /* تصغير الرمز */
   font-weight: 900;
 }
 
 .ui-bal-value {
   color: #fff;
-  font-size: 32px;
+  font-size: 24px; /* تصغير القيمة من 32px لضمان عدم التضخم */
   font-weight: 900;
   margin: 0;
-  text-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
 }
 
-/* 📟 لوحة القطاع - Bottom Left (تصميم غرفة العمليات الاحترافي) */
+/* 📟 لوحة القطاع - أسفل اليسار (Bottom Left) */
 .sector-info-v3 {
   position: absolute;
-  bottom: 110px; /* مرفوع لتجنب التداخل مع الـ Navigation Bar السفلي */
-  left: 30px;
-  min-width: 250px;
+  bottom: 100px; /* الالتزام بالمسافة فوق الـ Nav */
+  left: 20px;
+  min-width: 200px; /* تصغير العرض من 250px */
   z-index: 1000;
-  border-left: 5px solid #eab308;
+  border-left: 3px solid #eab308; /* تصغير سمك الشريط */
 }
 
 .sector-tag {
-  font-size: 9px;
-  background: rgba(234, 179, 8, 0.2);
+  font-size: 8px;
+  background: rgba(234, 179, 8, 0.15);
   color: #eab308;
-  padding: 2px 8px;
+  padding: 1px 6px;
   display: inline-block;
-  border-radius: 4px;
-  letter-spacing: 1px;
-  font-weight: 900;
-  margin-bottom: 8px;
+  border-radius: 3px;
+  margin-bottom: 6px;
 }
 
 .sector-title {
   color: #fff;
-  font-size: 18px;
+  font-size: 15px; /* تصغير العنوان من 18px */
   font-weight: 800;
-  margin: 0 0 12px 0;
-  letter-spacing: 1px;
+  margin: 0 0 8px 0;
   text-transform: uppercase;
-}
-
-.sector-details {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 10px; /* تصغير الخط من 11px */
   font-family: 'Share Tech Mono', monospace;
+  margin-bottom: 2px;
 }
 
-.detail-label { color: #64748b; }
-.detail-value { color: #cbd5e1; }
-
-.status-glow-blue {
-  color: #3b82f6;
-  text-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
-  font-weight: 900;
-}
-
-/* 📊 مؤشرات الحالة التقنية - Top Left (Connectivity & Power) */
+/* 📊 مؤشرات الحالة التقنية - أعلى اليسار (Top Left) */
 .status-indicators-v3 {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  min-width: 180px;
+  top: 20px;
+  left: 20px;
+  min-width: 150px; /* تصغير من 180px */
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px; /* تقليل الفجوة بين العناصر */
 }
 
 .indicator-item {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
 .progress-mini {
-  width: 100px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  margin: 4px 0;
+  width: 80px; /* تصغير طول البار من 100px */
+  height: 3px; /* تصغير السمك */
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.progress-fill { height: 100%; border-radius: 2px; }
-.blue-bg { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
-.gold-bg { background: #eab308; box-shadow: 0 0 8px #eab308; }
+.label-xs { font-size: 7px; color: #94a3b8; }
+.value-xs { font-size: 8px; color: #fff; }
 
-.label-xs { font-size: 8px; color: #94a3b8; letter-spacing: 1px; }
-.value-xs { font-size: 9px; font-family: 'Share Tech Mono', monospace; color: #fff; }
-.indicator-divider { height: 1px; background: rgba(255, 255, 255, 0.05); }
-
-/* 📊 الرسم البياني التجميلي الصغير (Visual HUD Element) */
+/* 📊 الرسم البياني التجميلي الصغير */
 .mini-graph-container {
   display: flex;
   align-items: flex-end;
-  gap: 3px;
-  height: 25px;
-  margin-top: 15px;
+  gap: 2px;
+  height: 18px; /* تقليل الارتفاع من 25px */
+  margin-top: 10px;
 }
 
-.mini-graph-container .bar {
-  flex: 1;
-  background: linear-gradient(to top, #eab308, transparent);
-  border-radius: 1px;
-  animation: bar-dance 2s infinite ease-in-out;
-}
-
-/* ⚡ تأثير خط المسح (Scanner Line) لإضافة لمسة تقنية حية */
+/* ⚡ تأثير خط المسح */
 .panel-scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.4), transparent);
-  animation: scan-move 4s infinite linear;
-  pointer-events: none;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.3), transparent);
 }
 
-/* ✨ الأنيميشن الخاصة بالـ HUD لزيادة الحيوية */
-@keyframes scan-move {
-  0% { top: 0%; }
-  100% { top: 100%; }
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.2); }
-}
-
-@keyframes bar-dance {
-  0%, 100% { transform: scaleY(1); opacity: 0.6; }
-  50% { transform: scaleY(0.4); opacity: 0.3; }
-}
-
-/* 📱 استجابة الموبايل لضمان عدم تداخل اللوحات مع الخريطة */
-@media (max-width: 600px) {
+/* 📱 استجابة الموبايل (Ultra Compact Mode) */
+@media (max-width: 480px) {
   .balance-panel-v3 { 
-    top: 20px; 
+    top: 15px; 
     right: 15px; 
-    min-width: 150px; 
-    padding: 10px 12px;
+    min-width: 130px; 
+    padding: 8px 10px;
   }
   .status-indicators-v3 { 
-    top: 20px; 
+    top: 15px; 
     left: 15px; 
-    min-width: 130px; 
-    gap: 8px;
+    min-width: 120px; 
   }
-  .ui-bal-value { font-size: 22px; }
+  .ui-bal-value { font-size: 18px; }
   .sector-info-v3 { 
-    bottom: 90px; 
+    bottom: 85px; 
     left: 15px; 
-    min-width: 180px;
-    padding: 10px 12px;
+    min-width: 160px;
   }
-  .progress-mini { width: 60px; }
-  .sector-title { font-size: 14px; }
+  .progress-mini { width: 50px; }
+  .sector-title { font-size: 13px; }
 }
