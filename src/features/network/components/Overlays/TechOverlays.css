@@ -1,59 +1,88 @@
+/* 🛠️ الطبقة الأساسية - تضمن تغطية الشاشة بالكامل خلف الخريطة */
 .tech-overlays-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* خلف الخريطة */
+  z-index: 0; /* تأكيد الوجود خلف الخريطة والـ HUD */
   overflow: hidden;
-  pointer-events: none;
+  pointer-events: none; /* لضمان عدم اعتراض اللمس أو النقر على الخريطة */
+  background: #080511; /* لون أساسي غامق جداً لضمان عدم وجود فجوات بيضاء */
 }
 
-/* طبقة الكربون فايبر - الملمس الخشن */
+/* 🏗️ طبقة الكربون فايبر - الملمس التقني الخشن */
 .carbon-fiber-base {
   position: absolute;
   inset: 0;
+  /* تأكد من مسار الصورة الصحيح في مجلد الـ public */
   background: url('/textures/carbon_fiber_base.png') repeat;
   background-size: 200px;
-  opacity: 0.6;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
 }
 
-/* إطار الـ HUD التقني - اللمسة الفخمة */
+/* 🖼️ إطار الـ HUD التقني - اللمسة الفخمة الثابتة */
 .tech-hud-frame {
   position: absolute;
   inset: 0;
   background: url('/textures/tech_hud_overlay.png') no-repeat center / cover;
-  opacity: 0.4;
-  filter: hue-rotate(10deg) brightness(0.8);
+  opacity: 0.35;
+  filter: hue-rotate(10deg) brightness(0.7) contrast(1.2);
+  mix-blend-mode: screen;
 }
 
-/* أنيميشن خط المسح (Scanning) */
+/* 📡 أنيميشن خط المسح الضوئي (Scanning Line) لزيادة الحيوية */
 .scanning-line {
   position: absolute;
   width: 100%;
-  height: 100px;
+  height: 150px;
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(139, 92, 246, 0.15),
+    rgba(139, 92, 246, 0.1),
+    rgba(139, 92, 246, 0.2),
     transparent
   );
-  animation: scan-move 8s linear infinite;
+  animation: scan-move 10s linear infinite;
+  z-index: 2;
 }
 
 @keyframes scan-move {
-  from { top: -100px; }
-  to { top: 100%; }
+  from { top: -150px; }
+  to { top: 110%; }
 }
 
-/* تأثير الـ CRT Grid لزيادة الواقعية التقنية */
+/* 📺 تأثير الـ CRT Grid لزيادة الواقعية الرقمية */
 .crt-grid-effect {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     rgba(18, 16, 33, 0) 50%, 
-    rgba(0, 0, 0, 0.1) 50%
+    rgba(0, 0, 0, 0.15) 50%
   );
-  background-size: 100% 4px;
-  opacity: 0.2;
+  background-size: 100% 3px;
+  opacity: 0.25;
+  z-index: 3;
 }
 
+/* 🛡️ تأثير الظل الجانبي (Tech Vignette) لتركيز الرؤية */
+.tech-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    transparent 40%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ✨ إضافة توهج أرجواني خافت في الأركان لربط الألوان بالخريطة */
+.tech-overlays-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 100px rgba(139, 92, 246, 0.1);
+  pointer-events: none;
+}
