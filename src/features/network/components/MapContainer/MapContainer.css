@@ -2,7 +2,7 @@
 .map-wrapper.main-matrix-v2 {
   position: relative;
   width: 100%;
-  height: 550px; /* طول متوافق مع الموبايل والويب لضمان عدم وجود شاشة سوداء */
+  height: 550px; 
   background: #0d081d;
   border-radius: 30px;
   border: 1px solid rgba(139, 92, 246, 0.3);
@@ -13,18 +13,16 @@
 /* 🛡️ تأثير Minecraft الواقعي باستخدام فلاتر CSS */
 .pixelated-map .leaflet-tile-container {
   filter: invert(1) hue-rotate(240deg) contrast(1.3) brightness(0.8);
-  image-rendering: pixelated; /* لجعل الشوارع والمباني تبدو كبكسلات حادة */
+  image-rendering: pixelated; 
 }
 
-/* حاوية العناصر التجميلية فوق الخريطة */
 .matrix-overlay-elements {
   position: absolute;
   inset: 0;
-  pointer-events: none; /* للسماح بالتفاعل مع الخريطة تحتها */
+  pointer-events: none; 
   z-index: 500;
 }
 
-/* تأثير الشبكة السداسية */
 .hex-bg {
   position: absolute;
   inset: 0;
@@ -33,7 +31,6 @@
   filter: invert(1);
 }
 
-/* خطوط الشبكة المربعة */
 .map-grid-lines {
   position: absolute;
   inset: 0;
@@ -43,11 +40,9 @@
   background-size: 50px 50px;
 }
 
-/* توهج الـ Pins (ذهبي وأزرق) */
 .glow-gold img { filter: drop-shadow(0 0 15px #eab308); }
 .glow-blue img { filter: drop-shadow(0 0 10px #3b82f6); }
 
-/* نصوص الماركرات */
 .pin-label-v2 {
   position: absolute;
   bottom: -45px;
@@ -60,7 +55,6 @@
 .pin-label-text { color: #fff; font-size: 13px; font-weight: bold; text-shadow: 0 0 10px #000; }
 .pin-sublabel-text { color: #94a3b8; font-size: 9px; display: block; margin-top: 2px; }
 
-/* لوحة البيانات العلوية (الرصيد) */
 .top-right-panel {
   position: absolute;
   top: 20px;
@@ -78,7 +72,6 @@
 .ui-bal-value { color: #ffca28; font-size: 18px; font-weight: 800; margin: 0; }
 .ui-lvl-label { color: #ffca28; font-size: 10px; opacity: 0.8; }
 
-/* دائرة البحث للمستخدم */
 .range-circle-v2 {
   position: absolute;
   width: 160px;
@@ -104,7 +97,6 @@
   border: 1px solid rgba(234, 179, 8, 0.3);
 }
 
-/* تأثير الرادار المتحرك */
 .scan-line-v2 {
   position: absolute;
   width: 100%;
@@ -115,7 +107,6 @@
 
 @keyframes scan-v2 { 0% { top: -120px; } 100% { top: 100%; } }
 
-/* لوحة القطاع السفلي */
 .node-label-v2 {
   position: absolute;
   bottom: 20px;
