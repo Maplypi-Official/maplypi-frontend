@@ -6,7 +6,7 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   padding: 15px 20px;
-  pointer-events: auto; /* لضمان التفاعل مع الأزرار */
+  pointer-events: auto; /* لضمان التفاعل مع الأزرار واللوحات */
   transition: all 0.3s ease;
 }
 
@@ -15,7 +15,7 @@
   box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
 }
 
-/* 💰 لوحة الرصيد - Top Right (المرجع الذهبي) */
+/* 💰 لوحة الرصيد - Top Right (المرجع الذهبي للفخامة) */
 .balance-panel-v3 {
   position: absolute;
   top: 30px;
@@ -36,6 +36,7 @@
   color: #94a3b8;
   letter-spacing: 2px;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .balance-value-container {
@@ -82,14 +83,14 @@
   font-family: monospace;
 }
 
-/* 📟 لوحة القطاع - Bottom Left (تصميم غرفة العمليات) */
+/* 📟 لوحة القطاع - Bottom Left (تصميم غرفة العمليات الاحترافي) */
 .sector-info-v3 {
   position: absolute;
   bottom: 40px;
   left: 30px;
   min-width: 250px;
   z-index: 1000;
-  border-left: 5px solid #eab308; /* الشريط الذهبي المميز */
+  border-left: 5px solid #eab308; /* الشريط الذهبي المميز للمشروع */
 }
 
 .sector-tag {
@@ -155,7 +156,7 @@
   animation: bar-dance 2s infinite ease-in-out;
 }
 
-/* ✨ الأنيميشن الخاصة بالـ HUD */
+/* ✨ الأنيميشن الخاصة بالـ HUD لزيادة الحيوية */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(1.2); }
