@@ -1,4 +1,4 @@
-/* 🛰️ الحاوية الرئيسية للخريطة - Full Screen HUD Mode */
+/* 🛰️ الحاوية الرئيسية - الحفاظ على الخلفية الداكنة العميقة */
 .map-wrapper.main-matrix-v2.full-viewport-map {
   position: relative;
   width: 100%;
@@ -9,10 +9,10 @@
   background-position: center;
   background-size: cover, repeat;
   background-repeat: no-repeat, repeat;
-  background-color: #0d081d; 
+  background-color: #05030a; /* تعميق الخلفية لبروز التوهج */
   border-radius: 0; 
   overflow: hidden;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 1);
 }
 
 /* 🛡️ إجبار حاوية Leaflet على الشفافية */
@@ -23,41 +23,43 @@
   z-index: 1;
 }
 
-/* 🧬 تعديل الفلتر لإظهار بيانات الخريطة (الشوارع والأسماء) بوضوح */
+/* 🧬 سحر التوازن: الخريطة كخيوط ليزر (Blueprint Mode) */
 .pixelated-map .leaflet-tile-container img {
-  /* تعديل الفلتر: عكس الألوان + زيادة التباين (Contrast) لبروز الخطوط والأسماء */
-  filter: invert(1) hue-rotate(250deg) brightness(0.8) contrast(2) saturate(1.2);
-  /* تقليل الشفافية قليلاً (من 0.4 إلى 0.6) لتوضيح تفاصيل الخريطة */
-  opacity: 0.6 !important; 
-  /* تغيير نمط الدمج إلى (Difference) أو (Overlay) قد يخفي البيانات، لذا سنلتزم بـ (Screen) مع تقوية الفلتر */
+  /* الفلتر السحري: عكس الألوان + تحويلها لأرجواني خافت + تقوية الخطوط */
+  filter: invert(1) hue-rotate(260deg) brightness(0.5) contrast(1.8) saturate(0.5);
+  /* تقليل الشفافية لضمان ظهور الـ HUD والكربون تحتها بوضوح */
+  opacity: 0.25 !important; 
+  /* استخدام Multiply أو Screen حسب الإضاءة - Screen هنا مثالي للخيوط الفاتحة */
   mix-blend-mode: screen; 
-  image-rendering: auto; /* تغيير من pixelated لـ auto لتحسين وضوح النصوص */
+  image-rendering: auto;
 }
 
-/* 📍 تنسيق الأيقونات (Pins) - تظل ساطعة جداً */
+/* 📍 تنسيق الأيقونات (Pins) - تظل هي العنصر الأسطوري في الشاشة */
 .pi-icon-div img {
   pointer-events: none;
   object-fit: contain;
   z-index: 1001 !important;
+  /* إضافة توهج ذاتي بسيط لكل أيقونة */
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
 }
 
-/* ✨ توهج الـ Pins الأسطوري */
+/* ✨ توهج الـ Pins (ذهبي وأزرق) */
 .glow-gold img { 
-  filter: drop-shadow(0 0 15px #eab308) drop-shadow(0 0 30px rgba(234, 179, 8, 0.5)); 
+  filter: drop-shadow(0 0 15px #eab308) drop-shadow(0 0 30px rgba(234, 179, 8, 0.6)); 
   animation: marker-pulse 2s infinite ease-in-out;
 }
 
 .glow-blue img { 
-  filter: drop-shadow(0 0 15px #3b82f6) drop-shadow(0 0 30px rgba(59, 130, 246, 0.4)); 
+  filter: drop-shadow(0 0 15px #3b82f6) drop-shadow(0 0 30px rgba(59, 130, 246, 0.5)); 
   animation: marker-pulse 3s infinite ease-in-out;
 }
 
 @keyframes marker-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  0%, 100% { transform: scale(1); filter: brightness(1.2); }
+  50% { transform: scale(1.05); filter: brightness(1); }
 }
 
-/* 🖥️ الطبقة العلوية للعناصر الرقمية (HUD) */
+/* 🖥️ العناصر الرقمية العلوية */
 .matrix-overlay-elements {
   position: absolute;
   inset: 0;
@@ -65,36 +67,36 @@
   z-index: 500;
 }
 
-/* 🕸️ خطوط الشبكة التقنية (Grid) */
+/* 🕸️ خطوط الشبكة التقنية (Grid) - تقليل الحدة لراحة العين */
 .map-grid-lines {
   position: absolute;
   inset: 0;
   background: 
-    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.3;
+    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.2;
 }
 
-/* 💰 لوحة الرصيد - Top Right */
+/* 💰 لوحة الرصيد - تصميم زجاجي داكن */
 .top-right-panel {
   position: absolute;
   top: 30px;
   right: 30px;
-  background: rgba(13, 8, 29, 0.85);
-  padding: 15px 20px;
+  background: rgba(5, 3, 10, 0.85);
+  padding: 15px 25px;
   border-radius: 12px;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(234, 179, 8, 0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(234, 179, 8, 0.4);
   z-index: 1000;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .ui-bal-value { 
   color: #eab308; 
-  font-size: 22px; 
+  font-size: 24px; 
   font-weight: 900; 
-  text-shadow: 0 0 15px rgba(234, 179, 8, 0.7); 
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.5); 
 }
 
 /* 📟 لوحة القطاع - Bottom Left */
@@ -102,38 +104,38 @@
   position: absolute;
   bottom: 40px;
   left: 30px;
-  background: rgba(13, 8, 29, 0.9);
+  background: rgba(5, 3, 10, 0.9);
   padding: 12px 25px;
-  border-radius: 10px;
+  border-radius: 8px;
   border-left: 4px solid #eab308;
   z-index: 1000;
-  color: #cbd5e1;
-  font-weight: 700;
+  color: #94a3b8;
+  font-family: 'Courier New', Courier, monospace; /* طابع تقني */
 }
 
 /* ⚡ خط المسح الضوئي */
 .scan-line-v2 {
   position: absolute;
   width: 100%;
-  height: 120px;
-  background: linear-gradient(transparent, rgba(139, 92, 246, 0.08), transparent);
-  animation: scanning 5s linear infinite;
+  height: 150px;
+  background: linear-gradient(transparent, rgba(139, 92, 246, 0.05), transparent);
+  animation: scanning 6s linear infinite;
   z-index: 400;
 }
 
 @keyframes scanning {
-  from { top: -120px; }
+  from { top: -150px; }
   to { top: 100%; }
 }
 
-/* 🌌 تأثير خطوط شاشة CRT */
+/* 🌌 تأثير CRT النهائي */
 .map-wrapper::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(18, 16, 33, 0) 50%, rgba(0, 0, 0, 0.05) 50%);
+  background: linear-gradient(rgba(18, 16, 33, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
   background-size: 100% 4px;
   pointer-events: none;
   z-index: 10;
-  opacity: 0.2;
+  opacity: 0.15;
 }
