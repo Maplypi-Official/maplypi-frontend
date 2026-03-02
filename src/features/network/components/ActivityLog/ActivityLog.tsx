@@ -2,7 +2,10 @@ import React from 'react';
 import ActivityItem from './ActivityItem';
 import './ActivityLog.css';
 
-// تعريف الـ Interface بما يتوافق مع هيكل البيانات في الباك أند
+/**
+ * 📡 ActivityLog - النسخة النهائية المستقرة
+ * متوافق 100% مع هيكل بيانات الباك أند (LogEntry)
+ */
 interface LogEntry {
   id: string;
   user: string;
@@ -10,8 +13,12 @@ interface LogEntry {
   time: string;
 }
 
-const ActivityLog: React.FC<{ data?: LogEntry[] }> = ({ data }) => {
-  // بيانات افتراضية تعكس روح الـ Matrix والماركت
+interface ActivityLogProps {
+  data?: LogEntry[];
+}
+
+const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
+  // بيانات افتراضية تعكس هوية النظام في حالة عدم وجود بيانات حقيقية
   const defaultLogs: LogEntry[] = [
     { id: '1', user: 'TechZone_Node', action: 'Confirmed Premium Status', time: 'Just now' },
     { id: '2', user: 'UrbanMart_Pi', action: 'New Inventory Synchronized', time: '2m ago' },
@@ -22,13 +29,16 @@ const ActivityLog: React.FC<{ data?: LogEntry[] }> = ({ data }) => {
 
   return (
     <div className="activity-container">
-      <div className="activity-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* رأس القائمة بتصميم الـ HUD */}
+      <div className="activity-header">
         <h3 className="activity-title">Live Network Feed</h3>
-        <div className="live-badge">
-          <span style={{ color: '#22c55e', fontSize: '9px', fontWeight: 'bold' }}>● LIVE</span>
+        <div className="live-badge-wrapper">
+          <div className="live-badge-dot"></div>
+          <span className="live-badge-text">LIVE FEED</span>
         </div>
       </div>
 
+      {/* قائمة الأنشطة - تمرير البيانات دون تغيير المسميات */}
       <div className="activity-list">
         {logsToDisplay.map((log) => (
           <ActivityItem 
@@ -38,6 +48,12 @@ const ActivityLog: React.FC<{ data?: LogEntry[] }> = ({ data }) => {
             time={log.time} 
           />
         ))}
+      </div>
+
+      {/* لمسة نهائية تقنية في أسفل القائمة */}
+      <div className="activity-footer">
+        <div className="footer-line"></div>
+        <span className="terminal-cursor">_</span>
       </div>
     </div>
   );
