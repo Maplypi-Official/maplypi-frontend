@@ -1,15 +1,22 @@
+/* الحاوية الرئيسية - ملء الشاشة مع مراعاة الـ Navbar */
 .network-page-container {
-  padding: 20px;
+  padding: 0; /* إلغاء الـ Padding لجعل الخريطة Full Screen */
   background: #0a0516; 
-  min-height: 100vh;
+  height: calc(100vh - 70px); /* 70px هو ارتفاع الـ Navbar التقريبي لضمان عدم وجود سكرول */
+  width: 100vw;
   color: white;
-  padding-bottom: 100px;
   font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
 }
 
+/* الهيدر الشفاف فوق الخريطة (HUD Style) */
 .network-header {
-  margin-bottom: 25px;
-  position: relative;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  pointer-events: none; /* للسماح بالتفاعل مع الخريطة تحت العنوان */
 }
 
 .network-title {
@@ -17,61 +24,61 @@
   font-size: 26px;
   font-weight: 900;
   margin: 0;
-  text-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+  text-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
   text-transform: uppercase;
+  background: rgba(10, 5, 22, 0.4);
+  padding: 5px 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
 }
 
 .network-subtitle {
-  color: #64748b;
+  color: #94a3b8;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-top: 4px;
+  padding-left: 15px;
 }
 
+/* مؤشر المزامنة الحية */
 .sync-indicator {
   position: absolute;
   top: 5px;
-  right: 0;
+  right: -50px; /* تحريكه لليمين قليلاً */
   font-size: 9px;
   color: #eab308;
   font-weight: bold;
   animation: networkPulse 1.5s infinite;
 }
 
+/* حاوية الخريطة - تشغل كامل المساحة */
 .map-wrapper {
-  margin-top: 25px;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background: #05050a; 
-  
-  /* ✅ ارتفاع إجباري لضمان ظهور الخريطة فوراً */
-  min-height: 550px; 
-  height: 550px;
-  position: relative;
 }
 
-.activity-wrapper {
-  margin-top: 25px;
-}
-
+/* تأثير النبض للمزامنة */
 @keyframes networkPulse {
   0% { opacity: 1; }
   50% { opacity: 0.4; }
   100% { opacity: 1; }
 }
 
+/* تعديلات الشاشات الصغيرة للموبايل */
 @media (max-width: 480px) {
   .network-title {
-    font-size: 22px;
+    font-size: 20px;
   }
-  .sync-indicator {
-    font-size: 8px;
+  .network-page-container {
+    height: calc(100vh - 65px); /* تعديل الارتفاع للموبايل */
   }
   .map-wrapper {
-    height: 450px;
-    min-height: 450px;
+    height: 100%;
   }
 }
