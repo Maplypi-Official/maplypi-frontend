@@ -1,4 +1,4 @@
-/* الحاويات الزجاجية (Glassmorphism Base) */
+/* 🧪 الحاويات الزجاجية (Glassmorphism Base) - القاعدة الذهبية للفخامة */
 .glass-panel-v3 {
   background: rgba(13, 13, 25, 0.7);
   backdrop-filter: blur(15px);
@@ -15,7 +15,7 @@
   box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
 }
 
-/* لوحة الرصيد - Top Right */
+/* 💰 لوحة الرصيد - Top Right (المرجع الذهبي) */
 .balance-panel-v3 {
   position: absolute;
   top: 30px;
@@ -82,8 +82,86 @@
   font-family: monospace;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+/* 📟 لوحة القطاع - Bottom Left (تصميم غرفة العمليات) */
+.sector-info-v3 {
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  min-width: 250px;
+  z-index: 1000;
+  border-left: 5px solid #eab308; /* الشريط الذهبي المميز */
 }
 
+.sector-tag {
+  font-size: 9px;
+  background: rgba(234, 179, 8, 0.2);
+  color: #eab308;
+  padding: 2px 8px;
+  display: inline-block;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.sector-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  letter-spacing: 1px;
+}
+
+.sector-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-family: monospace;
+}
+
+.detail-label {
+  color: #64748b;
+}
+
+.detail-value {
+  color: #cbd5e1;
+}
+
+.status-glow-blue {
+  color: #3b82f6;
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
+
+/* 📊 الرسم البياني التجميلي الصغير (Visual HUD Element) */
+.mini-graph-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  margin-top: 15px;
+  opacity: 0.5;
+}
+
+.mini-graph-container .bar {
+  flex: 1;
+  background: #eab308;
+  border-radius: 1px;
+  animation: bar-dance 2s infinite ease-in-out;
+}
+
+/* ✨ الأنيميشن الخاصة بالـ HUD */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.2); }
+}
+
+@keyframes bar-dance {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.4); }
+}
