@@ -11,31 +11,31 @@ import piLogo from '../../../../assets/logo3.png';
 import userLocImg from '../../../../assets/user-location1.png';
 
 /**
- * 🛠️ تهيئة الأيقونات المخصصة باستخدام الصور المستوردة
+ * 🛠️ تهيئة الأيقونات المخصصة - تم تكبير الأحجام لتطابق التصميم
  */
 
 // أيقونة Pi Network المعيارية (زرقاء متوهجة)
 const standardPiIcon = L.divIcon({
   className: 'pi-icon-div marker-standard-pi glow-blue',
   html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
-  iconSize: [40, 40],
-  iconAnchor: [20, 20]
+  iconSize: [50, 50], // تكبير الحجم لتطابق التصميم
+  iconAnchor: [25, 25]
 });
 
-// أيقونة Pi Network المميزة (ذهبية متوهجة)
+// أيقونة Pi Network المميزة (ذهبية متوهجة ضخمة)
 const premiumPiIcon = L.divIcon({
   className: 'pi-icon-div marker-premium-pi glow-gold',
   html: `<div class="pi-marker-content"><img src="${piLogo}" alt="Pi" /></div>`,
-  iconSize: [60, 60],
-  iconAnchor: [30, 30]
+  iconSize: [80, 80], // حجم أضخم للـ Premium
+  iconAnchor: [40, 40]
 });
 
 // أيقونة موقع المستخدم
 const userLocationIcon = L.divIcon({
   className: 'pi-icon-div marker-user-location',
   html: `<div class="user-location-content"><img src="${userLocImg}" alt="Me" /></div>`,
-  iconSize: [40, 40],
-  iconAnchor: [20, 20]
+  iconSize: [45, 45],
+  iconAnchor: [22, 22]
 });
 
 interface MapContainerProps {
@@ -47,7 +47,7 @@ interface MapContainerProps {
 const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, nodes }) => {
   const displaySector = sectorName || "Cairo Citadel Sector";
 
-  // ترتيب الـ Pins حول موقع المستخدم لمحاكاة الشبكة الحية
+  // ترتيب الـ Pins حول موقع المستخدم لمحاكاة الشبكة الحية كما في الصورة Target
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', subLabel: 'Checking-in... [50m]', offset: [0.002, -0.004] },
     { type: standardPiIcon, offset: [0.004, -0.001] },
@@ -58,14 +58,14 @@ const MapContainer: React.FC<MapContainerProps> = ({ sectorName, userLocation, n
   ];
 
   return (
-    <div className="map-wrapper main-matrix-v2 pixelated-map">
+    <div className="map-wrapper main-matrix-v2 pixelated-map full-viewport-map">
       <LeafletMap 
         center={[userLocation.lat, userLocation.lng]} 
-        zoom={14} 
+        zoom={15} // تقريب المسافة قليلاً لتفاصيل أدق
         zoomControl={false}
         attributionControl={false}
         className="leaflet-canvas-container"
-        style={{ height: '550px', width: '100%', background: '#0d081d' }}
+        style={{ height: '100%', width: '100%', background: '#0d081d' }}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
