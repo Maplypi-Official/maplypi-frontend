@@ -1,20 +1,19 @@
-
 import React from 'react';
 import { useNetworkSync } from './hooks/useNetworkSync';
 import MapCanvas from './components/MapCanvas/MapCanvas';
 import TechOverlays from './components/Overlays/TechOverlays';
 import BalancePanel from './components/HUD/BalancePanel';
 import SectorInfo from './components/HUD/SectorInfo';
-import ActivityLog from './components/ActivityLog/ActivityLog'; // إضافة سجل النشاط
+import ActivityLog from './components/ActivityLog/ActivityLog';
 import './styles/NetworkMaster.css';
 
 /**
  * 🛰️ NetworkPage - النسخة النهائية المستقرة (Production Ready)
- * الهيكل الطبقي (Layered Architecture) لضمان الفخامة وعدم التداخل
- * تم الحفاظ على كافة الدوال والمسميات لضمان التوافق مع الـ Backend
+ * الهيكل الطبقي (Layered Architecture) لضمان الفخامة وعدم التداخل.
+ * تم التأكد من ربط كافة المكونات المضافة حديثاً ببيانات الـ Backend الحية.
  */
 const NetworkPage: React.FC = () => {
-  // استدعاء البيانات الحية من الـ Hook الأصلي
+  // استدعاء البيانات من الـ Hook (نفس المسميات لضمان عدم كسر الربط)
   const { nodes, loading, userStats } = useNetworkSync();
 
   return (
@@ -44,24 +43,38 @@ const NetworkPage: React.FC = () => {
       {/* 🛡️ الطبقة 3: واجهة الـ HUD (الطبقة العلوية التفاعلية) */}
       <div className="hud-interface-layer">
         
-        {/* اللوحات الأساسية (أعلى اليمين وأسفل اليسار) */}
-        <BalancePanel />
-        <SectorInfo />
+        {/* اللوحات الأساسية مع ربط البيانات الحقيقية من userStats */}
+        <BalancePanel 
+          balance={userStats?.balance} 
+          status={loading ? "SYNCING_NODE..." : "SECURE_SYNC_ACTIVE"} 
+        />
 
-        {/* سجل النشاط الحي (أسفل اليمين - الزاوية الجديدة) */}
+        <SectorInfo 
+          sectorName="MAIN_OPERATIONS_SECTOR"
+          lat={userStats?.lat}
+          lng={userStats?.lng}
+        />
+
+        {/* سجل النشاط الحي (يظهر في الزاوية المخصصة له) */}
         <ActivityLog />
 
         {/* الهيدر التقني (HUD Title) */}
         <header className="network-header-hud">
+          <div className="status-indicator"></div>
           <h1 className="network-title">SYSTEM ACTIVE: NETWORK</h1>
           <div className="network-subtitle">Real-time Node Connectivity & Matrix</div>
         </header>
         
         {/* فوتر بيانات التصحيح (Debug Info) */}
         <footer className="network-debug-footer-hud">
-          <span className="debug-label">ACTIVE_NODES_IN_RANGE:</span> {nodes?.length || 0}
-          <span style={{ marginLeft: '15px' }} className="debug-label">LINK_STATUS:</span> 
-          <span style={{ color: '#22c55e' }}> ENCRYPTED</span>
+          <div className="debug-group">
+            <span className="debug-label">ACTIVE_NODES_IN_RANGE:</span> 
+            <span className="debug-value">{nodes?.length || 0}</span>
+          </div>
+          <div className="debug-group" style={{ marginLeft: '20px' }}>
+            <span className="debug-label">LINK_STATUS:</span> 
+            <span className="debug-value status-online">ENCRYPTED_LINK</span>
+          </div>
         </footer>
       </div>
 
