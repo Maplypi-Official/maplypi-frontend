@@ -1,8 +1,9 @@
 /* الحاوية الرئيسية - ملء الشاشة مع مراعاة الـ Navbar */
 .network-page-container {
-  padding: 0; /* إلغاء الـ Padding لجعل الخريطة Full Screen */
+  padding: 0;
   background: #0a0516; 
-  height: calc(100vh - 70px); /* 70px هو ارتفاع الـ Navbar التقريبي لضمان عدم وجود سكرول */
+  /* vh تضمن أن الحاوية تأخذ طول الشاشة المتاح فوراً */
+  height: calc(100vh - 70px); 
   width: 100vw;
   color: white;
   font-family: 'Inter', sans-serif;
@@ -16,7 +17,7 @@
   top: 20px;
   left: 20px;
   z-index: 1000;
-  pointer-events: none; /* للسماح بالتفاعل مع الخريطة تحت العنوان */
+  pointer-events: none;
 }
 
 .network-title {
@@ -41,18 +42,7 @@
   padding-left: 15px;
 }
 
-/* مؤشر المزامنة الحية */
-.sync-indicator {
-  position: absolute;
-  top: 5px;
-  right: -50px; /* تحريكه لليمين قليلاً */
-  font-size: 9px;
-  color: #eab308;
-  font-weight: bold;
-  animation: networkPulse 1.5s infinite;
-}
-
-/* حاوية الخريطة - تشغل كامل المساحة */
+/* حاوية الخريطة - تشغل كامل المساحة المتاحة */
 .map-wrapper {
   margin-top: 0;
   width: 100%;
@@ -63,22 +53,13 @@
   background: #05050a; 
 }
 
-/* تأثير النبض للمزامنة */
 @keyframes networkPulse {
   0% { opacity: 1; }
   50% { opacity: 0.4; }
   100% { opacity: 1; }
 }
 
-/* تعديلات الشاشات الصغيرة للموبايل */
 @media (max-width: 480px) {
-  .network-title {
-    font-size: 20px;
-  }
-  .network-page-container {
-    height: calc(100vh - 65px); /* تعديل الارتفاع للموبايل */
-  }
-  .map-wrapper {
-    height: 100%;
-  }
+  .network-title { font-size: 20px; }
+  .network-page-container { height: calc(100vh - 65px); }
 }
