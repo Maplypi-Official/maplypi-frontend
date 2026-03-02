@@ -64,7 +64,7 @@
 /* 📟 لوحة القطاع - Bottom Left (تصميم غرفة العمليات الاحترافي) */
 .sector-info-v3 {
   position: absolute;
-  bottom: 80px; /* مرفوع قليلاً لترك مساحة للـ Activity Log الجانبي */
+  bottom: 100px; /* مرفوع قليلاً لترك مساحة كافية للـ Navbar أو سجل النشاط */
   left: 30px;
   min-width: 250px;
   z-index: 1000;
@@ -114,6 +114,40 @@
   font-weight: 900;
 }
 
+/* 📊 مؤشرات الحالة التقنية - Top Left (Connectivity & Power) */
+.status-indicators-v3 {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  min-width: 180px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.indicator-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.progress-mini {
+  width: 100px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 4px 0;
+}
+
+.progress-fill { height: 100%; border-radius: 2px; }
+.blue-bg { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
+.gold-bg { background: #eab308; box-shadow: 0 0 8px #eab308; }
+
+.label-xs { font-size: 8px; color: #94a3b8; letter-spacing: 1px; }
+.value-xs { font-size: 9px; font-family: 'Share Tech Mono', monospace; color: #fff; }
+.indicator-divider { height: 1px; background: rgba(255, 255, 255, 0.05); }
+
 /* 📊 الرسم البياني التجميلي الصغير (Visual HUD Element) */
 .mini-graph-container {
   display: flex;
@@ -158,9 +192,11 @@
   50% { transform: scaleY(0.4); opacity: 0.3; }
 }
 
-/* 📱 استجابة الموبايل لضمان عدم تداخل اللوحات في الشاشات الصغيرة */
+/* 📱 استجابة الموبايل لضمان عدم تداخل اللوحات */
 @media (max-width: 600px) {
-  .balance-panel-v3 { top: 15px; right: 15px; min-width: 180px; }
-  .ui-bal-value { font-size: 24px; }
-  .sector-info-v3 { bottom: 70px; left: 15px; min-width: 200px; }
+  .balance-panel-v3 { top: 15px; right: 15px; min-width: 160px; }
+  .status-indicators-v3 { top: 15px; left: 15px; min-width: 140px; }
+  .ui-bal-value { font-size: 20px; }
+  .sector-info-v3 { bottom: 85px; left: 15px; min-width: 200px; }
+  .progress-mini { width: 60px; }
 }
