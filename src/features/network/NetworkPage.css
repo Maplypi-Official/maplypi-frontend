@@ -2,7 +2,7 @@
 .network-page-container {
   padding: 0;
   background: #0a0516; 
-  height: calc(100vh - 70px); /* مراعاة ارتفاع الـ Navbar */
+  height: calc(100vh - 70px); /* مراعاة ارتفاع الـ Navbar لضمان عدم وجود سكرول */
   width: 100vw;
   color: white;
   font-family: 'Inter', sans-serif;
@@ -16,7 +16,7 @@
   top: 25px;
   left: 20px;
   z-index: 1000;
-  pointer-events: none;
+  pointer-events: none; /* للسماح بالتفاعل مع الخريطة تحت العنوان */
 }
 
 .network-title {
@@ -42,7 +42,7 @@
   padding-left: 15px;
 }
 
-/* حاوية الخريطة - تشغل كامل المساحة المتاحة */
+/* حاوية الخريطة - تشغل كامل المساحة المتاحة خلف الواجهة */
 .map-wrapper {
   margin-top: 0;
   width: 100%;
@@ -53,7 +53,7 @@
   background: #05050a; 
 }
 
-/* تذييل الصفحة للمعلومات التقنية */
+/* تذييل الصفحة للمعلومات التقنية (Debug Info) */
 .network-debug-footer {
   position: absolute;
   bottom: 20px;
@@ -71,7 +71,7 @@
   font-weight: bold;
 }
 
-/* حالة التحميل */
+/* حالة التحميل والمزامنة (Loading State) */
 .sync-loading-state {
   display: flex;
   flex-direction: column;
@@ -86,15 +86,21 @@
   font-size: 14px;
   letter-spacing: 3px;
   margin-top: 20px;
-  animation: pulse 1.5s infinite;
+  animation: pulse-sync 1.5s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+@keyframes pulse-sync {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.98); }
 }
 
+/* 📱 تعديلات الشاشات الصغيرة للموبايل */
 @media (max-width: 480px) {
-  .network-title { font-size: 18px; }
-  .network-page-container { height: calc(100vh - 65px); }
+  .network-title { 
+    font-size: 18px; 
+    padding: 6px 12px;
+  }
+  .network-page-container { 
+    height: calc(100vh - 65px); 
+  }
 }
