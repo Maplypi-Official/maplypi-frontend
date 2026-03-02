@@ -1,7 +1,10 @@
 import React from 'react';
 import './StatsBoard.css';
 
-// التحديث ليتوافق مع الـ Types الجديدة والباك أند دون تغيير المسميات الأساسية
+/**
+ * 📊 StatsBoard - لوحة البيانات الإحصائية المركزية
+ * تم الحفاظ على المسميات (activeNodes, territoryControl, balance) لضمان الربط مع الـ API
+ */
 interface StatsBoardProps {
   data?: {
     activeNodes?: number | string;
@@ -13,8 +16,8 @@ interface StatsBoardProps {
 }
 
 const StatsBoard: React.FC<StatsBoardProps> = ({ data, isLoading }) => {
-  // الحفاظ على الأرقام الافتراضية طبقاً للتصميم الأصلي
-  const nodes = data?.activeNodes ?? "1.2k";
+  // الحفاظ على الأرقام الافتراضية "الأسطورية" في حال تأخر الـ Backend
+  const nodes = data?.activeNodes ?? "1,254";
   const territory = data?.territoryControl 
     ? (typeof data.territoryControl === 'number' ? `${data.territoryControl}%` : data.territoryControl) 
     : "14.5%";
@@ -23,8 +26,8 @@ const StatsBoard: React.FC<StatsBoardProps> = ({ data, isLoading }) => {
 
   return (
     <div className="stats-board-wrapper">
-      {/* قسم الإحصائيات الشبكية - الهيكل الأصلي مع إضافة الروح الأسطورية */}
       <div className="stats-grid">
+        {/* كارت وصول الشبكة */}
         <div className="stat-card border-gold">
           <div className="card-scanner"></div>
           <p className="label">Network Reach</p>
@@ -33,6 +36,7 @@ const StatsBoard: React.FC<StatsBoardProps> = ({ data, isLoading }) => {
           </p>
         </div>
         
+        {/* كارت السيطرة على القطاع */}
         <div className="stat-card border-purple">
           <div className="card-scanner"></div>
           <p className="label">Territory Control</p>
@@ -42,18 +46,18 @@ const StatsBoard: React.FC<StatsBoardProps> = ({ data, isLoading }) => {
         </div>
       </div>
 
-      {/* لوحة الرصيد والمستوى - الشكل "طبق الأصل" الاحترافي */}
+      {/* لوحة الرصيد المدمجة - HUD Style */}
       <div className="balance-card-overlay border-gold-glow">
          <div className="balance-info">
-            <p className="label-sm">MY PI BALANCE:</p>
+            <p className="label-sm">ACCOUNT_BALANCE:</p>
             <p className="value-lg gold-text">
-              {isLoading ? "---" : `${balance} π`}
+              {isLoading ? "LOADING..." : `${balance} π`}
             </p>
          </div>
          <div className="level-info">
             <div className="level-badge">
-              <span className="level-label">LEVEL</span>
-              <span className="level-number">{isLoading ? "--" : level}</span>
+              <span className="level-label">LVL</span>
+              <span className="level-number">{level}</span>
             </div>
          </div>
       </div>
