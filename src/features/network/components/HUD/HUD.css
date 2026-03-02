@@ -1,262 +1,104 @@
-/* 🧪 الحاويات الزجاجية - النسخة الذرية (Atomic Nano Base) */
+/* 🧪 الأساس الزجاجي الذري */
 .glass-panel-v3 {
-  background: rgba(13, 13, 25, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* دعم متصفحات Safari و Pi Browser */
+  background: rgba(13, 13, 25, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(234, 179, 8, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
   pointer-events: auto;
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
 }
 
-.glass-panel-v3:hover {
-  border-color: rgba(234, 179, 8, 0.5);
-  box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
-}
-
-/* 📊 مؤشرات الحالة التقنية - النسخة الذرية (Top Left) */
+/* 📊 الحالة التقنية (Top Left) - ثابتة وتظهر كاملة */
 .status-indicators-v3.atomic-nano {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  min-width: 85px !important;
-  max-width: 100px !important;
+  top: 10px !important;
+  left: 10px !important;
+  min-width: 90px !important;
+  max-width: 110px !important;
   padding: 4px 6px !important;
-  border-radius: 4px !important;
+  border-radius: 4px;
   z-index: 1000;
-  display: flex;
-  flex-direction: column;
 }
 
-.indicator-item-atomic {
-  display: flex;
-  align-items: flex-start;
-  gap: 4px;
-  margin-bottom: 3px;
-}
-
-.indicator-icon-atomic {
-  font-size: 8px;
-  line-height: 1;
-}
-
-.indicator-content-atomic {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.label-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1px;
-}
-
-.label-atomic {
-  font-size: 5.5px;
-  font-weight: 900;
-  color: #94a3b8;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-}
-
-.value-atomic {
-  font-size: 6px;
-  color: #ffffff;
-  font-weight: 800;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-.progress-atomic {
-  width: 100%;
-  height: 1.5px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-/* 🌌 تنسيق QUANTUM FLUX المدمج والمتوهج */
-.flux-atomic-wrapper {
-  margin-top: 3px;
-  padding-top: 2px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.label-atomic-flux {
-  font-size: 5px;
-  color: #eab308;
-  font-weight: 900;
-  text-shadow: 0 0 3px rgba(234, 179, 8, 0.5);
-}
-
-/* 🎯 لوحة معلومات القطاع - TARGET LOC (Bottom Left) */
-.target-loc-nano {
+/* 🎯 لوحة TARGET LOC (Bottom Left) - حل مشكلة الـ Scroll */
+.target-loc-fixed {
   position: absolute;
-  bottom: 85px !important; 
-  left: 15px;
-  min-width: 130px !important;
-  max-width: 150px !important;
-  padding: 6px 10px !important;
-  border-left: 2px solid #eab308 !important; 
-  border-radius: 4px 10px 4px 4px !important;
+  bottom: 85px !important; /* ثابتة فوق الـ Nav Bar */
+  left: 10px;
+  width: 125px !important;
+  max-height: 75px !important; /* منع التمدد الطولي */
+  padding: 5px 8px !important;
+  border-left: 2px solid #eab308;
   z-index: 1000;
-}
-
-.target-tag-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 2px;
-}
-
-.target-dot-pulse {
-  width: 4px;
-  height: 4px;
-  background: #eab308;
-  border-radius: 50%;
-  box-shadow: 0 0 5px #eab308;
-  animation: target-pulse 1.5s infinite;
-}
-
-.target-label-nano {
-  font-size: 7px;
-  font-weight: 900;
-  color: #eab308;
-  letter-spacing: 1px;
 }
 
 .target-title-nano {
-  font-size: 11px;
+  font-size: 10px;
   color: #fff;
-  margin: 2px 0 5px 0;
-  font-weight: 800;
+  margin: 2px 0 4px 0;
+  font-weight: 900;
   text-transform: uppercase;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
-.target-data-grid {
+.target-data-compact {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
-.target-item {
+.t-row {
   display: flex;
-  align-items: center;
-}
-
-.t-label {
-  font-size: 6px;
-  color: #64748b;
-  font-weight: bold;
-  margin-right: 4px;
-}
-
-.t-value {
-  font-size: 7px;
-  color: #cbd5e1;
+  justify-content: space-between;
   font-family: 'Share Tech Mono', monospace;
 }
 
-/* 🌊 تأثير الموجة الترددية المصغر */
-.wave-container-nano {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  height: 8px;
-  margin-top: 6px;
-  opacity: 0.6;
+.t-label { font-size: 6px; color: #64748b; font-weight: bold; }
+.t-value { font-size: 7px; color: #cbd5e1; }
+
+/* 💰 لوحة الرصيد (Top Right) - حل مشكلة الاختفاء */
+.balance-panel-v3 {
+  position: absolute;
+  top: 10px !important;
+  right: 10px !important;
+  min-width: 120px !important;
+  padding: 5px 10px !important;
+  z-index: 1000;
 }
 
-.wave-bar {
-  flex: 1;
-  background: #eab308;
-  border-radius: 1px;
+.ui-bal-value {
+  font-size: 16px !important; /* تصغير الرقم ليناسب اللوحة المصغرة */
+  font-weight: 900;
+  color: #fff;
 }
 
-/* ✨ تأثيرات التوهج والوميض الرقمي */
-.gold-glow-text {
-  color: #eab308 !important;
-  text-shadow: 0 0 4px rgba(234, 179, 8, 0.6);
+/* ✨ تأثيرات بصرية احترافية */
+.target-dot-pulse {
+  width: 4px; height: 4px; background: #eab308; border-radius: 50%;
+  animation: target-pulse 1.5s infinite;
 }
 
 .status-flicker-blue {
   color: #3b82f6;
-  text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
   animation: flicker 3s infinite;
-}
-
-.digital-flicker {
-  color: #fff;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-  animation: flicker 2s infinite;
 }
 
 @keyframes flicker {
   0%, 19%, 22%, 62%, 64%, 70%, 100% { opacity: 1; }
-  20%, 21%, 63%, 65%, 69% { opacity: 0.5; }
+  20%, 21%, 63%, 65%, 69% { opacity: 0.4; }
 }
 
 @keyframes target-pulse {
   0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.5; }
+  50% { transform: scale(1.4); opacity: 0.5; }
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* 💰 لوحة الرصيد - أعلى اليمين (Top Right) */
-.balance-panel-v3 {
-  position: absolute;
-  top: 15px; 
-  right: 15px;
-  min-width: 140px; 
-  z-index: 1000;
-  padding: 8px 12px;
-}
-
-.ui-bal-value {
-  color: #fff;
-  font-size: 20px; 
-  font-weight: 900;
-  text-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
-}
-
-/* ⚡ تأثير خط المسح الأسطوري */
-.panel-scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.2), transparent);
-  animation: scan-move 4s linear infinite;
-}
-
-@keyframes scan-move {
-  0% { top: -5%; }
-  100% { top: 105%; }
-}
-
-/* 📱 استجابة الموبايل (Micro Mode) */
+/* 📱 وضع الموبايل الفائق (Pi Browser Optimization) */
 @media (max-width: 480px) {
-  .status-indicators-v3.atomic-nano { 
-    top: 10px; 
-    left: 10px; 
-    min-width: 80px !important; 
-  }
-  .target-loc-nano {
-    bottom: 80px !important;
-    left: 10px;
-    min-width: 110px !important;
-  }
-  .balance-panel-v3 { 
-    top: 10px; 
-    right: 10px; 
-    min-width: 120px;
-  }
+  .target-loc-fixed { width: 110px !important; bottom: 82px !important; }
+  .balance-panel-v3 { min-width: 110px !important; }
+  .status-indicators-v3.atomic-nano { min-width: 80px !important; }
 }
