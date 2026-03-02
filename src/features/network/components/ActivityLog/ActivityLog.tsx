@@ -2,10 +2,6 @@ import React from 'react';
 import ActivityItem from './ActivityItem';
 import './ActivityLog.css';
 
-/**
- * 📡 ActivityLog - النسخة النهائية المستقرة
- * متوافق 100% مع هيكل بيانات الباك أند (LogEntry)
- */
 interface LogEntry {
   id: string;
   user: string;
@@ -18,27 +14,26 @@ interface ActivityLogProps {
 }
 
 const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
-  // بيانات افتراضية تعكس هوية النظام في حالة عدم وجود بيانات حقيقية
+  // بيانات تجريبية بنفس هيكل الـ Backend لضمان عدم فراغ اللوحة
   const defaultLogs: LogEntry[] = [
-    { id: '1', user: 'TechZone_Node', action: 'Confirmed Premium Status', time: 'Just now' },
-    { id: '2', user: 'UrbanMart_Pi', action: 'New Inventory Synchronized', time: '2m ago' },
-    { id: '3', user: 'Explorer_Alpha', action: 'Initiated Checking-in [50m]', time: '5m ago' },
+    { id: '1', user: 'SYSTEM', action: 'NEURAL LINK ESTABLISHED', time: 'ACTIVE' },
+    { id: '2', user: 'NETWORK', action: 'SCANNING NEARBY NODES', time: '2s ago' },
   ];
 
   const logsToDisplay = data || defaultLogs;
 
   return (
     <div className="activity-container">
-      {/* رأس القائمة بتصميم الـ HUD */}
+      {/* الهيدر التقني */}
       <div className="activity-header">
         <h3 className="activity-title">Live Network Feed</h3>
         <div className="live-badge-wrapper">
           <div className="live-badge-dot"></div>
-          <span className="live-badge-text">LIVE FEED</span>
+          <span className="live-badge-text">LIVE</span>
         </div>
       </div>
 
-      {/* قائمة الأنشطة - تمرير البيانات دون تغيير المسميات */}
+      {/* عرض الأنشطة */}
       <div className="activity-list">
         {logsToDisplay.map((log) => (
           <ActivityItem 
@@ -50,7 +45,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
         ))}
       </div>
 
-      {/* لمسة نهائية تقنية في أسفل القائمة */}
+      {/* التذييل التقني */}
       <div className="activity-footer">
         <div className="footer-line"></div>
         <span className="terminal-cursor">_</span>
