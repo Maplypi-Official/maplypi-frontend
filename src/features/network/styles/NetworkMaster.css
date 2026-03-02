@@ -1,15 +1,14 @@
 /* 🌌 الحاوية الرئيسية - الهيكل الأساسي (Master Container) */
-/* تم التعديل لمنع الـ Scrolling نهائياً وجعل العرض Full Screen */
 .network-master-container {
   margin: 0;
   padding: 0;
-  background: #05050a; /* خلفية سوداء عميقة لبروز ملمس الكربون */
+  background: #05050a;
   height: 100vh; /* ملء الشاشة بالكامل */
   width: 100vw;
   color: white;
   font-family: 'Inter', sans-serif;
-  overflow: hidden; /* منع الـ Scrolling نهائياً */
-  position: fixed; /* تثبيت الحاوية لمنع أي إزاحة */
+  overflow: hidden !important; /* منع الـ Scrolling نهائياً وبقوة */
+  position: fixed; /* تثبيت الحاوية لمنع أي إزاحة ناتجة عن لوحة المفاتيح أو المتصفح */
   top: 0;
   left: 0;
 }
@@ -27,93 +26,71 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* سحر الدمج: الخريطة تندمج كخيوط ضوئية فوق الكربون */
   mix-blend-mode: screen; 
   width: 100%;
   height: 100%;
 }
 
-/* 🛡️ الطبقة 2: واجهة المستخدم (HUD Layer) - الطبقة العلوية */
+/* 🛡️ الطبقة 2: واجهة المستخدم (HUD Layer) - التوزيع الراداري الأسطوري */
 .hud-interface-layer {
   position: absolute;
   inset: 0;
   z-index: 10;
-  pointer-events: none; /* للسماح بلمس الخريطة تحت الواجهة */
-  display: flex;
-  flex-direction: column;
+  pointer-events: none;
+  /* استخدام Grid لتوزيع العناصر في الأركان بدقة ومنع التداخل */
+  display: grid;
+  grid-template-areas: 
+    "top-left . top-right"
+    ". . ."
+    "bottom-left . bottom-right";
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
+  padding: 20px; /* مسافة أمان من حواف الشاشة */
 }
 
-/* تأمين التفاعل مع عناصر الـ HUD فقط (الأزرار واللوحات) */
+/* تأمين التفاعل مع عناصر الـ HUD فقط */
 .hud-interface-layer > * {
   pointer-events: auto;
 }
 
-/* 📟 الهيدر الشفاف (HUD Title) - المرجع الذهبي */
+/* 📟 الهيدر الشفاف - أعلى اليسار (تحت الـ Status مباشرة) */
 .network-header-hud {
-  position: absolute;
-  top: 25px;
-  left: 20px;
-  z-index: 11;
+  grid-area: top-left;
+  align-self: start;
+  margin-top: 110px; /* إزاحة لأسفل لمنع التداخل مع لوحة الحالة */
 }
 
 .network-title {
   color: #eab308; 
-  font-size: 24px;
+  font-size: 16px; /* تصغير حجم العنوان ليناسب التوزيع الجديد */
   font-weight: 900;
   margin: 0;
-  text-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
+  text-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
   text-transform: uppercase;
   background: rgba(10, 5, 22, 0.6);
-  padding: 8px 15px;
-  border-radius: 8px;
-  backdrop-filter: blur(12px);
-  border-left: 4px solid #eab308;
+  padding: 5px 10px;
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  border-left: 3px solid #eab308;
   display: inline-block;
 }
 
-.network-subtitle {
-  color: #94a3b8;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-top: 5px;
-  padding-left: 15px;
-}
-
-/* 💰 تنسيق لوحة الرصيد والقطاع (الزجاجي الفخم Glassmorphism) */
-.glass-panel-v3 {
-  background: rgba(13, 13, 25, 0.8);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(234, 179, 8, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: border-color 0.3s ease;
-  pointer-events: auto; /* التأكيد على التفاعل */
-}
-
-.glass-panel-v3:hover {
-  border-color: rgba(234, 179, 8, 0.6);
-}
-
-/* 📊 تذييل الصفحة للمعلومات التقنية (Debug Footer) */
+/* 📊 تذييل الصفحة للمعلومات التقنية - أسفل اليمين (فوق الـ Activity Log) */
 .network-debug-footer-hud {
-  position: absolute;
-  bottom: 85px; /* مرفوع قليلاً لترك مساحة للـ Navbar السفلي */
-  left: 20px;
-  font-size: 10px;
+  grid-area: bottom-right;
+  align-self: end;
+  justify-self: end;
+  margin-bottom: 210px; /* رفع القيمة لمنع التداخل مع سجل النشاط */
+  font-size: 9px;
   color: rgba(234, 179, 8, 0.8);
   font-family: monospace;
   background: rgba(0,0,0,0.6);
-  padding: 5px 12px;
-  border-radius: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
   border: 1px solid rgba(234, 179, 8, 0.2);
-  z-index: 11;
 }
 
-.debug-label {
-  font-weight: bold;
-}
-
-/* 🔄 حالة التحميل والمزامنة (Loading States) */
+/* 🔄 حالة التحميل والمزامنة */
 .sync-loading-state {
   display: flex;
   flex-direction: column;
@@ -128,35 +105,20 @@
   left: 0;
 }
 
-.sync-text {
-  color: #eab308;
-  font-size: 14px;
-  letter-spacing: 3px;
-  margin-top: 20px;
-  animation: pulse-sync 1.5s infinite;
-}
-
-@keyframes pulse-sync {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.98); }
-}
-
-/* 📱 تعديلات الشاشات الصغيرة للموبايل (Responsiveness) */
+/* 📱 تعديلات الموبايل لضمان عدم التداخل (Pi Browser Optimization) */
 @media (max-width: 480px) {
-  .network-title { 
-    font-size: 18px; 
-    padding: 6px 12px;
-  }
-  .network-master-container { 
-    height: 100vh; /* ثابت للموبايل أيضاً */
+  .hud-interface-layer {
+    padding: 12px;
   }
   .network-header-hud {
-    top: 15px;
-    left: 15px;
+    margin-top: 100px;
+  }
+  .network-title { 
+    font-size: 14px; 
   }
 }
 
-/* لضمان أن حاوية Leaflet تأخذ المساحة كاملة */
+/* ضمان ملء الخريطة للحاوية */
 .leaflet-container {
   height: 100% !important;
   width: 100% !important;
