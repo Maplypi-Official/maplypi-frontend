@@ -1,0 +1,135 @@
+/* 🌌 الحاوية الرئيسية - الهيكل الأساسي (Master Container) */
+.network-master-container {
+  padding: 0;
+  background: #05050a; /* خلفية سوداء عميقة لبروز الكربون */
+  height: calc(100vh - 70px); 
+  width: 100vw;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 🏗️ طبقة الخلفية التقنية (Carbon Fiber & Effects) */
+.tech-overlays-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 🗺️ طبقة الخريطة - (Leaflet Layer) */
+.map-layer-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* دمج الخريطة مع الكربون بالأسفل */
+  mix-blend-mode: screen; 
+}
+
+/* 🛡️ واجهة المستخدم (HUD Layer) - الطبقة العلوية */
+.hud-interface-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none; /* للسماح بلمس الخريطة */
+}
+
+/* تأمين التفاعل مع عناصر الـ HUD فقط */
+.hud-interface-layer > * {
+  pointer-events: auto;
+}
+
+/* 📟 الهيدر الشفاف (HUD Title) */
+.network-header-hud {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}
+
+.network-title {
+  color: #eab308; 
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
+  text-transform: uppercase;
+  background: rgba(10, 5, 22, 0.6);
+  padding: 8px 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  border-left: 4px solid #eab308;
+  display: inline-block;
+}
+
+.network-subtitle {
+  color: #94a3b8;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  padding-left: 15px;
+}
+
+/* 💰 تنسيق لوحة الرصيد والقطاع (الزجاجي الفخم) */
+.glass-panel-v3 {
+  background: rgba(13, 13, 25, 0.8);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* 📊 تذييل الصفحة للمعلومات التقنية (Debug Footer) */
+.network-debug-footer-hud {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 10px;
+  color: rgba(234, 179, 8, 0.8);
+  font-family: monospace;
+  background: rgba(0,0,0,0.6);
+  padding: 5px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.debug-label {
+  font-weight: bold;
+}
+
+/* 🔄 حالة التحميل والمزامنة */
+.sync-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #05050a;
+  z-index: 2000;
+  position: relative;
+}
+
+.sync-text {
+  color: #eab308;
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-top: 20px;
+  animation: pulse-sync 1.5s infinite;
+}
+
+@keyframes pulse-sync {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.98); }
+}
+
+/* 📱 تعديلات الشاشات الصغيرة للموبايل */
+@media (max-width: 480px) {
+  .network-title { 
+    font-size: 18px; 
+    padding: 6px 12px;
+  }
+  .network-master-container { 
+    height: calc(100vh - 65px); 
+  }
+}
+
