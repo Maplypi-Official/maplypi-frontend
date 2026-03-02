@@ -65,7 +65,7 @@
 /* 📟 لوحة القطاع - أسفل اليسار (Bottom Left) */
 .sector-info-v3 {
   position: absolute;
-  bottom: 100px; /* الالتزام بالمسافة فوق الـ Nav Bar */
+  bottom: 100px; 
   left: 20px;
   min-width: 200px; 
   z-index: 1000;
@@ -107,48 +107,65 @@
 .detail-label { color: #64748b; }
 .detail-value { color: #cbd5e1; }
 
-/* 📊 مؤشرات الحالة التقنية - أعلى اليسار (Top Left) */
-.status-indicators-v3 {
+/* 📊 مؤشرات الحالة التقنية - أعلى اليسار (Top Left) - النسخة النانو المحدثة */
+.status-indicators-v3.nano-scale {
   position: absolute;
   top: 20px;
   left: 20px;
-  min-width: 150px; 
+  min-width: 110px !important; /* تقليص الحجم 40% */
+  max-width: 125px !important;
   z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  gap: 8px; 
+  padding: 5px 8px !important;
+  border-radius: 6px !important;
 }
 
-.indicator-item {
+.indicator-item-nano {
   display: flex;
-  gap: 8px;
+  gap: 5px;
   align-items: center;
+  margin-bottom: 3px;
 }
 
-.indicator-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.indicator-icon-nano {
+  font-size: 10px;
 }
 
-.progress-mini {
-  width: 80px; 
-  height: 3px; 
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-  overflow: hidden;
+.progress-nano {
+  width: 50px; 
+  height: 2px; 
+  background: rgba(255, 255, 255, 0.05);
+  margin-top: 1px;
 }
 
-.progress-fill {
-  height: 100%;
-  transition: width 0.5s ease-in-out;
+.label-nano { 
+  font-size: 6.5px; 
+  color: #94a3b8; 
+  font-weight: 900; 
+  text-transform: uppercase;
 }
 
-.blue-bg { background: #3b82f6; box-shadow: 0 0 5px #3b82f6; }
-.gold-bg { background: #eab308; box-shadow: 0 0 5px #eab308; }
+.value-nano { 
+  font-size: 7.5px; 
+  color: #fff; 
+  font-family: 'Share Tech Mono', monospace; 
+}
 
-.label-xs { font-size: 7px; color: #94a3b8; font-weight: 700; }
-.value-xs { font-size: 8px; color: #fff; font-family: 'Share Tech Mono', monospace; }
+/* ✨ تأثير التوهج الرقمي لـ QUANTUM FLUX و SYSTEM POWER */
+.gold-glow-text {
+  color: #eab308 !important;
+  text-shadow: 0 0 4px rgba(234, 179, 8, 0.6);
+}
+
+.digital-flicker {
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+}
 
 /* 📊 الرسم البياني التجميلي الصغير */
 .mini-graph-container {
@@ -189,10 +206,10 @@
     min-width: 130px; 
     padding: 8px 10px;
   }
-  .status-indicators-v3 { 
+  .status-indicators-v3.nano-scale { 
     top: 15px; 
     left: 15px; 
-    min-width: 120px; 
+    min-width: 100px !important; 
   }
   .ui-bal-value { font-size: 18px; }
   .sector-info-v3 { 
@@ -200,7 +217,6 @@
     left: 15px; 
     min-width: 160px;
   }
-  .progress-mini { width: 50px; }
+  .progress-nano { width: 40px; }
   .sector-title { font-size: 13px; }
-  .mini-graph-container { height: 12px; }
 }
