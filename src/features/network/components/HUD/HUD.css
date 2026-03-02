@@ -8,6 +8,8 @@
   padding: 15px 20px;
   pointer-events: auto; /* لضمان التفاعل مع الأزرار واللوحات */
   transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
 }
 
 .glass-panel-v3:hover {
@@ -59,38 +61,14 @@
   text-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
 }
 
-.panel-status-bar {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 8px;
-}
-
-.status-dot-active {
-  width: 6px;
-  height: 6px;
-  background: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #10b981;
-  animation: pulse-dot 2s infinite;
-}
-
-.status-text {
-  font-size: 9px;
-  color: #64748b;
-  font-family: monospace;
-}
-
 /* 📟 لوحة القطاع - Bottom Left (تصميم غرفة العمليات الاحترافي) */
 .sector-info-v3 {
   position: absolute;
-  bottom: 40px;
+  bottom: 80px; /* مرفوع قليلاً لترك مساحة للـ Activity Log الجانبي */
   left: 30px;
   min-width: 250px;
   z-index: 1000;
-  border-left: 5px solid #eab308; /* الشريط الذهبي المميز للمشروع */
+  border-left: 5px solid #eab308;
 }
 
 .sector-tag {
@@ -111,6 +89,7 @@
   font-weight: 800;
   margin: 0 0 12px 0;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .sector-details {
@@ -123,20 +102,16 @@
   display: flex;
   justify-content: space-between;
   font-size: 11px;
-  font-family: monospace;
+  font-family: 'Share Tech Mono', monospace;
 }
 
-.detail-label {
-  color: #64748b;
-}
-
-.detail-value {
-  color: #cbd5e1;
-}
+.detail-label { color: #64748b; }
+.detail-value { color: #cbd5e1; }
 
 .status-glow-blue {
   color: #3b82f6;
   text-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  font-weight: 900;
 }
 
 /* 📊 الرسم البياني التجميلي الصغير (Visual HUD Element) */
@@ -144,25 +119,48 @@
   display: flex;
   align-items: flex-end;
   gap: 3px;
-  height: 20px;
+  height: 25px;
   margin-top: 15px;
-  opacity: 0.5;
 }
 
 .mini-graph-container .bar {
   flex: 1;
-  background: #eab308;
+  background: linear-gradient(to top, #eab308, transparent);
   border-radius: 1px;
   animation: bar-dance 2s infinite ease-in-out;
 }
 
+/* ⚡ تأثير خط المسح (Scanner Line) لإضافة لمسة تقنية حية */
+.panel-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.4), transparent);
+  animation: scan-move 4s infinite linear;
+  pointer-events: none;
+}
+
 /* ✨ الأنيميشن الخاصة بالـ HUD لزيادة الحيوية */
+@keyframes scan-move {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(1.2); }
 }
 
 @keyframes bar-dance {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(0.4); }
+  0%, 100% { transform: scaleY(1); opacity: 0.6; }
+  50% { transform: scaleY(0.4); opacity: 0.3; }
+}
+
+/* 📱 استجابة الموبايل لضمان عدم تداخل اللوحات في الشاشات الصغيرة */
+@media (max-width: 600px) {
+  .balance-panel-v3 { top: 15px; right: 15px; min-width: 180px; }
+  .ui-bal-value { font-size: 24px; }
+  .sector-info-v3 { bottom: 70px; left: 15px; min-width: 200px; }
 }
