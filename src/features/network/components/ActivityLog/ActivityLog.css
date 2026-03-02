@@ -1,29 +1,29 @@
-/* 🚀 وضعية اللوحة الجانبية (Terminal Position) */
+/* 🚀 وضعية اللوحة الجانبية المصغرة (Compact Terminal Position) */
 .activity-container { 
   position: absolute;
-  bottom: 80px; /* مرتفع عن الفوتر ليعطي مساحة للبيانات التقنية */
-  right: 25px;
-  width: 300px; /* عرض احترافي للـ Side Panel */
-  max-height: 350px; /* طول محدد لضمان عدم تغطية الرصيد فوقه */
-  background: rgba(13, 13, 25, 0.7); /* زجاج داكن فخم */
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(234, 179, 8, 0.3); /* توحيد الإطار الذهبي */
-  border-radius: 16px; 
-  padding: 15px 18px; 
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+  bottom: 110px; /* مرفوع قليلاً ليتناسب مع توزيع الأركان الجديد */
+  right: 20px;
+  width: 240px; /* تقليل العرض من 300px لترك مساحة للخريطة */
+  max-height: 180px; /* تقليل الارتفاع لضمان عدم الوصول للوحة الرصيد */
+  background: rgba(13, 13, 25, 0.75); /* زجاج داكن فخم */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 179, 8, 0.25); /* إطار ذهبي نحيف */
+  border-radius: 12px; 
+  padding: 10px 14px; 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   z-index: 1000;
-  overflow-y: auto; /* يسمح بالتمرير داخل السجل */
-  pointer-events: auto; /* لضمان القدرة على سكرول السجل */
+  overflow-y: auto; /* يسمح بالتمرير داخل السجل فقط */
+  pointer-events: auto; 
   display: flex;
   flex-direction: column;
 }
 
-/* 🧪 تخصيص السكرول بار ليكون غير مرئي تقريباً (HUD Style) */
+/* 🧪 تخصيص السكرول بار ليختفي تقريباً (HUD Style) */
 .activity-container::-webkit-scrollbar {
-  width: 3px;
+  width: 2px;
 }
 .activity-container::-webkit-scrollbar-thumb {
-  background: rgba(234, 179, 8, 0.3);
+  background: rgba(234, 179, 8, 0.2);
   border-radius: 10px;
 }
 
@@ -31,126 +31,117 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 6px;
 }
 
 .activity-title { 
-  font-size: 12px; 
+  font-size: 10px; /* تصغير من 12px ليتناسب مع الحجم الجديد */
   color: #eab308; 
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+  letter-spacing: 1.2px;
+  text-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
   margin: 0;
 }
 
-/* علامة الـ LIVE المتطورة */
+/* علامة الـ LIVE المتطورة - حجم أصغر */
 .live-badge-wrapper {
-  background: rgba(34, 197, 94, 0.1);
-  padding: 3px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(34, 197, 94, 0.2);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .live-badge-dot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   background: #22c55e;
   border-radius: 50%;
-  box-shadow: 0 0 8px #22c55e;
+  box-shadow: 0 0 6px #22c55e;
   animation: pulse-live 1.5s infinite;
 }
 
 .live-badge-text {
   color: #22c55e;
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 900;
-  letter-spacing: 0.5px;
 }
 
-@keyframes pulse-live {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.9); }
-}
-
-/* تنسيقات الـ Item داخل الـ Log */
+/* تنسيقات الـ Item داخل الـ Log - مكثفة جداً */
 .activity-item { 
   display: flex; 
-  gap: 12px; 
-  padding: 10px 0; 
+  gap: 8px; 
+  padding: 6px 0; 
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .activity-item:last-child { border-bottom: none; }
 
 .status-dot { 
-  width: 6px; 
-  height: 6px; 
+  width: 4px; 
+  height: 4px; 
   background: #22c55e; 
   border-radius: 50%; 
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.6); 
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .user-tag {
   color: #eab308;
   font-weight: 800;
-  text-shadow: 0 0 8px rgba(234, 179, 8, 0.2);
+  font-size: 9px;
 }
 
 .activity-text { 
-  font-size: 11px; 
+  font-size: 10px; /* تصغير الخط من 11px */
   color: #cbd5e1; 
   margin: 0;
   font-family: 'Inter', sans-serif;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .activity-time { 
-  font-size: 8px; 
+  font-size: 7px; 
   color: #64748b; 
   display: block;
-  margin-top: 4px;
-  text-transform: uppercase;
-  font-weight: 600;
+  margin-top: 2px;
 }
 
-/* الفوتر التقني للوحدة */
+/* الفوتر التقني - أنحف */
 .activity-footer {
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 6px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  opacity: 0.6;
+  gap: 6px;
+  opacity: 0.5;
 }
 
 .footer-line {
   height: 1px;
-  background: rgba(234, 179, 8, 0.2);
+  background: rgba(234, 179, 8, 0.15);
   flex-grow: 1;
 }
 
 .terminal-cursor {
   color: #eab308;
   font-weight: bold;
-  animation: blink 1s infinite;
-  font-size: 12px;
+  font-size: 10px;
 }
 
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* 📱 استجابة الموبايل: تصغير العرض لضمان عدم الخروج عن الشاشة */
+/* 📱 استجابة الموبايل: تصغير فائق لضمان رؤية الخريطة */
 @media (max-width: 480px) {
   .activity-container {
-    width: 260px;
+    width: 180px; /* عرض ضيق جداً للموبايل */
     right: 15px;
-    bottom: 70px;
-    max-height: 200px;
+    bottom: 90px;
+    max-height: 140px;
+    padding: 8px 10px;
   }
+  .activity-title { font-size: 8px; }
+  .activity-text { font-size: 9px; }
 }
