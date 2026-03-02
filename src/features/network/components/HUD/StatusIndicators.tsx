@@ -2,49 +2,46 @@ import React from 'react';
 import './HUD.css';
 
 /**
- * 🛰️ StatusIndicators - النسخة الأسطورية (Ultra-Nano Edition)
- * تم تصغير الحجم بنسبة 40% لضمان أقصى كفاءة لمساحة الشاشة.
- * المسميات المحدثة: QUANTUM FLUX و SYSTEM POWER بتوهج رقمي.
+ * 🛰️ StatusIndicators - النسخة الذرية (Atomic Nano Edition)
+ * تم تصغير الحجم بنسبة 40% إضافية (إجمالي تصغير ضخم) لتوفير مساحة رؤية كاملة.
+ * المسميات: QUANTUM FLUX و SYSTEM POWER مع تأثير التوهج الرقمي.
  */
 const StatusIndicators: React.FC = () => {
   return (
-    <div className="status-indicators-v3 glass-panel-v3 nano-scale">
-      {/* مؤشر الاتصال - Connectivity: تصميم رشيق جداً */}
-      <div className="indicator-item-nano">
-        <span className="indicator-icon-nano blue-text">📡</span>
-        <div className="indicator-content">
-          <span className="label-nano">CONNECTIVITY</span>
-          <div className="progress-nano">
-            <div className="progress-fill blue-bg" style={{ width: '98.4%' }}></div>
+    <div className="status-indicators-v3 glass-panel-v3 atomic-nano">
+      {/* مؤشر الاتصال - Connectivity: مدمج جداً */}
+      <div className="indicator-item-atomic">
+        <span className="indicator-icon-atomic blue-text">📡</span>
+        <div className="indicator-content-atomic">
+          <div className="label-row">
+            <span className="label-atomic">CONN</span>
+            <span className="value-atomic">98%</span>
           </div>
-          <span className="value-nano">98.4%</span>
+          <div className="progress-atomic">
+            <div className="progress-fill blue-bg" style={{ width: '98%' }}></div>
+          </div>
         </div>
       </div>
 
-      <div className="indicator-divider-nano"></div>
-
-      {/* مؤشر الطاقة - SYSTEM POWER: المسمى الجديد المحدث */}
-      <div className="indicator-item-nano">
-        <span className="indicator-icon-nano gold-text">⚡</span>
-        <div className="indicator-content">
-          <span className="label-nano">SYSTEM POWER</span>
-          <div className="progress-nano">
+      {/* مؤشر الطاقة - SYSTEM POWER: تم دمج النص مع البار */}
+      <div className="indicator-item-atomic">
+        <span className="indicator-icon-atomic gold-text">⚡</span>
+        <div className="indicator-content-atomic">
+          <div className="label-row">
+            <span className="label-atomic">PWR</span>
+            <span className="value-atomic gold-glow-text">STABLE</span>
+          </div>
+          <div className="progress-atomic">
             <div className="progress-fill gold-bg" style={{ width: '85%' }}></div>
           </div>
-          <span className="value-nano">STABLE</span>
         </div>
       </div>
       
-      {/* 🌌 QUANTUM FLUX: التأثير الرقمي المتوهج */}
-      <div className="flux-container-nano">
-        <div className="flux-content">
-          <span className="label-nano gold-glow-text">QUANTUM FLUX</span>
-          <span className="value-nano mono digital-flicker">1.2 GB/S</span>
-        </div>
+      {/* 🌌 QUANTUM FLUX: الخط الفخم المتوهج في سطر واحد */}
+      <div className="flux-atomic-wrapper">
+        <span className="label-atomic-flux">QUANTUM FLUX:</span>
+        <span className="value-atomic mono digital-flicker">1.2G</span>
       </div>
-
-      {/* لمسة تقنية أخيرة: تأثير وميض رقمي بسيط في الخلفية */}
-      <div className="indicator-scan-glow"></div>
     </div>
   );
 };
