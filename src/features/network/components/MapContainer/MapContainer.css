@@ -4,36 +4,45 @@
   width: 100%;
   height: 100%; 
   /* دمج الصورتين: الـ HUD في الأعلى والـ Carbon Fiber في الخلفية الأساسية */
-  background: 
-    url('/textures/tech_hud_overlay.png') no-repeat center / cover,
-    url('/textures/carbon_fiber_base.png') repeat;
+  background-image: 
+    url('/textures/tech_hud_overlay.png'), 
+    url('/textures/carbon_fiber_base.png');
+  background-position: center;
+  background-size: cover, repeat;
+  background-repeat: no-repeat, repeat;
   border-radius: 0; 
   overflow: hidden;
   box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
 }
 
-/* 🛡️ إجبار مكتبة Leaflet على العمل داخل إطار HUD الزجاجي */
+/* 🛡️ إجبار مكتبة Leaflet على الشفافية للسماح برؤية الخلفية */
 .leaflet-container {
   height: 100% !important;
   width: 100% !important;
-  /* جعل الخريطة شفافة قليلاً لتمرير ملمس الكربون من خلفها */
-  background: rgba(13, 8, 29, 0.4) !important;
+  /* جعل حاوية الخريطة شفافة تماماً */
+  background: transparent !important; 
   z-index: 1;
 }
 
-/* 🧬 تأثير الخريطة الرقمية (Matrix Look) - تم تحسينه ليتوافق مع التوهج الأرجواني */
-.pixelated-map .leaflet-tile-container {
-  filter: invert(1) hue-rotate(250deg) contrast(1.4) brightness(0.6) saturate(0.8);
+/* 🧬 تأثير الخريطة الرقمية ودمجها مع الخلفية (الحل الجذري للطفو) */
+.pixelated-map .leaflet-tile-container img {
+  /* تعديل الألوان لتتناسب مع التوهج الأرجواني */
+  filter: invert(1) hue-rotate(250deg) contrast(1.4) brightness(0.5) saturate(0.8);
+  /* جعل المربعات شفافة بنسبة تسمح برؤية الكربون فايبر تحتها */
+  opacity: 0.4 !important; 
+  /* دمج الخريطة مع الصور الخلفية (HUD & Carbon) */
+  mix-blend-mode: screen; 
   image-rendering: pixelated; 
 }
 
-/* 📍 تنسيق الأيقونات (Pins) */
+/* 📍 تنسيق الأيقونات (Pins) - تظل ساطعة وفوق كل شيء */
 .pi-icon-div img {
   pointer-events: none;
   object-fit: contain;
+  z-index: 1001 !important;
 }
 
-/* ✨ توهج الـ Pins الأسطوري (ذهبي وأزرق) */
+/* ✨ توهج الـ Pins الأسطوري (ذهبي وأزرق فخم) */
 .glow-gold img { 
   filter: drop-shadow(0 0 15px #eab308) drop-shadow(0 0 30px rgba(234, 179, 8, 0.5)); 
   animation: marker-pulse 2s infinite ease-in-out;
@@ -57,7 +66,7 @@
   z-index: 500;
 }
 
-/* 🕸️ خطوط الشبكة التقنية (Grid) - مدمجة مع صور الـ Textures */
+/* 🕸️ خطوط الشبكة التقنية (Grid) */
 .map-grid-lines {
   position: absolute;
   inset: 0;
@@ -65,7 +74,7 @@
     linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 /* 💰 لوحة الرصيد - Top Right (تصميم زجاجي فاخر) */
@@ -85,7 +94,7 @@
 }
 
 .ui-bal-value { 
-  color: #eab308; /* توحيد اللون الذهبي */
+  color: #eab308; 
   font-size: 22px; 
   font-weight: 900; 
   text-shadow: 0 0 15px rgba(234, 179, 8, 0.7); 
