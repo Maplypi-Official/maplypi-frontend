@@ -1,0 +1,89 @@
+/* الحاويات الزجاجية (Glassmorphism Base) */
+.glass-panel-v3 {
+  background: rgba(13, 13, 25, 0.7);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 15px 20px;
+  pointer-events: auto; /* لضمان التفاعل مع الأزرار */
+  transition: all 0.3s ease;
+}
+
+.glass-panel-v3:hover {
+  border-color: rgba(234, 179, 8, 0.6);
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+}
+
+/* لوحة الرصيد - Top Right */
+.balance-panel-v3 {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  min-width: 220px;
+  z-index: 1000;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.panel-label {
+  font-size: 10px;
+  color: #94a3b8;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.balance-value-container {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.currency-symbol {
+  color: #eab308;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.ui-bal-value {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+}
+
+.panel-status-bar {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 8px;
+}
+
+.status-dot-active {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulse-dot 2s infinite;
+}
+
+.status-text {
+  font-size: 9px;
+  color: #64748b;
+  font-family: monospace;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
