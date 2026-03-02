@@ -1,0 +1,59 @@
+.tech-overlays-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* خلف الخريطة */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* طبقة الكربون فايبر - الملمس الخشن */
+.carbon-fiber-base {
+  position: absolute;
+  inset: 0;
+  background: url('/textures/carbon_fiber_base.png') repeat;
+  background-size: 200px;
+  opacity: 0.6;
+}
+
+/* إطار الـ HUD التقني - اللمسة الفخمة */
+.tech-hud-frame {
+  position: absolute;
+  inset: 0;
+  background: url('/textures/tech_hud_overlay.png') no-repeat center / cover;
+  opacity: 0.4;
+  filter: hue-rotate(10deg) brightness(0.8);
+}
+
+/* أنيميشن خط المسح (Scanning) */
+.scanning-line {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(139, 92, 246, 0.15),
+    transparent
+  );
+  animation: scan-move 8s linear infinite;
+}
+
+@keyframes scan-move {
+  from { top: -100px; }
+  to { top: 100%; }
+}
+
+/* تأثير الـ CRT Grid لزيادة الواقعية التقنية */
+.crt-grid-effect {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 33, 0) 50%, 
+    rgba(0, 0, 0, 0.1) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.2;
+}
+
