@@ -2,10 +2,11 @@
 .glass-panel-v3 {
   background: rgba(13, 13, 25, 0.75);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* دعم متصفحات Safari و Pi Browser */
   border: 1px solid rgba(234, 179, 8, 0.25);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  border-radius: 10px; /* تقليل الانحناء ليتناسب مع الحجم الأصغر */
-  padding: 10px 15px; /* تصغير الحشو الداخلي لعدم إهدار المساحة */
+  border-radius: 10px; 
+  padding: 10px 15px; 
   pointer-events: auto;
   transition: all 0.3s ease;
   overflow: hidden;
@@ -20,9 +21,9 @@
 /* 💰 لوحة الرصيد - أعلى اليمين (Top Right) */
 .balance-panel-v3 {
   position: absolute;
-  top: 20px; /* تقليل المسافة من الحافة */
+  top: 20px; 
   right: 20px;
-  min-width: 170px; /* تصغير العرض الأدنى من 220px */
+  min-width: 170px; 
   z-index: 1000;
 }
 
@@ -34,7 +35,7 @@
 }
 
 .panel-label {
-  font-size: 9px; /* تصغير الخط من 10px */
+  font-size: 9px; 
   color: #94a3b8;
   letter-spacing: 1.5px;
   font-weight: 700;
@@ -49,13 +50,13 @@
 
 .currency-symbol {
   color: #eab308;
-  font-size: 14px; /* تصغير الرمز */
+  font-size: 14px; 
   font-weight: 900;
 }
 
 .ui-bal-value {
   color: #fff;
-  font-size: 24px; /* تصغير القيمة من 32px لضمان عدم التضخم */
+  font-size: 24px; 
   font-weight: 900;
   margin: 0;
   text-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
@@ -64,11 +65,11 @@
 /* 📟 لوحة القطاع - أسفل اليسار (Bottom Left) */
 .sector-info-v3 {
   position: absolute;
-  bottom: 100px; /* الالتزام بالمسافة فوق الـ Nav */
+  bottom: 100px; /* الالتزام بالمسافة فوق الـ Nav Bar */
   left: 20px;
-  min-width: 200px; /* تصغير العرض من 250px */
+  min-width: 200px; 
   z-index: 1000;
-  border-left: 3px solid #eab308; /* تصغير سمك الشريط */
+  border-left: 3px solid #eab308; 
 }
 
 .sector-tag {
@@ -83,30 +84,39 @@
 
 .sector-title {
   color: #fff;
-  font-size: 15px; /* تصغير العنوان من 18px */
+  font-size: 15px; 
   font-weight: 800;
   margin: 0 0 8px 0;
   text-transform: uppercase;
 }
 
+.sector-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .detail-item {
   display: flex;
   justify-content: space-between;
-  font-size: 10px; /* تصغير الخط من 11px */
+  font-size: 10px; 
   font-family: 'Share Tech Mono', monospace;
   margin-bottom: 2px;
 }
+
+.detail-label { color: #64748b; }
+.detail-value { color: #cbd5e1; }
 
 /* 📊 مؤشرات الحالة التقنية - أعلى اليسار (Top Left) */
 .status-indicators-v3 {
   position: absolute;
   top: 20px;
   left: 20px;
-  min-width: 150px; /* تصغير من 180px */
+  min-width: 150px; 
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 8px; /* تقليل الفجوة بين العناصر */
+  gap: 8px; 
 }
 
 .indicator-item {
@@ -115,28 +125,60 @@
   align-items: center;
 }
 
-.progress-mini {
-  width: 80px; /* تصغير طول البار من 100px */
-  height: 3px; /* تصغير السمك */
-  background: rgba(255, 255, 255, 0.08);
+.indicator-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.label-xs { font-size: 7px; color: #94a3b8; }
-.value-xs { font-size: 8px; color: #fff; }
+.progress-mini {
+  width: 80px; 
+  height: 3px; 
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+}
+
+.blue-bg { background: #3b82f6; box-shadow: 0 0 5px #3b82f6; }
+.gold-bg { background: #eab308; box-shadow: 0 0 5px #eab308; }
+
+.label-xs { font-size: 7px; color: #94a3b8; font-weight: 700; }
+.value-xs { font-size: 8px; color: #fff; font-family: 'Share Tech Mono', monospace; }
 
 /* 📊 الرسم البياني التجميلي الصغير */
 .mini-graph-container {
   display: flex;
   align-items: flex-end;
   gap: 2px;
-  height: 18px; /* تقليل الارتفاع من 25px */
+  height: 18px; 
   margin-top: 10px;
 }
 
-/* ⚡ تأثير خط المسح */
+.bar {
+  flex: 1;
+  background: rgba(234, 179, 8, 0.4);
+  border-radius: 1px;
+}
+
+/* ⚡ تأثير خط المسح الأسطوري */
 .panel-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 1.5px;
   background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.3), transparent);
+  animation: scan-move 4s linear infinite;
+}
+
+@keyframes scan-move {
+  0% { top: -5%; }
+  100% { top: 105%; }
 }
 
 /* 📱 استجابة الموبايل (Ultra Compact Mode) */
@@ -160,4 +202,5 @@
   }
   .progress-mini { width: 50px; }
   .sector-title { font-size: 13px; }
+  .mini-graph-container { height: 12px; }
 }
