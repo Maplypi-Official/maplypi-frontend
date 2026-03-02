@@ -2,7 +2,7 @@
 .glass-panel-v3 {
   background: rgba(13, 13, 25, 0.8);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* دعم متصفحات Safari و Pi Browser */
   border: 1px solid rgba(234, 179, 8, 0.2);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   pointer-events: auto;
@@ -11,12 +11,16 @@
   position: relative;
 }
 
-/* 📊 مؤشرات الحالة التقنية - النسخة الذرية (تصغير 40% إضافي) */
+.glass-panel-v3:hover {
+  border-color: rgba(234, 179, 8, 0.5);
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
+}
+
+/* 📊 مؤشرات الحالة التقنية - النسخة الذرية (Top Left) */
 .status-indicators-v3.atomic-nano {
   position: absolute;
   top: 15px;
   left: 15px;
-  /* حجم ميكرو فائق الرشاقة */
   min-width: 85px !important;
   max-width: 100px !important;
   padding: 4px 6px !important;
@@ -91,10 +95,101 @@
   text-shadow: 0 0 3px rgba(234, 179, 8, 0.5);
 }
 
+/* 🎯 لوحة معلومات القطاع - TARGET LOC (Bottom Left) */
+.target-loc-nano {
+  position: absolute;
+  bottom: 85px !important; 
+  left: 15px;
+  min-width: 130px !important;
+  max-width: 150px !important;
+  padding: 6px 10px !important;
+  border-left: 2px solid #eab308 !important; 
+  border-radius: 4px 10px 4px 4px !important;
+  z-index: 1000;
+}
+
+.target-tag-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+.target-dot-pulse {
+  width: 4px;
+  height: 4px;
+  background: #eab308;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #eab308;
+  animation: target-pulse 1.5s infinite;
+}
+
+.target-label-nano {
+  font-size: 7px;
+  font-weight: 900;
+  color: #eab308;
+  letter-spacing: 1px;
+}
+
+.target-title-nano {
+  font-size: 11px;
+  color: #fff;
+  margin: 2px 0 5px 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.target-data-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.target-item {
+  display: flex;
+  align-items: center;
+}
+
+.t-label {
+  font-size: 6px;
+  color: #64748b;
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.t-value {
+  font-size: 7px;
+  color: #cbd5e1;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* 🌊 تأثير الموجة الترددية المصغر */
+.wave-container-nano {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 8px;
+  margin-top: 6px;
+  opacity: 0.6;
+}
+
+.wave-bar {
+  flex: 1;
+  background: #eab308;
+  border-radius: 1px;
+}
+
 /* ✨ تأثيرات التوهج والوميض الرقمي */
 .gold-glow-text {
   color: #eab308 !important;
   text-shadow: 0 0 4px rgba(234, 179, 8, 0.6);
+}
+
+.status-flicker-blue {
+  color: #3b82f6;
+  text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  animation: flicker 3s infinite;
 }
 
 .digital-flicker {
@@ -108,7 +203,13 @@
   20%, 21%, 63%, 65%, 69% { opacity: 0.5; }
 }
 
-/* 💰 لوحة الرصيد - أعلى اليمين (نفس التنسيق مع لمسة رشيقة) */
+@keyframes target-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 💰 لوحة الرصيد - أعلى اليمين (Top Right) */
 .balance-panel-v3 {
   position: absolute;
   top: 15px; 
@@ -123,15 +224,6 @@
   font-size: 20px; 
   font-weight: 900;
   text-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
-}
-
-/* 📟 لوحة القطاع - أسفل اليسار */
-.sector-info-v3 {
-  position: absolute;
-  bottom: 95px; 
-  left: 15px;
-  min-width: 180px; 
-  z-index: 1000;
 }
 
 /* ⚡ تأثير خط المسح الأسطوري */
@@ -156,6 +248,11 @@
     top: 10px; 
     left: 10px; 
     min-width: 80px !important; 
+  }
+  .target-loc-nano {
+    bottom: 80px !important;
+    left: 10px;
+    min-width: 110px !important;
   }
   .balance-panel-v3 { 
     top: 10px; 
