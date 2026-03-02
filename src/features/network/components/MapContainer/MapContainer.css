@@ -12,12 +12,19 @@
 .leaflet-container {
   height: 100% !important;
   width: 100% !important;
+  background: #0d081d !important;
 }
 
-/* تأثير Isometric لمحاكاة التصميم Diamond */
+/* تأثير الخريطة الرقمية (Matrix/Isometric Look) */
 .pixelated-map .leaflet-tile-container {
   filter: invert(1) hue-rotate(240deg) contrast(1.2) brightness(0.7);
   image-rendering: pixelated; 
+}
+
+/* 📍 تنسيق الأيقونات (Pins) ومنع التمطيط */
+.pi-icon-div img {
+  pointer-events: none;
+  object-fit: contain;
 }
 
 /* توهج الـ Pins (ذهبي وأزرق فخم) */
@@ -25,6 +32,7 @@
   filter: drop-shadow(0 0 20px #eab308) drop-shadow(0 0 40px rgba(234, 179, 8, 0.4)); 
   animation: marker-pulse 2s infinite ease-in-out;
 }
+
 .glow-blue img { 
   filter: drop-shadow(0 0 15px #3b82f6); 
   animation: marker-pulse 3s infinite ease-in-out;
@@ -35,6 +43,7 @@
   50% { transform: scale(1.1); opacity: 0.8; }
 }
 
+/* الطبقة العلوية للعناصر الرقمية (HUD) */
 .matrix-overlay-elements {
   position: absolute;
   inset: 0;
@@ -42,6 +51,7 @@
   z-index: 500;
 }
 
+/* خطوط الشبكة التقنية */
 .map-grid-lines {
   position: absolute;
   inset: 0;
@@ -51,21 +61,29 @@
   background-size: 60px 60px;
 }
 
+/* لوحة الرصيد - Top Right */
 .top-right-panel {
   position: absolute;
   top: 30px;
   right: 30px;
   text-align: right;
-  background: rgba(13, 8, 29, 0.8);
+  background: rgba(13, 8, 29, 0.85);
   padding: 15px 20px;
   border-radius: 12px;
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(234, 179, 8, 0.5);
+  border: 1px solid rgba(234, 179, 8, 0.4);
+  z-index: 1000;
   pointer-events: auto;
 }
 
-.ui-bal-value { color: #ffca28; font-size: 22px; font-weight: 900; text-shadow: 0 0 10px rgba(255, 202, 40, 0.5); }
+.ui-bal-value { 
+  color: #ffca28; 
+  font-size: 22px; 
+  font-weight: 900; 
+  text-shadow: 0 0 10px rgba(255, 202, 40, 0.5); 
+}
 
+/* دائرة النطاق حول المستخدم */
 .range-circle-v2 {
   position: absolute;
   width: 200px;
@@ -85,6 +103,7 @@
   100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
 
+/* لوحة القطاع - Bottom Center/Left */
 .node-label-v2 {
   position: absolute;
   bottom: 40px;
@@ -93,14 +112,18 @@
   padding: 12px 25px;
   border-radius: 10px;
   border-left: 5px solid #eab308;
+  z-index: 1000;
+  color: white;
 }
 
+/* خط المسح الضوئي المتحرك */
 .scan-line-v2 {
   position: absolute;
   width: 100%;
   height: 100px;
   background: linear-gradient(transparent, rgba(139, 92, 246, 0.1), transparent);
   animation: scanning 4s linear infinite;
+  z-index: 400;
 }
 
 @keyframes scanning {
