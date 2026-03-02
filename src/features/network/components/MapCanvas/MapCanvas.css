@@ -1,0 +1,46 @@
+.map-canvas-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: transparent !important;
+}
+
+.leaflet-master-container {
+  width: 100%;
+  height: 100%;
+  background: transparent !important; /* إجبار الحاوية على الشفافية */
+}
+
+/* 🧬 سحر الـ Blueprint Mode: تعديل مربعات الخريطة */
+.pixelated-map .leaflet-tile-container img {
+  /* 1. عكس الألوان ثم تلوينها بالأرجواني التقني */
+  filter: invert(1) hue-rotate(255deg) brightness(0.6) contrast(1.4) saturate(0.5);
+  
+  /* 2. جعل الخريطة شفافة بنسبة 30% لظهور الكربون والـ HUD من تحتها */
+  opacity: 0.3 !important; 
+  
+  /* 3. دمج الطبقات لضمان عدم وجود مساحات رمادية معتمة */
+  mix-blend-mode: screen; 
+  
+  /* 4. الحفاظ على وضوح الخطوط (Blueprint Look) */
+  image-rendering: auto; 
+}
+
+/* 🛠️ إخفاء شعارات Leaflet لزيادة الاحترافية */
+.leaflet-control-attribution {
+  display: none !important;
+}
+
+/* ⚡ تخصيص أزرار الزوم لتليق بالـ HUD */
+.leaflet-bar {
+  border: 1px solid rgba(234, 179, 8, 0.4) !important;
+  background: rgba(13, 13, 25, 0.8) !important;
+  backdrop-filter: blur(10px);
+}
+
+.leaflet-bar a {
+  color: #eab308 !important;
+  background: transparent !important;
+  border-bottom: 1px solid rgba(234, 179, 8, 0.2) !important;
+}
+
