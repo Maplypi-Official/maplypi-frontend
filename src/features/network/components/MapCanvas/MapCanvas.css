@@ -17,23 +17,18 @@
 
 /* 🧬 سحر الـ Blueprint Mode: تحويل مربعات الخريطة لخيوط ليزر أرجوانية */
 .pixelated-map .leaflet-tile-container img {
-  /* 1. عكس الألوان (Dark Mode) ثم تلوينها بالأرجواني التقني */
   filter: invert(1) hue-rotate(255deg) brightness(0.5) contrast(1.6) saturate(0.4);
-  
-  /* 2. شفافية عالية (30%) لظهور نسيج الكربون فايبر أسفل الخريطة */
   opacity: 0.3 !important; 
-  
-  /* 3. دمج الطبقات (Screen) لضمان سطوع الخطوط الفاتحة فقط */
   mix-blend-mode: screen; 
-  
-  /* 4. الحفاظ على المظهر الرقمي الحاد */
   image-rendering: auto; 
 }
 
-/* 📍 تنسيق الأيقونات (Pins) - العنصر الأسطوري في الشاشة */
+/* 📍 تنسيق الأيقونات (Pins) - الحل السحري لإزالة السواد */
 .pi-icon-div {
   background: transparent !important;
   border: none !important;
+  /* تثبيت نقطة الارتكاز في الأسفل لضمان دقة الموقع الجغرافي */
+  transform-origin: bottom center !important; 
 }
 
 .pi-marker-content {
@@ -45,7 +40,18 @@
   position: relative;
 }
 
-/* ✨ توهج الـ Pins (ذهبي وأزرق) */
+/* 🖼️ معالجة الصور المربعة لتبدو أيقونات شفافة احترافية */
+.pi-marker-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* 🛑 أهم سطر: تحويل اللون الأسود في الصورة إلى شفاف */
+  mix-blend-mode: screen; 
+  /* إزالة أي حواف حادة ناتجة عن التوليد */
+  mask-image: radial-gradient(circle, black 65%, transparent 100%);
+}
+
+/* ✨ توهج الـ Pins (ذهبي وأزرق) مع أنيميشن النبض */
 .glow-gold img { 
   filter: drop-shadow(0 0 12px #eab308) drop-shadow(0 0 25px rgba(234, 179, 8, 0.5)); 
   animation: marker-pulse 2s infinite ease-in-out;
@@ -79,6 +85,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2000;
 }
 
 .pin-label-text { font-size: 10px; font-weight: 900; color: #eab308; }
@@ -115,6 +122,8 @@
   background: rgba(13, 13, 25, 0.8) !important;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+  margin-left: 20px !important;
+  margin-top: 20px !important;
 }
 
 .leaflet-bar a {
