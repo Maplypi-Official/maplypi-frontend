@@ -1,15 +1,30 @@
-/* 🛰️ سجل النشاط - نسخة خفيفة وفخمة */
+/* 🚀 وضعية اللوحة الجانبية (Terminal Position) */
 .activity-container { 
-  /* استخدام نفس قاعدة الزجاج المعتمدة لتوحيد الشكل */
-  background: rgba(13, 13, 25, 0.7); 
+  position: absolute;
+  bottom: 80px; /* مرتفع عن الفوتر ليعطي مساحة للبيانات التقنية */
+  right: 25px;
+  width: 300px; /* عرض احترافي للـ Side Panel */
+  max-height: 350px; /* طول محدد لضمان عدم تغطية الرصيد فوقه */
+  background: rgba(13, 13, 25, 0.7); /* زجاج داكن فخم */
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(234, 179, 8, 0.3); 
-  border-radius: 12px;
-  padding: 15px; 
-  margin-top: 15px; 
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  position: relative;
-  overflow: hidden;
+  border: 1px solid rgba(234, 179, 8, 0.3); /* توحيد الإطار الذهبي */
+  border-radius: 16px; 
+  padding: 15px 18px; 
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  overflow-y: auto; /* يسمح بالتمرير داخل السجل */
+  pointer-events: auto; /* لضمان القدرة على سكرول السجل */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🧪 تخصيص السكرول بار ليكون غير مرئي تقريباً (HUD Style) */
+.activity-container::-webkit-scrollbar {
+  width: 3px;
+}
+.activity-container::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.3);
+  border-radius: 10px;
 }
 
 .activity-header {
@@ -17,24 +32,25 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 8px;
 }
 
 .activity-title { 
-  font-size: 11px; 
+  font-size: 12px; 
   color: #eab308; 
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+  margin: 0;
 }
 
-/* علامة الـ LIVE المتوهجة */
+/* علامة الـ LIVE المتطورة */
 .live-badge-wrapper {
   background: rgba(34, 197, 94, 0.1);
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid rgba(34, 197, 94, 0.3);
   display: flex;
   align-items: center;
@@ -54,42 +70,87 @@
   color: #22c55e;
   font-size: 8px;
   font-weight: 900;
-}
-
-/* قائمة العناصر - Terminal Style */
-.activity-item { 
-  display: flex; 
-  gap: 12px; 
-  padding: 8px 0; 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-.status-dot { 
-  width: 5px; 
-  height: 5px; 
-  background: #22c55e; 
-  border-radius: 50%; 
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
-  margin-top: 4px;
-}
-
-.activity-text { 
-  font-size: 11px; 
-  color: #cbd5e1; 
-  font-family: 'Inter', sans-serif;
-  line-height: 1.4;
-}
-
-.user-tag { color: #eab308; font-weight: 800; }
-
-.activity-time { 
-  font-size: 8px; 
-  color: #64748b; 
-  display: block;
-  margin-top: 3px;
+  letter-spacing: 0.5px;
 }
 
 @keyframes pulse-live {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* تنسيقات الـ Item داخل الـ Log */
+.activity-item { 
+  display: flex; 
+  gap: 12px; 
+  padding: 10px 0; 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.activity-item:last-child { border-bottom: none; }
+
+.status-dot { 
+  width: 6px; 
+  height: 6px; 
+  background: #22c55e; 
+  border-radius: 50%; 
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.6); 
+  margin-top: 4px;
+}
+
+.user-tag {
+  color: #eab308;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(234, 179, 8, 0.2);
+}
+
+.activity-text { 
+  font-size: 11px; 
+  color: #cbd5e1; 
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.4;
+}
+
+.activity-time { 
+  font-size: 8px; 
+  color: #64748b; 
+  display: block;
+  margin-top: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* الفوتر التقني للوحدة */
+.activity-footer {
+  margin-top: auto;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.6;
+}
+
+.footer-line {
+  height: 1px;
+  background: rgba(234, 179, 8, 0.2);
+  flex-grow: 1;
+}
+
+.terminal-cursor {
+  color: #eab308;
+  font-weight: bold;
+  animation: blink 1s infinite;
+  font-size: 12px;
+}
+
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* 📱 استجابة الموبايل: تصغير العرض لضمان عدم الخروج عن الشاشة */
+@media (max-width: 480px) {
+  .activity-container {
+    width: 260px;
+    right: 15px;
+    bottom: 70px;
+    max-height: 200px;
+  }
 }
