@@ -1,27 +1,27 @@
 import React from 'react';
 import { useNetworkSync } from './hooks/useNetworkSync';
-import { useGPS } from './hooks/useGPS'; // الربط مع موقع المستخدم الحقيقي
+import { useGPS } from './hooks/useGPS'; 
 import MapCanvas from './components/MapCanvas/MapCanvas';
 import TechOverlays from './components/Overlays/TechOverlays';
 import BalancePanel from './components/HUD/BalancePanel';
 import SectorInfo from './components/HUD/SectorInfo';
-import StatusIndicators from './components/HUD/StatusIndicators'; // إضافة المؤشرات الجديدة
+import StatusIndicators from './components/HUD/StatusIndicators'; 
 import ActivityLog from './components/ActivityLog/ActivityLog';
 import './styles/NetworkMaster.css';
 
 /**
  * 🛰️ NetworkPage - النسخة الأسطورية الكاملة (Final Production)
  * تجمع بين الخريطة الحقيقية، طبقات الكربون فايبر، ولوحات الـ HUD الموزعة في الأركان.
- * الهيكل الطبقي يضمن الفخامة والوضوح كما في مراجع التصميم المعتمدة.
+ * الهيكل الطبقي يضمن الفخامة والوضوح ومنع الـ Scrolling نهائياً.
  */
 const NetworkPage: React.FC = () => {
-  // 1. جلب بيانات الشبكة والعقد من الباك أند
+  // 1. جلب بيانات الشبكة والعقد من الباك أند (محافظين على نفس المسميات)
   const { nodes, loading, userStats } = useNetworkSync();
   
   // 2. جلب الموقع الحقيقي من GPS الجهاز (للملاحة الحية)
   const { location: realLocation, error: gpsError } = useGPS();
 
-  // تحديد الموقع النهائي (الأولوية للـ GPS الحقيقي لضمان الدقة)
+  // تحديد الموقع النهائي (الأولوية للـ GPS الحقيقي لضمان الدقة في الـ HUD)
   const currentUserLocation = realLocation || { 
     lat: userStats?.lat || 30.010, 
     lng: userStats?.lng || 31.230 
@@ -35,13 +35,13 @@ const NetworkPage: React.FC = () => {
 
       {/* 🗺️ الطبقة 2: الخريطة بنظام الدمج (Map Layer) */}
       <main className="map-layer-container">
-         {userStats || realLocation ? (
+         {(userStats || realLocation) && !loading ? (
            <MapCanvas 
              sectorName="MAIN_OPERATIONS_SECTOR" 
              userLocation={{
                ...currentUserLocation,
                balance: userStats?.balance || 0,
-               level: userStats?.level || 14, // الحفاظ على المستوى الحالي
+               level: userStats?.level || 14,
                searchRange: userStats?.searchRange || 1
              }} 
              nodes={nodes} 
@@ -57,45 +57,44 @@ const NetworkPage: React.FC = () => {
          )}
       </main>
 
-      {/* 🛡️ الطبقة 3: واجهة الـ HUD المتكاملة (الأركان الأربعة) */}
+      {/* 🛡️ الطبقة 3: واجهة الـ HUD المتكاملة (توزيع الأركان الأربعة) */}
       <div className="hud-interface-layer">
         
-        {/* أعلى اليسار: مؤشرات النظام (Connectivity & Power) */}
+        {/* أعلى اليسار (Top-Left): مؤشرات الحالة */}
         <StatusIndicators />
 
-        {/* أعلى اليمين: رصيد الـ Pi الذهبي */}
+        {/* أعلى اليمين (Top-Right): الرصيد الذهبي */}
         <BalancePanel 
           balance={userStats?.balance} 
           status={loading ? "SYNCING_NODE..." : "SECURE_SYNC_ACTIVE"} 
         />
 
-        {/* أسفل اليسار: معلومات القطاع والإحداثيات الحية */}
+        {/* أسفل اليسار (Bottom-Left): معلومات القطاع */}
         <SectorInfo 
           sectorName="MAIN_OPERATIONS_SECTOR"
           lat={currentUserLocation.lat}
           lng={currentUserLocation.lng}
         />
 
-        {/* أسفل اليمين: سجل النشاط المباشر (Activity Feed) */}
+        {/* أسفل اليمين (Bottom-Right): سجل النشاط المباشر */}
         <ActivityLog />
 
-        {/* الهيدر التقني (HUD Title) */}
+        {/* 📟 الهيدر التقني (HUD Title) - متصل بالـ Top-Left Grid */}
         <header className="network-header-hud">
-          <div className="status-indicator-dot"></div>
           <h1 className="network-title">SYSTEM ACTIVE: NETWORK</h1>
-          <div className="network-subtitle">Real-time Node Connectivity & Matrix</div>
+          <div className="network-subtitle">Real-time Node Matrix</div>
         </header>
         
-        {/* فوتر بيانات التصحيح (Debug Info) */}
+        {/* 📊 فوتر بيانات التصحيح (Debug Info) - متصل بالـ Bottom-Right Grid */}
         <footer className="network-debug-footer-hud">
           <div className="debug-group">
             <span className="debug-label">ACTIVE_NODES:</span> 
             <span className="debug-value">{nodes?.length || 0}</span>
           </div>
-          <div className="debug-group" style={{ marginLeft: '20px' }}>
-            <span className="debug-label">GPS_LOCK:</span> 
+          <div className="debug-group" style={{ marginLeft: '10px' }}>
+            <span className="debug-label">GPS:</span> 
             <span className={`debug-value ${realLocation ? 'status-online' : 'status-offline'}`}>
-              {realLocation ? 'LOCKED_ON' : 'SEARCHING...'}
+              {realLocation ? 'LOCKED' : 'SEARCH'}
             </span>
           </div>
         </footer>
