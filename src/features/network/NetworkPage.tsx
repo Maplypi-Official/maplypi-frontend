@@ -10,22 +10,21 @@ import ActivityLog from './components/ActivityLog/ActivityLog';
 import './styles/NetworkMaster.css';
 
 /**
- * 🛰️ NetworkPage - النسخة الأسطورية (Zero-Scroll & UI Fix)
- * تم دمج منطق الـ Scroll Lock لضمان ثبات الواجهة ومنع اختفاء اللوحات السفلية.
+ * 🛰️ NetworkPage - النسخة النهائية المفلترة
+ * تم حذف الهيدر التقني المركزي لإعطاء مساحة رؤية كاملة للخريطة.
+ * تم الحفاظ على منطق الـ Scroll Lock لضمان ثبات الواجهة.
  */
 const NetworkPage: React.FC = () => {
-  // 1. جلب بيانات الشبكة من الباك أند (بدون تغيير في المسميات)
+  // 1. جلب بيانات الشبكة من الباك أند (محافظين على المسميات)
   const { nodes, loading, userStats } = useNetworkSync();
   
-  // 2. جلب الموقع الحقيقي
+  // 2. جلب الموقع الحقيقي من GPS الجهاز
   const { location: realLocation, error: gpsError } = useGPS();
 
-  // 3. 🔒 منطق التحكم في السكرول (برمجة ذكية لمنع كسر باقي الصفحات)
+  // 3. 🔒 منطق التحكم في السكرول لمنع كسر باقي الصفحات
   useEffect(() => {
-    // تفعيل قفل السكرول عند دخول صفحة الشبكة فقط
     document.body.classList.add('network-scroll-lock');
     
-    // تنظيف (Cleanup) عند مغادرة الصفحة لفتح السكرول في Dashboard/Sell Item
     return () => {
       document.body.classList.remove('network-scroll-lock');
     };
@@ -38,7 +37,6 @@ const NetworkPage: React.FC = () => {
   };
 
   return (
-    /* أضفنا الكلاس هنا لضمان الثبات المطلق داخل الحاوية */
     <div className="network-master-container network-scroll-lock">
       
       {/* 🏗️ الطبقة 1: الخلفية التقنية */}
@@ -68,35 +66,31 @@ const NetworkPage: React.FC = () => {
          )}
       </main>
 
-      {/* 🛡️ الطبقة 3: واجهة الـ HUD (اللوحات الموزعة) */}
+      {/* 🛡️ الطبقة 3: واجهة الـ HUD (اللوحات الموزعة في الأركان) */}
       <div className="hud-interface-layer">
         
-        {/* أعلى اليسار: مؤشرات الحالة */}
+        {/* أعلى اليسار: مؤشرات الحالة (Status) */}
         <StatusIndicators />
 
-        {/* أعلى اليمين: الرصيد */}
+        {/* أعلى اليمين: الرصيد (Credits) */}
         <BalancePanel 
           balance={userStats?.balance} 
           status={loading ? "SYNCING..." : "SECURE_SYNC_ACTIVE"} 
         />
 
-        {/* أسفل اليسار: معلومات القطاع (مرفوعة فوق الـ Navbar) */}
+        {/* أسفل اليسار: معلومات الموقع (Target Loc) */}
         <SectorInfo 
           sectorName="MAIN_OPERATIONS_SECTOR"
           lat={currentUserLocation.lat}
           lng={currentUserLocation.lng}
         />
 
-        {/* أسفل اليمين: سجل النشاط (مرفوع فوق الـ Navbar) */}
+        {/* أسفل اليمين: سجل النشاط (Activity Feed) */}
         <ActivityLog />
 
-        {/* 📟 الهيدر التقني */}
-        <header className="network-header-hud">
-          <h1 className="network-title">MAPLY//SYSTEM_ACTIVE</h1>
-          <div className="network-subtitle">GLOBAL NODE MATRIX v3.0</div>
-        </header>
+        {/* ❌ تم حذف الـ Header التقني من هنا نهائياً بناءً على طلبك */}
         
-        {/* 📊 فوتر بيانات التصحيح (Debug) */}
+        {/* 📊 فوتر بيانات التصحيح (Debug Info) مدمج في أسفل الشاشة */}
         <footer className="network-debug-footer-hud">
           <div className="debug-group">
             <span className="debug-label">NODES:</span> 
