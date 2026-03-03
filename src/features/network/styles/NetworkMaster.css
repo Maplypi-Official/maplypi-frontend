@@ -1,4 +1,4 @@
-/* 🌌 الحاوية الرئيسية */
+/* 🌌 الحاوية الرئيسية - الهيكل الأساسي */
 .network-master-container {
   margin: 0; padding: 0;
   background: #05050a;
@@ -9,24 +9,25 @@
   touch-action: none;
 }
 
-/* 🏗️ الطبقة 0: الخلفية */
+/* 🏗️ الطبقة 0: الخلفية التقنية */
 .tech-overlays-layer {
   position: absolute; inset: 0;
   z-index: 0; pointer-events: none;
 }
 
-/* 🗺️ الطبقة 1: الخريطة */
+/* 🗺️ الطبقة 1: الخريطة (Leaflet) */
 .map-layer-container {
   position: absolute; inset: 0;
-  z-index: 1; /* الخريطة تحت كل شيء */
+  z-index: 1; 
   width: 100%; height: 100%;
+  overflow: hidden;
 }
 
-/* 🛡️ الطبقة 2: واجهة المستخدم (HUD) */
+/* 🛡️ الطبقة 2: واجهة المستخدم (HUD Layer) */
 .hud-interface-layer {
   position: absolute; inset: 0;
-  z-index: 100; /* رفع الطبقة بالكامل */
-  pointer-events: none; /* السماح بلمس الخريطة تحتها */
+  z-index: 100; /* طبقة الـ HUD الأساسية */
+  pointer-events: none; 
   display: grid;
   grid-template-areas: 
     "top-left . top-right"
@@ -43,23 +44,38 @@
   pointer-events: auto;
 }
 
-/* 📊 معلومات التصحيح (Debug) - تعديل الارتفاع لعدم حجب أزرار الخريطة */
+/* 📊 معلومات التصحيح (Nodes / GPS) */
+/* تم رفعها وتعديل الـ z-index لعدم حجب زر الـ Origin Navigator */
 .network-debug-footer-hud {
   grid-area: bottom-right;
   align-self: end;
   justify-self: end;
-  margin-bottom: 230px !important; /* رفع إضافي لضمان منطقة فراغ */
+  margin-bottom: 240px !important; /* مسافة أمان كافية فوق الـ Navbar */
   font-size: 8px;
   color: rgba(234, 179, 8, 0.8);
   font-family: 'Share Tech Mono', monospace;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   padding: 4px 10px;
   border-radius: 5px;
   border: 1px solid rgba(234, 179, 8, 0.3);
-  z-index: 110;
+  z-index: 101 !important; /* أقل من زر الـ Origin لضمان عدم حجبه */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  white-space: nowrap;
 }
 
-/* 🔄 حالة التحميل */
+/* 🚀 زر العودة للمركز (The Origin Button) */
+/* القوة الضاربة التي ستظهر فوق الـ Nodes وفوق كل شيء */
+.origin-locator-btn {
+  position: fixed !important;
+  bottom: 180px !important; /* تحت الـ Nodes مباشرة ليكون في منطقة اللمس الحرة */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 99999 !important; /* السيادة المطلقة */
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* 🔄 حالة التحميل الفخمة */
 .sync-loading-state {
   display: flex; align-items: center; justify-content: center;
   height: 100vh; width: 100vw;
@@ -67,16 +83,20 @@
   z-index: 9999; position: fixed;
 }
 
-/* 📱 تحسينات الموبايل */
+/* 📱 تحسينات الموبايل (Pi Browser Optimization) */
 @media (max-width: 480px) {
   .network-debug-footer-hud {
-    margin-bottom: 240px !important; /* مساحة أكبر في الموبايل */
+    margin-bottom: 250px !important; 
+  }
+  .origin-locator-btn {
+    bottom: 190px !important;
   }
 }
 
-/* 📍 تصحيح حاوية Leaflet داخل الهيكل */
+/* 📍 تصحيح حاوية Leaflet لضمان عدم وجود Scroll */
 .leaflet-container {
   height: 100% !important;
   width: 100% !important;
   background: #020617 !important;
+  outline: none;
 }
