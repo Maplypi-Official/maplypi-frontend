@@ -10,18 +10,18 @@ import ActivityLog from './components/ActivityLog/ActivityLog';
 import './styles/NetworkMaster.css';
 
 /**
- * 🛰️ NetworkPage - النسخة الأسطورية الكاملة (Final Production)
- * تجمع بين الخريطة الحقيقية، طبقات الكربون فايبر، ولوحات الـ HUD الموزعة في الأركان.
- * الهيكل الطبقي يضمن الفخامة والوضوح ومنع الـ Scrolling نهائياً.
+ * 🛰️ NetworkPage - النسخة الأسطورية الكاملة (Final Zero-Scroll Edition)
+ * تجمع بين الخريطة والـ HUD الموزع في الأركان الأربعة.
+ * تم ضبط الهيكل ليكون ثابت (Fixed Viewport) لضمان عدم وجود سكرول نهائياً.
  */
 const NetworkPage: React.FC = () => {
-  // 1. جلب بيانات الشبكة والعقد من الباك أند (محافظين على نفس المسميات)
+  // 1. جلب بيانات الشبكة والعقد من الباك أند (محافظين على نفس المسميات والـ Hooks)
   const { nodes, loading, userStats } = useNetworkSync();
   
-  // 2. جلب الموقع الحقيقي من GPS الجهاز (للملاحة الحية)
+  // 2. جلب الموقع الحقيقي من GPS الجهاز
   const { location: realLocation, error: gpsError } = useGPS();
 
-  // تحديد الموقع النهائي (الأولوية للـ GPS الحقيقي لضمان الدقة في الـ HUD)
+  // تحديد الموقع النهائي (الأولوية للـ GPS الحقيقي لضمان الدقة)
   const currentUserLocation = realLocation || { 
     lat: userStats?.lat || 30.010, 
     lng: userStats?.lng || 31.230 
@@ -33,7 +33,7 @@ const NetworkPage: React.FC = () => {
       {/* 🏗️ الطبقة 1: الخلفية التقنية (Carbon Fiber & Scanlines) */}
       <TechOverlays />
 
-      {/* 🗺️ الطبقة 2: الخريطة بنظام الدمج (Map Layer) */}
+      {/* 🗺️ الطبقة 2: الخريطة (Map Layer) - تمتد لكامل الشاشة خلف الـ HUD */}
       <main className="map-layer-container">
          {(userStats || realLocation) && !loading ? (
            <MapCanvas 
@@ -57,7 +57,8 @@ const NetworkPage: React.FC = () => {
          )}
       </main>
 
-      {/* 🛡️ الطبقة 3: واجهة الـ HUD المتكاملة (توزيع الأركان الأربعة) */}
+      {/* 🛡️ الطبقة 3: واجهة الـ HUD المتكاملة (أركان الشاشة الأربعة) */}
+      {/* هذه الطبقة تعمل كـ Overlay ثابت لا يسمح بالتمرير */}
       <div className="hud-interface-layer">
         
         {/* أعلى اليسار (Top-Left): مؤشرات الحالة */}
@@ -69,32 +70,32 @@ const NetworkPage: React.FC = () => {
           status={loading ? "SYNCING_NODE..." : "SECURE_SYNC_ACTIVE"} 
         />
 
-        {/* أسفل اليسار (Bottom-Left): معلومات القطاع */}
+        {/* أسفل اليسار (Bottom-Left): معلومات القطاع (طائرة فوق الـ Navbar) */}
         <SectorInfo 
           sectorName="MAIN_OPERATIONS_SECTOR"
           lat={currentUserLocation.lat}
           lng={currentUserLocation.lng}
         />
 
-        {/* أسفل اليمين (Bottom-Right): سجل النشاط المباشر */}
+        {/* أسفل اليمين (Bottom-Right): سجل النشاط (طائرة فوق الـ Navbar) */}
         <ActivityLog />
 
-        {/* 📟 الهيدر التقني (HUD Title) - متصل بالـ Top-Left Grid */}
+        {/* 📟 الهيدر التقني (HUD Title) - متمركز علوياً بدقة */}
         <header className="network-header-hud">
-          <h1 className="network-title">SYSTEM ACTIVE: NETWORK</h1>
-          <div className="network-subtitle">Real-time Node Matrix</div>
+          <h1 className="network-title">MAPLY//SYSTEM_ACTIVE</h1>
+          <div className="network-subtitle">GLOBAL NODE MATRIX v3.0</div>
         </header>
         
-        {/* 📊 فوتر بيانات التصحيح (Debug Info) - متصل بالـ Bottom-Right Grid */}
+        {/* 📊 فوتر بيانات التصحيح (Debug Info) - مدمج مع حواف الشاشة السفلية */}
         <footer className="network-debug-footer-hud">
           <div className="debug-group">
-            <span className="debug-label">ACTIVE_NODES:</span> 
+            <span className="debug-label">NODES_ONLINE:</span> 
             <span className="debug-value">{nodes?.length || 0}</span>
           </div>
-          <div className="debug-group" style={{ marginLeft: '10px' }}>
-            <span className="debug-label">GPS:</span> 
+          <div className="debug-group" style={{ marginLeft: '12px' }}>
+            <span className="debug-label">GPS_SIGNAL:</span> 
             <span className={`debug-value ${realLocation ? 'status-online' : 'status-offline'}`}>
-              {realLocation ? 'LOCKED' : 'SEARCH'}
+              {realLocation ? 'LOCKED' : 'SEARCHING...'}
             </span>
           </div>
         </footer>
