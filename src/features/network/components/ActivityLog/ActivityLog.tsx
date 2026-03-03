@@ -3,8 +3,8 @@ import ActivityItem from './ActivityItem';
 import './ActivityLog.css';
 
 /**
- * 📟 ActivityLog - النسخة الذرية المصغرة (Nano HUD)
- * تم تقليص الحجم بنسبة 40% مع الحفاظ على الهيكل البرمجي.
+ * 📟 ActivityLog - النسخة الأسطورية (Floating Nano Edition)
+ * تم تثبيت الارتفاع لمنع الـ Scroll ورفع اللوحة فوق الـ Navbar.
  */
 interface LogEntry {
   id: string;
@@ -18,6 +18,7 @@ interface ActivityLogProps {
 }
 
 const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
+  // بيانات افتراضية قوية لمنع الفراغ البصري
   const defaultLogs: LogEntry[] = [
     { id: '1', user: 'SYS', action: 'NEURAL LINK ACTIVE', time: 'LIVE' },
     { id: '2', user: 'NET', action: 'SCANNING NODES...', time: '2s' },
@@ -27,9 +28,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
 
   return (
     <div className="activity-container glass-panel-v3">
-      {/* خط المسح التقني */}
-      <div className="panel-scan-line"></div>
-
+      {/* رأس اللوحة التقني */}
       <div className="activity-header">
         <h3 className="activity-title">NETWORK FEED</h3>
         <div className="live-badge-wrapper">
@@ -38,8 +37,8 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
         </div>
       </div>
 
+      {/* عرض سطرين فقط لضمان النظافة البصرية وعدم الحاجة لسكرول */}
       <div className="activity-list">
-        {/* عرض سطرين فقط لضمان عدم الحاجة لـ Scroll نهائياً */}
         {logsToDisplay.slice(0, 2).map((log) => (
           <div key={log.id} className="compact-log-item">
              <ActivityItem 
@@ -51,6 +50,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
         ))}
       </div>
 
+      {/* فوتر الـ Terminal لزيادة الفخامة */}
       <div className="activity-footer">
         <div className="footer-line"></div>
         <div className="terminal-prompt">
