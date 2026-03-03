@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNetworkSync } from './hooks/useNetworkSync';
 import { useGPS } from './hooks/useGPS'; 
 import MapCanvas from './components/MapCanvas/MapCanvas';
@@ -10,30 +10,41 @@ import ActivityLog from './components/ActivityLog/ActivityLog';
 import './styles/NetworkMaster.css';
 
 /**
- * 🛰️ NetworkPage - النسخة الأسطورية الكاملة (Final Zero-Scroll Edition)
- * تجمع بين الخريطة والـ HUD الموزع في الأركان الأربعة.
- * تم ضبط الهيكل ليكون ثابت (Fixed Viewport) لضمان عدم وجود سكرول نهائياً.
+ * 🛰️ NetworkPage - النسخة الأسطورية (Zero-Scroll & UI Fix)
+ * تم دمج منطق الـ Scroll Lock لضمان ثبات الواجهة ومنع اختفاء اللوحات السفلية.
  */
 const NetworkPage: React.FC = () => {
-  // 1. جلب بيانات الشبكة والعقد من الباك أند (محافظين على نفس المسميات والـ Hooks)
+  // 1. جلب بيانات الشبكة من الباك أند (بدون تغيير في المسميات)
   const { nodes, loading, userStats } = useNetworkSync();
   
-  // 2. جلب الموقع الحقيقي من GPS الجهاز
+  // 2. جلب الموقع الحقيقي
   const { location: realLocation, error: gpsError } = useGPS();
 
-  // تحديد الموقع النهائي (الأولوية للـ GPS الحقيقي لضمان الدقة)
+  // 3. 🔒 منطق التحكم في السكرول (برمجة ذكية لمنع كسر باقي الصفحات)
+  useEffect(() => {
+    // تفعيل قفل السكرول عند دخول صفحة الشبكة فقط
+    document.body.classList.add('network-scroll-lock');
+    
+    // تنظيف (Cleanup) عند مغادرة الصفحة لفتح السكرول في Dashboard/Sell Item
+    return () => {
+      document.body.classList.remove('network-scroll-lock');
+    };
+  }, []);
+
+  // تحديد الموقع الحالي (الأولوية للـ GPS)
   const currentUserLocation = realLocation || { 
     lat: userStats?.lat || 30.010, 
     lng: userStats?.lng || 31.230 
   };
 
   return (
-    <div className="network-master-container">
+    /* أضفنا الكلاس هنا لضمان الثبات المطلق داخل الحاوية */
+    <div className="network-master-container network-scroll-lock">
       
-      {/* 🏗️ الطبقة 1: الخلفية التقنية (Carbon Fiber & Scanlines) */}
+      {/* 🏗️ الطبقة 1: الخلفية التقنية */}
       <TechOverlays />
 
-      {/* 🗺️ الطبقة 2: الخريطة (Map Layer) - تمتد لكامل الشاشة خلف الـ HUD */}
+      {/* 🗺️ الطبقة 2: الخريطة (Map Layer) */}
       <main className="map-layer-container">
          {(userStats || realLocation) && !loading ? (
            <MapCanvas 
@@ -57,43 +68,42 @@ const NetworkPage: React.FC = () => {
          )}
       </main>
 
-      {/* 🛡️ الطبقة 3: واجهة الـ HUD المتكاملة (أركان الشاشة الأربعة) */}
-      {/* هذه الطبقة تعمل كـ Overlay ثابت لا يسمح بالتمرير */}
+      {/* 🛡️ الطبقة 3: واجهة الـ HUD (اللوحات الموزعة) */}
       <div className="hud-interface-layer">
         
-        {/* أعلى اليسار (Top-Left): مؤشرات الحالة */}
+        {/* أعلى اليسار: مؤشرات الحالة */}
         <StatusIndicators />
 
-        {/* أعلى اليمين (Top-Right): الرصيد الذهبي */}
+        {/* أعلى اليمين: الرصيد */}
         <BalancePanel 
           balance={userStats?.balance} 
-          status={loading ? "SYNCING_NODE..." : "SECURE_SYNC_ACTIVE"} 
+          status={loading ? "SYNCING..." : "SECURE_SYNC_ACTIVE"} 
         />
 
-        {/* أسفل اليسار (Bottom-Left): معلومات القطاع (طائرة فوق الـ Navbar) */}
+        {/* أسفل اليسار: معلومات القطاع (مرفوعة فوق الـ Navbar) */}
         <SectorInfo 
           sectorName="MAIN_OPERATIONS_SECTOR"
           lat={currentUserLocation.lat}
           lng={currentUserLocation.lng}
         />
 
-        {/* أسفل اليمين (Bottom-Right): سجل النشاط (طائرة فوق الـ Navbar) */}
+        {/* أسفل اليمين: سجل النشاط (مرفوع فوق الـ Navbar) */}
         <ActivityLog />
 
-        {/* 📟 الهيدر التقني (HUD Title) - متمركز علوياً بدقة */}
+        {/* 📟 الهيدر التقني */}
         <header className="network-header-hud">
           <h1 className="network-title">MAPLY//SYSTEM_ACTIVE</h1>
           <div className="network-subtitle">GLOBAL NODE MATRIX v3.0</div>
         </header>
         
-        {/* 📊 فوتر بيانات التصحيح (Debug Info) - مدمج مع حواف الشاشة السفلية */}
+        {/* 📊 فوتر بيانات التصحيح (Debug) */}
         <footer className="network-debug-footer-hud">
           <div className="debug-group">
-            <span className="debug-label">NODES_ONLINE:</span> 
+            <span className="debug-label">NODES:</span> 
             <span className="debug-value">{nodes?.length || 0}</span>
           </div>
           <div className="debug-group" style={{ marginLeft: '12px' }}>
-            <span className="debug-label">GPS_SIGNAL:</span> 
+            <span className="debug-label">GPS:</span> 
             <span className={`debug-value ${realLocation ? 'status-online' : 'status-offline'}`}>
               {realLocation ? 'LOCKED' : 'SEARCHING...'}
             </span>
