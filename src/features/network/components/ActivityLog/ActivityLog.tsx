@@ -10,6 +10,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
     { id: '1', user: 'SYS', action: 'NEURAL LINK ACTIVE', time: 'LIVE' },
     { id: '2', user: 'NET', action: 'SCANNING NODES...', time: '2s' },
   ];
+
   const logsToDisplay = data || defaultLogs;
 
   return (
@@ -23,7 +24,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
       </div>
 
       <div className="activity-list">
-        {/* عرض سطرين فقط لضمان النظافة البصرية */}
+        {/* سطرين فقط لضمان الثبات البصري */}
         {logsToDisplay.slice(0, 2).map((log) => (
           <div key={log.id} className="compact-log-item">
              <ActivityItem user={log.user} action={log.action} time={log.time} />
@@ -34,7 +35,7 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data }) => {
       <div className="activity-footer">
         <div className="footer-line"></div>
         <div className="terminal-prompt">
-          {/* تغيير الهوية لشيء جذاب مرتبط بالخريطة و MaplyPi */}
+          {/* هوية جذابة وقوية تعبر عن خريطة MaplyPi */}
           <span className="terminal-user">MAPLY_PI//GLOBAL_SCAN:</span>
           <span className="terminal-cursor">■</span>
         </div>
