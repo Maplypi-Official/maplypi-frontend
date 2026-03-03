@@ -38,20 +38,29 @@
   text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
 }
 
-/* 🎯 لوحة TARGET LOC (Bottom Left) - تم الحل الجذري هنا */
+/* 🎯 لوحة TARGET LOC (Bottom Left) - الطيران فوق الـ Navbar */
 .target-loc-fixed {
-  /* الرفع لمسافة 110px لضمان الطيران فوق الـ Navbar */
+  /* 🚀 الرفع لـ 110px لضمان الظهور فوق شريط التنقل */
   bottom: 110px !important; 
   left: 12px !important;
-  /* زيادة العرض لـ 155px لمنع اختناق النصوص التقنية */
+  /* العرض والارتفاع المثالي لمنع السكرول */
   width: 155px !important; 
-  /* زيادة الارتفاع لـ 98px لضمان ظهور الـ GPS والـ LINK بالكامل */
   height: 98px !important; 
   padding: 8px 12px !important;
-  border-left: 3px solid #3b82f6 !important; /* تمييزها باللون الأزرق التقني */
+  border-left: 3px solid #3b82f6 !important; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* 📱 لوحة ACTIVITY LOG (Bottom Right) - لضمان التناسق */
+.activity-container.glass-panel-v3 {
+  bottom: 110px !important;
+  right: 12px !important;
+  width: 165px !important;
+  height: 98px !important;
+  padding: 8px 12px !important;
+  border-right: 3px solid #eab308 !important;
 }
 
 .target-title-nano {
@@ -63,13 +72,13 @@
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* قص الاسم الطويل بأناقة */
+  text-overflow: ellipsis; 
 }
 
 .target-data-compact {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* فجوة بسيطة لزيادة المقروئية */
+  gap: 4px; 
 }
 
 .t-row {
@@ -108,12 +117,17 @@
   animation: flicker 4s infinite;
 }
 
-/* 📱 وضع الموبايل الفائق (Pi Browser) */
+/* 📱 وضع الموبايل الفائق (Pi Browser Optimization) */
 @media (max-width: 480px) {
   .target-loc-fixed { 
     width: 145px !important; 
     bottom: 110px !important; 
     height: 92px !important; 
+  }
+  .activity-container.glass-panel-v3 {
+    width: 155px !important;
+    bottom: 110px !important;
+    height: 92px !important;
   }
 }
 
