@@ -7,16 +7,16 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(234, 179, 8, 0.05);
   pointer-events: auto;
   position: absolute;
-  z-index: 1000;
+  /* التأكد من بقاء اللوحات في الطبقة العليا فوق الخريطة والـ Navbar */
+  z-index: 1100 !important; 
   overflow: hidden !important; 
   transition: all 0.3s ease-in-out;
 }
 
-/* 📊 الحالة التقنية (Top Left) - 🚀 التعديل هنا لتصغير المساحة الأفقية */
+/* 📊 الحالة التقنية (Top Left) - 🚀 تم التصغير أفقياً لمنع التمدد */
 .status-indicators-v3.atomic-nano {
   top: 12px !important;
   left: 12px !important;
-  /* تحديد عرض ضيق ثابت لمنع التمدد الأفقي */
   width: 115px !important; 
   min-width: 115px !important;
   padding: 6px 8px !important;
@@ -28,7 +28,7 @@
 .status-indicators-v3.atomic-nano .status-item {
   font-size: 8px !important;
   margin-bottom: 3px;
-  white-space: nowrap; /* منع انقسام السطر */
+  white-space: nowrap;
   letter-spacing: 0.2px;
 }
 
@@ -47,9 +47,10 @@
   font-family: 'Share Tech Mono', monospace;
 }
 
-/* 🎯 لوحة TARGET LOC (Bottom Left) */
+/* 🎯 لوحة TARGET LOC (Bottom Left) - 🚀 الرفع فوق الـ Navbar */
 .target-loc-fixed {
-  bottom: 110px !important; 
+  /* تم التعديل لـ 125px لضمان الظهور كاملاً فوق الـ Navbar */
+  bottom: 125px !important; 
   left: 12px !important;
   width: 150px !important; 
   height: 95px !important; 
@@ -59,9 +60,10 @@
   flex-direction: column;
 }
 
-/* 📱 لوحة ACTIVITY LOG / MAPLY FEED (Bottom Right) */
+/* 📱 لوحة ACTIVITY LOG / MAPLY FEED (Bottom Right) - 🚀 الرفع فوق الـ Navbar */
 .activity-container.glass-panel-v3 {
-  bottom: 110px !important;
+  /* تم التعديل لـ 125px لضمان الظهور كاملاً فوق الـ Navbar */
+  bottom: 125px !important;
   right: 12px !important;
   width: 160px !important;
   height: 95px !important;
@@ -69,22 +71,34 @@
   border-right: 3px solid #eab308 !important;
 }
 
+/* 📟 فوتر الـ Debug (Nodes/GPS) - لضمان عدم تداخله */
+.network-debug-footer-hud {
+  position: absolute;
+  bottom: 100px !important; /* يتوسط المسافة بين اللوحات والـ Navbar */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  display: flex;
+  gap: 15px;
+}
+
 /* 📱 تحسينات الموبايل (Pi Browser) */
 @media (max-width: 480px) {
   .status-indicators-v3.atomic-nano {
-    width: 105px !important; /* ضغط إضافي للموبايل */
+    width: 105px !important;
     top: 10px !important;
     left: 10px !important;
   }
   
   .target-loc-fixed, .activity-container.glass-panel-v3 {
-    bottom: 105px !important;
+    /* الحفاظ على الارتفاع المريح فوق الـ Navbar في الشاشات الصغيرة */
+    bottom: 120px !important; 
     height: 90px !important;
-    width: 145px !important;
+    width: 140px !important;
   }
 }
 
-/* 🌀 التأثيرات الحركية (بدون تغيير لضمان الاستقرار) */
+/* 🌀 التأثيرات الحركية (ثابتة لضمان الاستقرار) */
 @keyframes flicker {
   0%, 19%, 22%, 62%, 64%, 70%, 100% { opacity: 1; }
   20%, 21%, 63%, 65%, 69% { opacity: 0.4; }
