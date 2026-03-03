@@ -5,19 +5,18 @@ import L from 'leaflet';
 import type { NetworkNode, UserLocation } from '../../types/network';
 import './MapCanvas.css';
 
-// استيراد الأيقونات
+// استيراد الأيقونات (محافظين على المسارات)
 import nodeStandardImg from '../../../../assets/images/markers/node-standard.png';
 import nodePremiumImg from '../../../../assets/images/markers/node-premium.png';
 import userLocationImg from '../../../../assets/images/markers/user-location.png';
 
 /**
- * 🛰️ OriginNavigatorLogic - الجسر البرمجي
- * وظيفته ربط الزر الخارجي بمحرك الخريطة الداخلي
+ * 🛰️ OriginNavigatorLogic
+ * محرك العودة للمركز - مرتبط برمجياً بالخريطة
  */
 const OriginNavigatorLogic: React.FC<{ userCoords: [number, number] }> = ({ userCoords }) => {
   const map = useMap();
   
-  // ربط الدالة بـ window للسماح للزر الخارجي باستدعائها
   (window as any).flyToOrigin = () => {
     map.flyTo(userCoords, 17, { animate: true, duration: 2.5 });
   };
@@ -25,9 +24,6 @@ const OriginNavigatorLogic: React.FC<{ userCoords: [number, number] }> = ({ user
   return null; 
 };
 
-/**
- * 🛠️ تهيئة الأيقونات المخصصة
- */
 const createIcon = (url: string, size: number, className: string) => L.divIcon({
   className: `pi-icon-div ${className}`,
   html: `<div class="pi-marker-content"><img src="${url}" alt="marker" /></div>`,
@@ -48,7 +44,7 @@ interface MapCanvasProps {
 const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }) => {
   const [selectedDeal, setSelectedDeal] = useState<any>(null);
 
-  // منطق توزيع النقاط التجريبي (ثابت لضمان عدم الكسر)
+  // مصفوفة ثابتة للتجربة مع الحفاظ على هيكل الـ Node للـ Backend
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', price: 'π 12.50', deal: 'SALE', offset: [0.002, -0.004] },
     { type: premiumPiIcon, label: 'PREMIUM STORE', price: 'π 450.00', deal: 'HOT', offset: [0.0005, 0.0005] },
@@ -60,7 +56,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
   return (
     <div className="map-canvas-wrapper pixelated-map">
       
-      {/* 1️⃣ طبقة الخريطة (الخلفية التفاعلية) */}
+      {/* 1️⃣ الطبقة الأساسية: الخريطة */}
       <LeafletMap 
         center={userCoords} 
         zoom={15} 
@@ -70,12 +66,10 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
         attributionControl={false}
         className="leaflet-canvas-container"
       >
-        {/* استدعاء المنطق الداخلي */}
         <OriginNavigatorLogic userCoords={userCoords} />
-
         <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
 
-        {/* رسم الـ Pins والملصقات */}
+        {/* رسم الـ Pins المبرمجة */}
         {pinOrdering.map((pin, index) => (
           <Marker 
             key={index} 
@@ -97,7 +91,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
           </Marker>
         ))}
 
-        {/* ماركر المستخدم ودائرة المنطقة */}
+        {/* موقع المستخدم الحالي */}
         <Marker position={userCoords} icon={userLocIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v3"></div>
@@ -105,29 +99,36 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
         </Marker>
       </LeafletMap>
 
-      {/* 2️⃣ طبقة واجهة المستخدم (السيادة المطلقة فوق الـ Navbar) */}
+      {/* 2️⃣ الطبقة العلوية الثابتة (Master UI Layer) */}
       <div className="map-ui-fixed-layer">
         
-        {/* زر العودة للمركز - تم إخراجه من الـ Canvas ليظهر غصباً عن أي Navbar */}
-        <div className="origin-locator-btn gold-glow-border" onClick={() => (window as any).flyToOrigin()}>
+        {/* زر العودة للمركز - تم وضعه يدوياً ليكون فوق شريط الـ Nodes */}
+        <div 
+          className="origin-locator-btn gold-glow-border" 
+          onClick={(e) => {
+            e.stopPropagation();
+            (window as any).flyToOrigin();
+          }}
+          style={{ pointerEvents: 'auto' }}
+        >
           <div className="origin-pulse"></div>
-          <i className="fas fa-crosshairs"></i>
-          <span className="origin-tooltip">MY ORIGIN</span>
+          <i className="fas fa-crosshairs" style={{ fontSize: '22px', color: '#eab308' }}></i>
+          <span className="origin-tooltip">NAVIGATE</span>
         </div>
 
-        {/* نافذة العرض المنبثقة (Deal Popup) */}
+        {/* نافذة العرض (Deal Popup) - السيادة المطلقة في الأعلى */}
         {selectedDeal && (
           <div className="deal-popup-overlay" onClick={() => setSelectedDeal(null)}>
             <div className="deal-popup-card glass-panel-v3 gold-glow-border" onClick={(e) => e.stopPropagation()}>
               <div className="deal-image-container">
                 <img src={nodePremiumImg} alt="Product" />
-                <div className="deal-timer">04:59:59</div>
+                <div className="deal-timer">FAST ACCESS</div>
               </div>
               <div className="deal-details">
-                <h3>{selectedDeal.label}</h3>
+                <h3 style={{ color: '#fff', marginBottom: '10px' }}>{selectedDeal.label}</h3>
                 <div className="deal-footer">
                   <div className="price-box">
-                    <span className="new-price">{selectedDeal.price}</span>
+                    <span className="new-price" style={{ color: '#eab308', fontWeight: 'bold' }}>{selectedDeal.price}</span>
                   </div>
                   <button className="buy-btn-v3">ACQUIRE</button>
                 </div>
