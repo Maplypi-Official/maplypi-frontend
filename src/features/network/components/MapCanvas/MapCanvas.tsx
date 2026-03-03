@@ -11,13 +11,13 @@ import nodePremiumImg from '../../../../assets/images/markers/node-premium.png';
 import userLocationImg from '../../../../assets/images/markers/user-location.png';
 
 /**
- * 🛰️ OriginNavigator - المحرك المسؤول عن العودة للمركز
- * تم فصل الواجهة عن المنطق لضمان ظهور الزر فوق الخريطة
+ * 🛰️ OriginNavigatorLogic - الجسر البرمجي
+ * وظيفته ربط الزر الخارجي بمحرك الخريطة الداخلي
  */
 const OriginNavigatorLogic: React.FC<{ userCoords: [number, number] }> = ({ userCoords }) => {
   const map = useMap();
   
-  // تعريف الدالة على نافذة المتصفح مؤقتاً لربطها بالزر الخارجي دون كسر الـ Scope
+  // ربط الدالة بـ window للسماح للزر الخارجي باستدعائها
   (window as any).flyToOrigin = () => {
     map.flyTo(userCoords, 17, { animate: true, duration: 2.5 });
   };
@@ -48,6 +48,7 @@ interface MapCanvasProps {
 const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }) => {
   const [selectedDeal, setSelectedDeal] = useState<any>(null);
 
+  // منطق توزيع النقاط التجريبي (ثابت لضمان عدم الكسر)
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', price: 'π 12.50', deal: 'SALE', offset: [0.002, -0.004] },
     { type: premiumPiIcon, label: 'PREMIUM STORE', price: 'π 450.00', deal: 'HOT', offset: [0.0005, 0.0005] },
@@ -58,7 +59,8 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
 
   return (
     <div className="map-canvas-wrapper pixelated-map">
-      {/* حاوية الخريطة الأساسية */}
+      
+      {/* 1️⃣ طبقة الخريطة (الخلفية التفاعلية) */}
       <LeafletMap 
         center={userCoords} 
         zoom={15} 
@@ -68,11 +70,12 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
         attributionControl={false}
         className="leaflet-canvas-container"
       >
+        {/* استدعاء المنطق الداخلي */}
         <OriginNavigatorLogic userCoords={userCoords} />
 
         <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
 
-        {/* رسم الـ Pins */}
+        {/* رسم الـ Pins والملصقات */}
         {pinOrdering.map((pin, index) => (
           <Marker 
             key={index} 
@@ -94,6 +97,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
           </Marker>
         ))}
 
+        {/* ماركر المستخدم ودائرة المنطقة */}
         <Marker position={userCoords} icon={userLocIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v3"></div>
@@ -101,17 +105,17 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
         </Marker>
       </LeafletMap>
 
-      {/* 🚀 الطبقة العلوية الثابتة (Fixed Overlay) - تظهر فوق كل شيء */}
+      {/* 2️⃣ طبقة واجهة المستخدم (السيادة المطلقة فوق الـ Navbar) */}
       <div className="map-ui-fixed-layer">
         
-        {/* زر العودة للمركز - تم إخراجه لضمان الظهور */}
+        {/* زر العودة للمركز - تم إخراجه من الـ Canvas ليظهر غصباً عن أي Navbar */}
         <div className="origin-locator-btn gold-glow-border" onClick={() => (window as any).flyToOrigin()}>
           <div className="origin-pulse"></div>
           <i className="fas fa-crosshairs"></i>
           <span className="origin-tooltip">MY ORIGIN</span>
         </div>
 
-        {/* الـ Mini-Popup الفخمة */}
+        {/* نافذة العرض المنبثقة (Deal Popup) */}
         {selectedDeal && (
           <div className="deal-popup-overlay" onClick={() => setSelectedDeal(null)}>
             <div className="deal-popup-card glass-panel-v3 gold-glow-border" onClick={(e) => e.stopPropagation()}>
