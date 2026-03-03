@@ -3,8 +3,8 @@ import './HUD.css';
 
 /**
  * 🪙 BalancePanel - لوحة الرصيد الملكية (Premium E-commerce Edition)
- * تم الحفاظ على المسميات الأصلية (Props & Functions) لضمان التوافق مع الـ Backend.
- * التعديل شمل تنظيف العرض البصري وحذف الـ Underscores في الواجهة فقط.
+ * تم تصحيح خطأ الـ Syntax في الـ Inline Styles.
+ * تم الحفاظ على المسميات الأصلية لضمان التوافق مع الـ Backend.
  */
 interface BalancePanelProps {
   balance?: string | number;
@@ -16,7 +16,7 @@ const BalancePanel: React.FC<BalancePanelProps> = ({
   status = "SECURE_SYNC_ACTIVE" 
 }) => {
   
-  // دالة بسيطة لتنظيف النصوص من الـ Underscores في العرض فقط دون تغيير القيمة الأصلية
+  // دالة بسيطة لتنظيف النصوص من الـ Underscores في العرض فقط
   const formatStatus = (text: string) => {
     return text.replace(/_/g, ' ').toLowerCase();
   };
@@ -27,7 +27,7 @@ const BalancePanel: React.FC<BalancePanelProps> = ({
       {/* 👑 رأس اللوحة - أيقونة فخمة ونص نظيف */}
       <div className="panel-header" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
         <i className="fas fa-wallet" style={{ color: '#eab308', fontSize: '12px' }}></i>
-        <span className="panel-label" style={{ fontSize: '10px', color: '#eab308', fontWeight: 800, letter-spacing: '0.5px' }}>
+        <span className="panel-label" style={{ fontSize: '10px', color: '#eab308', fontWeight: 800, letterSpacing: '0.5px' }}>
           NETWORK CREDITS
         </span>
       </div>
@@ -45,7 +45,7 @@ const BalancePanel: React.FC<BalancePanelProps> = ({
         <div className="status-dot-active pulsing-dot" style={{ width: '6px', height: '6px', background: '#10b981', borderRadius: '50%', boxShadow: '0 0 8px #10b981' }}></div>
         <span className="status-text" style={{ fontSize: '9px', color: '#94a3b8', textTransform: 'capitalize', fontWeight: 600 }}>
           {formatStatus(status)}
-        </div>
+        </span>
       </div>
 
       {/* ✨ تأثير المسح الضوئي الفخم */}
