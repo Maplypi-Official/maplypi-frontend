@@ -1,137 +1,90 @@
 /* 🧪 الأساس الزجاجي الذري (Atomic Nano HUD Base) */
 .glass-panel-v3 {
-  background: rgba(10, 10, 18, 0.95) !important; /* تعتيم أعلى لزيادة تباين الخطوط الصغيرة */
+  background: rgba(10, 10, 18, 0.92) !important; /* تعتيم متوازن للرؤية التقنية */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(234, 179, 8, 0.35);
+  border: 1px solid rgba(234, 179, 8, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(234, 179, 8, 0.05);
   pointer-events: auto;
   position: absolute;
   z-index: 1000;
-  overflow: hidden !important; /* منع السكرول مع ضمان ظهور المحتوى */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden !important; 
+  transition: all 0.3s ease-in-out;
 }
 
-/* 📊 الحالة التقنية (Top Left) */
+/* 📊 الحالة التقنية (Top Left) - 🚀 التعديل هنا لتصغير المساحة الأفقية */
 .status-indicators-v3.atomic-nano {
-  top: 15px !important;
-  left: 15px !important;
-  min-width: 100px !important;
-  padding: 6px 10px !important;
+  top: 12px !important;
+  left: 12px !important;
+  /* تحديد عرض ضيق ثابت لمنع التمدد الأفقي */
+  width: 115px !important; 
+  min-width: 115px !important;
+  padding: 6px 8px !important;
   border-radius: 4px;
   border-top: 2px solid #eab308;
 }
 
+/* ضبط النصوص داخل لوحة الحالة لتناسب العرض الجديد */
+.status-indicators-v3.atomic-nano .status-item {
+  font-size: 8px !important;
+  margin-bottom: 3px;
+  white-space: nowrap; /* منع انقسام السطر */
+  letter-spacing: 0.2px;
+}
+
 /* 💰 لوحة الرصيد (Top Right) */
 .balance-panel-v3 {
-  top: 15px !important;
-  right: 15px !important;
-  min-width: 135px !important;
-  padding: 8px 12px !important;
+  top: 12px !important;
+  right: 12px !important;
+  width: 135px !important;
+  padding: 8px 10px !important;
 }
 
 .ui-bal-value {
-  font-size: 18px !important;
+  font-size: 16px !important;
   font-weight: 900;
   color: #fff;
   font-family: 'Share Tech Mono', monospace;
-  text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
 }
 
-/* 🎯 لوحة TARGET LOC (Bottom Left) - الطيران فوق الـ Navbar */
+/* 🎯 لوحة TARGET LOC (Bottom Left) */
 .target-loc-fixed {
-  /* 🚀 الرفع لـ 110px لضمان الظهور فوق شريط التنقل */
   bottom: 110px !important; 
   left: 12px !important;
-  /* العرض والارتفاع المثالي لمنع السكرول */
-  width: 155px !important; 
-  height: 98px !important; 
+  width: 150px !important; 
+  height: 95px !important; 
   padding: 8px 12px !important;
   border-left: 3px solid #3b82f6 !important; 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-/* 📱 لوحة ACTIVITY LOG (Bottom Right) - لضمان التناسق */
+/* 📱 لوحة ACTIVITY LOG / MAPLY FEED (Bottom Right) */
 .activity-container.glass-panel-v3 {
   bottom: 110px !important;
   right: 12px !important;
-  width: 165px !important;
-  height: 98px !important;
+  width: 160px !important;
+  height: 95px !important;
   padding: 8px 12px !important;
   border-right: 3px solid #eab308 !important;
 }
 
-.target-title-nano {
-  font-size: 10px !important;
-  color: #fff;
-  margin: 0 0 6px 0 !important;
-  font-weight: 900;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; 
-}
-
-.target-data-compact {
-  display: flex;
-  flex-direction: column;
-  gap: 4px; 
-}
-
-.t-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Share Tech Mono', monospace;
-}
-
-.t-label { 
-  font-size: 6.5px !important; 
-  color: #64748b; 
-  font-weight: bold; 
-  text-transform: uppercase; 
-}
-
-.t-value { 
-  font-size: 8px !important; 
-  color: #cbd5e1; 
-  font-weight: 600;
-}
-
-/* ✨ تأثيرات التفاعل (Gaming UI Style) */
-.target-dot-pulse {
-  display: inline-block;
-  width: 5px; height: 5px; 
-  background: #3b82f6; 
-  border-radius: 50%;
-  margin-right: 6px; 
-  animation: target-glow-blue 1.5s infinite;
-}
-
-.status-flicker-blue {
-  color: #3b82f6;
-  text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
-  animation: flicker 4s infinite;
-}
-
-/* 📱 وضع الموبايل الفائق (Pi Browser Optimization) */
+/* 📱 تحسينات الموبايل (Pi Browser) */
 @media (max-width: 480px) {
-  .target-loc-fixed { 
-    width: 145px !important; 
-    bottom: 110px !important; 
-    height: 92px !important; 
+  .status-indicators-v3.atomic-nano {
+    width: 105px !important; /* ضغط إضافي للموبايل */
+    top: 10px !important;
+    left: 10px !important;
   }
-  .activity-container.glass-panel-v3 {
-    width: 155px !important;
-    bottom: 110px !important;
-    height: 92px !important;
+  
+  .target-loc-fixed, .activity-container.glass-panel-v3 {
+    bottom: 105px !important;
+    height: 90px !important;
+    width: 145px !important;
   }
 }
 
-/* 🌀 Animations */
+/* 🌀 التأثيرات الحركية (بدون تغيير لضمان الاستقرار) */
 @keyframes flicker {
   0%, 19%, 22%, 62%, 64%, 70%, 100% { opacity: 1; }
   20%, 21%, 63%, 65%, 69% { opacity: 0.4; }
