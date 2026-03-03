@@ -1,4 +1,4 @@
-/* 🌐 الحاوية الرئيسية - تجربة غامرة (Immersive Business Hub) */
+/* 🌐 الحاوية الرئيسية - Immersive Business Hub */
 .map-canvas-wrapper {
   width: 100vw;
   height: 100vh;
@@ -12,8 +12,8 @@
 }
 
 .leaflet-canvas-container {
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   background: transparent !important; 
 }
 
@@ -24,60 +24,75 @@
   mix-blend-mode: plus-lighter; 
 }
 
-/* 🚀 زر العودة للمركز الأسطوري (The Origin Core Button) */
+/* 🚀 زر العودة للمركز (The Origin Core Button) */
+/* تعديل جذري للـ Position لضمان الظهور فوق الـ Navbar والمؤشرات */
 .origin-locator-btn {
-  position: absolute;
-  bottom: 135px; 
-  left: 50%;
-  transform: translateX(-50%);
-  width: 55px;
-  height: 55px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 2px solid #eab308; 
-  border-radius: 18px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 2500 !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(234, 179, 8, 0.1);
-  backdrop-filter: blur(12px);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: fixed !important; /* تغيير لـ fixed لضمان الثبات */
+  bottom: 160px !important; /* رفعه ليكون فوق الحاويات والـ Navbar المسافة كافية */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 60px !important;
+  height: 60px !important;
+  background: rgba(15, 23, 42, 0.95) !important;
+  border: 2px solid #eab308 !important; 
+  border-radius: 20px !important; 
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 9999 !important; /* أعلى قيمة ممكنة لكسر أي طبقة أخرى */
+  box-shadow: 0 0 25px rgba(234, 179, 8, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  transition: all 0.3s ease !important;
 }
 
-.origin-locator-btn:hover {
-  transform: translateX(-50%) translateY(-5px) scale(1.05);
-  border-color: #ffffff;
+.origin-locator-btn i {
+  color: #eab308 !important;
+  font-size: 24px !important;
+  filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.5)) !important;
 }
 
+/* ✨ نبض الهوية (Brand Pulse) */
 .origin-pulse {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 18px;
+  border-radius: 20px;
   border: 2px solid #eab308;
-  animation: brand-pulse 2.5s infinite;
+  animation: brand-pulse 2s infinite;
   pointer-events: none;
 }
 
 @keyframes brand-pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.5); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
-/* 💠 منطقة النفوذ التجاري (The Business Influence Zone) */
-.range-circle-v3 {
-  width: 140px; 
-  height: 140px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(234, 179, 8, 0.05) 50%, transparent 100%);
-  border: 1.5px dashed rgba(234, 179, 8, 0.4);
-  border-radius: 50%;
+/* 🏷️ تسمية الزر (Tooltip) */
+.origin-tooltip {
   position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: zone-rotate 10s linear infinite, zone-pulse 4s infinite ease-in-out;
+  bottom: -25px;
+  font-size: 10px;
+  color: #eab308;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 💠 منطقة النفوذ التجاري (Business Influence Zone) */
+.range-circle-v3 {
+  width: 160px !important; 
+  height: 160px !important;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%) !important;
+  border: 2px dashed rgba(234, 179, 8, 0.5) !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  animation: zone-rotate 10s linear infinite !important;
   pointer-events: none;
-  z-index: 1001;
+  z-index: 1001 !important;
 }
 
 @keyframes zone-rotate {
@@ -85,108 +100,70 @@
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-@keyframes zone-pulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.6; }
-}
-
 /* 🏷️ ملصقات البيانات والأسعار (Smart Business Labels) */
 .pin-label-v3 {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: 3px;
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 4px solid #eab308;
-  padding: 6px 12px;
-  border-radius: 8px;
-  color: white;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  background: rgba(15, 23, 42, 0.98) !important;
+  border-left: 4px solid #eab308 !important;
+  padding: 6px 12px !important;
+  border-radius: 10px !important;
+  color: white !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6) !important;
+  z-index: 5000 !important;
   position: absolute;
-  top: -55px;
+  top: -65px;
   left: 50%;
   transform: translateX(-50%);
-  transition: all 0.3s ease;
 }
 
-.pin-label-text { font-size: 10px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; }
+.pin-label-text { font-size: 11px; font-weight: 900; white-space: nowrap; }
 
 .pin-deal-tag {
   display: flex;
   align-items: center;
   gap: 5px;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: #eab308;
 }
 
-.flash-deal-badge {
-  background: #ef4444;
-  color: white;
-  font-size: 7px;
-  padding: 1px 4px;
-  border-radius: 3px;
-  animation: flash-blink 1s infinite;
-}
-
-@keyframes flash-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
 /* 🛍️ الـ Mini-Popup الفخمة (Deal Card) */
 .deal-popup-overlay {
-  position: fixed;
+  position: fixed !important;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 5000 !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  z-index: 10000 !important; /* فوق كل شيء حتى الـ Navbar */
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
 .deal-popup-card {
-  width: 300px;
-  background: rgba(15, 23, 42, 0.98) !important;
-  border-radius: 24px !important;
+  width: 85% !important;
+  max-width: 320px;
+  background: #0f172a !important;
+  border-radius: 25px !important;
+  border: 1px solid rgba(234, 179, 8, 0.3) !important;
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  animation: slide-up 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: popup-slide 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.deal-image-container {
-  width: 100%; height: 180px;
-  position: relative;
-  background: #000;
+@keyframes popup-slide {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-.deal-image-container img { width: 100%; height: 100%; object-fit: cover; }
-
-.deal-details { padding: 20px; }
-
-.price-box { display: flex; flex-direction: column; }
-.new-price { color: #eab308; font-size: 22px; font-weight: 900; font-family: 'Share Tech Mono'; }
-
-.buy-btn-v3 {
-  background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-  border: none; padding: 10px 20px;
-  border-radius: 12px; color: #000;
-  font-weight: 900; cursor: pointer;
+/* 🛠️ تنظيف واجهة Leaflet الافتراضية */
+.leaflet-control-zoom, .leaflet-control-attribution {
+  display: none !important;
 }
 
-@keyframes slide-up { 
-  from { transform: translateY(50px); opacity: 0; } 
-  to { transform: translateY(0); opacity: 1; } 
+/* إجبار الحاويات السفلية في الصورة على الارتفاع فوق الـ Navbar */
+.map-overlay-bottom {
+  bottom: 100px !important; /* ضمان عدم نزولها تحت الـ Navbar */
+  z-index: 2000 !important;
 }
-
-/* 📍 تنسيق الـ Markers والتوهج */
-.pi-icon-div { background: transparent !important; border: none !important; }
-.glow-gold img { filter: drop-shadow(0 0 12px rgba(234, 179, 8, 0.6)); animation: business-bounce 3s infinite ease-in-out; }
-.glow-blue img { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5)); animation: business-bounce 3.5s infinite ease-in-out; }
-
-@keyframes business-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-/* 🛠️ تنظيف الواجهة */
-.leaflet-control-attribution { display: none !important; }
-.leaflet-bar { border: none !important; background: rgba(15, 23, 42, 0.8) !important; backdrop-filter: blur(10px); }
