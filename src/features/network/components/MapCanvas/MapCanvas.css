@@ -24,26 +24,36 @@
   mix-blend-mode: plus-lighter; 
 }
 
+/* 🚀 طبقة الـ UI الثابتة - لضمان أن التفاعل والظهور فوق كل شيء */
+.map-ui-fixed-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* السماح بلمس الخريطة تحتها */
+  z-index: 9999 !important; /* السيادة المطلقة فوق الـ Navbar */
+}
+
 /* 🚀 زر العودة للمركز (The Origin Core Button) */
-/* تم رفعه ليكون فوق الـ Navbar والمؤشرات الظاهرة في الصورة */
 .origin-locator-btn {
-  position: fixed !important; /* لضمان الظهور فوق الخريطة في كل الأحوال */
+  pointer-events: auto !important; /* استعادة اللمس للزر */
+  position: fixed !important; 
   bottom: 180px !important; /* مسافة أمان فوق الـ Navbar السفلي */
   left: 50% !important;
   transform: translateX(-50%) !important;
-  width: 60px !important;
-  height: 60px !important;
-  background: rgba(15, 23, 42, 0.95) !important;
+  width: 65px !important;
+  height: 65px !important;
+  background: rgba(15, 23, 42, 0.98) !important;
   border: 2px solid #eab308 !important; 
   border-radius: 20px !important; 
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 9999 !important; /* لكسر أي طبقة تداخل */
-  box-shadow: 0 0 25px rgba(234, 179, 8, 0.5) !important;
+  box-shadow: 0 0 30px rgba(234, 179, 8, 0.6) !important;
   backdrop-filter: blur(12px) !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
 }
 
 .origin-pulse {
@@ -103,11 +113,12 @@
 
 /* 🛍️ الـ Mini-Popup الفخمة (Deal Card) */
 .deal-popup-overlay {
+  pointer-events: auto !important; /* تفعيل اللمس في الـ Popup */
   position: fixed !important;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.75) !important;
-  z-index: 10000 !important; /* فوق كل عناصر الواجهة */
+  background: rgba(0, 0, 0, 0.8) !important;
+  z-index: 10000 !important; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,7 +130,7 @@
   max-width: 320px;
   background: #0f172a !important;
   border-radius: 25px !important;
-  border: 1px solid rgba(234, 179, 8, 0.3) !important;
+  border: 1px solid rgba(234, 179, 8, 0.5) !important;
   overflow: hidden;
   animation: popup-slide 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -131,22 +142,9 @@
 
 /* 📍 تنسيق الـ Markers والتوهج */
 .pi-icon-div { background: transparent !important; border: none !important; }
-.glow-gold img { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.7)); animation: business-bounce 3s infinite ease-in-out; }
+.glow-gold img { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.7)); }
 
-@keyframes business-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-/* 🛠️ تنظيف الواجهة الافتراضية */
-.leaflet-control-zoom, .leaflet-control-attribution {
+/* 🛠️ تنظيف الواجهة الافتراضية لليفلبت */
+.leaflet-control-zoom, .leaflet-control-attribution, .leaflet-control-container {
   display: none !important;
-}
-
-/* طبقة الـ UI الثابتة لضمان التفاعل */
-.map-ui-fixed-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9000;
 }
