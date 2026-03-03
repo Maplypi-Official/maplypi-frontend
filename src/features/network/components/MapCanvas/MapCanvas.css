@@ -25,10 +25,10 @@
 }
 
 /* 🚀 زر العودة للمركز (The Origin Core Button) */
-/* تعديل جذري للـ Position لضمان الظهور فوق الـ Navbar والمؤشرات */
+/* تم رفعه ليكون فوق الـ Navbar والمؤشرات الظاهرة في الصورة */
 .origin-locator-btn {
-  position: fixed !important; /* تغيير لـ fixed لضمان الثبات */
-  bottom: 160px !important; /* رفعه ليكون فوق الحاويات والـ Navbar المسافة كافية */
+  position: fixed !important; /* لضمان الظهور فوق الخريطة في كل الأحوال */
+  bottom: 180px !important; /* مسافة أمان فوق الـ Navbar السفلي */
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: 60px !important;
@@ -40,19 +40,12 @@
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  z-index: 9999 !important; /* أعلى قيمة ممكنة لكسر أي طبقة أخرى */
+  z-index: 9999 !important; /* لكسر أي طبقة تداخل */
   box-shadow: 0 0 25px rgba(234, 179, 8, 0.5) !important;
   backdrop-filter: blur(12px) !important;
   transition: all 0.3s ease !important;
 }
 
-.origin-locator-btn i {
-  color: #eab308 !important;
-  font-size: 24px !important;
-  filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.5)) !important;
-}
-
-/* ✨ نبض الهوية (Brand Pulse) */
 .origin-pulse {
   position: absolute;
   width: 100%;
@@ -66,17 +59,6 @@
 @keyframes brand-pulse {
   0% { transform: scale(1); opacity: 0.8; }
   100% { transform: scale(1.6); opacity: 0; }
-}
-
-/* 🏷️ تسمية الزر (Tooltip) */
-.origin-tooltip {
-  position: absolute;
-  bottom: -25px;
-  font-size: 10px;
-  color: #eab308;
-  font-weight: 900;
-  letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 /* 💠 منطقة النفوذ التجاري (Business Influence Zone) */
@@ -100,11 +82,10 @@
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* 🏷️ ملصقات البيانات والأسعار (Smart Business Labels) */
+/* 🏷️ ملصقات البيانات والأسعار */
 .pin-label-v3 {
   display: flex !important;
   flex-direction: column;
-  gap: 3px;
   background: rgba(15, 23, 42, 0.98) !important;
   border-left: 4px solid #eab308 !important;
   padding: 6px 12px !important;
@@ -120,22 +101,13 @@
 
 .pin-label-text { font-size: 11px; font-weight: 900; white-space: nowrap; }
 
-.pin-deal-tag {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 12px;
-  color: #eab308;
-}
-
 /* 🛍️ الـ Mini-Popup الفخمة (Deal Card) */
 .deal-popup-overlay {
   position: fixed !important;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(0, 0, 0, 0.7) !important;
-  z-index: 10000 !important; /* فوق كل شيء حتى الـ Navbar */
+  background: rgba(0, 0, 0, 0.75) !important;
+  z-index: 10000 !important; /* فوق كل عناصر الواجهة */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,17 +125,28 @@
 }
 
 @keyframes popup-slide {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { transform: scale(0.8) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-/* 🛠️ تنظيف واجهة Leaflet الافتراضية */
+/* 📍 تنسيق الـ Markers والتوهج */
+.pi-icon-div { background: transparent !important; border: none !important; }
+.glow-gold img { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.7)); animation: business-bounce 3s infinite ease-in-out; }
+
+@keyframes business-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* 🛠️ تنظيف الواجهة الافتراضية */
 .leaflet-control-zoom, .leaflet-control-attribution {
   display: none !important;
 }
 
-/* إجبار الحاويات السفلية في الصورة على الارتفاع فوق الـ Navbar */
-.map-overlay-bottom {
-  bottom: 100px !important; /* ضمان عدم نزولها تحت الـ Navbar */
-  z-index: 2000 !important;
+/* طبقة الـ UI الثابتة لضمان التفاعل */
+.map-ui-fixed-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9000;
 }
