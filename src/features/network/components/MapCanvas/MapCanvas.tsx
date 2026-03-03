@@ -11,26 +11,18 @@ import nodePremiumImg from '../../../../assets/images/markers/node-premium.png';
 import userLocationImg from '../../../../assets/images/markers/user-location.png';
 
 /**
- * 🛰️ OriginNavigator - المحرك المسؤول عن العودة للمركز بنمط سينمائي
+ * 🛰️ OriginNavigator - المحرك المسؤول عن العودة للمركز
+ * تم فصل الواجهة عن المنطق لضمان ظهور الزر فوق الخريطة
  */
-const OriginNavigator: React.FC<{ userCoords: [number, number] }> = ({ userCoords }) => {
+const OriginNavigatorLogic: React.FC<{ userCoords: [number, number] }> = ({ userCoords }) => {
   const map = useMap();
-
-  const handleBackToOrigin = () => {
-    map.flyTo(userCoords, 17, {
-      animate: true,
-      duration: 2.5, // حركة انسيابية فخمة
-      easeLinearity: 0.1
-    });
+  
+  // تعريف الدالة على نافذة المتصفح مؤقتاً لربطها بالزر الخارجي دون كسر الـ Scope
+  (window as any).flyToOrigin = () => {
+    map.flyTo(userCoords, 17, { animate: true, duration: 2.5 });
   };
-
-  return (
-    <div className="origin-locator-btn gold-glow-border" onClick={handleBackToOrigin}>
-      <div className="origin-pulse"></div>
-      <i className="fas fa-crosshairs"></i>
-      <span className="origin-tooltip">MY ORIGIN</span>
-    </div>
-  );
+  
+  return null; 
 };
 
 /**
@@ -54,10 +46,8 @@ interface MapCanvasProps {
 }
 
 const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }) => {
-  // حالة التحكم في الـ Popup المختارة للعروض
   const [selectedDeal, setSelectedDeal] = useState<any>(null);
 
-  // مصفوفة البيانات التجريبية (يمكنك ربطها بالـ nodes القادمة من الـ Backend لاحقاً)
   const pinOrdering = [
     { type: standardPiIcon, label: 'UrbanMart Pi', price: 'π 12.50', deal: 'SALE', offset: [0.002, -0.004] },
     { type: premiumPiIcon, label: 'PREMIUM STORE', price: 'π 450.00', deal: 'HOT', offset: [0.0005, 0.0005] },
@@ -68,34 +58,27 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
 
   return (
     <div className="map-canvas-wrapper pixelated-map">
+      {/* حاوية الخريطة الأساسية */}
       <LeafletMap 
         center={userCoords} 
         zoom={15} 
         zoomControl={false}
         dragging={true}
         scrollWheelZoom={false}
-        doubleClickZoom={false}
-        touchZoom={true} 
         attributionControl={false}
         className="leaflet-canvas-container"
       >
-        {/* 🚀 الزر الأسطوري للعودة للمركز */}
-        <OriginNavigator userCoords={userCoords} />
+        <OriginNavigatorLogic userCoords={userCoords} />
 
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          className="dark-tile-layer"
-        />
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
 
-        {/* 📍 رسم نقاط الشبكة (المتاجر والصفقات) */}
+        {/* رسم الـ Pins */}
         {pinOrdering.map((pin, index) => (
           <Marker 
             key={index} 
             position={[userCoords[0] + pin.offset[0], userCoords[1] + pin.offset[1]]} 
             icon={pin.type}
-            eventHandlers={{
-              click: () => setSelectedDeal(pin), // فتح الـ Mini-Popup عند الضغط
-            }}
+            eventHandlers={{ click: () => setSelectedDeal(pin) }}
           >
             {pin.label && (
               <Pane name={`pane-${index}`} style={{ zIndex: 1000 }}>
@@ -104,49 +87,52 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
                       <span className="pin-label-text">{pin.label}</span>
                       {pin.deal && <span className="flash-deal-badge">{pin.deal}</span>}
                     </div>
-                    <div className="pin-deal-tag">
-                      <i className="fas fa-tag" style={{ fontSize: '8px' }}></i>
-                      <span>{pin.price}</span>
-                    </div>
+                    <div className="pin-deal-tag"><span>{pin.price}</span></div>
                   </div>
               </Pane>
             )}
           </Marker>
         ))}
 
-        {/* 👤 علامة موقع المستخدم ودائرة النفوذ */}
         <Marker position={userCoords} icon={userLocIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v3"></div>
             </Pane>
         </Marker>
+      </LeafletMap>
 
-        {/* 🛍️ الـ Mini-Popup الفخمة (The Smart Deal Card) */}
+      {/* 🚀 الطبقة العلوية الثابتة (Fixed Overlay) - تظهر فوق كل شيء */}
+      <div className="map-ui-fixed-layer">
+        
+        {/* زر العودة للمركز - تم إخراجه لضمان الظهور */}
+        <div className="origin-locator-btn gold-glow-border" onClick={() => (window as any).flyToOrigin()}>
+          <div className="origin-pulse"></div>
+          <i className="fas fa-crosshairs"></i>
+          <span className="origin-tooltip">MY ORIGIN</span>
+        </div>
+
+        {/* الـ Mini-Popup الفخمة */}
         {selectedDeal && (
           <div className="deal-popup-overlay" onClick={() => setSelectedDeal(null)}>
             <div className="deal-popup-card glass-panel-v3 gold-glow-border" onClick={(e) => e.stopPropagation()}>
               <div className="deal-image-container">
-                {/* هنا تضع صورة المنتج، نستخدم اللوجو كبديل مؤقت */}
                 <img src={nodePremiumImg} alt="Product" />
-                <div className="deal-timer">EXPIRES IN 04:59</div>
+                <div className="deal-timer">04:59:59</div>
               </div>
               <div className="deal-details">
                 <h3>{selectedDeal.label}</h3>
-                <p>Limited business opportunity in your sector.</p>
                 <div className="deal-footer">
                   <div className="price-box">
                     <span className="new-price">{selectedDeal.price}</span>
                   </div>
-                  <button className="buy-btn-v3" onClick={() => alert('Proceeding to Transaction...')}>
-                    ACQUIRE
-                  </button>
+                  <button className="buy-btn-v3">ACQUIRE</button>
                 </div>
               </div>
               <button className="close-deal-btn" onClick={() => setSelectedDeal(null)}>×</button>
             </div>
           </div>
         )}
-      </LeafletMap>
+      </div>
     </div>
   );
 };
