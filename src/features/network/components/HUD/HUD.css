@@ -1,6 +1,6 @@
 /* ✨ هوية MaplyPi الفخمة (Premium Business Glass) */
 .glass-panel-v3 {
-  /* خلفية زجاجية عميقة تعطي شعوراً بالفخامة */
+  /* خلفية زجاجية عميقة تعطي شعوراً بالفخامة ووضوح عالي للنصوص */
   background: rgba(15, 23, 42, 0.92) !important; 
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -10,10 +10,12 @@
   border-radius: 12px !important; 
   pointer-events: auto;
   position: absolute;
-  /* رفع الـ z-index لضمان الطيران فوق الـ Navbar والخريطة */
+  /* رفع الـ z-index لضمان الطيران فوق الـ Navbar والخريطة مهما حدث */
   z-index: 2000 !important; 
   overflow: hidden !important; 
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  /* منع انكماش الحاوية عند العودة للتطبيق أو تغيير حجم النافذة */
+  flex-shrink: 0 !important;
 }
 
 /* 📊 الحالة التقنية (Top Left) - مضغوطة واحترافية */
@@ -23,7 +25,7 @@
   width: 125px !important; 
   min-width: 120px !important;
   padding: 10px 12px !important;
-  border-top: 3px solid #eab308; /* خط ذهبي تعريفي */
+  border-top: 3px solid #eab308; /* خط ذهبي تعريفي علوي */
 }
 
 /* 💰 لوحة الرصيد (Top Right) - تركيز على القيمة المالية */
@@ -50,12 +52,12 @@
   bottom: 135px !important; 
   left: 15px !important;
   width: 175px !important; 
-  /* تحويل لارتفاع مطاطي يمنع قص البيانات */
+  /* تحويل لارتفاع مطاطي ذكي يمنع قص البيانات */
   height: auto !important;
-  min-height: 90px !important;
-  max-height: 110px !important;
+  min-height: 95px !important;
+  max-height: 120px !important;
   padding: 12px 15px !important;
-  border-left: 4px solid #3b82f6 !important; 
+  border-left: 4px solid #3b82f6 !important; /* لمسة تقنية زرقاء */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,17 +68,17 @@
   bottom: 135px !important;
   right: 15px !important;
   width: 180px !important;
-  /* ارتفاع ذكي يستوعب السطرين والفوتر */
+  /* ارتفاع ذكي يستوعب السطور والفوتر دون سكرول */
   height: auto !important;
-  min-height: 90px !important;
-  max-height: 110px !important;
+  min-height: 95px !important;
+  max-height: 120px !important;
   padding: 10px 14px !important;
   border-right: 4px solid #eab308 !important;
   display: flex;
   flex-direction: column;
 }
 
-/* 📟 فوتر بيانات الـ Debug - مرفوع ليتناسب مع اللوحات */
+/* 📟 فوتر بيانات الـ Debug - مرفوع ليتناسب مع اللوحات الجديدة */
 .network-debug-footer-hud {
   position: absolute;
   bottom: 105px !important; 
@@ -85,7 +87,7 @@
   z-index: 2000;
   display: flex;
   gap: 15px;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.85);
   padding: 5px 15px;
   border-radius: 20px;
   backdrop-filter: blur(8px);
@@ -98,7 +100,7 @@
     /* مواءمة دقيقة تمنع التداخل مع الـ Safe Area في Pi Browser */
     bottom: 125px !important; 
     width: 155px !important;
-    min-height: 85px !important;
+    min-height: 90px !important;
     padding: 8px 10px !important;
   }
   
