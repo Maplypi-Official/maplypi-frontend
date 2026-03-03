@@ -1,19 +1,22 @@
-/* 🚀 لوحة الـ Feed المصغرة (Ultra-Compact HUD) */
+/* 🚀 لوحة الـ Feed المصغرة الأسطورية (Zero-Scroll HUD) */
 .activity-container { 
   position: absolute;
-  bottom: 95px !important; /* مرفوع بدقة فوق الـ Nav Bar */
-  right: 12px !important;
-  width: 145px !important; /* تصغير العرض من 240px لـ 145px (حوالي 40%) */
-  height: 85px !important; /* ارتفاع ثابت يمنع السكرول ويمنع التداخل */
-  background: rgba(10, 10, 18, 0.9) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(234, 179, 8, 0.3);
-  border-radius: 6px; 
+  /* الرفع لمسافة 115px يضمن الطيران فوق الـ Navbar بوضوح */
+  bottom: 115px !important; 
+  right: 15px !important;
+  width: 145px !important; 
+  /* تحديد ارتفاع ثابت صارم يمنع ظهور السكرول بار نهائياً */
+  height: 82px !important; 
+  background: rgba(10, 10, 18, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  border-left: 3px solid #eab308; /* لمسة جمالية من جهة اليسار */
+  border-radius: 4px; 
   padding: 6px 10px; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9), inset 0 0 10px rgba(234, 179, 8, 0.05);
   z-index: 1000;
-  overflow: hidden; /* منع السكرول الداخلي تماماً */
+  overflow: hidden !important; /* قتل السكرول في مهده */
   pointer-events: auto; 
   display: flex;
   flex-direction: column;
@@ -24,16 +27,16 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 3px;
 }
 
 .activity-title { 
-  font-size: 8px !important; /* تصغير الخط بنسبة 40% */
+  font-size: 8px !important; 
   color: #eab308; 
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   margin: 0;
 }
 
@@ -47,11 +50,12 @@
 }
 
 .live-badge-dot {
-  width: 3px;
-  height: 3px;
+  width: 3.5px;
+  height: 3.5px;
   background: #22c55e;
   border-radius: 50%;
   animation: pulse-live 1.5s infinite;
+  box-shadow: 0 0 4px #22c55e;
 }
 
 .live-badge-text {
@@ -60,18 +64,19 @@
   font-weight: 900;
 }
 
-/* تنظيف الـ Items لتكون "سطر واحد" */
+/* قائمة الرسائل - مكثفة جداً */
 .activity-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
+  margin-top: 2px;
 }
 
 .compact-log-item {
   font-size: 7.5px !important;
-  white-space: nowrap; /* منع الكلام ينزل سطر جديد */
+  white-space: nowrap; 
   overflow: hidden;
-  text-overflow: ellipsis; /* لو الكلام طويل يحط نقط بدل ما يبوظ الشكل */
+  text-overflow: ellipsis; /* قص الكلام الطويل بنقاط */
 }
 
 /* الفوتر Terminal المصغر */
@@ -81,30 +86,35 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  opacity: 0.6;
 }
 
 .footer-line {
-  height: 0.5px;
-  background: rgba(234, 179, 8, 0.2);
+  height: 1px;
+  background: linear-gradient(90deg, #eab308 0%, transparent 100%);
   flex-grow: 1;
+  opacity: 0.3;
 }
 
 .terminal-user, .terminal-cursor {
   font-size: 6px !important;
-  font-family: monospace;
+  font-family: 'Share Tech Mono', monospace;
+  color: #64748b;
 }
 
-/* 📱 استجابة الموبايل الصغير (Micro Mode) */
+.terminal-cursor {
+  color: #eab308;
+  animation: blink 1s step-end infinite;
+}
+
+/* 📱 وضع الموبايل الفائق (Pi Browser) */
 @media (max-width: 480px) {
   .activity-container {
-    width: 135px !important;
-    right: 10px !important;
-    bottom: 90px !important;
-    height: 80px !important;
+    width: 138px !important;
+    right: 12px !important;
+    bottom: 110px !important; /* الحفاظ على مسافة الأمان فوق الـ Nav */
+    height: 78px !important;
   }
 }
 
-@keyframes pulse-live {
-  0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; }
-}
+@keyframes pulse-live { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
