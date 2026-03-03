@@ -1,4 +1,4 @@
-/* --- الإعدادات المركزية والمتغيرات --- */
+/* --- 🛰️ الإعدادات المركزية والمتغيرات --- */
 :root {
   --gold: #ffca28;
   --cyber-blue: #00f2ff;
@@ -11,37 +11,54 @@
 * { 
   box-sizing: border-box; 
   -webkit-tap-highlight-color: transparent;
+  /* تحسين سلاسة الحركة في Pi Browser */
+  scrollbar-width: none; 
 }
+
+*::-webkit-scrollbar { display: none; } /* إخفاء السكرول بار تماماً من كل التطبيق */
 
 body {
   margin: 0;
   padding: 0;
   width: 100vw;
-  min-height: 100vh;
+  /* تم التغيير لـ 100vh ثابتة لضمان التحكم في الـ Layout */
+  height: 100vh; 
   background: #05050a !important;
   background-image: var(--bg-gradient) !important;
   background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
-  overflow-x: hidden; /* منع التمدد الأفقي */
+  /* منع السكرول الافتراضي للسماح للصفحات الداخلية بالتحكم */
+  overflow: hidden; 
+  position: fixed;
 }
 
 .App {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   position: relative;
-  /* لضمان عمل التموضع الثابت بشكل صحيح في بعض المتصفحات */
   transform: none !important; 
 }
 
+/* --- 🧊 حاوية الصفحة الرئيسية --- */
 .page-container {
   width: 100% !important;
   max-width: 100% !important;
-  min-height: 100vh;
+  height: 100vh; /* ملء الشاشة بالكامل */
   padding-left: 0 !important;
   padding-right: 0 !important;
-  /* مساحة أمان سفلية ضرورية لأن الـ Navbar الآن ثابت ويغطي جزءاً من الأسفل */
-  padding-bottom: 120px !important; 
+  /* مساحة أمان سفلية للـ Navbar الثابت */
+  padding-bottom: 110px !important; 
+  /* السماح بالسكرول فقط في الصفحات العادية وليس الخريطة */
+  overflow-y: auto; 
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 🛑 كلاس خاص يُضاف في صفحة الـ Network لقتل السكرول نهائياً */
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
 }
 
 /* --- ✨ تأثير الانتقال --- */
@@ -49,6 +66,7 @@ body {
   animation: slideFadeIn 0.35s ease-out forwards;
   backface-visibility: hidden;
   will-change: opacity, transform;
+  height: 100%;
 }
 
 @keyframes slideFadeIn {
@@ -56,7 +74,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 👑 التاج الذهبي --- */
+/* --- 👑 التاج الذهبي (Dashboard Crown) --- */
 .dashboard-crown {
   position: relative;
   z-index: 100;
@@ -90,7 +108,7 @@ body {
   object-fit: cover;
 }
 
-/* --- الهيدر الزجاجي --- */
+/* --- 💎 الهيدر الزجاجي --- */
 .ts-header {
   background: var(--dark-panel);
   backdrop-filter: blur(15px); 
@@ -105,7 +123,7 @@ body {
   margin: 0 10px;
 }
 
-/* --- الشبكة (Grid) --- */
+/* --- 📊 الشبكة (Grid) --- */
 .ts-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -128,7 +146,7 @@ body {
 
 .full-width { grid-column: span 2; }
 
-/* --- الأزرار --- */
+/* --- 🔘 الأزرار --- */
 .ts-btn.gold {
   width: 100%;
   padding: 12px;
@@ -140,4 +158,7 @@ body {
   margin-top: 10px;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(255, 202, 40, 0.25);
+  transition: transform 0.2s;
 }
+
+.ts-btn.gold:active { transform: scale(0.98); }
