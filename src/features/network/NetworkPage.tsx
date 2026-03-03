@@ -9,28 +9,17 @@ import StatusIndicators from './components/HUD/StatusIndicators';
 import ActivityLog from './components/ActivityLog/ActivityLog';
 import './styles/NetworkMaster.css';
 
-/**
- * 🛰️ NetworkPage - النسخة النهائية المفلترة
- * تم حذف الهيدر التقني المركزي لإعطاء مساحة رؤية كاملة للخريطة.
- * تم الحفاظ على منطق الـ Scroll Lock لضمان ثبات الواجهة.
- */
 const NetworkPage: React.FC = () => {
-  // 1. جلب بيانات الشبكة من الباك أند (محافظين على المسميات)
   const { nodes, loading, userStats } = useNetworkSync();
-  
-  // 2. جلب الموقع الحقيقي من GPS الجهاز
   const { location: realLocation, error: gpsError } = useGPS();
 
-  // 3. 🔒 منطق التحكم في السكرول لمنع كسر باقي الصفحات
   useEffect(() => {
     document.body.classList.add('network-scroll-lock');
-    
     return () => {
       document.body.classList.remove('network-scroll-lock');
     };
   }, []);
 
-  // تحديد الموقع الحالي (الأولوية للـ GPS)
   const currentUserLocation = realLocation || { 
     lat: userStats?.lat || 30.010, 
     lng: userStats?.lng || 31.230 
@@ -39,10 +28,10 @@ const NetworkPage: React.FC = () => {
   return (
     <div className="network-master-container network-scroll-lock">
       
-      {/* 🏗️ الطبقة 1: الخلفية التقنية */}
+      {/* 🏗️ الطبقة 1: الخلفية */}
       <TechOverlays />
 
-      {/* 🗺️ الطبقة 2: الخريطة (Map Layer) */}
+      {/* 🗺️ الطبقة 2: الخريطة (خلفية تفاعلية) */}
       <main className="map-layer-container">
          {(userStats || realLocation) && !loading ? (
            <MapCanvas 
@@ -61,36 +50,30 @@ const NetworkPage: React.FC = () => {
               <h2 className="sync-text pulse-text">
                 {loading ? "ESTABLISHING NEURAL LINK..." : "WAITING FOR GPS SIGNAL..."}
               </h2>
-              {gpsError && <p className="error-subtext">GPS_LINK_ERROR: {gpsError}</p>}
            </div>
          )}
       </main>
 
-      {/* 🛡️ الطبقة 3: واجهة الـ HUD (اللوحات الموزعة في الأركان) */}
+      {/* 🛡️ الطبقة 3: واجهة الـ HUD + العناصر الجديدة (السيادة المطلقة) */}
       <div className="hud-interface-layer">
         
-        {/* أعلى اليسار: مؤشرات الحالة (Status) */}
+        {/* العناصر القديمة الموزعة */}
         <StatusIndicators />
-
-        {/* أعلى اليمين: الرصيد (Credits) */}
+        
         <BalancePanel 
           balance={userStats?.balance} 
           status={loading ? "SYNCING..." : "SECURE_SYNC_ACTIVE"} 
         />
 
-        {/* أسفل اليسار: معلومات الموقع (Target Loc) */}
         <SectorInfo 
           sectorName="MAIN_OPERATIONS_SECTOR"
           lat={currentUserLocation.lat}
           lng={currentUserLocation.lng}
         />
 
-        {/* أسفل اليمين: سجل النشاط (Activity Feed) */}
         <ActivityLog />
 
-        {/* ❌ تم حذف الـ Header التقني من هنا نهائياً بناءً على طلبك */}
-        
-        {/* 📊 فوتر بيانات التصحيح (Debug Info) مدمج في أسفل الشاشة */}
+        {/* 📊 فوتر التصحيح - تم خفض الـ z-index ليسمح بظهور أزرار الخريطة */}
         <footer className="network-debug-footer-hud">
           <div className="debug-group">
             <span className="debug-label">NODES:</span> 
