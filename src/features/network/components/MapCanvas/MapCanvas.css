@@ -1,138 +1,156 @@
-/* 🛰️ الحاوية الرئيسية - منع السكرول نهائياً وضمان ملء كامل الشاشة */
+/* 🌐 الحاوية الرئيسية - تجربة غامرة (Immersive Business Hub) */
 .map-canvas-wrapper {
   width: 100vw;
   height: 100vh;
-  position: fixed; /* التثبيت يمنع أي سحب أو سكرول عشوائي */
+  position: fixed; 
   top: 0;
   left: 0;
-  background: #000 !important;
+  background: #020617 !important; /* لون أزرق ليلي عميق بدل الأسود الصامت */
   overflow: hidden;
-  touch-action: none; /* يمنع المتصفح من سحب الصفحة عند لمس الخريطة */
+  touch-action: none; 
   z-index: 0;
 }
 
-.leaflet-canvas-container, 
-.leaflet-master-container {
+.leaflet-canvas-container {
   width: 100%;
   height: 100%;
   background: transparent !important; 
 }
 
-/* 🧬 سحر الـ Blueprint Mode: تحويل مربعات الخريطة لخيوط ليزر أرجوانية */
+/* 💎 هوية الخريطة (Creative Tech Mode) */
+/* تحويل الخريطة لنمط "النيون الهادئ" الذي يعبر عن شبكة ذكية مبتكرة */
 .pixelated-map .leaflet-tile-container img {
-  filter: invert(1) hue-rotate(255deg) brightness(0.5) contrast(1.6) saturate(0.4);
-  opacity: 0.3 !important; 
-  mix-blend-mode: screen; 
-  image-rendering: auto; 
+  filter: invert(1) hue-rotate(210deg) brightness(0.6) contrast(1.2) saturate(0.5);
+  opacity: 0.4 !important; 
+  mix-blend-mode: plus-lighter; 
 }
 
-/* 📍 تنسيق الأيقونات (Pins) - الحل الجذري للسواد والتداخل */
+/* 🚀 زر العودة للمركز الأسطوري (The Origin Core Button) */
+/* تصميم "كريستالي" فخم يعبر عن هوية التطبيق الحديثة */
+.origin-locator-btn {
+  position: absolute;
+  bottom: 135px; /* مرفوع بدقة فوق الـ Navbar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 55px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 2px solid #eab308; /* الذهب الملكي */
+  border-radius: 18px; /* حواف ناعمة عصرية بدلاً من الدائرة العسكرية */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2500 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(234, 179, 8, 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.origin-locator-btn:hover {
+  transform: translateX(-50%) translateY(-5px) scale(1.05);
+  border-color: #ffffff;
+  box-shadow: 0 15px 35px rgba(234, 179, 8, 0.3);
+}
+
+.origin-locator-btn i {
+  color: #eab308;
+  font-size: 22px;
+  filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.5));
+}
+
+/* ✨ نبض الهوية (Brand Pulse) - نبض ذهبي ناعم يعبر عن حيوية البيزنس */
+.origin-pulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  border: 2px solid #eab308;
+  animation: brand-pulse 2.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes brand-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* 🏷️ تسمية الزر (Tooltip) */
+.origin-tooltip {
+  position: absolute;
+  bottom: -22px;
+  font-size: 9px;
+  color: #eab308;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* 📍 تنسيق الـ Markers - تركيز على وضوح الـ Branding */
 .pi-icon-div {
   background: transparent !important;
   border: none !important;
-  /* ارتكاز القاعدة لضمان دقة الموقع الجغرافي عند الزوم */
   transform-origin: bottom center !important; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.pi-marker-content {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* 🖼️ معالجة الصور المربعة لتبدو شفافة تماماً (Zero Black) */
 .pi-marker-content img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  /* 🛑 السحر التقني: mix-blend-mode يحذف اللون الأسود فوراً ويظهر التوهج فقط */
-  mix-blend-mode: screen; 
-  /* إزالة أي حواف حادة ناتجة عن صور الذكاء الاصطناعي */
-  mask-image: radial-gradient(circle, black 65%, transparent 100%);
   filter: brightness(1.1) contrast(1.1);
-  pointer-events: none;
+  mix-blend-mode: normal; /* العودة للنمط العادي لضمان ظهور ألوان اللوجو */
 }
 
-/* ✨ توهج الـ Pins (ذهبي وأزرق) مع أنيميشن النبض الهادئ */
+/* ✨ توهج الـ Pins (Premium Business Glow) */
 .glow-gold img { 
-  filter: drop-shadow(0 0 10px #eab308) drop-shadow(0 0 20px rgba(234, 179, 8, 0.4)); 
-  animation: marker-pulse 2.5s infinite ease-in-out;
+  filter: drop-shadow(0 0 12px rgba(234, 179, 8, 0.6)); 
+  animation: business-bounce 3s infinite ease-in-out;
 }
 
 .glow-blue img { 
-  filter: drop-shadow(0 0 10px #3b82f6) drop-shadow(0 0 18px rgba(59, 130, 246, 0.3)); 
-  animation: marker-pulse 3s infinite ease-in-out;
+  filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5)); 
+  animation: business-bounce 3.5s infinite ease-in-out;
 }
 
-@keyframes marker-pulse {
-  0%, 100% { transform: scale(1); filter: brightness(1.2); }
-  50% { transform: scale(1.05); filter: brightness(0.9); }
+@keyframes business-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
-/* 🏷️ ملصقات البيانات فوق الـ Pins (Labels) - معالجة التداخل */
+/* 🏷️ ملصقات البيانات (Store Labels) - تصميم نظيف واحترافي */
 .pin-label-v3 {
-  background: rgba(13, 13, 25, 0.85);
-  border: 1px solid rgba(234, 179, 8, 0.3);
-  padding: 2px 8px;
-  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #eab308;
+  padding: 4px 10px;
+  border-radius: 6px;
   color: white;
-  white-space: nowrap;
-  font-family: 'Inter', sans-serif;
-  pointer-events: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   position: absolute;
-  top: -40px; /* المسافة لمنع تداخل الكلام مع الأيقونة */
+  top: -45px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2000;
-  scale: 0.9; /* تصغير طفيف لعدم الزحام */
 }
 
-.pin-label-text { font-size: 9px; font-weight: 900; color: #eab308; }
-.pin-sublabel-text { font-size: 7px; opacity: 0.7; }
+.pin-label-text { font-size: 10px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px; }
 
-/* ⭕ دائرة موقع المستخدم (User Range) */
-.range-circle-v3 {
-  width: 100px;
-  height: 100px;
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: range-pulse 4s infinite linear;
-}
+/* 🛠️ تنظيف الواجهة من أي عناصر زائدة */
+.leaflet-control-attribution { display: none !important; }
 
-@keyframes range-pulse {
-  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.1; }
-  50% { opacity: 0.4; }
-  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
-}
-
-/* 🛠️ إخفاء شعارات المكاتب لزيادة الاحترافية */
-.leaflet-control-attribution {
-  display: none !important;
-}
-
-/* ⚡ تخصيص أزرار الزوم لتليق بالـ HUD - موقع مدروس */
 .leaflet-bar {
-  border: 1px solid rgba(234, 179, 8, 0.2) !important;
-  background: rgba(13, 13, 25, 0.7) !important;
+  border: none !important;
+  background: rgba(15, 23, 42, 0.8) !important;
   backdrop-filter: blur(10px);
-  margin-left: 15px !important;
-  margin-top: 15px !important;
-  scale: 0.8; /* تصغير الأزرار لعدم تغطية الخريطة */
+  border-radius: 8px !important;
+  overflow: hidden;
+  margin: 20px !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 .leaflet-bar a {
   color: #eab308 !important;
-  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
 }
