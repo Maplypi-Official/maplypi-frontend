@@ -11,54 +11,53 @@
 * { 
   box-sizing: border-box; 
   -webkit-tap-highlight-color: transparent;
-  /* تحسين سلاسة الحركة في Pi Browser */
   scrollbar-width: none; 
 }
 
-*::-webkit-scrollbar { display: none; } /* إخفاء السكرول بار تماماً من كل التطبيق */
+*::-webkit-scrollbar { display: none; }
 
 body {
   margin: 0;
   padding: 0;
   width: 100vw;
-  /* تم التغيير لـ 100vh ثابتة لضمان التحكم في الـ Layout */
-  height: 100vh; 
+  /* السماح للـ body بالنمو لتمكين السكرول في الصفحات الطويلة */
+  min-height: 100vh; 
   background: #05050a !important;
   background-image: var(--bg-gradient) !important;
   background-attachment: fixed !important;
   font-family: 'Inter', sans-serif;
   color: white;
-  /* منع السكرول الافتراضي للسماح للصفحات الداخلية بالتحكم */
-  overflow: hidden; 
-  position: fixed;
+  /* تغيير الـ overflow ليكون تلقائي للسماح بالتصفح */
+  overflow-x: hidden; 
 }
 
 .App {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
   transform: none !important; 
 }
 
-/* --- 🧊 حاوية الصفحة الرئيسية --- */
+/* --- 🧊 حاوية الصفحة الرئيسية (المسؤولة عن السكرول) --- */
 .page-container {
   width: 100% !important;
   max-width: 100% !important;
-  height: 100vh; /* ملء الشاشة بالكامل */
+  min-height: 100vh; 
   padding-left: 0 !important;
   padding-right: 0 !important;
-  /* مساحة أمان سفلية للـ Navbar الثابت */
-  padding-bottom: 110px !important; 
-  /* السماح بالسكرول فقط في الصفحات العادية وليس الخريطة */
-  overflow-y: auto; 
+  /* 🚨 الحل الجذري: زيادة مساحة الأمان السفلية لظهور زر Publish وكل المحتوى */
+  padding-bottom: 160px !important; 
+  overflow-y: auto; /* تمكين السكرول هنا */
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-/* 🛑 كلاس خاص يُضاف في صفحة الـ Network لقتل السكرول نهائياً */
-.no-scroll {
+/* 🛑 كلاس مخصص لصفحة الـ Network فقط - يُفعل عبر الـ Body عند الدخول للخريطة */
+.network-scroll-lock {
   overflow: hidden !important;
   height: 100vh !important;
+  position: fixed !important;
+  width: 100vw;
 }
 
 /* --- ✨ تأثير الانتقال --- */
@@ -66,7 +65,6 @@ body {
   animation: slideFadeIn 0.35s ease-out forwards;
   backface-visibility: hidden;
   will-change: opacity, transform;
-  height: 100%;
 }
 
 @keyframes slideFadeIn {
