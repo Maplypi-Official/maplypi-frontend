@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { MapContainer as LeafletMap, TileLayer, Marker, Pane, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -16,11 +16,10 @@ import userLocationImg from '../../../../assets/images/markers/user-location.png
 const OriginNavigator: React.FC<{ userCoords: [number, number] }> = ({ userCoords }) => {
   const map = useMap();
 
-  // هذه الدالة هي سر "سحق" المنافسين في تجربة المستخدم
   const handleBackToOrigin = () => {
     map.flyTo(userCoords, 17, {
       animate: true,
-      duration: 2.5, // حركة بطيئة وفخمة تعطي هيبة للمكان
+      duration: 2.5, // حركة انسيابية فخمة
       easeLinearity: 0.1
     });
   };
@@ -55,14 +54,14 @@ interface MapCanvasProps {
 }
 
 const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }) => {
-  
+  // حالة التحكم في الـ Popup المختارة للعروض
+  const [selectedDeal, setSelectedDeal] = useState<any>(null);
+
+  // مصفوفة البيانات التجريبية (يمكنك ربطها بالـ nodes القادمة من الـ Backend لاحقاً)
   const pinOrdering = [
-    { type: standardPiIcon, label: 'UrbanMart Pi', offset: [0.002, -0.004] },
-    { type: standardPiIcon, label: '', offset: [0.004, -0.001] },
-    { type: premiumPiIcon, label: 'PREMIUM', offset: [0.0005, 0.0005] },
-    { type: standardPiIcon, label: 'Checking-in', offset: [-0.003, 0.003] },
-    { type: standardPiIcon, label: '', offset: [-0.001, 0.005] },
-    { type: premiumPiIcon, label: 'TechZone 314', offset: [0.002, 0.004] },
+    { type: standardPiIcon, label: 'UrbanMart Pi', price: 'π 12.50', deal: 'SALE', offset: [0.002, -0.004] },
+    { type: premiumPiIcon, label: 'PREMIUM STORE', price: 'π 450.00', deal: 'HOT', offset: [0.0005, 0.0005] },
+    { type: standardPiIcon, label: 'TechZone 314', price: 'π 89.99', deal: null, offset: [0.002, 0.004] },
   ];
 
   const userCoords: [number, number] = [userLocation.lat, userLocation.lng];
@@ -80,7 +79,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
         attributionControl={false}
         className="leaflet-canvas-container"
       >
-        {/* 🚀 الزر الأسطوري للعودة للمركز (The Origin Button) */}
+        {/* 🚀 الزر الأسطوري للعودة للمركز */}
         <OriginNavigator userCoords={userCoords} />
 
         <TileLayer
@@ -88,23 +87,65 @@ const MapCanvas: React.FC<MapCanvasProps> = ({ sectorName, userLocation, nodes }
           className="dark-tile-layer"
         />
 
+        {/* 📍 رسم نقاط الشبكة (المتاجر والصفقات) */}
         {pinOrdering.map((pin, index) => (
-          <Marker key={index} position={[userCoords[0] + pin.offset[0], userCoords[1] + pin.offset[1]]} icon={pin.type}>
+          <Marker 
+            key={index} 
+            position={[userCoords[0] + pin.offset[0], userCoords[1] + pin.offset[1]]} 
+            icon={pin.type}
+            eventHandlers={{
+              click: () => setSelectedDeal(pin), // فتح الـ Mini-Popup عند الضغط
+            }}
+          >
             {pin.label && (
               <Pane name={`pane-${index}`} style={{ zIndex: 1000 }}>
-                  <div className="pin-label-v3">
-                    <span className="pin-label-text">{pin.label}</span>
+                  <div className={`pin-label-v3 ${pin.deal ? 'active-deal' : ''}`}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                      <span className="pin-label-text">{pin.label}</span>
+                      {pin.deal && <span className="flash-deal-badge">{pin.deal}</span>}
+                    </div>
+                    <div className="pin-deal-tag">
+                      <i className="fas fa-tag" style={{ fontSize: '8px' }}></i>
+                      <span>{pin.price}</span>
+                    </div>
                   </div>
               </Pane>
             )}
           </Marker>
         ))}
 
+        {/* 👤 علامة موقع المستخدم ودائرة النفوذ */}
         <Marker position={userCoords} icon={userLocIcon}>
             <Pane name="user-pane" style={{ zIndex: 1001 }}>
               <div className="range-circle-v3"></div>
             </Pane>
         </Marker>
+
+        {/* 🛍️ الـ Mini-Popup الفخمة (The Smart Deal Card) */}
+        {selectedDeal && (
+          <div className="deal-popup-overlay" onClick={() => setSelectedDeal(null)}>
+            <div className="deal-popup-card glass-panel-v3 gold-glow-border" onClick={(e) => e.stopPropagation()}>
+              <div className="deal-image-container">
+                {/* هنا تضع صورة المنتج، نستخدم اللوجو كبديل مؤقت */}
+                <img src={nodePremiumImg} alt="Product" />
+                <div className="deal-timer">EXPIRES IN 04:59</div>
+              </div>
+              <div className="deal-details">
+                <h3>{selectedDeal.label}</h3>
+                <p>Limited business opportunity in your sector.</p>
+                <div className="deal-footer">
+                  <div className="price-box">
+                    <span className="new-price">{selectedDeal.price}</span>
+                  </div>
+                  <button className="buy-btn-v3" onClick={() => alert('Proceeding to Transaction...')}>
+                    ACQUIRE
+                  </button>
+                </div>
+              </div>
+              <button className="close-deal-btn" onClick={() => setSelectedDeal(null)}>×</button>
+            </div>
+          </div>
+        )}
       </LeafletMap>
     </div>
   );
