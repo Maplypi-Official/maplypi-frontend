@@ -7,27 +7,30 @@ interface ActivityItemProps {
 }
 
 /**
- * 📟 ActivityItem - النسخة المصغرة الاحترافية
- * تم تحسين الهيكل البصري ليتناسب مع لوحة الـ HUD الجانبية بدون استهلاك مساحة.
+ * 📟 ActivityItem - النسخة الذرية الأسطورية (Ultra-Slim Edition)
+ * تم ضغط العناصر عمودياً لضمان عدم حدوث سكرول نهائياً.
+ * تم استبدال المسميات القديمة بحالة نظام مبتكرة (DEEP SCAN).
  */
 const ActivityItem: React.FC<ActivityItemProps> = ({ user, action, time }) => {
   return (
-    <div className="activity-item">
-      {/* المؤشر الضوئي الحي (Live Pulse) - تصميم رفيع */}
-      <div className="status-indicator">
-        <div className="status-dot"></div>
-        <div className="status-line"></div>
+    <div className="activity-item-nano">
+      {/* المؤشر الضوئي - نسخة نحيفة جداً */}
+      <div className="item-prefix">
+        <span className="dot-blink"></span>
       </div>
       
-      {/* محتوى النشاط بتنسيق Terminal متناسق */}
-      <div className="activity-content">
-        <p className="activity-text">
-          <span className="user-tag">{user} </span>
-          <span className="action-text">{action}</span>
+      {/* محتوى السطر - كل البيانات في سطر واحد مضغوط */}
+      <div className="item-core">
+        <p className="item-text-wrapper">
+          <span className="user-id">[{user.replace(/_/g, '')}]</span>
+          <span className="action-msg">{action.replace(/_/g, ' ')}</span>
         </p>
         
-        {/* التوقيت بتنسيق باهت لإعطاء الأولوية للحدث */}
-        <span className="activity-time">{time}</span>
+        {/* الحالة المبتكرة الجديدة - DEEP SCAN بدل المسمى القديم */}
+        <div className="item-meta">
+          <span className="scan-status">DEEP SCAN</span>
+          <span className="time-stamp">{time}</span>
+        </div>
       </div>
     </div>
   );
