@@ -1,46 +1,44 @@
-/* 🧪 الأساس الزجاجي الذري */
+/* 🧪 الأساس الزجاجي الذري (Atomic Nano) */
 .glass-panel-v3 {
-  background: rgba(13, 13, 25, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(234, 179, 8, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  background: rgba(13, 13, 25, 0.9) !important; /* تعتيم أعلى للقراءة بوضوح */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
   pointer-events: auto;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  position: relative;
+  position: absolute;
+  z-index: 1000;
+  overflow: hidden; /* منع الـ Scroll تماماً */
 }
 
-/* 📊 الحالة التقنية (Top Left) - ثابتة وتظهر كاملة */
+/* 📊 الحالة التقنية (Top Left) - ثابتة ومقروءة */
 .status-indicators-v3.atomic-nano {
-  position: absolute;
-  top: 10px !important;
-  left: 10px !important;
-  min-width: 90px !important;
+  top: 12px !important;
+  left: 12px !important;
+  min-width: 95px !important;
   max-width: 110px !important;
-  padding: 4px 6px !important;
+  padding: 5px 8px !important;
   border-radius: 4px;
-  z-index: 1000;
 }
 
-/* 🎯 لوحة TARGET LOC (Bottom Left) - حل مشكلة الـ Scroll */
+/* 🎯 لوحة TARGET LOC (Bottom Left) - حل أزمة الارتفاع والسكرول */
 .target-loc-fixed {
-  position: absolute;
-  bottom: 85px !important; /* ثابتة فوق الـ Nav Bar */
-  left: 10px;
-  width: 125px !important;
-  max-height: 75px !important; /* منع التمدد الطولي */
-  padding: 5px 8px !important;
-  border-left: 2px solid #eab308;
-  z-index: 1000;
+  bottom: 92px !important; /* مسافة أمان فوق الـ Nav Bar */
+  left: 12px;
+  width: 135px !important;
+  max-height: 72px !important; /* تحديد صارم للارتفاع لمنع السكرول */
+  padding: 6px 10px !important;
+  border-left: 3px solid #eab308 !important;
 }
 
 .target-title-nano {
   font-size: 10px;
   color: #fff;
-  margin: 2px 0 4px 0;
+  margin: 1px 0 4px 0;
   font-weight: 900;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
+  white-space: nowrap; /* إبقاء الاسم في سطر واحد */
 }
 
 .target-data-compact {
@@ -52,32 +50,33 @@
 .t-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-family: 'Share Tech Mono', monospace;
 }
 
 .t-label { font-size: 6px; color: #64748b; font-weight: bold; }
 .t-value { font-size: 7px; color: #cbd5e1; }
 
-/* 💰 لوحة الرصيد (Top Right) - حل مشكلة الاختفاء */
+/* 💰 لوحة الرصيد (Top Right) - تظهر كاملة فوق الخريطة */
 .balance-panel-v3 {
-  position: absolute;
-  top: 10px !important;
-  right: 10px !important;
-  min-width: 120px !important;
-  padding: 5px 10px !important;
-  z-index: 1000;
+  top: 12px !important;
+  right: 12px !important;
+  min-width: 130px !important;
+  padding: 6px 12px !important;
 }
 
 .ui-bal-value {
-  font-size: 16px !important; /* تصغير الرقم ليناسب اللوحة المصغرة */
+  font-size: 18px !important;
   font-weight: 900;
   color: #fff;
+  text-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
 }
 
-/* ✨ تأثيرات بصرية احترافية */
+/* ✨ تأثيرات التفاعل والوميض */
 .target-dot-pulse {
+  display: inline-block;
   width: 4px; height: 4px; background: #eab308; border-radius: 50%;
-  animation: target-pulse 1.5s infinite;
+  margin-right: 5px; animation: target-pulse 1.5s infinite;
 }
 
 .status-flicker-blue {
@@ -87,18 +86,18 @@
 
 @keyframes flicker {
   0%, 19%, 22%, 62%, 64%, 70%, 100% { opacity: 1; }
-  20%, 21%, 63%, 65%, 69% { opacity: 0.4; }
+  20%, 21%, 63%, 65%, 69% { opacity: 0.5; }
 }
 
 @keyframes target-pulse {
   0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.5; }
+  50% { transform: scale(1.4); opacity: 0.4; }
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* 📱 وضع الموبايل الفائق (Pi Browser Optimization) */
+/* 📱 وضع الموبايل (Pi Browser Optimization) */
 @media (max-width: 480px) {
-  .target-loc-fixed { width: 110px !important; bottom: 82px !important; }
-  .balance-panel-v3 { min-width: 110px !important; }
-  .status-indicators-v3.atomic-nano { min-width: 80px !important; }
+  .target-loc-fixed { width: 125px !important; bottom: 88px !important; }
+  .balance-panel-v3 { min-width: 120px !important; }
+  .status-indicators-v3.atomic-nano { min-width: 85px !important; }
 }
