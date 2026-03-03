@@ -1,50 +1,76 @@
-/* 🧪 الأساس الزجاجي الذري (Atomic Nano) */
+/* 🧪 الأساس الزجاجي الذري (Atomic Nano HUD Base) */
 .glass-panel-v3 {
-  background: rgba(13, 13, 25, 0.9) !important; /* تعتيم أعلى للقراءة بوضوح */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(234, 179, 8, 0.3);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  background: rgba(10, 10, 18, 0.92) !important; /* تعتيم فخم للقراءة بوضوح */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(234, 179, 8, 0.05);
   pointer-events: auto;
   position: absolute;
   z-index: 1000;
-  overflow: hidden; /* منع الـ Scroll تماماً */
+  overflow: hidden !important; /* قتل الـ Scroll تماماً في كل اللوحات */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 📊 الحالة التقنية (Top Left) - ثابتة ومقروءة */
+/* 📊 الحالة التقنية (Top Left) - ركن الشاشة العلوي */
 .status-indicators-v3.atomic-nano {
-  top: 12px !important;
-  left: 12px !important;
+  top: 15px !important;
+  left: 15px !important;
   min-width: 95px !important;
-  max-width: 110px !important;
-  padding: 5px 8px !important;
+  max-width: 115px !important;
+  padding: 5px 10px !important;
   border-radius: 4px;
+  border-top: 2px solid #eab308; /* تمييز علوي */
 }
 
-/* 🎯 لوحة TARGET LOC (Bottom Left) - حل أزمة الارتفاع والسكرول */
+/* 💰 لوحة الرصيد (Top Right) - فخامة واختصار */
+.balance-panel-v3 {
+  top: 15px !important;
+  right: 15px !important;
+  min-width: 135px !important;
+  padding: 8px 12px !important;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.ui-bal-value {
+  font-size: 18px !important;
+  font-weight: 900;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+}
+
+/* 🎯 لوحة TARGET LOC (Bottom Left) - الطيران الموازي للـ Feed */
 .target-loc-fixed {
-  bottom: 92px !important; /* مسافة أمان فوق الـ Nav Bar */
-  left: 12px;
-  width: 135px !important;
-  max-height: 72px !important; /* تحديد صارم للارتفاع لمنع السكرول */
-  padding: 6px 10px !important;
+  /* 🛰️ الرفع لمسافة 115px لضمان الطيران الاحترافي فوق الـ Navbar */
+  bottom: 115px !important; 
+  left: 15px !important;
+  width: 145px !important; 
+  /* 🔒 قفل الارتفاع لمنع السكرول المزعج */
+  height: 82px !important; 
+  padding: 6px 12px !important;
   border-left: 3px solid #eab308 !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .target-title-nano {
-  font-size: 10px;
+  font-size: 10px !important;
   color: #fff;
-  margin: 1px 0 4px 0;
+  margin: 1px 0 5px 0 !important;
   font-weight: 900;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  white-space: nowrap; /* إبقاء الاسم في سطر واحد */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .target-data-compact {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
 }
 
 .t-row {
@@ -54,50 +80,44 @@
   font-family: 'Share Tech Mono', monospace;
 }
 
-.t-label { font-size: 6px; color: #64748b; font-weight: bold; }
-.t-value { font-size: 7px; color: #cbd5e1; }
+.t-label { font-size: 6px; color: #64748b; font-weight: bold; text-transform: uppercase; }
+.t-value { font-size: 7.5px; color: #cbd5e1; }
 
-/* 💰 لوحة الرصيد (Top Right) - تظهر كاملة فوق الخريطة */
-.balance-panel-v3 {
-  top: 12px !important;
-  right: 12px !important;
-  min-width: 130px !important;
-  padding: 6px 12px !important;
-}
-
-.ui-bal-value {
-  font-size: 18px !important;
-  font-weight: 900;
-  color: #fff;
-  text-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
-}
-
-/* ✨ تأثيرات التفاعل والوميض */
+/* ✨ تأثيرات التفاعل والنبض (Gaming UI Style) */
 .target-dot-pulse {
   display: inline-block;
-  width: 4px; height: 4px; background: #eab308; border-radius: 50%;
-  margin-right: 5px; animation: target-pulse 1.5s infinite;
+  width: 4px; height: 4px; 
+  background: #eab308; 
+  border-radius: 50%;
+  margin-right: 6px; 
+  animation: target-glow 1.5s infinite;
 }
 
 .status-flicker-blue {
   color: #3b82f6;
-  animation: flicker 3s infinite;
+  text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  animation: flicker 4s infinite;
 }
 
+/* 📱 تحسينات وضع الموبايل الفائق (Pi Browser Optimization) */
+@media (max-width: 480px) {
+  .target-loc-fixed { 
+    width: 138px !important; 
+    bottom: 110px !important; 
+    height: 78px !important; 
+  }
+  .balance-panel-v3 { min-width: 125px !important; top: 12px !important; }
+  .status-indicators-v3.atomic-nano { min-width: 85px !important; top: 12px !important; }
+}
+
+/* 🌀 Animations */
 @keyframes flicker {
   0%, 19%, 22%, 62%, 64%, 70%, 100% { opacity: 1; }
-  20%, 21%, 63%, 65%, 69% { opacity: 0.5; }
+  20%, 21%, 63%, 65%, 69% { opacity: 0.4; }
 }
 
-@keyframes target-pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.4; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* 📱 وضع الموبايل (Pi Browser Optimization) */
-@media (max-width: 480px) {
-  .target-loc-fixed { width: 125px !important; bottom: 88px !important; }
-  .balance-panel-v3 { min-width: 120px !important; }
-  .status-indicators-v3.atomic-nano { min-width: 85px !important; }
+@keyframes target-glow {
+  0% { transform: scale(1); box-shadow: 0 0 0px #eab308; opacity: 1; }
+  50% { transform: scale(1.3); box-shadow: 0 0 8px #eab308; opacity: 0.5; }
+  100% { transform: scale(1); box-shadow: 0 0 0px #eab308; opacity: 1; }
 }
