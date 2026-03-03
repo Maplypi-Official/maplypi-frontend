@@ -1,16 +1,17 @@
 /* ✨ هوية MaplyPi الفخمة (Premium Business Glass) */
 .glass-panel-v3 {
   /* خلفية زجاجية عميقة تعطي شعوراً بالفخامة */
-  background: rgba(15, 23, 42, 0.85) !important; 
+  background: rgba(15, 23, 42, 0.92) !important; 
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   /* إطار ذهبي نحيف جداً يعبر عن القيمة والموثوقية */
   border: 1px solid rgba(234, 179, 8, 0.25);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
   border-radius: 12px !important; 
   pointer-events: auto;
   position: absolute;
-  z-index: 1100 !important; 
+  /* رفع الـ z-index لضمان الطيران فوق الـ Navbar والخريطة */
+  z-index: 2000 !important; 
   overflow: hidden !important; 
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -19,98 +20,104 @@
 .status-indicators-v3.atomic-nano {
   top: 15px !important;
   left: 15px !important;
-  width: 120px !important; 
+  width: 125px !important; 
   min-width: 120px !important;
-  padding: 8px 10px !important;
+  padding: 10px 12px !important;
   border-top: 3px solid #eab308; /* خط ذهبي تعريفي */
-}
-
-.status-indicators-v3.atomic-nano .status-item {
-  font-size: 9px !important;
-  color: #94a3b8;
-  font-weight: 600;
-  text-transform: capitalize; /* نصوص نظيفة */
-  margin-bottom: 4px;
 }
 
 /* 💰 لوحة الرصيد (Top Right) - تركيز على القيمة المالية */
 .balance-panel-v3 {
   top: 15px !important;
   right: 15px !important;
-  width: 145px !important;
-  padding: 10px 14px !important;
+  width: 155px !important;
+  padding: 12px 14px !important;
   text-align: right;
-}
-
-.ui-bal-label {
-  font-size: 9px;
-  color: #eab308;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
+  border-top: 3px solid #eab308;
 }
 
 .ui-bal-value {
-  font-size: 18px !important;
+  font-size: 20px !important;
   font-weight: 800;
   color: #ffffff;
   font-family: 'Share Tech Mono', monospace;
   text-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
 }
 
-/* 📍 لوحة الموقع (Bottom Left) - مرفوعة بدقة فوق الـ Navbar */
+/* 📍 لوحة الموقع (Bottom Left) - حل مشكلة القص والهروب */
 .target-loc-fixed {
-  bottom: 125px !important; 
+  /* الرفع لـ 135px لضمان الأمان فوق الـ Navbar في كافة المتصفحات */
+  bottom: 135px !important; 
   left: 15px !important;
-  width: 170px !important; 
+  width: 175px !important; 
+  /* تحويل لارتفاع مطاطي يمنع قص البيانات */
   height: auto !important;
-  min-height: 90px;
+  min-height: 90px !important;
+  max-height: 110px !important;
   padding: 12px 15px !important;
-  border-left: 4px solid #3b82f6 !important; /* لمسة زرقاء تقنية ناعمة */
+  border-left: 4px solid #3b82f6 !important; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* 📱 لوحة النشاط (Bottom Right) - مرفوعة بدقة فوق الـ Navbar */
+/* 📱 لوحة النشاط (Bottom Right) - حل مشكلة القص والهروب */
 .activity-container.glass-panel-v3 {
-  bottom: 125px !important;
+  bottom: 135px !important;
   right: 15px !important;
-  width: 175px !important;
-  height: 95px !important;
+  width: 180px !important;
+  /* ارتفاع ذكي يستوعب السطرين والفوتر */
+  height: auto !important;
+  min-height: 90px !important;
+  max-height: 110px !important;
   padding: 10px 14px !important;
   border-right: 4px solid #eab308 !important;
+  display: flex;
+  flex-direction: column;
 }
 
-/* 📟 فوتر بيانات الـ Debug - نظيف وغير مزعج */
+/* 📟 فوتر بيانات الـ Debug - مرفوع ليتناسب مع اللوحات */
 .network-debug-footer-hud {
   position: absolute;
-  bottom: 95px !important; 
+  bottom: 105px !important; 
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1100;
+  z-index: 2000;
   display: flex;
-  gap: 20px;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 4px 15px;
+  gap: 15px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 5px 15px;
   border-radius: 20px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-.debug-label { font-size: 8px; color: #64748b; font-weight: 700; }
-.debug-value { font-size: 9px; color: #cbd5e1; font-weight: 800; }
 
 /* 📱 وضع الموبايل الفائق (Pi Browser Optimization) */
 @media (max-width: 480px) {
   .target-loc-fixed, .activity-container.glass-panel-v3 {
-    bottom: 115px !important; /* مواءمة دقيقة لشاشات الموبايل */
+    /* مواءمة دقيقة تمنع التداخل مع الـ Safe Area في Pi Browser */
+    bottom: 125px !important; 
     width: 155px !important;
-    height: 88px !important;
+    min-height: 85px !important;
+    padding: 8px 10px !important;
   }
   
-  .status-indicators-v3.atomic-nano { width: 110px !important; }
+  .status-indicators-v3.atomic-nano { width: 115px !important; top: 10px !important; }
+  .balance-panel-v3 { width: 140px !important; top: 10px !important; }
 }
 
 /* 🌀 تأثيرات بصرية هادئة للفخامة */
+.gold-glow-border {
+  animation: glow-soft 3s infinite ease-in-out;
+}
+
 @keyframes glow-soft {
-  0% { box-shadow: 0 0 5px rgba(234, 179, 8, 0.1); }
-  50% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.3); }
-  100% { box-shadow: 0 0 5px rgba(234, 179, 8, 0.1); }
+  0%, 100% { border-color: rgba(234, 179, 8, 0.25); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); }
+  50% { border-color: rgba(234, 179, 8, 0.5); box-shadow: 0 12px 50px rgba(234, 179, 8, 0.1); }
+}
+
+@keyframes pulse-live { 
+  0% { opacity: 1; transform: scale(1); } 
+  50% { opacity: 0.4; transform: scale(1.2); } 
+  100% { opacity: 1; transform: scale(1); } 
 }
